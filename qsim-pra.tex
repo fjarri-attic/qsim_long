@@ -1,0 +1,63 @@
+\documentclass[pra,twocolumn,amssymb,superscriptaddress]{revtex4}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage[pdftex]{graphicx}
+\usepackage{bbm}
+\usepackage{braket}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{wasysym}
+
+\newcommand{\jvec}{\boldsymbol{j}}
+\newcommand{\kvec}{\boldsymbol{k}}
+\newcommand{\lvec}{\boldsymbol{l}}
+\newcommand{\mvec}{\boldsymbol{m}}
+\newcommand{\nvec}{\boldsymbol{n}}
+\newcommand{\pvec}{\boldsymbol{p}}
+\newcommand{\xvec}{\boldsymbol{x}}
+
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\Trace}[1]{\Tr \left\{ #1 \right\}}
+
+\newcommand{\symprod}[1]{\left\{ #1 \right\}_{\mathrm{sym}}}
+\newcommand{\pathavg}[1]{\langle #1 \rangle_{\mathrm{paths}}}
+\newcommand{\Real}{\operatorname{Re}}
+\newcommand{\Imag}{\operatorname{Im}}
+
+\newcommand{\Psivec}{\boldsymbol{\Psi}}
+\newcommand{\Psiop}{\hat{\Psi}}
+\newcommand{\Psiopvec}{\hat{\boldsymbol{\Psi}}}
+
+\newcommand{\eqnref}[1]{Eq.~(\ref{eqn:#1})}
+\newcommand{\figref}[1]{Fig.~\ref{fig:#1}}
+\newcommand{\thmref}[1]{Theorem~\ref{thm:#1}}
+\newcommand{\lmmref}[1]{Lemma~\ref{lmm:#1}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+
+\newcommand{\swinaffiliation}{Centre for Atom Optics and Ultrafast Spectroscopy, Swinburne University of Technology, Hawthorn, VIC 3122, Australia}
+
+\begin{document}
+\title{Wigner representation of BEC}
+
+\author{B.~Opanchuk}
+\author{P.~D.~Drummond}
+\affiliation{\swinaffiliation}
+
+\date{\today}
+\begin{abstract}
+Abstract goes here.
+\end{abstract}
+
+%\pacs{}
+\maketitle
+
+\input{introduction}
+\input{c-numbers}
+
+\bibliographystyle{apsrev}
+\bibliography{qsim-pra}
+
+\end{document}
