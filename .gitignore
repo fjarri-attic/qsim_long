@@ -7,4 +7,5 @@
 *.tmproj
 *.out
 *.toc
+*.fdb_latexmk
 
