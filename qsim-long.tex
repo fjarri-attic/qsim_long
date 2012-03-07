@@ -1,13 +1,13 @@
 \documentclass[12pt]{iopart}
 \usepackage{iopams}
-%\usepackage{amsmath}
 \usepackage{amsthm}
-%\usepackage{amsfonts}
+\usepackage{dsfont}
 \usepackage[pdftex]{graphicx}
 \usepackage{bbm}
 \usepackage{braket}
 \usepackage{wasysym}
 
+\newcommand{\alphavec}{\boldsymbol{\alpha}}
 \newcommand{\jvec}{\boldsymbol{j}}
 \newcommand{\kvec}{\boldsymbol{k}}
 \newcommand{\lvec}{\boldsymbol{l}}
@@ -38,6 +38,8 @@
 \newenvironment{eqn*}
 	{\begin{eqnarray*}}
 	{\end{eqnarray*}}
+
+\newcommand{\binom}[2]{{#1 \choose #2}}
 
 \newcommand{\eqnref}[1]{\eref{eqn:#1}}
 \newcommand{\figref}[1]{Fig.~\ref{fig:#1}}
@@ -71,7 +73,9 @@ Abstract goes here.
 \input{introduction}
 \input{c-numbers}
 \input{sm-wigner}
+\input{func-calculus}
 
+\section*{References}
 \bibliographystyle{unsrt}
 \bibliography{qsim-long}
 
