@@ -1,11 +1,11 @@
-\documentclass[pra,twocolumn,amssymb,superscriptaddress]{revtex4}
-\usepackage{amsmath}
+\documentclass[12pt]{iopart}
+\usepackage{iopams}
+%\usepackage{amsmath}
 \usepackage{amsthm}
-\usepackage{amsfonts}
+%\usepackage{amsfonts}
 \usepackage[pdftex]{graphicx}
 \usepackage{bbm}
 \usepackage{braket}
-\usepackage[usenames,dvipsnames]{color}
 \usepackage{wasysym}
 
 \newcommand{\jvec}{\boldsymbol{j}}
@@ -16,19 +16,30 @@
 \newcommand{\pvec}{\boldsymbol{p}}
 \newcommand{\xvec}{\boldsymbol{x}}
 
-\newcommand{\Tr}{\operatorname{Tr}}
+%\newcommand{\Tr}{\operatorname{Tr}}
 \newcommand{\Trace}[1]{\Tr \left\{ #1 \right\}}
 
 \newcommand{\symprod}[1]{\left\{ #1 \right\}_{\mathrm{sym}}}
 \newcommand{\pathavg}[1]{\langle #1 \rangle_{\mathrm{paths}}}
-\newcommand{\Real}{\operatorname{Re}}
-\newcommand{\Imag}{\operatorname{Im}}
+\newcommand{\Real}{\mathrm{Re}}
+\newcommand{\Imag}{\mathrm{Im}}
 
 \newcommand{\Psivec}{\boldsymbol{\Psi}}
 \newcommand{\Psiop}{\hat{\Psi}}
 \newcommand{\Psiopvec}{\hat{\boldsymbol{\Psi}}}
 
-\newcommand{\eqnref}[1]{Eq.~(\ref{eqn:#1})}
+\def\starteqalign#1\end{\eqalign{#1}\end} % magic to wrap \eqalign{} in the environment
+\newenvironment{eqn}
+	{\begin{eqnarray}\starteqalign}
+	{\end{eqnarray}}
+\newenvironment{eqns}
+	{\begin{eqnarray}}
+	{\end{eqnarray}}
+\newenvironment{eqn*}
+	{\begin{eqnarray*}}
+	{\end{eqnarray*}}
+
+\newcommand{\eqnref}[1]{\eref{eqn:#1}}
 \newcommand{\figref}[1]{Fig.~\ref{fig:#1}}
 \newcommand{\thmref}[1]{Theorem~\ref{thm:#1}}
 \newcommand{\lmmref}[1]{Lemma~\ref{lmm:#1}}
@@ -44,21 +55,24 @@
 
 \author{B.~Opanchuk}
 \author{P.~D.~Drummond}
-\affiliation{\swinaffiliation}
+\address{\swinaffiliation}
 
 \date{\today}
 \begin{abstract}
 Abstract goes here.
 \end{abstract}
 
+% Uncomment to set PACs
 %\pacs{}
-\maketitle
+
+% uncomment if the separate page for title is needed
+%\maketitle
 
 \input{introduction}
 \input{c-numbers}
 \input{sm-wigner}
 
-\bibliographystyle{apsrev}
-\bibliography{qsim-pra}
+\bibliographystyle{unsrt}
+\bibliography{qsim-long}
 
 \end{document}

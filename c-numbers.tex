@@ -8,12 +8,12 @@ One can find thorough description of these rules, for example, in~\cite{Kreutz-D
 
 \begin{definition}
 	For a complex variable $z = x + iy$ and a function $f(z) = u(x, y) + iv(x, y)$ the Wirtinger differential is
-	\begin{equation*}
+	\begin{eqn*}
 		\frac{df(z)}{dz}
 		= \frac{1}{2} \left(
 			\frac{\partial f}{\partial x} - i \frac{\partial f}{\partial y}
 		\right).
-	\end{equation*}
+	\end{eqn*}
 \end{definition}
 
 One can easily prove that if $f(z)$ is holomorphic, then the above definition coincides with the classical differential for complex functions.
@@ -34,15 +34,13 @@ For convenience, we will use the following definition:
 \label{lmm:c-numbers:fourier-of-moments}
 	If $\alpha$ and $\lambda$ are complex variables,
 	then for any non-negative integers $r$ and $s$:
-	\begin{equation}
-	\begin{split}
+	\begin{eqn}
 		& \int d^2\alpha\, \alpha^r (\alpha^*)^s \exp(-\lambda \alpha^* + \lambda^* \alpha) \\
 		& = \pi^2
 			\left( -\frac{\partial}{\partial \lambda^*} \right)^r
 			\left( \frac{\partial}{\partial \lambda} \right)^s
 			\delta(\Real \lambda) \delta(\Imag \lambda)
-	\end{split}
-	\end{equation}
+	\end{eqn}
 \end{lemma}
 \begin{proof}
 First, changing the variables in the integrals and using known Fourier transform relations, we can prove that for real $x$ and $v$, and non-negative integer $n$
@@ -62,8 +60,7 @@ A notable special case of \lmmref{c-numbers:fourier-of-moments} is
 \begin{lemma}
 \label{lmm:c-numbers:zero-integrals}
 	For any non-negative integers $r$, $s$ and complex $\alpha$:
-	\begin{equation*}
-	\begin{split}
+	\begin{eqn*}
 		\int d^2\lambda
 			\frac{\partial}{\partial \lambda} \left(
 				\exp(-\lambda \alpha^* + \lambda^* \alpha)
@@ -77,15 +74,13 @@ A notable special case of \lmmref{c-numbers:fourier-of-moments} is
 				\exp(ixy) x^r y^s
 			\right)
 		& = 0,
-	\end{split}
-	\end{equation*}
+	\end{eqn*}
 	where $\lambda = x + iy$.
 \end{lemma}
 \begin{proof}
 We will prove the first equation.
 First, note that complex-valued integral of derivative is evaluated as
-\begin{equation*}
-\begin{split}
+\begin{eqn*}
 	\int d^2\lambda \frac{\partial}{\partial \lambda} f(\lambda, \lambda^*)
 	& =	\frac{1}{2} \int\limits_{-\infty}^{\infty} dy \left(
 			\left. g(x, y) \right|_{x=-\infty}^{\infty}
@@ -93,12 +88,10 @@ First, note that complex-valued integral of derivative is evaluated as
 	& - \frac{i}{2} \int\limits_{-\infty}^{\infty} dx \left(
 			\left. h(x, y) \right|_{y=-\infty}^{\infty}
 		\right),
-\end{split}
-\end{equation*}
+\end{eqn*}
 where we expanded $f = g + ih$.
 Thus
-\begin{equation*}
-\begin{split}
+\begin{eqn*}
 	& \int d^2\lambda
 		\frac{\partial}{\partial \lambda} \left(
 			\exp(-\lambda \alpha^* + \lambda^* \alpha)
@@ -117,7 +110,6 @@ Thus
 			\frac{i}{2} \exp(-2ixy) y^s 2 \pi i^r \delta^{(r)}(y+2v)
 		\right)_{y = -\infty}^\infty \\
 	& = 0,
-\end{split}
-\end{equation*}
+\end{eqn*}
 because any derivative of delta function is zero on the infinity.
 \end{proof}
