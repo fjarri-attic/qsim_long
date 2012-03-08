@@ -1,0 +1,68 @@
+% =============================================================================
+\section{Field operators and restricted basis}
+% =============================================================================
+
+Multimode fields are described by operators $\Psiop_j^{\dagger}(\xvec)$ and $\Psiop_j(\xvec)$, where $\Psiop_j^{\dagger}(\xvec)$ creates a bosonic atom of spin $j$ at location $\xvec$, and $\Psiop_j(\xvec)$ destroys one; the commutators are
+\begin{eqn}
+\label{eqn:func-aux:commutators}
+	[ \Psiop_j(\xvec), \Psiop_k^{\dagger}(\xvec^\prime) ]
+	= \delta_{jk} \delta(\xvec^\prime-\xvec).
+\end{eqn}
+Field operators can be decomposed using a single-particle basis:
+\begin{eqn}
+	\Psiop_j(\xvec) = \sum_{\nvec} \phi_{\nvec}(\xvec) \hat{a}_{j,\nvec}.
+\end{eqn}
+Single mode operators $\hat{a}_{j,\nvec}$ obey bosonic commutation relations, the pair $j,\nvec$ serving as a mode identifier.
+
+Projection transformation~\eqnref{func-calculus:projector} can be extended to work on operators.
+The expression remains the same, and the type becomes
+\begin{eqn}
+	\hat{\mathcal{P}} :: \mathbb{FH} \rightarrow \mathbb{FH}_L,
+\end{eqn}
+where $\mathbb{FH}_L \equiv (\mathbb{R}^D \rightarrow \mathbb{H}_L)$, and $\mathbb{H}_L$ is the Hilbert space of the restricted subset of modes.
+Being applied to the annihilation operator $\Psiop_j$, this transformation returns the restricted annihilation operator
+\begin{eqn}
+	\hat{\mathcal{P}} [\Psiop_j]
+	= \sum_{\nvec \in L} \phi_{\nvec} (\xvec) \hat{a}_{j,\nvec}
+	= \Psiop_{jL} (\xvec),
+\end{eqn}
+containing only modes from subset $L$.
+Same as with functions, we will consider all field operators to be restricted and omit the index $L$.
+
+Because of the restricted nature of the operator, commutation relations~\eqnref{func-aux:commutators} no longer apply.
+The following ones should be used instead:
+\begin{eqn}
+\label{eqn:func-aux:restricted-commutators}
+	\left[ \Psiop_j(\xvec), \Psiop_k(\xvec^\prime) \right]
+	& = \left[ \Psiop_j^\dagger(\xvec), \Psiop_k^\dagger(\xvec^\prime) \right] = 0, \\
+	\left[ \Psiop_j(\xvec), \Psiop_k^\dagger(\xvec^\prime) \right]
+	& = \delta_{jk} \delta_L(\xvec^\prime, \xvec).
+\end{eqn}
+
+Let us now find the expression for high-order commutators of restricted field operators, analogous to the similar one for single-mode operators~\cite{Louisell1990}.
+
+\begin{lemma}
+	Abbreviating $\Psiop \equiv \Psiop(\xvec)$ and $\Psiop^\prime \equiv \Psiop(\xvec^\prime)$:
+	\begin{eqn*}
+		\left[ \Psiop, ( \Psiop^{\prime\dagger} )^l \right]
+		& = l \delta_P (\xvec^\prime - \xvec) ( \Psiop^{\prime\dagger} )^{l-1}, \\
+		\left[ \Psiop^\dagger, ( \Psiop^\prime )^l \right]
+		& = - l \delta_P^* (\xvec^\prime - \xvec) ( \Psiop^\prime )^{l-1}.
+	\end{eqn*}
+\end{lemma}
+\begin{proof}
+Proved by induction.
+\end{proof}
+
+A further generalisation of these relations is
+
+\begin{lemma}
+\label{lmm:functional-commutators}
+	\begin{eqn*}
+		\left[ \Psiop, f( \Psiop^\prime, \Psiop^{\prime\dagger} ) \right]
+		& = \delta_P (\xvec^\prime - \xvec) \frac{\partial f}{\partial \Psiop^{\prime\dagger}} \\
+		\left[ \Psiop^\dagger, f( \Psiop^\prime, \Psiop^{\prime\dagger} ) \right]
+		& = -\delta_P^* (\xvec^\prime - \xvec) \frac{\partial f}{\partial \Psiop^\prime},
+	\end{eqn*}
+	where $f(z, z^*)$ is a function that can be expanded in the power series of $z$ and $z^*$.
+\end{lemma}
