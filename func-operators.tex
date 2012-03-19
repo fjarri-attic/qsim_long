@@ -4,7 +4,7 @@
 
 Multimode fields are described by operators $\Psiop_j^{\dagger}(\xvec)$ and $\Psiop_j(\xvec)$, where $\Psiop_j^{\dagger}(\xvec)$ creates a bosonic atom of spin $j$ at location $\xvec$, and $\Psiop_j(\xvec)$ destroys one; the commutators are
 \begin{eqn}
-\label{eqn:func-aux:commutators}
+\label{eqn:func-operators:commutators}
 	[ \Psiop_j(\xvec), \Psiop_k^{\dagger}(\xvec^\prime) ]
 	= \delta_{jk} \delta(\xvec^\prime-\xvec).
 \end{eqn}
@@ -29,10 +29,10 @@ Being applied to the annihilation operator $\Psiop_j$, this transformation retur
 containing only modes from subset $L$.
 Same as with functions, we will consider all field operators to be restricted and omit the index $L$.
 
-Because of the restricted nature of the operator, commutation relations~\eqnref{func-aux:commutators} no longer apply.
+Because of the restricted nature of the operator, commutation relations~\eqnref{func-operators:commutators} no longer apply.
 The following ones should be used instead:
 \begin{eqn}
-\label{eqn:func-aux:restricted-commutators}
+\label{eqn:func-operators:restricted-commutators}
 	\left[ \Psiop_j(\xvec), \Psiop_k(\xvec^\prime) \right]
 	& = \left[ \Psiop_j^\dagger(\xvec), \Psiop_k^\dagger(\xvec^\prime) \right] = 0, \\
 	\left[ \Psiop_j(\xvec), \Psiop_k^\dagger(\xvec^\prime) \right]
@@ -57,7 +57,7 @@ Proved by induction.
 A further generalisation of these relations is
 
 \begin{lemma}
-\label{lmm:functional-commutators}
+\label{lmm:func-operators:functional-commutators}
 	\begin{eqn*}
 		\left[ \Psiop, f( \Psiop^\prime, \Psiop^{\prime\dagger} ) \right]
 		& = \delta_P (\xvec^\prime - \xvec) \frac{\partial f}{\partial \Psiop^{\prime\dagger}} \\
