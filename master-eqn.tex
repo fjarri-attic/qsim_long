@@ -1,0 +1,99 @@
+% =============================================================================
+\section{Master equation}
+% =============================================================================
+
+The basic Hamiltonian is easily expressed using quantum fields $\Psiop_j^{\dagger}(\xvec)$ and $\Psiop_j(\xvec)$,
+where $\xvec$ is $D$-dimensional coordinate vector,
+$\Psiop_j^{\dagger}(\xvec)$ creates a boson of component $j$ at a location $\xvec$,
+and $\Psiop_j(\xvec)$ destroys one;
+the commutators are defined by~\eqnref{func-operators:commutators}.
+Second-quantized Hamiltonian for the system looks like:
+\begin{eqn}
+\label{eqn:master-eqn:hamiltonian}
+	\hat{H} / \hbar = \int d\xvec \left\{
+		\Psiop_j^{\dagger} K_{jk} \Psiop_k
+		+ \frac{1}{2} \int d\xvec^\prime
+			\Psiop_j^\dagger (\xvec) \Psiop_k^\dagger (\xvec^\prime)
+			U_{jk}(\xvec - \xvec^\prime)
+			\Psiop_j (\xvec^\prime) \Psiop_k (\xvec)
+	\right\}.
+\end{eqn}
+Here we use the Einstein summation convention of summing over repeated indices.
+$U_{jk}$ is the two-body scattering potential, and $K_{jk}$ is the single-particle Hamiltonian:
+\begin{eqn}
+	K_{jk} = \left(
+			-\frac{\hbar}{2m} \nabla^2 + \omega_j + V_j(\xvec) / \hbar
+		\right) \delta_{jk}
+		+ \tilde{\Omega}_{jk}(t),
+\end{eqn}
+where $V_j$ is the external trapping potential for spin $j$,
+$\omega_j$ is the internal energy of spin $j$,
+and $\tilde{\Omega}_{jk}$ represents a time-dependent coupling that is used to rotate one spin projection into another.
+
+If we impose an energy cutoff $\ecut$ and only take into account low-energy modes,
+the general scattering potential $U_{jk}(\xvec - \xvec^\prime)$ can be replaced by contact potential $U_{jk} \delta(\xvec - \xvec^\prime)$~\cite{Morgan2000}, giving the effective Hamiltonian
+\begin{eqn}
+\label{eqn:master-eqn:effective-H}
+	\hat{H} / \hbar = \int d\xvec \left\{
+		\Psiop_j^{\dagger} K_{jk} \Psiop_k
+		+ \frac{U_{jk}}{2} \Psiop_j^\dagger \Psiop_k^\dagger \Psiop_j \Psiop_k
+	\right\}.
+\end{eqn}
+
+For $s$-wave scattering in three dimensions the coefficient is $U_{jk} = 4 \pi \hbar a_{jk} / m$,
+where $a_{jk}$ is the scattering length.
+Note that in general case the coefficient must be renormalised depending on the grid~\cite{Sinatra2002},
+but the change is small if $dx \gg a_{jk}$.
+
+
+Hereinafter field operators and wave functions will be assumed to be defined in restricted basis, unless explicitly stated otherwise.
+The Markovian master equation for the system with the inclusion of losses can be written as~\cite{Jack2002}
+\begin{eqn}
+\label{eqn:master-eqn:master-eqn}
+	\frac{d\hat{\rho}}{dt} =
+		- \frac{i}{\hbar} \left[ \hat{H}, \hat{\rho} \right]
+		+ \sum_{\lvec} \kappa_{\lvec} \int d\xvec
+			\mathcal{L}_{\lvec} \left[ \hat{\rho} \right],
+\end{eqn}
+where $\lvec = (l_1, l_2, \ldots, l_n)$ is a vector indicating the spins that are coupled,
+$n$ being the number of interacting particles,
+and we have introduced local Liouville loss terms,
+\begin{eqn}
+	\mathcal{L}_{\lvec} \left[ \hat{\rho} \right] =
+		2\hat{O}_{\lvec} \hat{\rho} \hat{O}_{\lvec}^\dagger
+		- \hat{O}_{\lvec}^\dagger \hat{O}_{\lvec} \hat{\rho}
+		- \hat{\rho} \hat{O}_{\lvec}^\dagger \hat{O}_{\lvec}.
+\end{eqn}
+The reservoir coupling operators $\hat{O}_{\lvec}$ are the distinct $n$-fold products of local field annihilation operators,
+$\hat{O}_{\lvec} = \hat{O}_{\lvec} (\Psiopvec) =
+	\Psiop_{l_{1}} (\xvec)
+	\Psiop_{l_{2}} (\xvec) \ldots
+	\Psiop_{l_{n}} (\xvec),$
+describing local $n$-body collision losses.
+
+The master equation allows us to derive an important property.
+
+\begin{theorem}
+    \begin{eqn*}
+        \frac{d}{dt} \langle \Psiop_j \rangle
+    	= P \left[
+    		\langle
+    			-\frac{i}{\hbar} \left(
+    				K_{jm} \Psiop_m
+    				+ U_{jm} \Psiop_m^\dagger \Psiop_m \Psiop_j
+    			\right)
+    			- \sum_{\lvec} \kappa_{\lvec}
+    				\frac{\partial \hat{O}_{\lvec}^\dagger}{\partial \Psiop_j^\dagger} \hat{O}_{\lvec}
+    		\rangle
+    	\right]
+    \end{eqn*}
+\end{theorem}
+\begin{proof}
+Obviously,
+\begin{eqn}
+    \frac{d}{dt} \langle \Psiop_j \rangle
+    = \frac{d}{dt} \Trace{ \hat{\rho} \Psiop_j }
+    = \Trace{ \frac{d\hat{\rho}}{dt} \Psiop_j }
+\end{eqn}
+Substituting the right part of the master equation and applying \lmmref{func-operators:functional-commutators} to simplify the loss term, one gets the statement of the lemma.
+\end{proof}
