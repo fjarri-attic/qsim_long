@@ -1,0 +1,185 @@
+% =============================================================================
+\section{Specific cases of transformations}
+% =============================================================================
+
+This section contains some theorems concerning transformations of specific operator sequences,
+which will be useful when transforming the master equation.
+
+\begin{theorem}
+\label{thm:transformations:w-commutator1}
+    \begin{eqn*}
+    	\mathcal{W} \left[ [\int d\xvec \Psiop_j^\dagger \Psiop_k, \hat{A}] \right]
+    	= \int d\xvec \left(
+    		- \frac{\delta}{\delta \Psi_j} \Psi_k
+    		+ \frac{\delta}{\delta \Psi_k^*} \Psi_j^*
+    	\right) \mathcal{W}[\hat{A}].
+    \end{eqn*}
+\end{theorem}
+\begin{proof}
+Proved straightforwardly using \thmref{func-wigner:mc-correspondences} and the relation
+\begin{eqn}
+	\Psi_k \frac{\delta}{\delta \Psi_j} \mathcal{F}
+	= \left(
+		\frac{\delta}{\delta \Psi_j} \Psi_k
+		- \delta_{jk} \delta_P(\xvec, \xvec)
+	\right) \mathcal{F}.
+\end{eqn}
+\end{proof}
+
+Commutators with Laplacian inside require somewhat special treatment,
+because it acts on basis functions and, in general, cannot be dragged around like a constant.
+For our purposes we only need one specific case,
+and, fortunately, in this case it does act like a constant.
+
+\begin{theorem}
+\label{thm:transformations:w-laplacian-commutator1}
+    \begin{eqn*}
+    	\mathcal{W} \left[
+    		\int d\xvec [\Psiop^\dagger(\xvec) \nabla^2 \Psiop(\xvec), \hat{A}]
+    	\right]
+    	= \int d\xvec \left(
+    		- \frac{\delta}{\delta \Psi} \nabla^2 \Psi
+    		+ \frac{\delta}{\delta \Psi^*} \nabla^2 \Psi^*
+    	\right) \mathcal{W}[\hat{A}].
+    \end{eqn*}
+\end{theorem}
+\begin{proof}
+Proved using \thmref{func-wigner:mc-correspondences} and \lmmref{func-calculus:move-laplacian}.
+\end{proof}
+
+\begin{theorem}
+\label{thm:formalism:transformations:w-commutator2}
+    \begin{eqn*}
+    	\mathcal{W} \left[
+    		[
+    			\int d\xvec \int d\xvec^\prime
+    			\Psiop_j^\dagger \Psiop_k^{\prime\dagger} \Psiop_j^\prime \Psiop_k,
+    			\hat{A}
+    		]
+    	\right] \\
+    	= \int d\xvec \int d\xvec^\prime \left(
+    		\frac{\delta}{\delta \Psi_j} \left(
+    			- \Psi_j^\prime \Psi_k \Psi_k^{\prime*}
+    			+ \frac{1}{2} \delta_{jk} \delta_P(\xvec^\prime, \xvec^\prime) \Psi_k
+    			+ \frac{1}{2} \delta_P(\xvec, \xvec^\prime) \Psi_j^\prime
+    		\right) \right . \\
+    	\left. + \frac{\delta}{\delta \Psi_j^{\prime*}} \left(
+    			\Psi_j^* \Psi_k \Psi_k^{\prime*}
+    			- \frac{1}{2} \delta_{jk} \delta_P(\xvec, \xvec) \Psi_k^{\prime*}
+    			- \frac{1}{2} \delta_P(\xvec, \xvec^\prime) \Psi_j^*
+    		\right) \right. \\
+    	\left. + \frac{\delta}{\delta \Psi_k^\prime} \left(
+    			- \Psi_j^\prime \Psi_j^* \Psi_k
+    			+ \frac{1}{2} \delta_{jk} \delta_P(\xvec, \xvec) \Psi_j^\prime
+    			+ \frac{1}{2} \delta_P(\xvec^\prime, \xvec) \Psi_k
+    		\right) \right .\\
+    	\left. + \frac{\delta}{\delta \Psi_k^*} \left(
+    			\Psi_j^\prime \Psi_j^* \Psi_k^{\prime*}
+    			- \frac{1}{2} \delta_{jk} \delta_P(\xvec^\prime, \xvec^\prime) \Psi_j^*
+    			- \frac{1}{2} \delta_P(\xvec^\prime, \xvec) \Psi_k^{\prime*}
+    		\right) \right. \\
+    	\left.
+    			+ \frac{\delta}{\delta \Psi_j}
+    			\frac{\delta}{\delta \Psi_j^{\prime*}}
+    			\frac{\delta}{\delta \Psi_k^\prime}
+    			\frac{1}{4} \Psi_k
+    			- \frac{\delta}{\delta \Psi_j}
+    			\frac{\delta}{\delta \Psi_j^{\prime*}}
+    			\frac{\delta}{\delta \Psi_k^*}
+    			\frac{1}{4} \Psi_k^{\prime*}
+    		\right. \\
+    	\left.
+    			+ \frac{\delta}{\delta \Psi_k^\prime}
+    			\frac{\delta}{\delta \Psi_k^*}
+    			\frac{\delta}{\delta \Psi_j}
+    			\frac{1}{4} \Psi_j^\prime
+    			- \frac{\delta}{\delta \Psi_k^\prime}
+    			\frac{\delta}{\delta \Psi_k^*}
+    			\frac{\delta}{\delta \Psi_j^{\prime*}}
+    			\frac{1}{4} \Psi_j^*
+    	\right) \mathcal{W}[\hat{A}].
+    \end{eqn*}
+\end{theorem}
+\begin{proof}
+Proof is the same as in case of \thmref{transformations:w-commutator1}.
+\end{proof}
+
+\begin{lemma}
+\label{lmm:transformations:swap-differential}
+    \begin{eqn*}
+    	\Psi(\xvec)^a \left( \frac{\delta}{\delta \Psi(\xvec)} \right)^b \mathcal{F}[\Psi, \Psi^*] \\
+    	= \sum_{j=0}^{\min(a, b)}
+    		\binom{b}{j} \frac{(-1)^j a!}{(a - j)!}
+    		\delta(\xvec, \xvec)^j
+    		\left( \frac{\delta}{\delta \Psi(\xvec)} \right)^{b - j}
+    		\Psi(\xvec)^{a - j}
+    		\mathcal{F}[\Psi, \Psi^*]
+    \end{eqn*}
+\end{lemma}
+\begin{proof}
+Proved straightforwardly by induction.
+\end{proof}
+
+\begin{lemma}[Sum rearrangement]
+\label{lmm:transformations:sum-rearrangement}
+    For integer $l$, $u$:
+    \begin{eqn*}
+    	\sum_{j=0}^l \sum_{k=0}^{\min(l-u,j)} x^{j-k} Q(j, k)
+    	= \sum_{v=0}^l x^v \sum_{k=0}^{l-\max(u,v)} Q(v + k, k).
+    \end{eqn*}
+\end{lemma}
+\begin{proof}
+Can be proved either by formal manipulation with sets, or by drawing a picture.
+\end{proof}
+
+\begin{theorem}
+\label{thm:transformations:w-losses}
+    If loss operator $\hat{\mathcal{L}}_{\lvec}$ is defined as
+    \begin{eqn*}
+    	\hat{\mathcal{L}}_{\lvec} [\hat{A}]
+    	= 2 \hat{O}_{\lvec} \hat{A} \hat{O}_{\lvec}^\dagger
+    		- \hat{O}_{\lvec}^\dagger \hat{O}_{\lvec} \hat{A}
+    		- \hat{A} \hat{O}_{\lvec}^\dagger \hat{O}_{\lvec},
+    \end{eqn*}
+    where
+    \begin{eqn*}
+    	\hat{O}_{\lvec}
+    	\equiv \hat{O}_{\lvec} (\Psiopvec)
+    	= \prod_{c=1}^C \Psiop_c^{l_c} (\xvec),
+    \end{eqn*}
+    then its Wigner transformation is
+    \begin{eqn*}
+    	\mathcal{W} \left[ \int d\xvec \hat{\mathcal{L}}_{\lvec} [\hat{A}] \right]
+    	= \int d\xvec
+    		\sum_{j_1=0}^{l_1} \sum_{k_1=0}^{l_1} \ldots
+    		\sum_{j_C=0}^{l_C} \sum_{k_C=0}^{l_C}
+    			\left(
+    				\prod_{c=1}^C
+    					\left( \frac{\delta}{\delta \Psi_c^*} \right)^{j_c}
+    					\left( \frac{\delta}{\delta \Psi_c} \right)^{k_c}
+    			\right)
+    			L_{\jvec, \kvec}
+    		\mathcal{W}[\hat{A}],
+    \end{eqn*}
+    where
+    \begin{eqn*}
+\fl    	L_{\jvec, \kvec}
+    	= \left( 2 - (-1)^{\sum_c j_c} - (-1)^{\sum_c k_c} \right) \\
+    		\prod_{c=1}^C \left(
+    			\sum_{m_c=0}^{l_c - \max(j_c, k_c)}
+    			Q_c(j_c, k_c, m_c)
+    			\delta_P(\xvec, \xvec)^{m_c}
+    			\Psi_c^{l_c - j_c - m_c}
+    			(\Psi_c^*)^{l_c - k_c - m_c}
+    		\right),
+    \end{eqn*}
+    and
+    \begin{eqn*}
+        Q_c(j, k, m)
+    	= (-1)^m \left( \frac{1}{2} \right)^{j + k + m}
+    		\frac{(l_c!)^2}{m! j! k! (l_c - k - m)! (l_c - j - m)!}.
+    \end{eqn*}
+\end{theorem}
+\begin{proof}
+Proved by applying \thmref{func-wigner:mc-correspondences}, expanding products using binomial theorem, using \lmmref{transformations:swap-differential} to move differentials to front, and applying \lmmref{transformations:sum-rearrangement} to transform summations.
+\end{proof}
