@@ -1,0 +1,162 @@
+% =============================================================================
+\section{Functional Fokker-Planck equation}
+% =============================================================================
+
+The general approach to numerical solution of the Fokker-Planck equation is to transform it to the equivalent set of stochastic differential equations (SDEs).
+In the textbooks this transformation is defined for real variables only~\cite{Risken1996}, while we have functional FPE with complex-valued functions.
+
+Our starting point is the reformulation of the theorem for real-valued multivariable FPE from~\cite{Risken1996}:
+
+\begin{lemma}[FPE--SDEs correspondence in convenient form.]
+\label{lmm:app-fpe:fpe-sde-real}
+    If $\zvec^T \equiv (z_1 \ldots z_M)$ is a set of real-valued variables,
+    Fokker-Planck equation
+    \begin{eqn*}
+    	\frac{dW}{dt}
+    	= -\boldsymbol{\partial}_{\zvec}^T \boldsymbol{a} W
+    	+ \frac{1}{2} \Trace{ \boldsymbol{\partial}_{\zvec} \boldsymbol{\partial}_{\zvec}^T B B^T } W
+    \end{eqn*}
+    is equivalent to a set of stochastic differential equations in It\^{o} form
+    \begin{eqn*}
+    	d\zvec = \boldsymbol{a} dt + B d\Zvec
+    \end{eqn*}
+    and to a set of stochastic differential equations in Stratonovich form
+    \begin{eqn*}
+    	d\zvec = (\boldsymbol{a} - \boldsymbol{c})dt + B d\Zvec,
+    \end{eqn*}
+    where the noise-induced (or spurious) drift vector $\boldsymbol{c}$ has elements
+    \begin{eqn*}
+    	c_i
+    	= \sum_{k,j} B_{kj} \frac{\partial}{\partial z_k} B_{ij}
+    	= \Trace{B^T \boldsymbol{\partial}_z \boldsymbol{e}_i^T B},
+    \end{eqn*}
+    $\boldsymbol{e}_i$ being the unit vector with elements $(\boldsymbol{e}_i)_j = \delta_{ij}$.
+    Here $W \equiv W(\zvec)$ is a probability distribution,
+    $\boldsymbol{a} \equiv \boldsymbol{a}(\zvec)$ is a vector function,
+    $B \equiv B(\zvec)$ is a matrix function ($B$ having size $M \times L$, where $L$ corresponds to the number of noise sources),
+    $\partial_{\zvec}^T \equiv (\partial_{z_1} \ldots \partial_{z_M})$ is a vector differential,
+    and $d\Zvec$ is a standard $L$-dimensional real-valued Wiener process.
+\end{lemma}
+\begin{proof}
+For details see~\cite{Risken1996}, sections 3.3 and 3.4.
+\end{proof}
+
+\begin{theorem}
+\label{thm:app-fpe:fpe-sde-complex}
+    If $\boldsymbol{\alpha}^T \equiv (\alpha_1 \ldots \alpha_M)$ is a set of complex-valued variables,
+    Fokker-Planck equation
+    \begin{eqn*}
+    	\frac{dW}{dt}
+    	= -\boldsymbol{\partial}_{\boldsymbol{\alpha}}^T \boldsymbol{a} W - \boldsymbol{\partial}_{\boldsymbol{\alpha}^*}^T \boldsymbol{a}^* W
+    	+ \Trace{ \boldsymbol{\partial}_{\boldsymbol{\alpha}} \boldsymbol{\partial}_{\boldsymbol{\alpha}^*}^T B B^H } W
+    \end{eqn*}
+    is equivalent to a set of stochastic differential equations in It\^{o} form
+    \begin{eqn*}
+    	d\boldsymbol{\alpha} = \boldsymbol{a} dt + B d\Zvec,
+    \end{eqn*}
+    or to Stratonovich form
+    \begin{eqn*}
+    	d\boldsymbol{\alpha} = (\boldsymbol{a} - \boldsymbol{c}) dt + B d\Zvec,
+    \end{eqn*}
+    where noise-induced drift term is
+    \begin{eqn*}
+    	c_j = \Trace{ B^H \boldsymbol{\partial}_{\boldsymbol{\alpha}^*} \boldsymbol{e}_j^T B },
+    \end{eqn*}
+    and $d\Zvec = (d\boldsymbol{X} + id\boldsymbol{Y}) / \sqrt{2}$ is an $M$-dimensional complex-valued Wiener process,
+    containing two standard $M$-dimensional Wiener processes $d\boldsymbol{X}$ and $d\boldsymbol{Y}$.
+\end{theorem}
+\begin{proof}
+Proved straightforwardly by transforming the equation to real variables and applying \lmmref{app-fpe:fpe-sde-real}.
+\end{proof}
+
+\begin{theorem}[Multi-component extension of \thmref{app-fpe:fpe-sde-complex}]
+\label{thm:app-fpe:mc-fpe-sde}
+    If $\boldsymbol{\alpha}^{(c)},\, c = 1..C$ are $C$ sets of complex variables $\boldsymbol{\alpha}^{(c)} \equiv (\alpha_1^{(c)} \ldots \alpha_M^{(c)})$,
+    then Fokker-Planck equation
+    \begin{eqn}
+    	\frac{dW}{dt}
+    	= - \sum_{c=1}^C \boldsymbol{\partial}_{\boldsymbol{\alpha}^{(c)}}^T \boldsymbol{a}^{(c)} W
+    	- \sum_{c=1}^C \boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(c)})^*}^T (\boldsymbol{a}^{(c)})^* W
+    	+ \sum_{m=1}^c \sum_{n=1}^c
+    		\Trace{
+    			\boldsymbol{\partial}_{\boldsymbol{\alpha}^{(m)}}
+    			\boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(n)})^*}^T
+    			B^{(n)} (B^{(m)})^H
+    		} W
+    \end{eqn}
+    is equivalent to a set of stochastic differential equations in It\^{o} form
+    \begin{eqn}
+    	d\boldsymbol{\alpha}^{(c)} = \boldsymbol{a}^{(c)} dt + B^{(c)} d\Zvec,\, c = 1..C
+    \end{eqn}
+    or to Stratonovich form
+    \begin{eqn*}
+    	d\boldsymbol{\alpha}^{(c)} = (\boldsymbol{a}^{(c)} - \boldsymbol{c}^{(c)}) dt + B^{(c)} d\Zvec,
+    \end{eqn*}
+    where noise-induced drift term is
+    \begin{eqn*}
+    	c_j^{(c)} = \sum_{n=1}^C
+    		\Trace{ (B^{(n)})^H \boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(n)})^*} \boldsymbol{e}_j^T B^{(c)} },
+    \end{eqn*}
+    and $d\Zvec$ is an $L$-dimensional complex-valued Wiener process.
+\end{theorem}
+\begin{proof}
+Proved by joining vectors from all components into one vector and applying \thmref{app-fpe:fpe-sde-complex}.
+\end{proof}
+
+\begin{theorem}
+\label{thm:app-fpe:fpe-sde-func}
+    Functional FPE
+    \begin{eqn*}
+    	\frac{dW}{dt}
+    	= \int d\xvec \left(
+    		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} A_j
+    		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} A_j^*
+    		+ \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j \delta \Psi_k^*}
+    			\sum_{\lvec} B_{\lvec}^{(k)} (B_{\lvec}^{(j)})^*
+    	\right) W
+    \end{eqn*}
+    is equivalent to the set of SDEs in It\^{o} form
+    \begin{eqn*}
+    	d\Psi_j = \mathcal{P} \left[
+    		A^{(j)} dt + \sum_{\lvec} B_{\lvec}^{(j)} d\boldsymbol{Q}_{\lvec}
+    	\right],
+    \end{eqn*}
+    or in Stratonovich form
+    \begin{eqn*}
+    	d\Psi_j = \mathcal{P} \left[
+    		(A^{(j)} - C^{(j)}) dt + \sum_{\lvec} B_{\lvec}^{(j)} d\boldsymbol{Q}_{\lvec}
+    	\right],
+    \end{eqn*}
+    where
+    \begin{eqn*}
+    	C^{(j)} = \sum_{n=1}^C \sum_{\lvec}
+    		(B_{\lvec}^{(n)})^*
+    		\frac{\delta}{\delta \Psi_n^*}
+    		B_{\lvec}^{(j)},
+    \end{eqn*}
+    and $\boldsymbol{Q}_{\lvec}$ is a functional Wiener process:
+    \begin{eqn*}
+    	\boldsymbol{Q}_{\lvec} = \sum_{\nvec \in L \cup H} \phi_j \Zvec_{\lvec,\nvec}.
+    \end{eqn*}
+\end{theorem}
+\begin{proof}
+Proved by expanding functional derivatives and applying \thmref{app-fpe:mc-fpe-sde}.
+The diffusion term has to be transformed in order to conform to the theorem:
+\begin{eqn}
+	\int d\xvec \phi_{\nvec} \phi_{\mvec}^* \sum_{\lvec} B_{\lvec}^{(k)} (B_{\lvec}^{(j)})^*
+	& = \int d\xvec \int d\xvec^\prime
+			\phi_{\nvec}^\prime \phi_{\mvec}^*
+			\sum_{\lvec} B_{\lvec}^{(k)} (B_{\lvec}^{(j)})^{\prime*}
+			\delta(\xvec - \xvec^\prime) \\
+	& = \int d\xvec \int d\xvec^\prime
+			\phi_{\nvec}^\prime \phi_{\mvec}^*
+			\sum_{\lvec} B_{\lvec}^{(k)} (B_{\lvec}^{(j)})^{\prime*}
+			\sum_{\pvec \in L \cup H} \phi_{\pvec}^{\prime*} \phi_{\pvec} \\
+	& = \sum_{\pvec \in L \cup H, \lvec}
+		\int d\xvec
+			\phi_{\nvec}^* B_{\lvec}^{(k)} \phi_{\pvec}
+		\int d\xvec
+			\phi_{\mvec} (B_{\lvec}^{(j)})^* \phi_{\pvec}^*
+\end{eqn}
+Grouping terms back and recognising the definition of projection transformation, one gets the statement of the theorem.
+\end{proof}

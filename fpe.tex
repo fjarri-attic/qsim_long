@@ -1,0 +1,148 @@
+% =============================================================================
+\section{Wigner truncation and Fokker-Planck equation}
+% =============================================================================
+
+In order to solve operator equation~\eqnref{master-eqn:master-eqn} numerically, we will transform it to ordinary differential equation using Wigner transformation~\eqnref{func-wigner:w-transformation}.
+
+Namely, the term with $K_j$ is transformed using \thmref{transformations:w-commutator1} and \thmref{transformations:w-laplacian-commutator1} (since $K_j$ is basically a sum of Laplacian operator and functions of $\xvec$):
+\begin{eqn}
+	\mathcal{W} \left[ [ \int d\xvec \Psiop_j^\dagger K_{jk} \Psiop_k, \hat{\rho} ] \right]
+	= \int d\xvec \left(
+			- \frac{\delta}{\delta \Psi_j} K_{jk} \Psi_k
+			+ \frac{\delta}{\delta \Psi_k^*} K_{jk} \Psi_j^*
+		\right)
+		W,
+\end{eqn}
+where Wigner function $W = \mathcal{W}[\hat{\rho}]$.
+Nonlinear term is transformed with \thmref{transformations:w-commutator2} (minding the locality of interaction and assuming $U_{kj} = U_{jk}$):
+\begin{eqn}
+	\mathcal{W} \left[
+		[
+			\int d\xvec \frac{U_{jk}}{2}
+				\Psiop_j^\dagger \Psiop_k^\dagger \Psiop_j \Psiop_k,
+			\hat{\rho}
+		]
+	\right]
+	= & \int d\xvec U_{jk} \left(
+		\frac{\delta}{\delta \Psi_j} \left(
+			- \Psi_j \Psi_k \Psi_k^*
+			+ \frac{\delta_P(\xvec, \xvec)}{2} ( \delta_{jk} \Psi_k + \Psi_j )
+		\right) \right. \\
+	&	\left. + \frac{\delta}{\delta \Psi_j^*} \left(
+			\Psi_j^* \Psi_k \Psi_k^*
+			- \frac{\delta_P(\xvec, \xvec)}{2} ( \delta_{jk} \Psi_k^* + \Psi_j^* )
+		\right) \right. \\
+	&	\left.
+			+ \frac{\delta}{\delta \Psi_j}
+			\frac{\delta}{\delta \Psi_j^*}
+			\frac{\delta}{\delta \Psi_k}
+			\frac{1}{4} \Psi_k
+			- \frac{\delta}{\delta \Psi_j}
+			\frac{\delta}{\delta \Psi_j^*}
+			\frac{\delta}{\delta \Psi_k^*}
+			\frac{1}{4} \Psi_k^*
+		\right) W.
+\end{eqn}
+
+Loss operator is transformed with \thmref{transformations:w-losses}.
+Not writing the resulting expression here, because with the absence of truncation it is too long,
+and is practically the same as in theorem statement.
+
+Transformation to SDE is a very convenient way to solve FPE numerically, but we can only do that if it does not have functional derivatives of order more than 2.
+In the assumption of the state being coherent, the condition for truncation can be shown to be~\cite{Sinatra2002}
+\begin{eqn}
+    N \gg M,
+\end{eqn}
+where $N$ is the number of atoms and $M \equiv |L|$ is the size of the restricted mode subset.
+This condition is equivalent to~\cite{Norrie2006}
+\begin{eqn}
+    \delta_L(\xvec, \xvec) \ll | \Psi_j |^2.
+\end{eqn}
+
+\begin{lemma}
+    Assuming the conditions for Wigner truncation are satisfied,
+    the result of Wigner transformation of the nonlinear term can be written as
+    \begin{eqn*}
+    	\mathcal{W} \left[
+    		[
+    			\frac{U_{jk}}{2}
+    				\Psiop_j^\dagger \Psiop_k^\dagger \Psiop_j \Psiop_k,
+    			\hat{\rho}
+    		]
+    	\right]
+    	= U_{jk} \left(
+    		\frac{\delta}{\delta \Psi_j^*} \Psi_j^* \Psi_k \Psi_k^*
+    		- \frac{\delta}{\delta \Psi_j} \Psi_j \Psi_k \Psi_k^*
+    	\right) W.
+    \end{eqn*}
+\end{lemma}
+
+\begin{theorem}
+    Assuming the conditions for Wigner truncation are satisfied, the result of Wigner transformation of the loss term can be written as
+    \begin{eqn*}
+    	\mathcal{W}[\mathcal{L}_{\lvec}[\hat{\rho}]]
+    	= \sum_{n=1}^C
+    			\frac{\delta}{\delta \Psi_n^*} \frac{\partial O_{\lvec}}{\partial \Psi_n} O_{\lvec}^*
+    	+ \sum_{n=1}^C
+    		\frac{\delta}{\delta \Psi_n} \frac{\partial O_{\lvec}^*}{\partial \Psi_n^*} O_{\lvec}
+    	+ \sum_{n=1}^C \sum_{p=1}^C
+    		\frac{\delta^2}{\delta \Psi_n^* \delta \Psi_p}
+    		\frac{\partial O_{\lvec}}{\partial \Psi_n}
+    		\frac{\partial O_{\lvec}^*}{\partial \Psi_p^*}.
+    \end{eqn*}
+    where $O_{\lvec} \equiv O_{\lvec}(\Psivec) = \prod_{c=1}^C \Psi_c^{l_c}$.
+\end{theorem}
+\begin{proof}
+The proof is basically a simplification of the result of \thmref{transformations:w-losses} under certain conditions.
+First, we are neglecting all occurrences of $\delta_P$, which means setting $m_c = 0$ for every $c$.
+Second, we are dropping all terms with high order differentials,
+which can be expressed as limiting $\sum j_c + \sum k_c \le 2$.
+The only combinations of $j_c$ and $k_c$ for which $Z(\jvec, \kvec)$ is not zero are thus
+$\{ j_c = \delta_{cn}, k_c = 0, n \in [1, C] \}$,
+$\{ j_c = 0, k_c = \delta_{cn}, n \in [1, C] \}$ and
+$\{ j_c = \delta_{cn}, k_c = \delta_{cp}, n \in [1, C], p \in [1, C] \}$.
+These combinations produce terms with $\delta/\delta \Psi_n^*$,
+$\delta/\delta \Psi_n$ and
+$\delta^2/\delta \Psi_p \delta \Psi_n^*$ respectively.
+Applying these conditions one can get the statement of the theorem.
+\end{proof}
+
+Assuming that $K_{jk}$, $U_{jk}$ and $\kappa_{\lvec}$ are real-valued, resulting Wigner-transformed master equation is
+\begin{eqn}
+	\frac{dW}{dt}
+	= \int d\xvec \left(
+		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} A_j
+		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} A_j^*
+		+ \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j^* \delta \Psi_k} D_{jk}
+	\right) W,
+\end{eqn}
+where
+\begin{eqn}
+	A_j = -\frac{i}{\hbar} \left(
+			\sum_{k=1}^C K_{jk} \Psi_k
+			+ \sum_{k=1}^C U_{jk} \Psi_j \Psi_k \Psi_k^*
+		\right)
+		- \sum_{\lvec} \kappa_{\lvec} \frac{\partial O_{\lvec}^*}{\partial \Psi_j^*} O_{\lvec},
+\end{eqn}
+and
+\begin{eqn}
+	D_{jk} = \sum_{\lvec} \kappa_{\lvec}
+		\frac{\partial O_{\lvec}}{\partial \Psi_j}
+		\frac{\partial O_{\lvec}^*}{\partial \Psi_k^*}.
+\end{eqn}
+
+According to \thmref{app-fpe:fpe-sde-func}, this equation is equivalent to a set of stochastic differential equations in It\^{o} form
+\begin{eqn}
+	d\Psi_j = \mathcal{P} \left[
+		A^{(j)} dt + \sum_{\lvec} B_{\lvec}^{(j)} Q_{\lvec}
+	\right],
+\end{eqn}
+where
+\begin{eqn}
+    B_{\lvec}^{(j)} = \sqrt{\kappa_{\lvec}} \frac{\partial O_{\lvec}}{\partial \Psi_j},
+\end{eqn}
+and $Q_{\lvec}$ is a functional Wiener process:
+\begin{eqn}
+	Q_{\lvec} = \sum_{\nvec \in L \cup H} \phi_j Z_{\lvec,\nvec},
+\end{eqn}
+and $Z_{\lvec,\nvec}$ is, in turn, a complex-valued Wiener process.
