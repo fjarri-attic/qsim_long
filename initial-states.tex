@@ -1,0 +1,79 @@
+% =============================================================================
+\section{Initial states}
+% =============================================================================
+
+The simplest case of initial state is a coherent state.
+
+\begin{theorem}
+    The Wigner distribution for a multi-mode coherent state with with expectation values
+    $\alpha_{\nvec}(0) = \alpha_{\nvec}^{(0)}$, $\nvec \in L$ is
+    \begin{eqn*}
+    	W_c (\balpha^{(0)})
+    	= \left( \frac{2}{\pi} \right)^N \prod_{\nvec \in L}
+    		\exp(-2 |\alpha_{\nvec} - \alpha_{\nvec}^{(0)}|^2).
+    \end{eqn*}
+\end{theorem}
+\begin{proof}
+The density matrix of the state is
+\begin{eqn}
+	\hat{\rho}
+	= \vert \alpha_{\nvec}^{(0)},\, \nvec \in L \rangle
+		\langle \alpha_{\nvec}^{(0)},\, \nvec \in L \vert
+	= \left( \prod_{\nvec \in L} \vert \alpha_{\nvec}^{(0)} \rangle \right)
+		\left( \prod_{\nvec \in L} \langle \alpha_{\nvec}^{(0)} \vert \right).
+\end{eqn}
+Then the characteristic function is
+\begin{eqn}
+	\chi_W (\balpha^{(0)})
+	= \prod_{\nvec \in L}
+		\langle \alpha_{\nvec}^{(0)} \vert
+		\hat{D}_{\nvec} (\lambda_{\nvec}, \lambda_{\nvec}^*)
+		\vert \alpha_{\nvec}^{(0)} \rangle
+\end{eqn}
+Using the properties of the displacement operator, this can be transformed to
+\begin{eqn}
+	\chi_W (\balpha^{(0)})
+	= \prod_{\nvec \in L}
+		\exp(
+			- \lambda_{\nvec}^* \alpha_{\nvec}^{(0)}
+			+ \lambda_{\nvec} (\alpha_{\nvec}^{(0)})^*
+			- \frac{1}{2} |\lambda|^2
+		).
+\end{eqn}
+
+Finally, Wigner function is
+\begin{eqn}
+	W_c (\balpha^{(0)})
+	& = \frac{1}{\pi^{2N}} \prod_{\nvec \in L} \left(
+		\int d^2\lambda_{\nvec}
+			\exp(
+				- \lambda_{\nvec} (\alpha_{\nvec}^* - (\alpha_{\nvec}^{(0)})^*)
+				+ \lambda_{\nvec}^* (\alpha_{\nvec} - \alpha_{\nvec}^{(0)})
+				- \frac{1}{2} |\lambda|^2
+			)
+	\right) \\
+	& = \left( \frac{2}{\pi} \right)^N \prod_{\nvec \in L}
+		\exp(-2 |\alpha_{\nvec} - \alpha_{\nvec}^{(0)}|^2).
+	\qedhere
+\end{eqn}
+\end{proof}
+
+The resulting Wigner distribution is a product of independent complex-valued Gaussian distributions for each mode,
+with the expectation value equal to the expectation value of the mode,
+and the variance equal to $\frac{1}{2}$.
+Therefore the initial state can be sampled as
+\begin{eqn}
+	\alpha_{\nvec} = \alpha_{\nvec}^{(0)} + \frac{1}{\sqrt{2}} \eta_{\nvec},
+\end{eqn}
+where $\eta_{\nvec}$ are normally distributed complex random numbers with zero mean,
+$\langle \eta_{\mvec} \eta_{\nvec} \rangle = 0$ and
+$\langle \eta_{\mvec} \eta_{\nvec}^* \rangle = \delta_{\mvec,\nvec}$
+(in other words, with components distributed independently with variance $\frac{1}{2}$).
+This looks like adding half a ``vacuum particle'' to each mode.
+In functional form this can be written as
+\begin{eqn}
+	\Psi_j(\xvec, 0)
+	= \Psi_j^{(0)}(\xvec, 0)
+		+ \sum_{\nvec \in L} \frac{\eta_{j,\nvec}}{2} \phi_{\nvec}(\xvec),
+\end{eqn}
+where $\Psi_j^{(0)}(\xvec, 0)$ is the ``classical'' ground state of the system.
