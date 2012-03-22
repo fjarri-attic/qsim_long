@@ -3,13 +3,13 @@
 % =============================================================================
 
 Phase-space treatment of multimode problems can be simplified by working with multimode field operators instead of single-mode operators.
-It was initially introduced by Graham~\cite{Graham1970,Graham1970a}.
+This approach was initially introduced by Graham~\cite{Graham1970,Graham1970a}.
 Examples of usage can be found in~\cite{Steel1998,Norrie2006a}.
 Detailed description of functional calculus is given in~\cite{Dalton2011}.
-Here we only provide some important results which are going to be used later on in this paper.
+Here we only provide some important results which are going to be used later in this paper.
 
-First we must introduce some operations on functions, which will replace common differentials and integrals used in single and multi-mode cases and help encapsulate basis and mode populations inside wave functions and field operators.
-In order to do that, we define an orthonormal basis $\phi_{\nvec}$, where $\nvec$ is a state vector with $D$ elements.
+First, we must introduce some operations on functions, which will replace common differentials and integrals used in single-mode case and help encapsulate basis and mode populations inside wave functions and field operators.
+In order to do that, we define an orthonormal basis $\fullbasis$ consisting of $\phi_{\nvec}$, where $\nvec$ is a state vector with $D$ elements.
 Orthonormality and completeness conditions for basis functions are, respectively,
 \begin{eqns}
 	\int\limits_A \phi_{\nvec}^*(\xvec) \phi_{\mvec}(\xvec) d\xvec = \delta_{\nvec\mvec}, \\
@@ -18,68 +18,69 @@ Orthonormality and completeness conditions for basis functions are, respectively
 where the exact nature of integration area $A$ depends on the basis set (for example, $A$ is the whole space for harmonic oscillator modes, or a box for plane waves).
 Hereinafter we assume that the integration $\int d\xvec$ is always performed over $A$.
 
-Let $L$ be some subset of the basis with cardinality $|L|$ (which can be infinite, if $L$ stands for the whole basis).
-In all further calculations for simplicity this subset is assumed to be fixed.
+We will usually operate with some fixed subset of the basis (which may be identical to the whole basis).
+Let $\restbasis$ be some subset of the basis with cardinality $|\restbasis|$ (which can be infinite, if $\restbasis \equiv \fullbasis$).
 Given the basis, we can define the correspondence between some function of coordinates and its representation in mode space.
 
 \begin{definition}
-	Let $\mathbb{F}$ be a space of all functions of coordinates, which consists only of modes from $L$: $\mathbb{F}_L \equiv (\mathbb{R}^D \rightarrow \mathbb{C})_L$ (restricted functions).
+	Let $\mathbb{F}$ be a space of all functions of coordinates, which consists only of modes from $\restbasis$: $\mathbb{F}_{\restbasis} \equiv (\mathbb{R}^D \rightarrow \mathbb{C})_{\restbasis}$ (restricted functions).
 	Composition transformation creates the function from the vector of mode populations:
 	\begin{eqn*}
-		\mathcal{C} :: \mathbb{C}^{|L|} \rightarrow \mathbb{F}_L \\
-		\mathcal{C}(\balpha) = \sum_{\nvec \in L} \phi_{\nvec} \alpha_{\nvec}.
+		\mathcal{C}_{\restbasis} :: \mathbb{C}^{|\restbasis|} \rightarrow \mathbb{F}_{\restbasis} \\
+		\mathcal{C}_{\restbasis}(\balpha) = \sum_{\nvec \in L} \phi_{\nvec} \alpha_{\nvec}.
 	\end{eqn*}
 	Decomposition transformation is, in turn
 	\begin{eqn*}
-		\mathcal{C}^{-1} :: \mathbb{F} \rightarrow \mathbb{C}^{|L|} \\
-		\mathcal{C}_m^{-1}[f] = \int d\xvec \phi_m^*(\xvec) f(\xvec),\,m \in L.
+		\mathcal{C}_{\restbasis}^{-1} :: \mathbb{F} \rightarrow \mathbb{C}^{|\restbasis|} \\
+		(\mathcal{C}_{\restbasis}^{-1}[f])_{\nvec}
+		= \int d\xvec \phi_{\nvec}^*(\xvec) f(\xvec),\,{\nvec} \in \restbasis.
 	\end{eqn*}
-	Note that for any $f \in \mathbb{F}_L$, $\mathcal{C}(\mathcal{C}^{-1}[f]) \equiv f$.
+	Note that for any $f \in \mathbb{F}_{\restbasis}$, $\mathcal{C}_{\restbasis}(\mathcal{C}_{\restbasis}^{-1}[f]) \equiv f$.
 \end{definition}
 
-The result of any non-linear transformation of a function $f \in \mathbb{F}_L$ is not guaranteed to belong to $L$ and requires explicit projection to be used with other restricted functions.
+The result of any non-linear transformation of a function $f \in \mathbb{F}_{\restbasis}$ is not guaranteed to belong to $\mathbb{F}_{\restbasis}$ and requires explicit projection to be used with other restricted functions.
 This applies to the delta function of coordinates.
 To avoid confusion with the common delta function, we introduce the restricted delta function.
 
 \begin{definition}
 \label{def:func-calculus:restricted-delta}
-	The restricted delta function $\delta_L \in \mathbb{F}_L$ is defined as
+	The restricted delta function $\delta_{\restbasis} \in \mathbb{F}_{\restbasis}$ is defined as
 	\begin{eqn*}
-		\delta_L(\xvec^\prime, \xvec)
-		= \sum_{\nvec \in L} \phi_{\nvec}^* (\xvec^\prime) \phi_{\nvec} (\xvec).
+		\delta_{\restbasis}(\xvec^\prime, \xvec)
+		= \sum_{\nvec \in \restbasis} \phi_{\nvec}^* (\xvec^\prime) \phi_{\nvec} (\xvec).
 	\end{eqn*}
-	Note that $\delta_L^*(\xvec^\prime, \xvec) = \delta_L(\xvec, \xvec^\prime)$.
+	Note that $\delta_{\restbasis}^*(\xvec^\prime, \xvec) = \delta_{\restbasis}(\xvec, \xvec^\prime)$.
 \end{definition}
 
-Any function can be projected to $L$ using the projection transformation.
+Any function can be projected to $\restbasis$ using the projection transformation.
 
 \begin{definition}
 \label{def:func-calculus:projector}
 	Projection transformation
 	\begin{eqn*}
-		\mathcal{P} ::
-		\mathbb{F} \rightarrow \mathbb{F}_L \\
-		\mathcal{P}[f](\xvec)
-		& = (\mathcal{C}(\mathcal{C}^{-1}[f])) (\xvec) \\
-		& = \sum_{\nvec \in L} \phi_{\nvec} (\xvec) \int
+		\mathcal{P}_{\restbasis} ::
+		\mathbb{F} \rightarrow \mathbb{F}_{\restbasis} \\
+		\mathcal{P}_{\restbasis}[f](\xvec)
+		& = (\mathcal{C}_{\restbasis}(\mathcal{C}_{\restbasis}^{-1}[f])) (\xvec) \\
+		& = \sum_{\nvec \in \restbasis} \phi_{\nvec} (\xvec) \int
 			d\xvec^\prime\, \phi_{\nvec}^*(\xvec^\prime) f(\xvec^\prime) \\
-		& = \int d\xvec^\prime \delta_P(\xvec^\prime, \xvec) f(\xvec^\prime),
+		& = \int d\xvec^\prime \delta_{\restbasis}(\xvec^\prime, \xvec) f(\xvec^\prime),
 	\end{eqn*}
-	If $L$ is the whole basis, then, obviously, $\mathcal{P} \equiv \mathds{1}$.
+	Obviously, $\mathcal{P}_{\fullbasis} \equiv \mathds{1}$.
 \end{definition}
 
-The conjugate of $\mathcal{P}$ is thus defined as
+The conjugate of $\mathcal{P}_{\restbasis}$ is thus defined as
 \begin{eqn}
-	(\mathcal{P}[f](\xvec))^*
-	= \int d\xvec^\prime \delta_P^*(\xvec^\prime, \xvec) f^*(\xvec^\prime)
-	= \mathcal{P}^* [f^*](\xvec).
+	(\mathcal{P}_{\restbasis}[f](\xvec))^*
+	= \int d\xvec^\prime \delta_{\restbasis}^*(\xvec^\prime, \xvec) f^*(\xvec^\prime)
+	= \mathcal{P}_{\restbasis}^* [f^*](\xvec).
 \end{eqn}
 
-Let $\mathcal{F}[f] :: \mathbb{F}_L \rightarrow \mathbb{F}$ be some transformation (note that the result is not guaranteed to belong to the restricted basis).
-Because of the bijection between $\mathbb{F}_L$ and $\mathbb{C}^{|L|}$, $\mathcal{F}$ can be alternatively treated as a function of a vector of complex numbers:
+Let $\mathcal{F}[f] :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}$ be some transformation (note that the result is not guaranteed to belong to the restricted basis).
+Because of the bijection between $\mathbb{F}_{\restbasis}$ and $\mathbb{C}^{|\restbasis|}$, $\mathcal{F}$ can be alternatively treated as a function of a vector of complex numbers:
 \begin{eqn}
-	\mathcal{F} :: \mathbb{C}^{|L|} \rightarrow \mathbb{C}^\infty \\
-	\mathcal{F}(\balpha) \equiv \mathcal{C}^{-1}[\mathcal{F}[\mathcal{C}(\balpha)]].
+	\mathcal{F} :: \mathbb{C}^{|\restbasis|} \rightarrow \mathbb{C}^\infty \\
+	\mathcal{F}(\balpha) \equiv \mathcal{C}_{\restbasis}^{-1}[\mathcal{F}[\mathcal{C}_{\restbasis}(\balpha)]].
 \end{eqn}
 
 \begin{definition}
@@ -88,19 +89,19 @@ Because of the bijection between $\mathbb{F}_L$ and $\mathbb{C}^{|L|}$, $\mathca
 	\begin{eqn*}
 		\frac{\delta}{\delta f(\xvec^\prime)} ::
 		\left(
-			\mathbb{F}_L \rightarrow \mathbb{F}
+			\mathbb{F}_{\restbasis} \rightarrow \mathbb{F}
 		\right)
 		\rightarrow
 		\left(
-			\mathbb{R}^D \rightarrow \mathbb{F}_L \rightarrow \mathbb{F}
+			\mathbb{R}^D \rightarrow \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}
 		\right) \\
 		\frac{\delta \mathcal{F}[f]}{\delta f(\xvec^\prime)}
-		= \sum_{\nvec \in L} \phi_{\nvec}^* (\xvec^\prime)
+		= \sum_{\nvec \in \restbasis} \phi_{\nvec}^* (\xvec^\prime)
 			\frac{\partial \mathcal{F}(\balpha)}{\partial \alpha_{\nvec}}.
 	\end{eqn*}
 \end{definition}
 
-Note that the transformation being returned differs from the one which was taken: the result of new transformation is a function depending on the additional variable from $\mathbb{R}^D$ ($\xvec^\prime$).
+Note that the transformation being returned differs from the one which was taken: the result of the new transformation is a function of the additional variable from $\mathbb{R}^D$ ($\xvec^\prime$).
 This variable comes from the function we are differentiating by.
 
 Functional derivatives behave in many ways similar to Wirtinger derivatives.
@@ -108,16 +109,16 @@ The detailed treatment can be found in~\cite{Dalton2011}.
 In particular, the following useful lemma can be easily proved:
 
 \begin{lemma}
-	If $g(z)$ can be expanded into series of $z^n (z^*)^m$, and functional $\mathcal{F}[f, f^*] \equiv g(f, f^*)$, then $\delta \mathcal{F} / \delta f^\prime$ and $\delta \mathcal{F} / \delta f^{\prime*}$ can be treated as partial differentiation of the functional of two independent variables $f$ and $f^*$.
+	If $g(z)$ is a function of complex variable that can be expanded into series of $z^n (z^*)^m$, and functional $\mathcal{F}[f, f^*] \equiv g(f, f^*)$, $\mathcal{F} \in \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}$, then $\delta \mathcal{F} / \delta f^\prime$ and $\delta \mathcal{F} / \delta f^{\prime*}$ can be treated as partial differentiation of the functional of two independent variables $f$ and $f^*$.
 	In other words:
 	\begin{eqn*}
 		\frac{\delta \mathcal{F}}{\delta f^\prime}
-		= \delta_P(\xvec^\prime, \xvec) \left.
+		= \delta_{\restbasis}(\xvec^\prime, \xvec) \left.
 			\frac{\partial g(z, z^*)}{\partial z}
 		\right|_{z=f(x)},
 		\quad
 		\frac{\delta \mathcal{F}}{\delta f^{\prime*}}
-		= \delta_P^*(\xvec^\prime, \xvec) \left.
+		= \delta_{\restbasis}^*(\xvec^\prime, \xvec) \left.
 			\frac{\partial g(z, z^*)}{\partial z^*}
 		\right|_{z=f^*(x)}
 	\end{eqn*}
@@ -127,65 +128,62 @@ Functional integration is defined as
 
 \begin{definition}
 	\begin{eqn*}
-		\int \delta f :: \mathbb{F}_L \rightarrow \mathbb{C} \\
+		\int \delta f :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{C} \\
 		\int \delta^2 f \mathcal{F}[f]
 		= \int d^2\balpha \mathcal{F}(\balpha)
 		= \left(
-			\prod_{\nvec \in L} \int d^2\alpha_{\nvec}
+			\prod_{\nvec \in \restbasis} \int d^2\alpha_{\nvec}
 		\right) \mathcal{F}(\balpha).
 	\end{eqn*}
 \end{definition}
 
-If the basis contains infinite number of modes, the integral is treated as a limit $|L| \rightarrow \infty$.
+If the basis contains infinite number of modes, the integral is treated as a limit $|\restbasis| \rightarrow \infty$.
 
 We will need the delta functional:
 \begin{definition}
-	For $\Lambda \in \mathbb{F}_L$ the delta functional is
+	For a function $\Lambda \in \mathbb{F}_{\restbasis}$ the delta functional is
 	\begin{eqn*}
-		\Delta[\Lambda]
-		\equiv \prod_{\nvec \in L} \delta(\Real \lambda_{\nvec}) \delta(\Imag \lambda_{\nvec}),
+		\Delta_{\restbasis}[\Lambda]
+		\equiv \prod_{\nvec \in \restbasis} \delta(\Real \lambda_{\nvec}) \delta(\Imag \lambda_{\nvec}),
 	\end{eqn*}
-	where $\blambda = \mathcal{C}^{-1}[\Lambda]$.
+	where $\blambda = \mathcal{C}_{\restbasis}^{-1}[\Lambda]$.
 	Note that it is really a functional and not a transformation: it depends only on $\blambda$, but not on coordinates.
 \end{definition}
 
 The delta functional has the same property as the common delta function:
 \begin{eqn}
-	\int \delta^2 \Lambda \mathcal{F}[\Lambda] \Delta[\Lambda]
+	\int \delta^2 \Lambda \mathcal{F}[\Lambda] \Delta_{\restbasis}[\Lambda]
 	& = \left(
-			\prod_{\nvec \in L} \int d^2\lambda_{\nvec}
+			\prod_{\nvec \in \restbasis} \int d^2\lambda_{\nvec}
 		\right)
 		\mathcal{F}(\blambda)
-		\prod_{\nvec \in L} \delta(\Real \lambda_{\nvec}) \delta(\Imag \lambda_{\nvec}) \\
+		\prod_{\nvec \in \restbasis} \delta(\Real \lambda_{\nvec}) \delta(\Imag \lambda_{\nvec}) \\
 	& = \left. \mathcal{F}(\blambda) \right|_{\forall \nvec\, \lambda_{\nvec} = 0} \\
 	& = \left. \mathcal{F}[\Lambda] \right|_{\Lambda \equiv 0}
 \end{eqn}
 
 \begin{lemma}[Functional extension of \lmmref{c-numbers:fourier-of-moments}]
 \label{lmm:func-calculus:fourier-of-moments}
-	If $\Psi$ and $\Lambda$ are complex-valued functions of coordinate $\xvec$,
-	then for any non-negative integers $r$ and $s$:
+	For $\Psi \in \mathbb{F}_{\restbasis}$ and $\Lambda \in \mathbb{F}_{\restbasis}$, and for any non-negative integers $r$ and $s$:
 	\begin{eqn*}
 		\int \delta^2\Psi\, \Psi^r (\Psi^*)^s \exp \left(
 				\int d\xvec \left( -\Lambda \Psi^* + \Lambda^* \Psi \right)
 			\right) \\
-		= \pi^{2|L|}
+		= \pi^{2|\restbasis|}
 			\left( -\frac{\delta}{\delta \Lambda^*} \right)^r
 			\left( \frac{\delta}{\delta \Lambda} \right)^s
-			\Delta[\Lambda]
+			\Delta_{\restbasis}[\Lambda]
 	\end{eqn*}
 \end{lemma}
 \begin{proof}
-The proof consists of expanding functions into sums of modes and applying \lmmref{c-numbers:fourier-of-moments} $|L|$ times.
+The proof consists of expanding functions into sums of modes and applying \lmmref{c-numbers:fourier-of-moments} $|\restbasis|$ times.
 \end{proof}
 
-In order to perform transformations of master equations in the future,
-we will need a lemma, which justifies certain operation with Laplacian
-(which is a part of the kinetic term in Hamiltonian).
+In order to perform transformations of master equations in the future, we will need a lemma, which justifies certain operation with the Laplacian (which is a part of the kinetic term in the Hamiltonian).
 
 \begin{lemma}
 \label{lmm:func-calculus:move-laplacian}
-	If $\forall \nvec \in L, \xvec \in \partial A$ $\phi_{\nvec}(\xvec) = 0$, then
+	If $\mathbb{F} \in \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}$, and $\forall \nvec \in \restbasis, \xvec \in \partial A$ $\phi_{\nvec}(\xvec) = 0$, then
 	\begin{eqn*}
 		\int\limits_A d\xvec \left(
 			\nabla^2 \frac{\delta}{\delta \Psi}
@@ -195,7 +193,7 @@ we will need a lemma, which justifies certain operation with Laplacian
 	\end{eqn*}
 \end{lemma}
 \begin{proof}
-The proof consists of function expansion into mode sum and application of Green's first identity.
+The proof consists of a function expansion into a mode sum and an application of Green's first identity.
 \end{proof}
 
 Note that the above lemma imposes an additional requirement for basis functions, but in practical applications it is always satisfied.

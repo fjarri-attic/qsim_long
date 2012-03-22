@@ -23,7 +23,7 @@ Using Baker-Hausdorff theorem to split non-commuting operators in the exponent, 
 	= (\hat{a} - \frac{1}{2} \lambda) \hat{D}(\lambda, \lambda^*).
 \end{eqn}
 
-Wigner transformation converts an operator $\hat{A}$ on a Hilbert space to a function $\mathcal{W}[\hat{A}](\alpha, \alpha^*)$ on phase space.
+Wigner transformation converts an operator $\hat{A}$ on a Hilbert space to a function $\mathcal{W}[\hat{A}](\alpha, \alpha^*)$ on a phase space.
 In terms of the displacement operator Wigner transformation $\mathcal{W}$ and Wigner function $W$ can be defined as
 
 \begin{definition}
@@ -40,8 +40,7 @@ In terms of the displacement operator Wigner transformation $\mathcal{W}$ and Wi
 	\end{eqn*}
 \end{definition}
 
-The Wigner function always exists for any density matrix~\cite{Gardiner2004}.
-The correspondence $W \leftrightarrow \hat{\rho}$ is a bijection.
+The Wigner function always exists for any density matrix~\cite{Gardiner2004}, and the correspondence $W \leftrightarrow \hat{\rho}$ is a bijection.
 In some cases it is convenient to use the Wigner function in form
 \begin{equation}
 \label{eqn:sm-wigner:w-function}
@@ -81,19 +80,20 @@ where $\chi_W (\lambda, \lambda^*)$ is the characteristic function:
 We will prove the first equation.
 Expanding $\lambda = x + iy$ and applying Baker-Hausdorff theorem:
 \begin{eqn}
+\label{eqn:sm-wigner:BH-displacement}
 	\hat{D}(\lambda, \lambda^*)
 	= \exp(ixy) \exp(x(\hat{a}^\dagger - \hat{a})) \exp(iy(\hat{a}^\dagger + \hat{a}))
 \end{eqn}
-Expanding derivatives over $\partial/\partial\lambda$ and $\partial/\partial\lambda^*$ in terms of $\partial/\partial x$ and $\partial/\partial y$, and exponents in the expression for $\hat{D}$ as power series:
+Expanding derivatives over $\partial/\partial\lambda$ and $\partial/\partial\lambda^*$ in terms of $\partial/\partial x$ and $\partial/\partial y$, and exponents in~\eqnref{sm-wigner:BH-displacement} as power series:
 \begin{eqn}
-	\int d^2\lambda
+\fl	\int d^2\lambda
 		\frac{\partial}{\partial \lambda} \left(
 			\exp(-\lambda \alpha^* + \lambda^* \alpha)
 			\left( \frac{\partial}{\partial \lambda} \right)^m
 			\left( -\frac{\partial}{\partial \lambda^*} \right)^n
 			\hat{D}(\lambda, \lambda^*)
 		\right) \\
-	= \sum_{r=0}^{\infty} \sum_{s=0}^{\infty} \left(
+\fl	= \sum_{r=0}^{\infty} \sum_{s=0}^{\infty} \left(
 			\int d^2\lambda
 			\frac{\partial}{\partial \lambda} \left(
 				\exp(-\lambda \alpha^* + \lambda^* \alpha)
@@ -101,7 +101,7 @@ Expanding derivatives over $\partial/\partial\lambda$ and $\partial/\partial\lam
 			\right)
 		\right)
 		g_{rs}(\hat{a}, \hat{a}^\dagger) \\
-	= 0,
+\fl	= 0,
 \end{eqn}
 where $f_{mnrs}(x, y)$ and $g_{rs}(\hat{a}, \hat{a}^\dagger)$ are some finite-order polynomials,
 and we used \lmmref{c-numbers:zero-integrals} to evaluate integrals over $\lambda$.
@@ -120,7 +120,7 @@ and we used \lmmref{c-numbers:zero-integrals} to evaluate integrals over $\lambd
 	\end{eqn*}
 \end{lemma}
 \begin{proof}
-The exponent in the $\chi_W$ can be expanded as
+The displacement operator can be expanded into power series as
 \begin{eqn}
 	\exp (\lambda \hat{a}^\dagger - \lambda^* \hat{a})
 	= \sum_{r,s}
@@ -153,9 +153,59 @@ Apparently, the application of $(\partial / \partial \lambda)^s$ and $(-\partial
 \end{eqn}
 \end{proof}
 
-Now we can get the final relation.
+Now we have all we need to prove two main theorems for working with Wigner representation.
+First one allows us to transform operator equations to ordinary differential equations.
+Second one gives a way to calculate any moments of the operators, given the solution of the differential equation.
 
-\begin{theorem}
+\begin{theorem}[Operator correspondences]
+\label{thm:sm-wigner:correspondences}
+\begin{eqn*}
+	\mathcal{W} [ \hat{a} \hat{A} ]
+		& = \left( \alpha + \frac{1}{2} \frac{\partial}{\partial \alpha^*} \right) \mathcal{W}[\hat{A}],
+	\quad
+	\mathcal{W} [ \hat{a}^\dagger \hat{A} ]
+		= \left( \alpha^* - \frac{1}{2} \frac{\partial}{\partial \alpha} \right) \mathcal{W}[\hat{A}], \\
+	\mathcal{W} [ \hat{A} \hat{a} ]
+		& = \left( \alpha - \frac{1}{2} \frac{\partial}{\partial \alpha^*} \right) \mathcal{W}[\hat{A}],
+	\quad
+	\mathcal{W} [ \hat{A} \hat{a}^\dagger ]
+		= \left( \alpha^* + \frac{1}{2} \frac{\partial}{\partial \alpha} \right) \mathcal{W}[\hat{A}].
+\end{eqn*}
+\end{theorem}
+\begin{proof}
+We will prove the first correspondence.
+First, let us transform the trace using~\eqnref{sm-wigner:displacement-derivatives}:
+\begin{eqn}
+	\Trace{ \hat{a} \hat{A} \hat{D} }
+	& = \Trace{ \hat{A} \left(
+		-\frac{\partial}{\partial \lambda^*}
+		-\frac{1}{2} \lambda
+	\right) \hat{D}} \\
+	& = \left(
+		-\frac{\partial}{\partial \lambda^*}
+		-\frac{1}{2} \lambda
+	\right) \Trace{ \hat{A} \hat{D}}
+\end{eqn}
+Now we need to move this additional multiplier outside the integral in the expression for Wigner function:
+\begin{eqn}
+\fl	\mathcal{W} [ \hat{a} \hat{A} ]
+	& = \frac{1}{\pi^2} \int d^2 \lambda \exp(-\lambda \alpha^* + \lambda^* \alpha)
+		\Trace{ \hat{a} \hat{A} \hat{D}(\lambda, \lambda^*) } \\
+\fl	& = \frac{1}{2} \frac{\partial}{\partial \alpha^*} \mathcal{W} [\hat{A}]
+	- \frac{1}{\pi^2} \int d^2 \lambda \exp(-\lambda \alpha^* + \lambda^* \alpha)
+		\frac{\partial}{\partial \lambda^*}
+		\Trace{ \hat{A} \hat{D}(\lambda, \lambda^*) } \\
+\fl	& = \frac{1}{2} \frac{\partial}{\partial \alpha^*} \mathcal{W} [\hat{A}]
+	+ \frac{1}{\pi^2} \int d^2 \lambda \left(
+		\frac{\partial}{\partial \lambda^*} \exp(-\lambda \alpha^* + \lambda^* \alpha)
+	\right)
+	\Trace{ \hat{A} \hat{D}(\lambda, \lambda^*) } \\
+\fl	& = \left( \alpha + \frac{1}{2} \frac{\partial}{\partial \alpha^*} \right) \mathcal{W} [\hat{A}],
+\end{eqn}
+where we used~\lmmref{sm-wigner:zero-integrals} to move the partial derivative over $\lambda^*$.
+\end{proof}
+
+\begin{theorem}[Calculation of moments]
 \label{thm:sm-wigner:moments}
 	Expectations of symmetrically ordered operator products are moments of the Wigner function:
 	\begin{eqn*}
@@ -203,51 +253,3 @@ Now, recognising the final expression as a part of \lmmref{sm-wigner:moments-fro
 we immideately get the statement of the theorem.
 \end{proof}
 
-\begin{theorem}[Operator correspondences]
-\label{thm:sm-wigner:correspondences}
-\begin{eqn*}
-	\mathcal{W} [ \hat{a} \hat{A} ]
-		& = \left( \alpha + \frac{1}{2} \frac{\partial}{\partial \alpha^*} \right) \mathcal{W}[\hat{A}],
-	\quad
-	\mathcal{W} [ \hat{a}^\dagger \hat{A} ]
-		= \left( \alpha^* - \frac{1}{2} \frac{\partial}{\partial \alpha} \right) \mathcal{W}[\hat{A}], \\
-	\mathcal{W} [ \hat{A} \hat{a} ]
-		& = \left( \alpha - \frac{1}{2} \frac{\partial}{\partial \alpha^*} \right) \mathcal{W}[\hat{A}],
-	\quad
-	\mathcal{W} [ \hat{A} \hat{a}^\dagger ]
-		= \left( \alpha^* + \frac{1}{2} \frac{\partial}{\partial \alpha} \right) \mathcal{W}[\hat{A}].
-\end{eqn*}
-\end{theorem}
-\begin{proof}
-We will prove the first correspondence.
-First, let us transform the trace using~\eqnref{sm-wigner:displacement-derivatives}:
-\begin{eqn}
-	\Trace{ \hat{a} \hat{A} \hat{D} }
-	& = \Trace{ \hat{A} \hat{D} \hat{a}} \\
-	& = \Trace{ \hat{A} \left(
-		-\frac{\partial}{\partial \lambda^*}
-		-\frac{1}{2} \lambda
-	\right) \hat{D}} \\
-	& = \left(
-		-\frac{\partial}{\partial \lambda^*}
-		-\frac{1}{2} \lambda
-	\right) \Trace{ \hat{A} \hat{D}}
-\end{eqn}
-Now we need to somehow move this additional multiplier outside the integral in the expression for Wigner function:
-\begin{eqn}
-\fl	\mathcal{W} [ \hat{a} \hat{A} ]
-	& = \frac{1}{\pi^2} \int d^2 \lambda \exp(-\lambda \alpha^* + \lambda^* \alpha)
-		\Trace{ \hat{a} \hat{A} \hat{D}(\lambda, \lambda^*) } \\
-\fl	& = \frac{1}{2} \frac{\partial}{\partial \alpha^*} \mathcal{W} [\hat{A}]
-	- \frac{1}{\pi^2} \int d^2 \lambda \exp(-\lambda \alpha^* + \lambda^* \alpha)
-		\frac{\partial}{\partial \lambda^*}
-		\Trace{ \hat{A} \hat{D}(\lambda, \lambda^*) } \\
-\fl	& = \frac{1}{2} \frac{\partial}{\partial \alpha^*} \mathcal{W} [\hat{A}]
-	+ \frac{1}{\pi^2} \int d^2 \lambda \left(
-		\frac{\partial}{\partial \lambda^*} \exp(-\lambda \alpha^* + \lambda^* \alpha)
-	\right)
-	\Trace{ \hat{A} \hat{D}(\lambda, \lambda^*) } \\
-\fl	& = \left( \alpha + \frac{1}{2} \frac{\partial}{\partial \alpha^*} \right) \mathcal{W} [\hat{A}].
-\end{eqn}
-Note that we used~\lmmref{sm-wigner:zero-integrals} to move the partial derivative over $\lambda^*$.
-\end{proof}
