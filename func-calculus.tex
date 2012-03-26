@@ -128,7 +128,7 @@ Functional integration is defined as
 
 \begin{definition}
 	\begin{eqn*}
-		\int \delta f :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{C} \\
+		\int \delta^2 f :: (\mathbb{F}_{\restbasis} \rightarrow \mathbb{F}) \rightarrow \mathbb{C} \\
 		\int \delta^2 f \mathcal{F}[f]
 		= \int d^2\balpha \mathcal{F}(\balpha)
 		= \left(
@@ -158,7 +158,7 @@ The delta functional has the same property as the common delta function:
 		\right)
 		\mathcal{F}(\blambda)
 		\prod_{\nvec \in \restbasis} \delta(\Real \lambda_{\nvec}) \delta(\Imag \lambda_{\nvec}) \\
-	& = \left. \mathcal{F}(\blambda) \right|_{\forall \nvec\, \lambda_{\nvec} = 0} \\
+	& = \left. \mathcal{F}(\blambda) \right|_{\forall \nvec \in \restbasis\, \lambda_{\nvec} = 0} \\
 	& = \left. \mathcal{F}[\Lambda] \right|_{\Lambda \equiv 0}
 \end{eqn}
 
@@ -183,7 +183,7 @@ In order to perform transformations of master equations in the future, we will n
 
 \begin{lemma}
 \label{lmm:func-calculus:move-laplacian}
-	If $\mathbb{F} \in \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}$, and $\forall \nvec \in \restbasis, \xvec \in \partial A$ $\phi_{\nvec}(\xvec) = 0$, then
+	If $\mathcal{F} \in \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}$, and $\forall \nvec \in \restbasis, \xvec \in \partial A$ $\phi_{\nvec}(\xvec) = 0$, then
 	\begin{eqn*}
 		\int\limits_A d\xvec \left(
 			\nabla^2 \frac{\delta}{\delta \Psi}
