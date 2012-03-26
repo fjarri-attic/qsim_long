@@ -5,15 +5,16 @@
 First, we will define functional analogue of the displacement operator from \defref{sm-wigner:displacement-op}:
 
 \begin{definition}
+    Functional displacement operator
 	\begin{eqn*}
-		\hat{D} :: \mathbb{F}_L \rightarrow	\mathbb{H}_L \\
+		\hat{D} :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{H}_{\restbasis} \\
 		\hat{D}[\Lambda, \Lambda^*] = \exp \int d\xvec \left(
 			\Lambda(\xvec) \Psiop^\dagger(\xvec) - \Lambda^*(\xvec) \Psiop(\xvec)
 		\right).
 	\end{eqn*}
-	It is convenient to also define displacement functional as
+	It is also convenient to define the displacement functional as
 	\begin{eqn*}
-		D :: \mathbb{F}_L \rightarrow \mathbb{F}_L \rightarrow \mathbb{C} \\
+		D :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}_{\restbasis} \rightarrow \mathbb{C} \\
 		D[\Lambda, \Lambda^*, \Psi, \Psi^*] = \exp \int d\xvec \left(
 			-\Lambda(\xvec) \Psi^*(\xvec) + \Lambda^*(\xvec) \Psi(\xvec)
 		\right).
@@ -24,7 +25,6 @@ It can be shown that the displacement operator has properties similar to~\eqnref
 
 \begin{lemma}
 \label{lmm:func-wigner:displacement-derivatives}
-	For any $\Lambda \in \mathbb{F}_L$:
 	\begin{eqn*}
 		\frac{\delta}{\delta \Lambda^\prime} \hat{D}[\Lambda, \Lambda^*]
 		= \hat{D}[\Lambda, \Lambda^*] (\Psiop^{\prime\dagger} + \frac{1}{2} \Lambda^{\prime*})
@@ -39,32 +39,28 @@ Proved using Baker-Hausdorff theorem and evaluating integrals.
 \end{proof}
 
 \begin{definition}
+\label{eqn:func-wigner:w-transformation}
 	Functional Wigner transformation $\mathcal{W}$ is defined as
 	\begin{eqn*}
-	\label{eqn:func-wigner:w-transformation}
-		\mathcal{W} :: \mathbb{FH}_L \rightarrow (\mathbb{F}_L \rightarrow \mathbb{C}) \\
+		\mathcal{W} :: \mathbb{FH}_{\restbasis} \rightarrow (\mathbb{F}_{\restbasis} \rightarrow \mathbb{C}) \\
 		\mathcal{W}[\hat{A}]
-		= \frac{1}{\pi^{2N}} \int \delta^2 \Lambda
+		= \frac{1}{\pi^{2|\restbasis|}} \int \delta^2 \Lambda
 			D[\Lambda, \Lambda^*, \Psi, \Psi^*]
 			\Trace{ \hat{A} \hat{D}[\Lambda, \Lambda^*] }.
 	\end{eqn*}
 	It transforms an operator $\hat{A}$ on a restricted Hilbert space to a functional $(\mathcal{W}[\hat{A}])[\Psi, \Psi^*]$.
-\end{definition}
-
-\begin{definition}
-\label{def:func-wigner:w-functional}
 	The Wigner functional is
 	\begin{eqn*}
-		W :: \mathbb{F}_L \rightarrow \mathbb{C} \\
+		W :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{C} \\
 		W [\Psi, \Psi^*]
 		\equiv \mathcal{W}[\hat{\rho}]
-		= \frac{1}{\pi^{2N}} \int \delta^2 \Lambda
+		= \frac{1}{\pi^{2|\restbasis|}} \int \delta^2 \Lambda
 			D[\Lambda, \Lambda^*, \Psi, \Psi^*]
 			\chi_W [\Lambda, \Lambda^*],
 	\end{eqn*}
 	where $\chi_W [\Lambda, \Lambda^*]$ is the characteristic functional
 	\begin{eqn*}
-		\chi_W :: \mathbb{F}_L \rightarrow \mathbb{R} \\
+		\chi_W :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{R} \\
 		\chi_W [\Lambda, \Lambda^*]
 		= \Trace{ \hat{\rho} \hat{D}[\Lambda, \Lambda^*] }.
 	\end{eqn*}
@@ -72,7 +68,6 @@ Proved using Baker-Hausdorff theorem and evaluating integrals.
 
 \begin{lemma}[Functional extension of \lmmref{sm-wigner:zero-integrals}]
 \label{lmm:func-wigner:zero-integrals}
-	If $\Lambda \in \mathbb{F}_L$ and $\Psi \in \mathbb{F}_L$:
 	\begin{eqn*}
 		\int \delta^2\Lambda
 			\frac{\delta}{\delta \Lambda^\prime} \left(
@@ -94,16 +89,16 @@ Proved using Baker-Hausdorff theorem and evaluating integrals.
 	\end{eqn*}
 \end{lemma}
 \begin{proof}
-Displacement operator and displacement functions can be represented as functions of vectors:
+Displacement operator and displacement functional can be represented as functions of vectors:
 \begin{eqn}
 	\hat{D}[\Lambda, \Lambda^*]
-	= \prod_{\nvec \in L} \exp \left(
+	= \prod_{\nvec \in \restbasis} \exp \left(
 		\lambda_{\nvec} \hat{a}_{\nvec}^\dagger - \lambda_{\nvec}^* \hat{a}_{\nvec}
 	\right),
 \end{eqn}
 \begin{eqn}
 	D[\Lambda, \Lambda^*, \Psi, \Psi^*]
-	= \prod_{\nvec \in L} \exp
+	= \prod_{\nvec \in \restbasis} \exp
 		(-\lambda_{\nvec} \alpha_{\nvec}^* + \lambda_{\nvec}^* \alpha_{\nvec}),
 \end{eqn}
 The proof consists of substituting these in the equations from the statement and applying \lmmref{c-numbers:zero-integrals}.
@@ -111,6 +106,7 @@ The proof consists of substituting these in the equations from the statement and
 
 \begin{lemma}[Functional extension of \lmmref{sm-wigner:moments-from-chi}]
 \label{lmm:func-wigner:moments-from-chi}
+    For any non-negative integer $r$ and $s$:
 	\begin{eqn*}
 		\langle \symprod{ (\Psiop^\prime)^r (\Psiop^{\prime\dagger})^s } \rangle
 		= \left.
@@ -158,55 +154,9 @@ and all higher order terms will be eliminated by setting $\Lambda \equiv 0$,
 leaving only one operator product with required order.
 \end{proof}
 
-\begin{theorem}[Functional extension of \thmref{sm-wigner:moments}]
-\label{thm:func-wigner:moments}
-	\begin{eqn*}
-		\langle \symprod{ \Psiop^r (\Psiop^\dagger)^s } \rangle
-		= \int \delta^2\Psi\, \Psi^r (\Psi^*)^s W[\Psi, \Psi^*]
-	\end{eqn*}
-\end{theorem}
-\begin{proof}
-By definition of Wigner functional:
-\begin{eqn}
-	\int \delta^2\Psi\, \Psi^r (\Psi^*)^s W[\Psi, \Psi^*] \\
-	= \frac{1}{\pi^{2N}} \Trace{ \hat{\rho}
-		\int \delta^2\Psi\, \Psi^r (\Psi^*)^s
-		\int \delta^2\Lambda D[\Lambda, \Lambda^*, \Psi, \Psi^*]
-		\hat{D}[\Lambda, \Lambda^*]
-	}
-\end{eqn}
-Integrating by parts and eliminating terms which fit \lmmref{func-wigner:zero-integrals}:
-\begin{eqn}
-\fl	= \frac{1}{\pi^{2N}} \Trace{ \hat{\rho}
-		\int \delta^2\Psi \int \delta^2\Lambda
-		D[\Lambda, \Lambda^*, \Psi, \Psi^*]
-		\left( \frac{\delta}{\delta \Lambda} \right)^s
-		\left( -\frac{\delta}{\delta \Lambda^*} \right)^r
-		\hat{D}[\Lambda, \Lambda^*]
-	}
-\end{eqn}
-Evaluating integral over $\Psi$ using \lmmref{func-calculus:fourier-of-moments}:
-\begin{eqn*}
-	& = \int \delta^2\Lambda\,
-		\Delta[\Lambda]
-		\left( \frac{\delta}{\delta \Lambda} \right)^s
-		\left( -\frac{\delta}{\delta \Lambda^*} \right)^r
-		\Trace{
-			\hat{\rho}
-			\hat{D}[\Lambda, \Lambda^*]
-		} \\
-	& = \left.
-		\left( \frac{\delta}{\delta \Lambda} \right)^s
-		\left( -\frac{\delta}{\delta \Lambda^*} \right)^r
-		\chi_W [\Lambda, \Lambda^*]
-	\right|_{\Lambda \equiv 0}.
-\end{eqn*}
-Now, recognising the final expression as a part of \lmmref{func-wigner:moments-from-chi},
-we immediately get the statement of the theorem.
-\end{proof}
-
 \begin{theorem}[Functional extension of \thmref{sm-wigner:correspondences}]
 \label{thm:func-wigner:correspondences}
+    If $\mathcal{W} [ \hat{A} ] \equiv (\mathcal{W} [ \hat{A} ]) [\Psi, \Psi^*]$, then
 	\begin{eqn*}
 		\mathcal{W} [ \Psiop \hat{A} ]
 			& = \left( \Psi + \frac{1}{2} \frac{\delta}{\delta \Psi^*} \right) \mathcal{W}[\hat{A}],
@@ -224,31 +174,81 @@ we immediately get the statement of the theorem.
 The proof follows the same scheme as in the single-mode case, with \lmmref{func-wigner:displacement-derivatives} used to transform the $\hat{A}\hat{D}$ product inside the trace, and \lmmref{func-wigner:zero-integrals} to move the differentials.
 \end{proof}
 
-\thmref{func-wigner:moments} and \thmref{func-wigner:correspondences} can be further extended to the case of several components.
-They can be proved in exactly the same way.
-
-\begin{theorem}[Multi-component extension of \thmref{func-wigner:moments}]
-\label{thm:func-wigner:mc-moments}
-	If $C$ is the number of components, then
+\begin{theorem}[Functional extension of \thmref{sm-wigner:moments}]
+\label{thm:func-wigner:moments}
+    For any non-negative integer $r$ and $s$:
 	\begin{eqn*}
-		\int \delta^2\Psi_1 \ldots \int \delta^2\Psi_C\,
-			\prod_{c=1}^C \Psi_c^{r_c} (\Psi_c^*)^{s_c} W[\Psivec, \Psivec^*]
-		= \langle \symprod{ \prod_{c=1}^C \Psiop_c^{r_c} (\Psiop_c^\dagger)^{s_c} } \rangle.
+		\langle \symprod{ \Psiop^r (\Psiop^\dagger)^s } \rangle
+		= \int \delta^2\Psi\, \Psi^r (\Psi^*)^s W[\Psi, \Psi^*].
 	\end{eqn*}
 \end{theorem}
+\begin{proof}
+By definition of Wigner functional:
+\begin{eqn}
+	\int \delta^2\Psi\, \Psi^r (\Psi^*)^s W[\Psi, \Psi^*] \\
+	= \frac{1}{\pi^{2|\restbasis|}} \Trace{ \hat{\rho}
+		\int \delta^2\Psi\, \Psi^r (\Psi^*)^s
+		\int \delta^2\Lambda D[\Lambda, \Lambda^*, \Psi, \Psi^*]
+		\hat{D}[\Lambda, \Lambda^*]
+	}
+\end{eqn}
+Integrating by parts and eliminating terms which fit \lmmref{func-wigner:zero-integrals}:
+\begin{eqn}
+\fl	= \frac{1}{\pi^{2|\restbasis|}} \Trace{ \hat{\rho}
+		\int \delta^2\Psi \int \delta^2\Lambda
+		D[\Lambda, \Lambda^*, \Psi, \Psi^*]
+		\left( \frac{\delta}{\delta \Lambda} \right)^s
+		\left( -\frac{\delta}{\delta \Lambda^*} \right)^r
+		\hat{D}[\Lambda, \Lambda^*]
+	}
+\end{eqn}
+Evaluating the integral over $\Psi$ using \lmmref{func-calculus:fourier-of-moments}:
+\begin{eqn*}
+	& = \int \delta^2\Lambda\,
+		\Delta_{\restbasis}[\Lambda]
+		\left( \frac{\delta}{\delta \Lambda} \right)^s
+		\left( -\frac{\delta}{\delta \Lambda^*} \right)^r
+		\Trace{
+			\hat{\rho}
+			\hat{D}[\Lambda, \Lambda^*]
+		} \\
+	& = \left.
+		\left( \frac{\delta}{\delta \Lambda} \right)^s
+		\left( -\frac{\delta}{\delta \Lambda^*} \right)^r
+		\chi_W [\Lambda, \Lambda^*]
+	\right|_{\Lambda \equiv 0}.
+\end{eqn*}
+Now, recognising the final expression as a part of \lmmref{func-wigner:moments-from-chi},
+we immediately get the statement of the theorem.
+\end{proof}
+
+\thmref{func-wigner:moments} and \thmref{func-wigner:correspondences} can be further extended to the case of several components.
+$C$ components with $|\restbasis|$ modes each are equivalent to a single set of $C|\restbasis|$ modes, which means that \thmref{func-wigner:moments} and \thmref{func-wigner:correspondences} can be applied.
+For convenience, these theorems can be re-formulated in multi-component terms.
 
 \begin{theorem}[Multi-component extension of \thmref{func-wigner:correspondences}]
 \label{thm:func-wigner:mc-correspondences}
-\begin{eqn*}
-	\mathcal{W} [ \Psiop_c \hat{A} ]
-		& = \left( \Psi_c + \frac{1}{2} \frac{\delta}{\delta \Psi_c^*} \right) \mathcal{W}[\hat{A}],
-	\quad
-	\mathcal{W} [ \Psiop_c^\dagger \hat{A} ]
-		= \left( \Psi_c^* - \frac{1}{2} \frac{\delta}{\delta \Psi_c} \right) \mathcal{W}[\hat{A}], \\
-	\mathcal{W} [ \hat{A} \Psiop_c ]
-		& = \left( \Psi_c - \frac{1}{2} \frac{\delta}{\delta \Psi_c^*} \right) \mathcal{W}[\hat{A}],
-	\quad
-	\mathcal{W} [ \hat{A} \Psiop_c^\dagger ]
-		= \left( \Psi_c^* + \frac{1}{2} \frac{\delta}{\partial \Psi_c} \right) \mathcal{W}[\hat{A}].
-\end{eqn*}
+    If $\mathcal{W} [ \hat{A} ] \equiv (\mathcal{W} [ \hat{A} ]) [\Psivec, \Psivec^*]$, then
+    \begin{eqn*}
+    	\mathcal{W} [ \Psiop_c \hat{A} ]
+    		& = \left( \Psi_c + \frac{1}{2} \frac{\delta}{\delta \Psi_c^*} \right) \mathcal{W}[\hat{A}],
+    	\quad
+    	\mathcal{W} [ \Psiop_c^\dagger \hat{A} ]
+    		= \left( \Psi_c^* - \frac{1}{2} \frac{\delta}{\delta \Psi_c} \right) \mathcal{W}[\hat{A}], \\
+    	\mathcal{W} [ \hat{A} \Psiop_c ]
+    		& = \left( \Psi_c - \frac{1}{2} \frac{\delta}{\delta \Psi_c^*} \right) \mathcal{W}[\hat{A}],
+    	\quad
+    	\mathcal{W} [ \hat{A} \Psiop_c^\dagger ]
+    		= \left( \Psi_c^* + \frac{1}{2} \frac{\delta}{\partial \Psi_c} \right) \mathcal{W}[\hat{A}].
+    \end{eqn*}
+\end{theorem}
+
+\begin{theorem}[Multi-component extension of \thmref{func-wigner:moments}]
+\label{thm:func-wigner:mc-moments}
+	For any non-negative integer $r_c$ and $s_c$, $c \in [1, C]$
+	\begin{eqn*}
+	    \langle \symprod{ \prod_{c=1}^C \Psiop_c^{r_c} (\Psiop_c^\dagger)^{s_c} } \rangle
+		= \left( \prod_{c=1}^C \int \delta^2\Psi_c \right)
+		\left( \prod_{c=1}^C \Psi_c^{r_c} (\Psi_c^*)^{s_c} \right) W[\Psivec, \Psivec^*].
+	\end{eqn*}
 \end{theorem}
