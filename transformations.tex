@@ -2,8 +2,7 @@
 \section{Specific cases of transformations}
 % =============================================================================
 
-This section contains some theorems concerning transformations of specific operator sequences,
-which will be useful when transforming the master equation.
+This section contains some theorems concerning transformations of specific operator sequences, which will be useful when transforming the master equation.
 
 \begin{theorem}
 \label{thm:transformations:w-commutator1}
@@ -21,15 +20,13 @@ Proved straightforwardly using \thmref{func-wigner:mc-correspondences} and the r
 	\Psi_k \frac{\delta}{\delta \Psi_j} \mathcal{F}
 	= \left(
 		\frac{\delta}{\delta \Psi_j} \Psi_k
-		- \delta_{jk} \delta_P(\xvec, \xvec)
+		- \delta_{jk} \delta_{\restbasis}(\xvec, \xvec)
 	\right) \mathcal{F}.
 \end{eqn}
 \end{proof}
 
-Commutators with Laplacian inside require somewhat special treatment,
-because it acts on basis functions and, in general, cannot be dragged around like a constant.
-For our purposes we only need one specific case,
-and, fortunately, in this case it does act like a constant.
+Commutators with the Laplacian inside require somewhat special treatment, because it acts on basis functions and, in general, cannot be dragged around like a constant.
+For our purposes we only need one specific case, and, fortunately, in this case it does act like a constant.
 
 \begin{theorem}
 \label{thm:transformations:w-laplacian-commutator1}
@@ -60,23 +57,23 @@ Proved using \thmref{func-wigner:mc-correspondences} and \lmmref{func-calculus:m
     	= \int d\xvec \int d\xvec^\prime \left(
     		\frac{\delta}{\delta \Psi_j} \left(
     			- \Psi_j^\prime \Psi_k \Psi_k^{\prime*}
-    			+ \frac{1}{2} \delta_{jk} \delta_P(\xvec^\prime, \xvec^\prime) \Psi_k
-    			+ \frac{1}{2} \delta_P(\xvec, \xvec^\prime) \Psi_j^\prime
+    			+ \frac{1}{2} \delta_{jk} \delta_{\restbasis}(\xvec^\prime, \xvec^\prime) \Psi_k
+    			+ \frac{1}{2} \delta_{\restbasis}(\xvec, \xvec^\prime) \Psi_j^\prime
     		\right) \right . \\
     	\left. + \frac{\delta}{\delta \Psi_j^{\prime*}} \left(
     			\Psi_j^* \Psi_k \Psi_k^{\prime*}
-    			- \frac{1}{2} \delta_{jk} \delta_P(\xvec, \xvec) \Psi_k^{\prime*}
-    			- \frac{1}{2} \delta_P(\xvec, \xvec^\prime) \Psi_j^*
+    			- \frac{1}{2} \delta_{jk} \delta_{\restbasis}(\xvec, \xvec) \Psi_k^{\prime*}
+    			- \frac{1}{2} \delta_{\restbasis}(\xvec, \xvec^\prime) \Psi_j^*
     		\right) \right. \\
     	\left. + \frac{\delta}{\delta \Psi_k^\prime} \left(
     			- \Psi_j^\prime \Psi_j^* \Psi_k
-    			+ \frac{1}{2} \delta_{jk} \delta_P(\xvec, \xvec) \Psi_j^\prime
-    			+ \frac{1}{2} \delta_P(\xvec^\prime, \xvec) \Psi_k
+    			+ \frac{1}{2} \delta_{jk} \delta_{\restbasis}(\xvec, \xvec) \Psi_j^\prime
+    			+ \frac{1}{2} \delta_{\restbasis}(\xvec^\prime, \xvec) \Psi_k
     		\right) \right .\\
     	\left. + \frac{\delta}{\delta \Psi_k^*} \left(
     			\Psi_j^\prime \Psi_j^* \Psi_k^{\prime*}
-    			- \frac{1}{2} \delta_{jk} \delta_P(\xvec^\prime, \xvec^\prime) \Psi_j^*
-    			- \frac{1}{2} \delta_P(\xvec^\prime, \xvec) \Psi_k^{\prime*}
+    			- \frac{1}{2} \delta_{jk} \delta_{\restbasis}(\xvec^\prime, \xvec^\prime) \Psi_j^*
+    			- \frac{1}{2} \delta_{\restbasis}(\xvec^\prime, \xvec) \Psi_k^{\prime*}
     		\right) \right. \\
     	\left.
     			+ \frac{\delta}{\delta \Psi_j}
@@ -106,11 +103,12 @@ Proof is the same as in case of \thmref{transformations:w-commutator1}.
 
 \begin{lemma}
 \label{lmm:transformations:swap-differential}
+    For $\mathcal{F} \in \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}$ and any non-negative integer $a$, $b$:
     \begin{eqn*}
     	\Psi(\xvec)^a \left( \frac{\delta}{\delta \Psi(\xvec)} \right)^b \mathcal{F}[\Psi, \Psi^*] \\
     	= \sum_{j=0}^{\min(a, b)}
     		\binom{b}{j} \frac{(-1)^j a!}{(a - j)!}
-    		\delta(\xvec, \xvec)^j
+    		\delta_{\restbasis}(\xvec, \xvec)^j
     		\left( \frac{\delta}{\delta \Psi(\xvec)} \right)^{b - j}
     		\Psi(\xvec)^{a - j}
     		\mathcal{F}[\Psi, \Psi^*]
@@ -122,7 +120,7 @@ Proved straightforwardly by induction.
 
 \begin{lemma}[Sum rearrangement]
 \label{lmm:transformations:sum-rearrangement}
-    For integer $l$, $u$:
+    For any non-negative integer $l$, $u$:
     \begin{eqn*}
     	\sum_{j=0}^l \sum_{k=0}^{\min(l-u,j)} x^{j-k} Q(j, k)
     	= \sum_{v=0}^l x^v \sum_{k=0}^{l-\max(u,v)} Q(v + k, k).
@@ -149,7 +147,7 @@ Can be proved either by formal manipulation with sets, or by drawing a picture.
     \end{eqn*}
     then its Wigner transformation is
     \begin{eqn*}
-    	\mathcal{W} \left[ \int d\xvec \hat{\mathcal{L}}_{\lvec} [\hat{A}] \right]
+\fl    	\mathcal{W} \left[ \int d\xvec \hat{\mathcal{L}}_{\lvec} [\hat{A}] \right]
     	= \int d\xvec
     		\sum_{j_1=0}^{l_1} \sum_{k_1=0}^{l_1} \ldots
     		\sum_{j_C=0}^{l_C} \sum_{k_C=0}^{l_C}
@@ -168,7 +166,7 @@ Can be proved either by formal manipulation with sets, or by drawing a picture.
     		\prod_{c=1}^C \left(
     			\sum_{m_c=0}^{l_c - \max(j_c, k_c)}
     			Q_c(j_c, k_c, m_c)
-    			\delta_P(\xvec, \xvec)^{m_c}
+    			\delta_{\restbasis}(\xvec, \xvec)^{m_c}
     			\Psi_c^{l_c - j_c - m_c}
     			(\Psi_c^*)^{l_c - k_c - m_c}
     		\right),

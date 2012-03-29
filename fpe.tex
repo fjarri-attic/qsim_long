@@ -16,7 +16,7 @@ Namely, the term with $K_j$ is transformed using \thmref{transformations:w-commu
 where Wigner function $W = \mathcal{W}[\hat{\rho}]$.
 Nonlinear term is transformed with \thmref{transformations:w-commutator2} (minding the locality of interaction and assuming $U_{kj} = U_{jk}$):
 \begin{eqn}
-	\mathcal{W} \left[
+\fl	\mathcal{W} \left[
 		[
 			\int d\xvec \frac{U_{jk}}{2}
 				\Psiop_j^\dagger \Psiop_k^\dagger \Psiop_j \Psiop_k,
@@ -26,11 +26,11 @@ Nonlinear term is transformed with \thmref{transformations:w-commutator2} (mindi
 	= & \int d\xvec U_{jk} \left(
 		\frac{\delta}{\delta \Psi_j} \left(
 			- \Psi_j \Psi_k \Psi_k^*
-			+ \frac{\delta_P(\xvec, \xvec)}{2} ( \delta_{jk} \Psi_k + \Psi_j )
+			+ \frac{\delta_{\restbasis}(\xvec, \xvec)}{2} ( \delta_{jk} \Psi_k + \Psi_j )
 		\right) \right. \\
 	&	\left. + \frac{\delta}{\delta \Psi_j^*} \left(
 			\Psi_j^* \Psi_k \Psi_k^*
-			- \frac{\delta_P(\xvec, \xvec)}{2} ( \delta_{jk} \Psi_k^* + \Psi_j^* )
+			- \frac{\delta_{\restbasis}(\xvec, \xvec)}{2} ( \delta_{jk} \Psi_k^* + \Psi_j^* )
 		\right) \right. \\
 	&	\left.
 			+ \frac{\delta}{\delta \Psi_j}
@@ -51,9 +51,9 @@ and is practically the same as in theorem statement.
 Transformation to SDE is a very convenient way to solve FPE numerically, but we can only do that if it does not have functional derivatives of order more than 2.
 In the assumption of the state being coherent, the condition for truncation can be shown to be~\cite{Sinatra2002}
 \begin{eqn}
-    N \gg M,
+    N \gg |\restbasis|,
 \end{eqn}
-where $N$ is the number of atoms and $M \equiv |L|$ is the size of the restricted mode subset.
+where $N$ is the number of atoms.
 This condition is equivalent to~\cite{Norrie2006}
 \begin{eqn}
     \delta_L(\xvec, \xvec) \ll | \Psi_j |^2.
@@ -80,7 +80,7 @@ This condition is equivalent to~\cite{Norrie2006}
 \begin{theorem}
     Assuming the conditions for Wigner truncation are satisfied, the result of Wigner transformation of the loss term can be written as
     \begin{eqn*}
-    	\mathcal{W}[\mathcal{L}_{\lvec}[\hat{\rho}]]
+\fl    	\mathcal{W}[\mathcal{L}_{\lvec}[\hat{\rho}]]
     	= \sum_{n=1}^C
     			\frac{\delta}{\delta \Psi_n^*} \frac{\partial O_{\lvec}}{\partial \Psi_n} O_{\lvec}^*
     	+ \sum_{n=1}^C
@@ -94,7 +94,7 @@ This condition is equivalent to~\cite{Norrie2006}
 \end{theorem}
 \begin{proof}
 The proof is basically a simplification of the result of \thmref{transformations:w-losses} under certain conditions.
-First, we are neglecting all occurrences of $\delta_P$, which means setting $m_c = 0$ for every $c$.
+First, we are neglecting all occurrences of $\delta_{\restbasis}$, which means setting $m_c = 0$ for every $c$.
 Second, we are dropping all terms with high order differentials,
 which can be expressed as limiting $\sum j_c + \sum k_c \le 2$.
 The only combinations of $j_c$ and $k_c$ for which $Z(\jvec, \kvec)$ is not zero are thus
@@ -109,7 +109,7 @@ Applying these conditions one can get the statement of the theorem.
 
 Assuming that $K_{jk}$, $U_{jk}$ and $\kappa_{\lvec}$ are real-valued, resulting Wigner-transformed master equation is
 \begin{eqn}
-	\frac{dW}{dt}
+\fl	\frac{dW}{dt}
 	= \int d\xvec \left(
 		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} A_j
 		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} A_j^*
@@ -143,6 +143,6 @@ where
 \end{eqn}
 and $Q_{\lvec}$ is a functional Wiener process:
 \begin{eqn}
-	Q_{\lvec} = \sum_{\nvec \in L \cup H} \phi_j Z_{\lvec,\nvec},
+	Q_{\lvec} = \sum_{\nvec \in \fullbasis} \phi_j Z_{\lvec,\nvec},
 \end{eqn}
-and $Z_{\lvec,\nvec}$ is, in turn, a complex-valued Wiener process.
+and $Z_{\lvec,\nvec}$ are, in turn, independent complex-valued Wiener processes.

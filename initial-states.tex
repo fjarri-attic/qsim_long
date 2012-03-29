@@ -6,10 +6,10 @@ The simplest case of initial state is a coherent state.
 
 \begin{theorem}
     The Wigner distribution for a multi-mode coherent state with with expectation values
-    $\alpha_{\nvec}(0) = \alpha_{\nvec}^{(0)}$, $\nvec \in L$ is
+    $\alpha_{\nvec}(0) = \alpha_{\nvec}^{(0)}$, $\nvec \in \restbasis$ is
     \begin{eqn*}
     	W_c (\balpha^{(0)})
-    	= \left( \frac{2}{\pi} \right)^N \prod_{\nvec \in L}
+    	= \left( \frac{2}{\pi} \right)^{|\restbasis|} \prod_{\nvec \in \restbasis}
     		\exp(-2 |\alpha_{\nvec} - \alpha_{\nvec}^{(0)}|^2).
     \end{eqn*}
 \end{theorem}
@@ -17,15 +17,15 @@ The simplest case of initial state is a coherent state.
 The density matrix of the state is
 \begin{eqn}
 	\hat{\rho}
-	= \vert \alpha_{\nvec}^{(0)},\, \nvec \in L \rangle
-		\langle \alpha_{\nvec}^{(0)},\, \nvec \in L \vert
-	= \left( \prod_{\nvec \in L} \vert \alpha_{\nvec}^{(0)} \rangle \right)
-		\left( \prod_{\nvec \in L} \langle \alpha_{\nvec}^{(0)} \vert \right).
+	= \vert \alpha_{\nvec}^{(0)},\, \nvec \in \restbasis \rangle
+		\langle \alpha_{\nvec}^{(0)},\, \nvec \in \restbasis \vert
+	= \left( \prod_{\nvec \in \restbasis} \vert \alpha_{\nvec}^{(0)} \rangle \right)
+		\left( \prod_{\nvec \in \restbasis} \langle \alpha_{\nvec}^{(0)} \vert \right).
 \end{eqn}
 Then the characteristic function is
 \begin{eqn}
 	\chi_W (\balpha^{(0)})
-	= \prod_{\nvec \in L}
+	= \prod_{\nvec \in \restbasis}
 		\langle \alpha_{\nvec}^{(0)} \vert
 		\hat{D}_{\nvec} (\lambda_{\nvec}, \lambda_{\nvec}^*)
 		\vert \alpha_{\nvec}^{(0)} \rangle
@@ -33,18 +33,17 @@ Then the characteristic function is
 Using the properties of the displacement operator, this can be transformed to
 \begin{eqn}
 	\chi_W (\balpha^{(0)})
-	= \prod_{\nvec \in L}
+	= \prod_{\nvec \in \restbasis}
 		\exp(
 			- \lambda_{\nvec}^* \alpha_{\nvec}^{(0)}
 			+ \lambda_{\nvec} (\alpha_{\nvec}^{(0)})^*
 			- \frac{1}{2} |\lambda|^2
 		).
 \end{eqn}
-
 Finally, Wigner function is
 \begin{eqn}
-	W_c (\balpha^{(0)})
-	& = \frac{1}{\pi^{2N}} \prod_{\nvec \in L} \left(
+\fl	W_c (\balpha^{(0)})
+	= \frac{1}{\pi^{2|\restbasis|}} \prod_{\nvec \in \restbasis} \left(
 		\int d^2\lambda_{\nvec}
 			\exp(
 				- \lambda_{\nvec} (\alpha_{\nvec}^* - (\alpha_{\nvec}^{(0)})^*)
@@ -52,7 +51,7 @@ Finally, Wigner function is
 				- \frac{1}{2} |\lambda|^2
 			)
 	\right) \\
-	& = \left( \frac{2}{\pi} \right)^N \prod_{\nvec \in L}
+	= \left( \frac{2}{\pi} \right)^{|\restbasis|} \prod_{\nvec \in \restbasis}
 		\exp(-2 |\alpha_{\nvec} - \alpha_{\nvec}^{(0)}|^2).
 	\qedhere
 \end{eqn}
@@ -74,6 +73,6 @@ In functional form this can be written as
 \begin{eqn}
 	\Psi_j(\xvec, 0)
 	= \Psi_j^{(0)}(\xvec, 0)
-		+ \sum_{\nvec \in L} \frac{\eta_{j,\nvec}}{2} \phi_{\nvec}(\xvec),
+		+ \sum_{\nvec \in \restbasis} \frac{\eta_{j,\nvec}}{2} \phi_{\nvec}(\xvec),
 \end{eqn}
 where $\Psi_j^{(0)}(\xvec, 0)$ is the ``classical'' ground state of the system.
