@@ -2,12 +2,7 @@
 \section{Master equation}
 % =============================================================================
 
-The basic Hamiltonian is easily expressed using quantum fields $\Psiop_j^{\dagger}(\xvec)$ and $\Psiop_j(\xvec)$,
-where $\xvec$ is $D$-dimensional coordinate vector,
-$\Psiop_j^{\dagger}(\xvec)$ creates a boson of component $j$ at a location $\xvec$,
-and $\Psiop_j(\xvec)$ destroys one;
-the commutators are defined by~\eqnref{func-operators:commutators}.
-Second-quantized Hamiltonian for the system looks like:
+The system can be described by the second-quantized Hamiltonian \todo{perhaps we should use ``full basis'' operators here, but we will have to explain that}
 \begin{eqn}
 \label{eqn:master-eqn:hamiltonian}
 \fl	\hat{H} / \hbar = \int d\xvec \left\{
@@ -16,34 +11,33 @@ Second-quantized Hamiltonian for the system looks like:
 			\Psiop_j^\dagger (\xvec) \Psiop_k^\dagger (\xvec^\prime)
 			U_{jk}(\xvec - \xvec^\prime)
 			\Psiop_j (\xvec^\prime) \Psiop_k (\xvec)
-	\right\}.
+	\right\},
 \end{eqn}
-Here we use the Einstein summation convention of summing over repeated indices.
-$U_{jk}$ is the two-body scattering potential, and $K_{jk}$ is the single-particle Hamiltonian:
+where $\xvec$ is a $D$-dimensional coordinate vector, $U_{jk}$ is the two-body scattering potential, and $\Psiop_j^{\dagger}(\xvec)$ and $\Psiop_j^{\dagger}(\xvec)$ are bosonic field creation and annihilation operators, which obey standard bosonic commutation relation
+\begin{eqn}
+	[ \Psiop_{j}(\xvec), \Psiop_{k}^{\dagger}(\xvec^\prime) ]
+	= \delta_{jk} \delta(\xvec^\prime-\xvec).
+\end{eqn}
+Single-particle Hamiltonian $K_{jk}$ is
 \begin{eqn}
 	K_{jk} = \left(
 			-\frac{\hbar}{2m} \nabla^2 + \omega_j + V_j(\xvec) / \hbar
 		\right) \delta_{jk}
 		+ \tilde{\Omega}_{jk}(t),
 \end{eqn}
-where $V_j$ is the external trapping potential for spin $j$,
-$\omega_j$ is the internal energy of spin $j$,
-and $\tilde{\Omega}_{jk}$ represents a time-dependent coupling that is used to rotate one spin projection into another.
+where $m$ is the atomic mass, $V_j$ is the external trapping potential for spin $j$, $\omega_j$ is the internal energy of spin $j$, and $\tilde{\Omega}_{jk}$ represents a time-dependent coupling that is used to rotate one spin projection into another.
 
-If we impose an energy cutoff $\ecut$ and only take into account low-energy modes,
-the general scattering potential $U_{jk}(\xvec - \xvec^\prime)$ can be replaced by contact potential $U_{jk} \delta(\xvec - \xvec^\prime)$~\cite{Morgan2000}, giving the effective Hamiltonian
+If we impose an energy cutoff $\ecut$ and only take into account low-energy modes, the non-local scattering potential $U_{jk}(\xvec - \xvec^\prime)$ can be replaced by the contact potential $U_{jk} \delta(\xvec - \xvec^\prime)$~\cite{Morgan2000}, giving the effective Hamiltonian
 \begin{eqn}
 \label{eqn:master-eqn:effective-H}
 	\hat{H} / \hbar = \int d\xvec \left\{
 		\Psiop_j^{\dagger} K_{jk} \Psiop_k
 		+ \frac{U_{jk}}{2} \Psiop_j^\dagger \Psiop_k^\dagger \Psiop_j \Psiop_k
-	\right\}.
+	\right\},
 \end{eqn}
-
-For $s$-wave scattering in three dimensions the coefficient is $U_{jk} = 4 \pi \hbar a_{jk} / m$,
-where $a_{jk}$ is the scattering length.
-Note that in general case the coefficient must be renormalised depending on the grid~\cite{Sinatra2002},
-but the change is small if $dx \gg a_{jk}$.
+where $\Psiop_j^{\dagger}$ and $\Psiop_j$ are field operators in the new restricted basis of low-energy modes \todo{some reference to restricted basis section; and note that from now on all field operators (and wavefunctions) are restricted}.
+For the $s$-wave scattering in three dimensions the coefficient is $U_{jk} = 4 \pi \hbar a_{jk} / m$, where $a_{jk}$ is the scattering length.
+Note that in general case the coefficient must be renormalised depending on the grid~\cite{Sinatra2002}, but the change is small if $dx \gg a_{jk}$.
 
 The Markovian master equation for the system with the inclusion of losses can be written as~\cite{Jack2002}
 \begin{eqn}
@@ -53,27 +47,26 @@ The Markovian master equation for the system with the inclusion of losses can be
 		+ \sum_{\lvec} \kappa_{\lvec} \int d\xvec
 			\mathcal{L}_{\lvec} \left[ \hat{\rho} \right],
 \end{eqn}
-where $\lvec = (l_1, l_2, \ldots, l_n)$ is a vector indicating the spins that are coupled,
-$n$ being the number of interacting particles,
-and we have introduced local Liouville loss terms,
+where $\lvec = (l_1, l_2, \ldots, l_C)$ is a tuple indicating the number of atoms with each spin involved in the interaction, $C$ being the total number of components, and we have introduced local Liouville loss terms,
 \begin{eqn}
 	\mathcal{L}_{\lvec} \left[ \hat{\rho} \right] =
 		2\hat{O}_{\lvec} \hat{\rho} \hat{O}_{\lvec}^\dagger
 		- \hat{O}_{\lvec}^\dagger \hat{O}_{\lvec} \hat{\rho}
 		- \hat{\rho} \hat{O}_{\lvec}^\dagger \hat{O}_{\lvec}.
 \end{eqn}
-The reservoir coupling operators $\hat{O}_{\lvec}$ are the distinct $n$-fold products of local field annihilation operators,
-$\hat{O}_{\lvec} = \hat{O}_{\lvec} (\Psiopvec) =
-	\Psiop_{l_{1}} (\xvec)
-	\Psiop_{l_{2}} (\xvec) \ldots
-	\Psiop_{l_{n}} (\xvec),$
-describing local $n$-body collision losses.
+The reservoir coupling operators $\hat{O}_{\lvec}$ are the distinct products of local field annihilation operators:
+\begin{eqn}
+    \hat{O}_{\lvec}
+    \equiv \hat{O}_{\lvec} (\Psiopvec)
+    = \prod_{c=1}^C \Psiop_c^{l_c} (\xvec),
+\end{eqn}
+describing local $\left( \sum_{c=1}^C l_c \right)$-body collision losses.
 
-The master equation allows us to derive an important property.
+\todo{Seems out of place here, need to move somewhere, or even remove completely.} The master equation allows us to derive an important property.
 
 \begin{theorem}
     \begin{eqn*}
-        \frac{d}{dt} \langle \Psiop_j \rangle
+		\frac{d}{dt} \langle \Psiop_j \rangle
     	= P \left[
     		\langle
     			-\frac{i}{\hbar} \left(
