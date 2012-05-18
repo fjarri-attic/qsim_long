@@ -2,14 +2,11 @@
 \section{Functional calculus}
 % =============================================================================
 
-Phase-space treatment of multimode problems can be simplified by working with multimode field operators instead of single-mode operators.
-This approach was initially introduced by Graham~\cite{Graham1970,Graham1970a}.
-Examples of usage can be found in~\cite{Steel1998,Norrie2006a}.
-Detailed description of functional calculus is given in~\cite{Dalton2011}.
-Here we only provide some important results which are going to be used later in this paper.
+In order to write equations in terms of wavefunctions and field operators instead of mode populations and operators, we will need to use the functional calculus.
+Detailed description is given in~\cite{Dalton2011}, and here we only provide some important definitions and results which are used later in the paper.
 
-First, we must introduce some operations on functions, which will replace common differentials and integrals used in single-mode case and help encapsulate basis and mode populations inside wave functions and field operators.
-In order to do that, we define an orthonormal basis $\fullbasis$ consisting of $\phi_{\nvec}$, where $\nvec$ is a state vector with $D$ elements.
+First, we must introduce some operations on functions, which will extend differentials and integration from the previous section.
+In order to do that, we define an orthonormal basis $\fullbasis$ consisting of $\phi_{\nvec}(\xvec)$, where $\nvec$ is a state vector, and $\xvec \in \mathbb{R}^D$.
 Orthonormality and completeness conditions for basis functions are, respectively,
 \begin{eqns}
 	\int\limits_A \phi_{\nvec}^*(\xvec) \phi_{\mvec}(\xvec) d\xvec = \delta_{\nvec\mvec}, \\
@@ -24,12 +21,12 @@ Given the basis, we can define the correspondence between some function of coord
 
 \begin{definition}
 	Let $\mathbb{F}$ be a space of all functions of coordinates, which consists only of modes from $\restbasis$: $\mathbb{F}_{\restbasis} \equiv (\mathbb{R}^D \rightarrow \mathbb{C})_{\restbasis}$ (restricted functions).
-	Composition transformation creates the function from the vector of mode populations:
+	Composition transformation creates a function from a vector of mode populations:
 	\begin{eqn*}
 		\mathcal{C}_{\restbasis} :: \mathbb{C}^{|\restbasis|} \rightarrow \mathbb{F}_{\restbasis} \\
 		\mathcal{C}_{\restbasis}(\balpha) = \sum_{\nvec \in L} \phi_{\nvec} \alpha_{\nvec}.
 	\end{eqn*}
-	Decomposition transformation is, in turn
+	Decomposition transformation, correspondingly, creates a vector of populations out of a function:
 	\begin{eqn*}
 		\mathcal{C}_{\restbasis}^{-1} :: \mathbb{F} \rightarrow \mathbb{C}^{|\restbasis|} \\
 		(\mathcal{C}_{\restbasis}^{-1}[f])_{\nvec}
@@ -82,6 +79,7 @@ Because of the bijection between $\mathbb{F}_{\restbasis}$ and $\mathbb{C}^{|\re
 	\mathcal{F} :: \mathbb{C}^{|\restbasis|} \rightarrow \mathbb{C}^\infty \\
 	\mathcal{F}(\balpha) \equiv \mathcal{C}_{\restbasis}^{-1}[\mathcal{F}[\mathcal{C}_{\restbasis}(\balpha)]].
 \end{eqn}
+Using this correspondence, we can define the functional differentiation.
 
 \begin{definition}
 \label{def:func-calculus:func-diff}
@@ -106,7 +104,7 @@ This variable comes from the function we are differentiating by.
 
 Functional derivatives behave in many ways similar to Wirtinger derivatives.
 The detailed treatment can be found in~\cite{Dalton2011}.
-In particular, the following useful lemma can be easily proved:
+In particular, the following useful lemma gives us the ability to differentiate functionals based on the intuition for common functions:
 
 \begin{lemma}
 	If $g(z)$ is a function of complex variable that can be expanded into series of $z^n (z^*)^m$, and functional $\mathcal{F}[f, f^*] \equiv g(f, f^*)$, $\mathcal{F} \in \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}$, then $\delta \mathcal{F} / \delta f^\prime$ and $\delta \mathcal{F} / \delta f^{\prime*}$ can be treated as partial differentiation of the functional of two independent variables $f$ and $f^*$.
@@ -135,11 +133,12 @@ Functional integration is defined as
 			\prod_{\nvec \in \restbasis} \int d^2\alpha_{\nvec}
 		\right) \mathcal{F}(\balpha).
 	\end{eqn*}
+    If the basis contains an infinite number of modes, the integral is treated as a limit $|\restbasis| \rightarrow \infty$.
+    \todo{Product of integrals means successive applications of those integrals --- do we need to state it explicitly?}
 \end{definition}
 
-If the basis contains infinite number of modes, the integral is treated as a limit $|\restbasis| \rightarrow \infty$.
+Functional integration has the Fourier-like property analogous to Lemma~\lmmref{c-numbers:fourier-of-moments}, but its statement requires the definition of the delta functional:
 
-We will need the delta functional:
 \begin{definition}
 	For a function $\Lambda \in \mathbb{F}_{\restbasis}$ the delta functional is
 	\begin{eqn*}
@@ -147,7 +146,6 @@ We will need the delta functional:
 		\equiv \prod_{\nvec \in \restbasis} \delta(\Real \lambda_{\nvec}) \delta(\Imag \lambda_{\nvec}),
 	\end{eqn*}
 	where $\blambda = \mathcal{C}_{\restbasis}^{-1}[\Lambda]$.
-	Note that it is really a functional and not a transformation: it depends only on $\blambda$, but not on coordinates.
 \end{definition}
 
 The delta functional has the same property as the common delta function:
@@ -179,7 +177,7 @@ The delta functional has the same property as the common delta function:
 The proof consists of expanding functions into sums of modes and applying \lmmref{c-numbers:fourier-of-moments} $|\restbasis|$ times.
 \end{proof}
 
-In order to perform transformations of master equations in the future, we will need a lemma, which justifies certain operation with the Laplacian (which is a part of the kinetic term in the Hamiltonian).
+In order to perform transformations of master equations, we will need a lemma that justifies the ``relocation'' of the Laplacian (which is a part of the kinetic term in the Hamiltonian) inside the functional integral.
 
 \begin{lemma}
 \label{lmm:func-calculus:move-laplacian}

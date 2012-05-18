@@ -5,7 +5,7 @@
 The general approach to numerical solution of the Fokker-Planck equation is to transform it to the equivalent set of stochastic differential equations (SDEs).
 In the textbooks this transformation is defined for real variables only~\cite{Risken1996}, while we have functional FPE with complex-valued functions.
 
-Our starting point is the reformulation of the theorem for real-valued multivariable FPE from~\cite{Risken1996}:
+Our starting point is the reformulation of the theorem for real-valued multivariable FPE from~\cite{Risken1996} in terms of vectors and matrices:
 
 \begin{lemma}[FPE--SDEs correspondence in convenient form.]
 \label{lmm:app-fpe:fpe-sde-real}
@@ -34,7 +34,7 @@ Our starting point is the reformulation of the theorem for real-valued multivari
     Here $W \equiv W(\zvec)$ is a probability distribution,
     $\boldsymbol{a} \equiv \boldsymbol{a}(\zvec)$ is a vector function,
     $B \equiv B(\zvec)$ is a matrix function ($B$ having size $M \times L$, where $L$ corresponds to the number of noise sources),
-    $\boldsymbol{partial}_{\zvec}^T \equiv (\partial_{z_1} \ldots \partial_{z_M})$ is a vector differential,
+    $\boldsymbol{\partial}_{\zvec}^T \equiv (\partial_{z_1} \ldots \partial_{z_M})$ is a vector differential,
     and $d\Zvec$ is a standard $L$-dimensional real-valued Wiener process.
 \end{lemma}
 \begin{proof}
@@ -141,7 +141,7 @@ Proved by joining vectors from all components into one vector and applying \thmr
 \begin{proof}
 Proved by expanding functional derivatives and applying \thmref{app-fpe:mc-fpe-sde}.
 The diffusion term has to be transformed in order to conform to the theorem:
-\begin{eqn}
+\begin{eqn*}
 \fl	\int d\xvec \phi_{\nvec} \phi_{\mvec}^* \sum_{\lvec} B_{\lvec}^{(k)} (B_{\lvec}^{(j)})^*
 	& = \int d\xvec \int d\xvec^\prime
 			\phi_{\nvec}^\prime \phi_{\mvec}^*
@@ -156,6 +156,6 @@ The diffusion term has to be transformed in order to conform to the theorem:
 			\phi_{\nvec}^* B_{\lvec}^{(k)} \phi_{\pvec}
 		\int d\xvec
 			\phi_{\mvec} (B_{\lvec}^{(j)})^* \phi_{\pvec}^*
-\end{eqn}
+\end{eqn*}
 Grouping terms back and recognising the definition of projection transformation, one gets the statement of the theorem.
 \end{proof}

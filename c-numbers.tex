@@ -3,7 +3,7 @@
 % =============================================================================
 
 In this paper we are using differentiation of complex functions extensively.
-Instead of classical definition of the differential which only works for holomorphic functions we use Wirtinger differentiation~\cite{Wirtinger1927}.
+Instead of the classical definition of differential which only works for holomorphic functions, we use Wirtinger differentiation~\cite{Wirtinger1927}.
 One can find thorough description of these rules, for example, in~\cite{Kreutz-Delgado2009}; in this section we will only outline the basics.
 
 \begin{definition}
@@ -19,8 +19,7 @@ One can find thorough description of these rules, for example, in~\cite{Kreutz-D
 One can easily prove that if $f(z)$ is holomorphic, then the above definition coincides with the classical differential for complex functions.
 Wirtinger differential obeys sum, product, quotient, and chain differentiation rules (the former one is applied as if $f(z) \equiv f(z, z^*)$).
 
-We will need some lemmas about integration.
-For convenience, we will use the following definition:
+In addition, we will need a non-standard integration over the complex variable:
 
 \begin{definition}
 	For a complex variable $z = x + iy$ the integral
@@ -30,9 +29,11 @@ For convenience, we will use the following definition:
 	or, in other words, stands for the two-dimensional integral over the complex plane.
 \end{definition}
 
+Such integration has a property similar to a Fourier transformation in real space.
+
 \begin{lemma}
 \label{lmm:c-numbers:fourier-of-moments}
-	If $\alpha$ and $\lambda$ are complex variables, then for any non-negative integers $r$ and $s$:
+	If $\lambda$ is a complex variable, then for any non-negative integers $r$ and $s$:
 	\begin{eqn*}
 		\int d^2\alpha\, \alpha^r (\alpha^*)^s \exp(-\lambda \alpha^* + \lambda^* \alpha)
 		= \pi^2
@@ -42,19 +43,15 @@ For convenience, we will use the following definition:
 	\end{eqn*}
 \end{lemma}
 \begin{proof}
-First, changing variables in the integral and using known Fourier transform relations, we can prove that for real $x$ and $v$, and non-negative integer $n$
-\begin{eqn}
+First, using known Fourier transform relations, it is easy to prove that for real $x$ and $v$, and non-negative integer $n$
+\begin{eqn*}
 	\int\limits_{-\infty}^{\infty} dv\, v^n \exp(\pm 2 i x v)
 	= \pi (\mp i / 2)^n \delta^{(n)}(x).
-\end{eqn}
-Expanding the $\alpha^r (\alpha^*)^s$ term using binomial theorem and employing the above property, one can reach the statement of the lemma.
+\end{eqn*}
+Substituting $\alpha = x + iy$, expanding the $\alpha^r (\alpha^*)^s$ term using binomial theorem and employing the above property, one can reach the statement of the lemma.
 \end{proof}
 
-A notable special case of \lmmref{c-numbers:fourier-of-moments} is
-\begin{eqn}
-	\int d^2\alpha \exp(-\lambda \alpha^* + \lambda^* \alpha)
-	= \pi^2 \delta(\Real \lambda) \delta(\Imag \lambda).
-\end{eqn}
+Another important property is used extensively throughout the paper.
 
 \begin{lemma}
 \label{lmm:c-numbers:zero-integrals}
