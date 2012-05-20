@@ -65,30 +65,3 @@ The reservoir coupling operators $\hat{O}_{\lvec}$ are the distinct products of 
     = \prod_{c=1}^C \Psiop_c^{l_c} (\xvec),
 \end{eqn}
 describing local $\left( \sum_{c=1}^C l_c \right)$-body collision losses.
-
-\todo{Seems out of place here, need to move somewhere, or even remove completely.} The master equation allows us to derive an important property.
-
-\begin{theorem}
-    \begin{eqn*}
-		\frac{d}{dt} \langle \Psiop_j \rangle
-    	= P \left[
-    		\langle
-    			-\frac{i}{\hbar} \left(
-    				K_{jm} \Psiop_m
-    				+ U_{jm} \Psiop_m^\dagger \Psiop_m \Psiop_j
-    			\right)
-    			- \sum_{\lvec} \kappa_{\lvec}
-    				\frac{\partial \hat{O}_{\lvec}^\dagger}{\partial \Psiop_j^\dagger} \hat{O}_{\lvec}
-    		\rangle
-    	\right]
-    \end{eqn*}
-\end{theorem}
-\begin{proof}
-Obviously,
-\begin{eqn}
-    \frac{d}{dt} \langle \Psiop_j \rangle
-    = \frac{d}{dt} \Trace{ \hat{\rho} \Psiop_j }
-    = \Trace{ \frac{d\hat{\rho}}{dt} \Psiop_j }
-\end{eqn}
-Substituting the right part of the master equation and applying \lmmref{func-operators:functional-commutators} to simplify the loss term, one gets the statement of the lemma.
-\end{proof}

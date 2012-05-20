@@ -2,7 +2,17 @@
 \section{Functional Wigner representation}
 % =============================================================================
 
-First, we will define functional analogue of the displacement operator from \defref{sm-wigner:displacement-op}:
+The single-mode Wigner transformation of the operator $\hat{A}$ is defined as
+\begin{eqn}
+	\mathcal{W}_{\mathrm{sm}}[\hat{A}]
+	= \frac{1}{\pi^2} \int d^2 \lambda \exp(-\lambda \alpha^* + \lambda^* \alpha)
+		\Trace{ \hat{A} \hat{D}(\lambda, \lambda^*) },
+\end{eqn}
+where the displacement operator $\hat{D}(\lambda, \lambda^*) = \exp(\lambda \hat{a}^\dagger - \lambda^* \hat{a})$ was first introduced by Weyl~\cite{Weyl1950}.
+The detailed description of the Wigner function $W(\alpha, \alpha^*) \equiv \mathcal{W}_{\mathrm{sm}}[\hat{\rho}]$ can be found in~\cite{Gardiner2004}.
+In this section we will extend this definition to the multimode case.
+
+The important part of the definition is the functional analogue of the displacement operator.
 
 \begin{definition}
     Functional displacement operator
@@ -21,7 +31,7 @@ First, we will define functional analogue of the displacement operator from \def
 	\end{eqn*}
 \end{definition}
 
-It can be shown that the displacement operator has properties similar to~\eqnref{sm-wigner:displacement-derivatives}.
+It can be shown that the functional displacement operator has properties similar to its single-mode equivalent.
 
 \begin{lemma}
 \label{lmm:func-wigner:displacement-derivatives}
@@ -66,7 +76,7 @@ Proved using Baker-Hausdorff theorem and evaluating integrals.
 	\end{eqn*}
 \end{definition}
 
-\begin{lemma}[Functional extension of \lmmref{sm-wigner:zero-integrals}]
+\begin{lemma}
 \label{lmm:func-wigner:zero-integrals}
 	\begin{eqn*}
 		\int \delta^2\Lambda
@@ -104,7 +114,7 @@ Displacement operator and displacement functional can be represented as function
 The proof consists of substituting these in the equations from the statement and applying \lmmref{c-numbers:zero-integrals}.
 \end{proof}
 
-\begin{lemma}[Functional extension of \lmmref{sm-wigner:moments-from-chi}]
+\begin{lemma}
 \label{lmm:func-wigner:moments-from-chi}
     For any non-negative integer $r$ and $s$:
 	\begin{eqn*}
@@ -154,7 +164,7 @@ and all higher order terms will be eliminated by setting $\Lambda \equiv 0$,
 leaving only one operator product with required order.
 \end{proof}
 
-\begin{theorem}[Functional extension of \thmref{sm-wigner:correspondences}]
+\begin{theorem}
 \label{thm:func-wigner:correspondences}
     If $\mathcal{W} [ \hat{A} ] \equiv (\mathcal{W} [ \hat{A} ]) [\Psi, \Psi^*]$, then
 	\begin{eqn*}
@@ -174,7 +184,7 @@ leaving only one operator product with required order.
 The proof follows the same scheme as in the single-mode case, with \lmmref{func-wigner:displacement-derivatives} used to transform the $\hat{A}\hat{D}$ product inside the trace, and \lmmref{func-wigner:zero-integrals} to move the differentials.
 \end{proof}
 
-\begin{theorem}[Functional extension of \thmref{sm-wigner:moments}]
+\begin{theorem}
 \label{thm:func-wigner:moments}
     For any non-negative integer $r$ and $s$:
 	\begin{eqn*}
