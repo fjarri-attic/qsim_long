@@ -6,10 +6,11 @@ Phase-space treatment of multimode problems can be simplified by working with mu
 This approach was initially introduced by Graham~\cite{Graham1970,Graham1970a}.
 Examples of usage can be found in~\cite{Steel1998,Norrie2006a}.
 
-The system can be described by the second-quantized Hamiltonian \todo{perhaps we should use ``full basis'' operators here, but we will have to explain that}
+The system can be described by the second-quantized Hamiltonian
 \begin{eqn}
 \label{eqn:master-eqn:hamiltonian}
-\fl	\hat{H} / \hbar = \int d\xvec \left\{
+\fl	\hat{H}
+    = \int d\xvec \left\{
 		\Psiop_j^{\dagger} K_{jk} \Psiop_k
 		+ \frac{1}{2} \int d\xvec^\prime
 			\Psiop_j^\dagger (\xvec) \Psiop_k^\dagger (\xvec^\prime)
@@ -17,7 +18,7 @@ The system can be described by the second-quantized Hamiltonian \todo{perhaps we
 			\Psiop_j (\xvec^\prime) \Psiop_k (\xvec)
 	\right\},
 \end{eqn}
-where $\xvec$ is a $D$-dimensional coordinate vector, $U_{jk}$ is the two-body scattering potential, and $\Psiop_j^{\dagger}(\xvec)$ and $\Psiop_j^{\dagger}(\xvec)$ are bosonic field creation and annihilation operators, which obey standard bosonic commutation relation
+where $\xvec$ is a $D$-dimensional coordinate vector, $U_{jk}$ is the two-body scattering potential, and $\Psiop_j^{\dagger}(\xvec)$ and $\Psiop_j(\xvec)$ are bosonic field creation and annihilation operators, which obey standard bosonic commutation relation
 \begin{eqn}
 	[ \Psiop_{j}(\xvec), \Psiop_{k}^{\dagger}(\xvec^\prime) ]
 	= \delta_{jk} \delta(\xvec^\prime-\xvec).
@@ -25,22 +26,23 @@ where $\xvec$ is a $D$-dimensional coordinate vector, $U_{jk}$ is the two-body s
 Single-particle Hamiltonian $K_{jk}$ is
 \begin{eqn}
 	K_{jk} = \left(
-			-\frac{\hbar}{2m} \nabla^2 + \omega_j + V_j(\xvec) / \hbar
+			-\frac{\hbar^2}{2m} \nabla^2 + \hbar \omega_j + V_j(\xvec)
 		\right) \delta_{jk}
-		+ \tilde{\Omega}_{jk}(t),
+		+ \hbar \Omega_{jk}(t),
 \end{eqn}
-where $m$ is the atomic mass, $V_j$ is the external trapping potential for spin $j$, $\omega_j$ is the internal energy of spin $j$, and $\tilde{\Omega}_{jk}$ represents a time-dependent coupling that is used to rotate one spin projection into another.
+where $m$ is the atomic mass, $V_j$ is the external trapping potential for spin $j$, $\hbar \omega_j$ is the internal energy of spin $j$, and $\Omega_{jk}$ represents a time-dependent coupling that is used to rotate one spin projection into another.
 
 If we impose an energy cutoff $\ecut$ and only take into account low-energy modes, the non-local scattering potential $U_{jk}(\xvec - \xvec^\prime)$ can be replaced by the contact potential $U_{jk} \delta(\xvec - \xvec^\prime)$~\cite{Morgan2000}, giving the effective Hamiltonian
 \begin{eqn}
 \label{eqn:master-eqn:effective-H}
-	\hat{H} / \hbar = \int d\xvec \left\{
+	\hat{H}
+	= \int d\xvec \left\{
 		\Psiop_j^{\dagger} K_{jk} \Psiop_k
 		+ \frac{U_{jk}}{2} \Psiop_j^\dagger \Psiop_k^\dagger \Psiop_j \Psiop_k
 	\right\},
 \end{eqn}
 where $\Psiop_j^{\dagger}$ and $\Psiop_j$ are field operators in the new restricted basis of low-energy modes \todo{some reference to restricted basis section; and note that from now on all field operators (and wavefunctions) are restricted}.
-For the $s$-wave scattering in three dimensions the coefficient is $U_{jk} = 4 \pi \hbar a_{jk} / m$, where $a_{jk}$ is the scattering length.
+For the $s$-wave scattering in three dimensions the coefficient is $U_{jk} = 4 \pi \hbar^2 a_{jk} / m$, where $a_{jk}$ is the scattering length.
 Note that in general case the coefficient must be renormalised depending on the grid~\cite{Sinatra2002}, but the change is small if $dx \gg a_{jk}$.
 
 The Markovian master equation for the system with the inclusion of losses can be written as~\cite{Jack2002}
