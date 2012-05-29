@@ -1,61 +1,40 @@
 % =============================================================================
 \section{Field operators and restricted basis}
 % =============================================================================
+\label{sec:func-operators}
 
-Multimode fields are described by operators $\Psiop_{j\fullbasis}^{\dagger}(\xvec)$ and $\Psiop_{j\fullbasis}(\xvec)$, where $\Psiop_{j\fullbasis}^{\dagger}(\xvec)$ creates a bosonic atom of spin $j$ at location $\xvec$, and $\Psiop_{j\fullbasis}(\xvec)$ destroys one; the commutators are
+We define an orthonormal basis $\fullbasis$ consisting of $\phi_{\nvec}(\xvec)$, where $\nvec$ is a state vector, and $\xvec \in \mathbb{R}^D$.
+Orthonormality and completeness conditions for basis functions are, respectively,
+\begin{eqns}
+	\int\limits_A \phi_{\nvec}^*(\xvec) \phi_{\mvec}(\xvec) d\xvec = \delta_{\nvec\mvec}, \\
+	\sum_{\nvec} \phi_{\nvec}^*(\xvec) \phi_{\nvec}(\xvec^\prime) = \delta(\xvec^\prime - \xvec),
+\end{eqns}
+where the exact nature of integration area $A$ depends on the basis set (for example, $A$ is the whole space for harmonic oscillator modes, or a box for plane waves).
+Hereinafter we assume that the integration $\int d\xvec$ is always performed over $A$.
+
+Standard bosonic field operators from~\eqnref{master-eqn:commutators} which project coordinates to the full Hilbert space $\mathbb{H}$ can be decomposed as
 \begin{eqn}
-\label{eqn:func-operators:commutators}
-	[ \Psiop_{j\fullbasis}(\xvec), \Psiop_{k\fullbasis}^{\dagger}(\xvec^\prime) ]
-	= \delta_{jk} \delta(\xvec^\prime-\xvec).
-\end{eqn}
-Field operators can be decomposed using a single-particle basis:
-\begin{eqn}
-	\Psiop_{j\fullbasis}(\xvec) = \sum_{\nvec \in \fullbasis} \phi_{\nvec}(\xvec) \hat{a}_{j,\nvec},
+    \Psiop_j \in (\mathbb{R}^D \rightarrow \mathbb{H}): \quad
+	\Psiop_j(\xvec) = \sum_{\nvec \in \fullbasis} \phi_{\nvec}(\xvec) \hat{a}_{j,\nvec},
 \end{eqn}
 where single mode operators $\hat{a}_{j,\nvec}$ obey bosonic commutation relations, the pair $j,\nvec$ serving as a mode identifier.
-
+The energy cutoff mentioned in the previous section will result in operating with some fixed subset of the basis.
+Let $\restbasis$ be this subset with cardinality $|\restbasis|$.
 Restricted field operators contain only modes from the subset $\restbasis$:
 \begin{eqn}
+    \Psiop_j \in (\mathbb{R}^D \rightarrow \mathbb{H}_{\restbasis}): \quad
 	\Psiop_j(\xvec)	= \sum_{\nvec \in \restbasis} \phi_{\nvec} (\xvec) \hat{a}_{j,\nvec}.
 \end{eqn}
 In this paper we will use them without explicit indices (as opposed to full basis field operators) in order to avoid clutter.
 Restricted field operators have type $\mathbb{FH}_{\restbasis} \equiv (\mathbb{R}^D \rightarrow \mathbb{H}_{\restbasis})$, where $\mathbb{H}_{\restbasis}$ is the Hilbert space of the restricted subset of modes.
-Full basis field operators have type $\mathbb{FH} \equiv \mathbb{FH}_{\fullbasis}$.
 
-Because of the restricted nature of the operator, commutation relations~\eqnref{func-operators:commutators} no longer apply.
+Because of the restricted nature of the operator, commutation relations~\eqnref{master-eqn:commutators} no longer apply.
 The following ones should be used instead:
 \begin{eqn}
 \label{eqn:func-operators:restricted-commutators}
 	\left[ \Psiop_j(\xvec), \Psiop_k(\xvec^\prime) \right]
 	& = \left[ \Psiop_j^\dagger(\xvec), \Psiop_k^\dagger(\xvec^\prime) \right] = 0, \\
 	\left[ \Psiop_j(\xvec), \Psiop_k^\dagger(\xvec^\prime) \right]
-	& = \delta_{jk} \delta_{\restbasis}(\xvec^\prime, \xvec).
+	& = \delta_{jk} \delta_{\restbasis}(\xvec^\prime, \xvec),
 \end{eqn}
-
-Let us now find the expression for high-order commutators of restricted field operators, analogous to the similar one for single-mode operators~\cite{Louisell1990}.
-
-\begin{lemma}
-	Abbreviating $\Psiop \equiv \Psiop(\xvec)$ and $\Psiop^\prime \equiv \Psiop(\xvec^\prime)$:
-	\begin{eqn*}
-		\left[ \Psiop, ( \Psiop^{\prime\dagger} )^l \right]
-		& = l \delta_{\restbasis} (\xvec^\prime - \xvec) ( \Psiop^{\prime\dagger} )^{l-1}, \\
-		\left[ \Psiop^\dagger, ( \Psiop^\prime )^l \right]
-		& = - l \delta_{\restbasis}^* (\xvec^\prime - \xvec) ( \Psiop^\prime )^{l-1}.
-	\end{eqn*}
-\end{lemma}
-\begin{proof}
-Proved by induction.
-\end{proof}
-
-A further generalisation of these relations is
-
-\begin{lemma}
-\label{lmm:func-operators:functional-commutators}
-	\begin{eqn*}
-		\left[ \Psiop, f( \Psiop^\prime, \Psiop^{\prime\dagger} ) \right]
-		& = \delta_{\restbasis} (\xvec^\prime - \xvec) \frac{\partial f}{\partial \Psiop^{\prime\dagger}} \\
-		\left[ \Psiop^\dagger, f( \Psiop^\prime, \Psiop^{\prime\dagger} ) \right]
-		& = -\delta_{\restbasis}^* (\xvec^\prime - \xvec) \frac{\partial f}{\partial \Psiop^\prime},
-	\end{eqn*}
-	where $f(z, z^*)$ is a function that can be expanded into the power series of $z$ and $z^*$.
-\end{lemma}
+where $\delta_{\restbasis}$ is the restricted delta-function from \defref{func-calculus:restricted-delta}.

@@ -4,6 +4,35 @@
 
 This section contains some theorems concerning transformations of specific operator sequences, which will be useful when transforming the master equation.
 
+First, we will need an expression for high-order commutators of restricted field operators.
+They look somewhat similar to those for single-mode bosonic operators, or standard field operators from~\cite{Louisell1990}.
+
+\begin{lemma}
+	Abbreviating $\Psiop \equiv \Psiop(\xvec)$ and $\Psiop^\prime \equiv \Psiop(\xvec^\prime)$:
+	\begin{eqn*}
+		\left[ \Psiop, ( \Psiop^{\prime\dagger} )^l \right]
+		& = l \delta_{\restbasis} (\xvec^\prime - \xvec) ( \Psiop^{\prime\dagger} )^{l-1}, \\
+		\left[ \Psiop^\dagger, ( \Psiop^\prime )^l \right]
+		& = - l \delta_{\restbasis}^* (\xvec^\prime - \xvec) ( \Psiop^\prime )^{l-1}.
+	\end{eqn*}
+\end{lemma}
+\begin{proof}
+Proved by induction.
+\end{proof}
+
+A further generalisation of these relations is
+
+\begin{lemma}
+\label{lmm:func-operators:functional-commutators}
+	\begin{eqn*}
+		\left[ \Psiop, f( \Psiop^\prime, \Psiop^{\prime\dagger} ) \right]
+		& = \delta_{\restbasis} (\xvec^\prime - \xvec) \frac{\partial f}{\partial \Psiop^{\prime\dagger}} \\
+		\left[ \Psiop^\dagger, f( \Psiop^\prime, \Psiop^{\prime\dagger} ) \right]
+		& = -\delta_{\restbasis}^* (\xvec^\prime - \xvec) \frac{\partial f}{\partial \Psiop^\prime},
+	\end{eqn*}
+	where $f(z, z^*)$ is a function that can be expanded into the power series of $z$ and $z^*$.
+\end{lemma}
+
 \begin{theorem}
 \label{thm:transformations:w-commutator1}
     \begin{eqn*}

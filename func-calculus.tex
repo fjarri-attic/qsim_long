@@ -2,21 +2,9 @@
 \section{Functional calculus}
 % =============================================================================
 
-In order to write equations in terms of wavefunctions and field operators instead of mode populations and operators, we will need to use the functional calculus.
+This section outlines the functional calculus, which is heavily used throughout the paper.
 Detailed description is given in~\cite{Dalton2011}, and here we only provide some important definitions and results which are used later in the paper.
-
-First, we must introduce some operations on functions, which will extend differentials and integration from the previous section.
-In order to do that, we define an orthonormal basis $\fullbasis$ consisting of $\phi_{\nvec}(\xvec)$, where $\nvec$ is a state vector, and $\xvec \in \mathbb{R}^D$.
-Orthonormality and completeness conditions for basis functions are, respectively,
-\begin{eqns}
-	\int\limits_A \phi_{\nvec}^*(\xvec) \phi_{\mvec}(\xvec) d\xvec = \delta_{\nvec\mvec}, \\
-	\sum_{\nvec} \phi_{\nvec}^*(\xvec) \phi_{\nvec}(\xvec^\prime) = \delta(\xvec^\prime - \xvec),
-\end{eqns}
-where the exact nature of integration area $A$ depends on the basis set (for example, $A$ is the whole space for harmonic oscillator modes, or a box for plane waves).
-Hereinafter we assume that the integration $\int d\xvec$ is always performed over $A$.
-
-We will usually operate with some fixed subset of the basis (which may be identical to the whole basis).
-Let $\restbasis$ be some subset of the basis with cardinality $|\restbasis|$ (which can be infinite, if $\restbasis \equiv \fullbasis$).
+In this section we will use the definitions from the \secref{func-operators}, namely the full basis $\fullbasis$ and the restricted basis $\restbasis$.
 Given the basis, we can define the correspondence between some function of coordinates and its representation in mode space.
 
 \begin{definition}
@@ -140,6 +128,7 @@ Functional integration is defined as
 Functional integration has the Fourier-like property analogous to Lemma~\lmmref{c-numbers:fourier-of-moments}, but its statement requires the definition of the delta functional:
 
 \begin{definition}
+\label{def:func-calculus:delta-functional}
 	For a function $\Lambda \in \mathbb{F}_{\restbasis}$ the delta functional is
 	\begin{eqn*}
 		\Delta_{\restbasis}[\Lambda]
