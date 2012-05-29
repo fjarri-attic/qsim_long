@@ -42,7 +42,7 @@ If we impose an energy cutoff $\ecut$ and only take into account low-energy mode
 		+ \frac{U_{jk}}{2} \Psiop_j^\dagger \Psiop_k^\dagger \Psiop_j \Psiop_k
 	\right\},
 \end{eqn}
-where $\Psiop_j^{\dagger}$ and $\Psiop_j$ are field operators in the new restricted basis of low-energy modes \todo{some reference to restricted basis section; and note that from now on all field operators (and wavefunctions) are restricted}.
+where $\Psiop_j^{\dagger}$ and $\Psiop_j$ are field operators in the new restricted basis of low-energy modes, which is described in detail in the next section.
 For the $s$-wave scattering in three dimensions the coefficient is $U_{jk} = 4 \pi \hbar^2 a_{jk} / m$, where $a_{jk}$ is the scattering length.
 Note that in general case the coefficient must be renormalised depending on the grid~\cite{Sinatra2002}, but the change is small if $dx \gg a_{jk}$.
 
@@ -54,14 +54,14 @@ The Markovian master equation for the system with the inclusion of losses can be
 		+ \sum_{\lvec} \kappa_{\lvec} \int d\xvec
 			\mathcal{L}_{\lvec} \left[ \hat{\rho} \right],
 \end{eqn}
-where $\lvec = (l_1, l_2, \ldots, l_C)$ is a tuple indicating the number of atoms with each spin involved in the interaction, $C$ being the total number of components, and we have introduced local Liouville loss terms,
+where $\lvec = (l_1, l_2, \ldots, l_C)$ is a tuple indicating the number of atoms from each component involved in the interaction, $C$ being the total number of components, and we have introduced local Liouville loss terms,
 \begin{eqn}
 	\mathcal{L}_{\lvec} \left[ \hat{\rho} \right] =
 		2\hat{O}_{\lvec} \hat{\rho} \hat{O}_{\lvec}^\dagger
 		- \hat{O}_{\lvec}^\dagger \hat{O}_{\lvec} \hat{\rho}
 		- \hat{\rho} \hat{O}_{\lvec}^\dagger \hat{O}_{\lvec}.
 \end{eqn}
-The reservoir coupling operators $\hat{O}_{\lvec}$ are the distinct products of local field annihilation operators:
+The reservoir coupling operators $\hat{O}_{\lvec}$ are products of local field annihilation operators:
 \begin{eqn}
     \hat{O}_{\lvec}
     \equiv \hat{O}_{\lvec} (\Psiopvec)
