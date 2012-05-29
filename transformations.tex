@@ -2,13 +2,13 @@
 \section{Specific cases of transformations}
 % =============================================================================
 
-This section contains some theorems concerning transformations of specific operator sequences, which will be useful when transforming the master equation.
+In order to Wigner transform the master equation~\eqnref{master-eqn:master-eqn}, we will need several theorems about transformations of specific operator sequences.
 
 First, we will need an expression for high-order commutators of restricted field operators.
 They look somewhat similar to those for single-mode bosonic operators, or standard field operators from~\cite{Louisell1990}.
 
 \begin{lemma}
-	Abbreviating $\Psiop \equiv \Psiop(\xvec)$ and $\Psiop^\prime \equiv \Psiop(\xvec^\prime)$:
+	Abbreviating $\Psiop \equiv \Psiop(\xvec)$ and $\Psiop^\prime \equiv \Psiop(\xvec^\prime)$ \todo{should be done earlier, this is used starting from master-eqn section.}:
 	\begin{eqn*}
 		\left[ \Psiop, ( \Psiop^{\prime\dagger} )^l \right]
 		& = l \delta_{\restbasis} (\xvec^\prime - \xvec) ( \Psiop^{\prime\dagger} )^{l-1}, \\
@@ -33,6 +33,8 @@ A further generalisation of these relations is
 	where $f(z, z^*)$ is a function that can be expanded into the power series of $z$ and $z^*$.
 \end{lemma}
 
+First theorem describes the transformation of the linear part of the Hamiltonian~\eqnref{master-eqn:hamiltonian}.
+
 \begin{theorem}
 \label{thm:transformations:w-commutator1}
     \begin{eqn*}
@@ -55,7 +57,7 @@ Proved straightforwardly using \thmref{func-wigner:mc-correspondences} and the r
 \end{proof}
 
 Commutators with the Laplacian inside require somewhat special treatment, because it acts on basis functions and, in general, cannot be dragged around like a constant.
-For our purposes we only need one specific case, and, fortunately, in this case it does act like a constant.
+But for our purposes we only need one specific case, and, fortunately, in this case it does act like a constant.
 
 \begin{theorem}
 \label{thm:transformations:w-laplacian-commutator1}
@@ -72,6 +74,9 @@ For our purposes we only need one specific case, and, fortunately, in this case 
 \begin{proof}
 Proved using \thmref{func-wigner:mc-correspondences} and \lmmref{func-calculus:move-laplacian}.
 \end{proof}
+
+Next theorem describes the transformation of the non-linear part of the Hamiltonian.
+\todo{Can be simplified by assuming the locality of the interaction, thus getting rid of $\xvec^\prime$.}
 
 \begin{theorem}
 \label{thm:transformations:w-commutator2}
@@ -130,6 +135,10 @@ Proved using \thmref{func-wigner:mc-correspondences} and \lmmref{func-calculus:m
 Proof is the same as in case of \thmref{transformations:w-commutator1}.
 \end{proof}
 
+Finally, the transformation of loss terms~\eqnref{master-eqn:loss-term} requires more work.
+The proof makes use of two auxiliary lemmas.
+First one will help us move functional differentials to their intended places (i.e., to the left).
+
 \begin{lemma}
 \label{lmm:transformations:swap-differential}
     For $\mathcal{F} \in \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}$ and any non-negative integer $a$, $b$:
@@ -147,6 +156,8 @@ Proof is the same as in case of \thmref{transformations:w-commutator1}.
 Proved straightforwardly by induction.
 \end{proof}
 
+Second lemma gives a way to simplify sums obtained from the application of the previous lemma.
+
 \begin{lemma}[Sum rearrangement]
 \label{lmm:transformations:sum-rearrangement}
     For any non-negative integer $l$, $u$:
@@ -159,22 +170,11 @@ Proved straightforwardly by induction.
 Can be proved either by formal manipulation with sets, or by drawing a picture.
 \end{proof}
 
+Finally, the loss transformation theorem can be proved.
+
 \begin{theorem}
 \label{thm:transformations:w-losses}
-    If loss operator $\hat{\mathcal{L}}_{\lvec}$ is defined as
-    \begin{eqn*}
-    	\hat{\mathcal{L}}_{\lvec} [\hat{A}]
-    	= 2 \hat{O}_{\lvec} \hat{A} \hat{O}_{\lvec}^\dagger
-    		- \hat{O}_{\lvec}^\dagger \hat{O}_{\lvec} \hat{A}
-    		- \hat{A} \hat{O}_{\lvec}^\dagger \hat{O}_{\lvec},
-    \end{eqn*}
-    where
-    \begin{eqn*}
-    	\hat{O}_{\lvec}
-    	\equiv \hat{O}_{\lvec} (\Psiopvec)
-    	= \prod_{c=1}^C \Psiop_c^{l_c} (\xvec),
-    \end{eqn*}
-    then its Wigner transformation is
+    The Wigner transformation of loss term~\eqnref{master-eqn:loss-term} is
     \begin{eqn*}
 \fl    	\mathcal{W} \left[ \int d\xvec \hat{\mathcal{L}}_{\lvec} [\hat{A}] \right]
     	= \int d\xvec
@@ -185,16 +185,16 @@ Can be proved either by formal manipulation with sets, or by drawing a picture.
     					\left( \frac{\delta}{\delta \Psi_c^*} \right)^{j_c}
     					\left( \frac{\delta}{\delta \Psi_c} \right)^{k_c}
     			\right)
-    			L_{\jvec, \kvec}
+    			L_{\lvec, \jvec, \kvec}
     		\mathcal{W}[\hat{A}],
     \end{eqn*}
     where
     \begin{eqn*}
-\fl    	L_{\jvec, \kvec}
+\fl    	L_{\lvec, \jvec, \kvec}
     	= \left( 2 - (-1)^{\sum_c j_c} - (-1)^{\sum_c k_c} \right) \\
     		\prod_{c=1}^C \left(
     			\sum_{m_c=0}^{l_c - \max(j_c, k_c)}
-    			Q_c(j_c, k_c, m_c)
+    			Q(l_c, j_c, k_c, m_c)
     			\delta_{\restbasis}(\xvec, \xvec)^{m_c}
     			\Psi_c^{l_c - j_c - m_c}
     			(\Psi_c^*)^{l_c - k_c - m_c}
@@ -202,9 +202,9 @@ Can be proved either by formal manipulation with sets, or by drawing a picture.
     \end{eqn*}
     and
     \begin{eqn*}
-        Q_c(j, k, m)
+        Q(l, j, k, m)
     	= (-1)^m \left( \frac{1}{2} \right)^{j + k + m}
-    		\frac{(l_c!)^2}{m! j! k! (l_c - k - m)! (l_c - j - m)!}.
+    		\frac{(l!)^2}{m! j! k! (l - k - m)! (l - j - m)!}.
     \end{eqn*}
 \end{theorem}
 \begin{proof}
