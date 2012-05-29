@@ -52,7 +52,7 @@ def saveTexBib(fname, entries):
 
 def removeFields(entries):
     for entry_type, entry_key, entry_fields in entries:
-        for field in ('file', 'keywords', 'mendeley-tags', 'abstract', 'month'):
+        for field in ('file', 'keywords', 'mendeley-tags', 'abstract', 'month', 'issn', 'url', 'isbn'):
             if field in entry_fields:
                 del entry_fields[field]
 
@@ -129,7 +129,7 @@ def removePaperTitles(entries):
 def prepare(entries):
     authorsGeneral(entries)
     #truncateAuthorList(entries, limit=4)
-    initialsToBack(entries)
+    #initialsToBack(entries) # required for unsrt style
     journalAbbreviations(entries)
     removeFields(entries)
     fixArxivReferences(entries)
