@@ -13,6 +13,7 @@ The detailed description of the Wigner function $W(\alpha, \alpha^*) \equiv \mat
 In this section we will extend this definition to the multimode case.
 
 The important part of the definition is the functional analogue of the displacement operator.
+\todo{Need to explicitly state that $F^\prime \equiv F(\xvec^\prime)$. Also, explain why we write $F[\Lambda, \Lambda^*]$ and not $F[\Lambda]$.}
 
 \begin{definition}
     Functional displacement operator
@@ -59,7 +60,7 @@ Proved using Baker-Hausdorff theorem and evaluating integrals.
 			\Trace{ \hat{A} \hat{D}[\Lambda, \Lambda^*] }.
 	\end{eqn*}
 	It transforms an operator $\hat{A}$ on a restricted Hilbert space to a functional $(\mathcal{W}[\hat{A}])[\Psi, \Psi^*]$.
-	The Wigner functional is
+	By analogy with the single-mode case, the Wigner functional is
 	\begin{eqn*}
 		W :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{C} \\
 		W [\Psi, \Psi^*]
@@ -75,6 +76,10 @@ Proved using Baker-Hausdorff theorem and evaluating integrals.
 		= \Trace{ \hat{\rho} \hat{D}[\Lambda, \Lambda^*] }.
 	\end{eqn*}
 \end{definition}
+
+The multi-mode Wigner function has two important properties analogous to the single-mode case.
+First one is used to successively transform operator products.
+In order to prove it, we will need an auxiliary lemma.
 
 \begin{lemma}
 \label{lmm:func-wigner:zero-integrals}
@@ -114,6 +119,29 @@ Displacement operator and displacement functional can be represented as function
 The proof consists of substituting these in the equations from the statement and applying \lmmref{c-numbers:zero-integrals}.
 \end{proof}
 
+\begin{theorem}[Functional correspondences]
+\label{thm:func-wigner:correspondences}
+    If $\mathcal{W} [ \hat{A} ] \equiv (\mathcal{W} [ \hat{A} ]) [\Psi, \Psi^*]$, then
+	\begin{eqn*}
+		\mathcal{W} [ \Psiop \hat{A} ]
+			& = \left( \Psi + \frac{1}{2} \frac{\delta}{\delta \Psi^*} \right) \mathcal{W}[\hat{A}],
+		\quad
+		\mathcal{W} [ \Psiop^\dagger \hat{A} ]
+			= \left( \Psi^* - \frac{1}{2} \frac{\delta}{\delta \Psi} \right) \mathcal{W}[\hat{A}], \\
+		\mathcal{W} [ \hat{A} \Psiop ]
+			& = \left( \Psi - \frac{1}{2} \frac{\delta}{\delta \Psi^*} \right) \mathcal{W}[\hat{A}],
+		\quad
+		\mathcal{W} [ \hat{A} \Psiop^\dagger ]
+			= \left( \Psi^* + \frac{1}{2} \frac{\delta}{\partial \Psi} \right) \mathcal{W}[\hat{A}].
+	\end{eqn*}
+\end{theorem}
+\begin{proof}
+The proof uses \lmmref{func-wigner:displacement-derivatives} to transform the $\hat{A}\hat{D}$ product inside the trace, and \lmmref{func-wigner:zero-integrals} to integrate by parts, effectively moving the differentials to intended places.
+\end{proof}
+
+The second property complements the first one, providing the way to obtain expectations of operator products given the Wigner function.
+Again, it requires a supplementary lemma.
+
 \begin{lemma}
 \label{lmm:func-wigner:moments-from-chi}
     For any non-negative integer $r$ and $s$:
@@ -127,7 +155,6 @@ The proof consists of substituting these in the equations from the statement and
 	\end{eqn*}
 \end{lemma}
 \begin{proof}
-The proof follows the same general scheme from the single-mode case.
 The displacement operator can be expanded as
 \begin{eqn}
 	\exp (\Lambda \Psiop^\dagger - \Lambda^* \Psiop)
@@ -158,33 +185,10 @@ Similarly for the other differential:
 	= s! ( \Psiop^{\prime\dagger} )^s.
 \end{eqn}
 
-Thus, same as in single-mode case,
-differentiation will eliminate all lower order terms in the expansion,
-and all higher order terms will be eliminated by setting $\Lambda \equiv 0$,
-leaving only one operator product with required order.
+Thus, differentiation will eliminate all lower order terms in the expansion, and all higher order terms will be eliminated by setting $\Lambda \equiv 0$, leaving only one operator product with required order.
 \end{proof}
 
-\begin{theorem}
-\label{thm:func-wigner:correspondences}
-    If $\mathcal{W} [ \hat{A} ] \equiv (\mathcal{W} [ \hat{A} ]) [\Psi, \Psi^*]$, then
-	\begin{eqn*}
-		\mathcal{W} [ \Psiop \hat{A} ]
-			& = \left( \Psi + \frac{1}{2} \frac{\delta}{\delta \Psi^*} \right) \mathcal{W}[\hat{A}],
-		\quad
-		\mathcal{W} [ \Psiop^\dagger \hat{A} ]
-			= \left( \Psi^* - \frac{1}{2} \frac{\delta}{\delta \Psi} \right) \mathcal{W}[\hat{A}], \\
-		\mathcal{W} [ \hat{A} \Psiop ]
-			& = \left( \Psi - \frac{1}{2} \frac{\delta}{\delta \Psi^*} \right) \mathcal{W}[\hat{A}],
-		\quad
-		\mathcal{W} [ \hat{A} \Psiop^\dagger ]
-			= \left( \Psi^* + \frac{1}{2} \frac{\delta}{\partial \Psi} \right) \mathcal{W}[\hat{A}].
-	\end{eqn*}
-\end{theorem}
-\begin{proof}
-The proof follows the same scheme as in the single-mode case, with \lmmref{func-wigner:displacement-derivatives} used to transform the $\hat{A}\hat{D}$ product inside the trace, and \lmmref{func-wigner:zero-integrals} to move the differentials.
-\end{proof}
-
-\begin{theorem}
+\begin{theorem}[Calculation of expectations]
 \label{thm:func-wigner:moments}
     For any non-negative integer $r$ and $s$:
 	\begin{eqn*}
@@ -226,15 +230,15 @@ Evaluating the integral over $\Psi$ using \lmmref{func-calculus:fourier-of-momen
 		\left( \frac{\delta}{\delta \Lambda} \right)^s
 		\left( -\frac{\delta}{\delta \Lambda^*} \right)^r
 		\chi_W [\Lambda, \Lambda^*]
-	\right|_{\Lambda \equiv 0}.
+	\right|_{\Lambda \equiv 0},
 \end{eqn*}
+where $\Delta_{\restbasis}[\Lambda]$ is a delta functional from \defref{func-calculus:delta-functional}.
 Now, recognising the final expression as a part of \lmmref{func-wigner:moments-from-chi},
 we immediately get the statement of the theorem.
 \end{proof}
 
-\thmref{func-wigner:moments} and \thmref{func-wigner:correspondences} can be further extended to the case of several components.
-$C$ components with $|\restbasis|$ modes each are equivalent to a single set of $C|\restbasis|$ modes, which means that \thmref{func-wigner:moments} and \thmref{func-wigner:correspondences} can be applied.
-For convenience, these theorems can be re-formulated in multi-component terms.
+\thmref{func-wigner:correspondences} and \thmref{func-wigner:moments} can be further extended to the case of several components.
+\todo{Do we need them here?}
 
 \begin{theorem}[Multi-component extension of \thmref{func-wigner:correspondences}]
 \label{thm:func-wigner:mc-correspondences}
@@ -255,7 +259,7 @@ For convenience, these theorems can be re-formulated in multi-component terms.
 
 \begin{theorem}[Multi-component extension of \thmref{func-wigner:moments}]
 \label{thm:func-wigner:mc-moments}
-	For any non-negative integer $r_c$ and $s_c$, $c \in [1, C]$
+	For any non-negative integers $r_c$ and $s_c$, $c \in [1, C]$
 	\begin{eqn*}
 	    \langle \symprod{ \prod_{c=1}^C \Psiop_c^{r_c} (\Psiop_c^\dagger)^{s_c} } \rangle
 		= \left( \prod_{c=1}^C \int \delta^2\Psi_c \right)
