@@ -2,7 +2,8 @@
 \section{Initial states}
 % =============================================================================
 
-The simplest case of initial state is a coherent state.
+Initial values for the numerical integration of equations~\eqnref{fpe:sdes} are obtained by finding the Wigner transformation of the density matrix for the desired initial state, and then sampling the initial values according to the resulting Wigner function.
+As an example, consider the simple case with a coherent initial state.
 
 \begin{theorem}
     The Wigner distribution for a multi-mode coherent state with with expectation values
@@ -76,3 +77,5 @@ In functional form this can be written as
 		+ \sum_{\nvec \in \restbasis} \frac{\eta_{j,\nvec}}{2} \phi_{\nvec}(\xvec),
 \end{eqn}
 where $\Psi_j^{(0)}(\xvec, 0)$ is the ``classical'' ground state of the system.
+
+\todo{We can describe the Wigner function for the number state here, as an example of non-positive Wigner function.}
