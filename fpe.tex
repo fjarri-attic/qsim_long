@@ -2,9 +2,9 @@
 \section{Wigner truncation and Fokker-Planck equation}
 % =============================================================================
 
-In order to solve operator equation~\eqnref{master-eqn:master-eqn} numerically, we will transform it to ordinary differential equation using Wigner transformation~\eqnref{func-wigner:w-transformation}.
+Now we have all necessary tools to transform the master equation~\eqnref{master-eqn:master-eqn} with the Wigner transformation ~\eqnref{func-wigner:w-transformation} \todo{need a specific definition for multi-component transformation?} to the partial differential equation.
 
-Namely, the term with $K_j$ is transformed using \thmref{transformations:w-commutator1} and \thmref{transformations:w-laplacian-commutator1} (since $K_j$ is basically a sum of Laplacian operator and functions of $\xvec$):
+Namely, the single-particle term~\eqnref{master-eqn:single-particle} is transformed using \thmref{transformations:w-commutator1} and \thmref{transformations:w-laplacian-commutator1} (since $K_j$ is basically a sum of Laplacian operator and functions of $\xvec$):
 \begin{eqn}
 	\mathcal{W} \left[ [ \int d\xvec \Psiop_j^\dagger K_{jk} \Psiop_k, \hat{\rho} ] \right]
 	= \int d\xvec \left(
@@ -44,11 +44,20 @@ Nonlinear term is transformed with \thmref{transformations:w-commutator2} (mindi
 		\right) W.
 \end{eqn}
 
-Loss operator is transformed with \thmref{transformations:w-losses}.
-Not writing the resulting expression here, because with the absence of truncation it is too long,
-and is practically the same as in theorem statement.
+Loss terms~\eqnref{master-eqn:loss-term} are transformed with \thmref{transformations:w-losses}.
+\todo{Not writing the resulting expression here, because with the absence of truncation it is too long, and is practically the same as in theorem statement.}
 
-Transformation to SDE is a very convenient way to solve FPE numerically, but we can only do that if it does not have functional derivatives of order more than 2.
+Assuming that $K_{jk}$, $U_{jk}$ and $\kappa_{\lvec}$ are real-valued, all the transformations described above result in a partial differential equation for $W$ of the form
+\begin{eqn}
+\fl	\frac{\partial W}{\partial t} = \int d^D\xvec \left\{
+    	- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} A_j
+    	- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} A_j^*
+    	+ \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j^* \delta \Psi_k} D_{jk}
+		+ \mbox{O} \left[ \frac{\delta^3}{\delta\Psi_j^3} \right]
+	\right\} W.
+\end{eqn}
+The terms of order higher than 2 are produced both by the nonlinear term in the Hamiltonian and loss terms.
+Such an equation could be solved without additional approximations if there were only orders up to 3 (which means the absence of losses)~\cite{Polkovnikov2003}, but in most cases all terms except for first- and second-order ones are truncated.
 In the assumption of the state being coherent, the condition for truncation can be shown to be~\cite{Sinatra2002}
 \begin{eqn}
     N \gg |\restbasis|,
@@ -58,6 +67,8 @@ This condition is equivalent to~\cite{Norrie2006}
 \begin{eqn}
     \delta_L(\xvec, \xvec) \ll | \Psi_j |^2.
 \end{eqn}
+
+Wigner truncation allows us to simplify the results of \thmref{transformations:w-commutator2} and \thmref{transformations:w-losses}.
 
 \begin{lemma}
     Assuming the conditions for Wigner truncation are satisfied,
@@ -77,7 +88,7 @@ This condition is equivalent to~\cite{Norrie2006}
     \end{eqn*}
 \end{lemma}
 
-\begin{theorem}
+\begin{lemma}
     Assuming the conditions for Wigner truncation are satisfied, the result of Wigner transformation of the loss term can be written as
     \begin{eqn*}
 \fl    	\mathcal{W}[\mathcal{L}_{\lvec}[\hat{\rho}]]
@@ -88,10 +99,10 @@ This condition is equivalent to~\cite{Norrie2006}
     	+ \sum_{n=1}^C \sum_{p=1}^C
     		\frac{\delta^2}{\delta \Psi_n^* \delta \Psi_p}
     		\frac{\partial O_{\lvec}}{\partial \Psi_n}
-    		\frac{\partial O_{\lvec}^*}{\partial \Psi_p^*}.
+    		\frac{\partial O_{\lvec}^*}{\partial \Psi_p^*},
     \end{eqn*}
-    where $O_{\lvec} \equiv O_{\lvec}(\Psivec) = \prod_{c=1}^C \Psi_c^{l_c}$.
-\end{theorem}
+    where $O_{\lvec} \equiv O_{\lvec}[\Psivec] = \prod_{c=1}^C \Psi_c^{l_c}$.
+\end{lemma}
 \begin{proof}
 The proof is basically a simplification of the result of \thmref{transformations:w-losses} under certain conditions.
 First, we are neglecting all occurrences of $\delta_{\restbasis}$, which means setting $m_c = 0$ for every $c$.
@@ -107,7 +118,7 @@ $\delta^2/\delta \Psi_p \delta \Psi_n^*$ respectively.
 Applying these conditions one can get the statement of the theorem.
 \end{proof}
 
-Assuming that $K_{jk}$, $U_{jk}$ and $\kappa_{\lvec}$ are real-valued, resulting Wigner-transformed master equation is
+Thus the truncated Fokker-Planck equation is
 \begin{eqn}
 \fl	\frac{dW}{dt}
 	= \int d\xvec \left(
@@ -131,8 +142,11 @@ and
 		\frac{\partial O_{\lvec}^*}{\partial \Psi_k^*}.
 \end{eqn}
 
-According to \thmref{app-fpe:fpe-sde-func}, this equation is equivalent to a set of stochastic differential equations in It\^{o} form
+Since the diffusion matrix is positive-definite, the truncated Wigner function $W$ is a probability distribution
+Therefore the equation can be further transformed to the equivalent set of stochastic differential equations in It\^{o} form as described by \thmref{app-fpe:fpe-sde-func}.
+
 \begin{eqn}
+\label{eqn:fpe:sdes}
 	d\Psi_j = \mathcal{P} \left[
 		A^{(j)} dt + \sum_{\lvec} B_{\lvec}^{(j)} Q_{\lvec}
 	\right],
@@ -146,3 +160,16 @@ and $Q_{\lvec}$ is a functional Wiener process:
 	Q_{\lvec} = \sum_{\nvec \in \fullbasis} \phi_j Z_{\lvec,\nvec},
 \end{eqn}
 and $Z_{\lvec,\nvec}$ are, in turn, independent complex-valued Wiener processes.
+
+These equations can now be solved using conventional methods, and any required expectations symmetrically ordered operator products can be obtained from their solution using \thmref{func-wigner:mc-moments}:
+\begin{eqn}
+    \langle \symprod{
+        \prod_{c=1}^C \Psiop_c^{r_c} (\Psiop_c^\dagger)^{s_c}
+    } \rangle
+    & = \int \delta^2\Psi_1 \ldots \int \delta^2\Psi_C\,
+		    \prod_{c=1}^C \Psi_c^{r_c} (\Psi_c^*)^{s_c} W \\
+    & \approx \pathavg{
+        \prod_{c=1}^C \Psi_c^{r_c} (\Psi_c^*)^{s_c}
+    },
+\end{eqn}
+where $r_c$ and $s_c$ is some set of non-negative integers, and $\pathavg{}$ stands for the average over the simulation paths.
