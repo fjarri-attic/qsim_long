@@ -123,6 +123,7 @@ def journalAbbreviations(entries):
         'Physical Review Letters': 'Phys. Rev. Lett.',
         'The European Physical Journal B': 'Eur. Phys. J. B',
         'Europhysics Letters (EPL)': 'Europhys. Lett.',
+        'EPL (Europhysics Letters)': 'Europhys. Lett.',
         'SIAM Journal on Scientific Computing': 'SIAM J. Sci. Comput.',
     }
 
