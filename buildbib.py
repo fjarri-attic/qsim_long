@@ -56,7 +56,7 @@ def removeFields(entries):
             if field in entry_fields:
                 del entry_fields[field]
 
-def fixArxivReferences(entries):
+def arxivRefsPRL(entries):
     for entry_type, entry_key, entry_fields in entries:
         if 'arxivId' in entry_fields:
             if 'journal' in entry_fields:
@@ -64,12 +64,21 @@ def fixArxivReferences(entries):
                 del entry_fields['arxivId']
             else:
                 aid = entry_fields['arxivId']
-                #del entry_fields['arxivId']
-                #del entry_fields['year']
-
                 entry_fields['archivePrefix'] = 'arXiv'
                 entry_fields['eprint'] = aid[:4] + '.' + aid[5:]
                 entry_fields['SLACcitation'] = "%%CITATION=" + aid[:4] + aid[5:] + ";%%"
+
+def arxivRefsIOP(entries):
+    for i, e in enumerate(entries):
+        entry_type, entry_key, entry_fields = e
+        if 'arxivId' in entry_fields:
+            if 'journal' in entry_fields:
+            # already published, no need to cite arxiv
+                del entry_fields['arxivId']
+            else:
+                aid = entry_fields['arxivId']
+                entry_fields['eprint'] = aid[:4] + '.' + aid[5:]
+                entries[i] = ('unpublished', entry_key, entry_fields)
 
 def authorsGeneral(entries):
     for entry_type, entry_key, entry_fields in entries:
@@ -132,7 +141,7 @@ def prepare(entries):
     #initialsToBack(entries) # required for unsrt style
     journalAbbreviations(entries)
     removeFields(entries)
-    fixArxivReferences(entries)
+    arxivRefsIOP(entries)
     removePaperTitles(entries)
 
 if __name__ == '__main__':
