@@ -18,7 +18,7 @@ Given the basis, we can define the correspondence between some function of coord
 	\begin{eqn*}
 		\mathcal{C}_{\restbasis}^{-1} :: \mathbb{F} \rightarrow \mathbb{C}^{|\restbasis|} \\
 		(\mathcal{C}_{\restbasis}^{-1}[f])_{\nvec}
-		= \int d\xvec \phi_{\nvec}^*(\xvec) f(\xvec),\,{\nvec} \in \restbasis.
+		= \int d\xvec \phi_{\nvec}^* f,\,{\nvec} \in \restbasis.
 	\end{eqn*}
 	Note that for any $f \in \mathbb{F}_{\restbasis}$, $\mathcal{C}_{\restbasis}(\mathcal{C}_{\restbasis}^{-1}[f]) \equiv f$.
 \end{definition}
@@ -32,7 +32,7 @@ To avoid confusion with the common delta function, we introduce the restricted d
 	The restricted delta function $\delta_{\restbasis} \in \mathbb{F}_{\restbasis}$ is defined as
 	\begin{eqn*}
 		\delta_{\restbasis}(\xvec^\prime, \xvec)
-		= \sum_{\nvec \in \restbasis} \phi_{\nvec}^* (\xvec^\prime) \phi_{\nvec} (\xvec).
+		= \sum_{\nvec \in \restbasis} \phi_{\nvec}^{\prime*} \phi_{\nvec}.
 	\end{eqn*}
 	Note that $\delta_{\restbasis}^*(\xvec^\prime, \xvec) = \delta_{\restbasis}(\xvec, \xvec^\prime)$.
 \end{definition}
@@ -47,9 +47,9 @@ Any function can be projected to $\restbasis$ using the projection transformatio
 		\mathbb{F} \rightarrow \mathbb{F}_{\restbasis} \\
 		\mathcal{P}_{\restbasis}[f](\xvec)
 		& = (\mathcal{C}_{\restbasis}(\mathcal{C}_{\restbasis}^{-1}[f])) (\xvec) \\
-		& = \sum_{\nvec \in \restbasis} \phi_{\nvec} (\xvec) \int
-			d\xvec^\prime\, \phi_{\nvec}^*(\xvec^\prime) f(\xvec^\prime) \\
-		& = \int d\xvec^\prime \delta_{\restbasis}(\xvec^\prime, \xvec) f(\xvec^\prime),
+		& = \sum_{\nvec \in \restbasis} \phi_{\nvec} \int
+			d\xvec^\prime\, \phi_{\nvec}^{\prime*} f^\prime \\
+		& = \int d\xvec^\prime \delta_{\restbasis}(\xvec^\prime, \xvec) f^\prime,
 	\end{eqn*}
 	Obviously, $\mathcal{P}_{\fullbasis} \equiv \mathds{1}$.
 \end{definition}
@@ -57,7 +57,7 @@ Any function can be projected to $\restbasis$ using the projection transformatio
 The conjugate of $\mathcal{P}_{\restbasis}$ is thus defined as
 \begin{eqn}
 	(\mathcal{P}_{\restbasis}[f](\xvec))^*
-	= \int d\xvec^\prime \delta_{\restbasis}^*(\xvec^\prime, \xvec) f^*(\xvec^\prime)
+	= \int d\xvec^\prime \delta_{\restbasis}^*(\xvec^\prime, \xvec) f^{\prime*}
 	= \mathcal{P}_{\restbasis}^* [f^*](\xvec).
 \end{eqn}
 
@@ -73,7 +73,7 @@ Using this correspondence, we can define the functional differentiation.
 \label{def:func-calculus:func-diff}
 	Functional derivative is defined as
 	\begin{eqn*}
-		\frac{\delta}{\delta f(\xvec^\prime)} ::
+		\frac{\delta}{\delta f^\prime} ::
 		\left(
 			\mathbb{F}_{\restbasis} \rightarrow \mathbb{F}
 		\right)
@@ -81,8 +81,8 @@ Using this correspondence, we can define the functional differentiation.
 		\left(
 			\mathbb{R}^D \rightarrow \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}
 		\right) \\
-		\frac{\delta \mathcal{F}[f]}{\delta f(\xvec^\prime)}
-		= \sum_{\nvec \in \restbasis} \phi_{\nvec}^* (\xvec^\prime)
+		\frac{\delta \mathcal{F}[f]}{\delta f^\prime}
+		= \sum_{\nvec \in \restbasis} \phi_{\nvec}^{\prime*}
 			\frac{\partial \mathcal{F}(\balpha)}{\partial \alpha_{\nvec}}.
 	\end{eqn*}
 \end{definition}
@@ -99,14 +99,12 @@ In particular, the following useful lemma gives us the ability to differentiate 
 	In other words:
 	\begin{eqn*}
 		\frac{\delta \mathcal{F}}{\delta f^\prime}
-		= \delta_{\restbasis}(\xvec^\prime, \xvec) \left.
-			\frac{\partial g(z, z^*)}{\partial z}
-		\right|_{z=f(x)},
+		= \delta_{\restbasis}(\xvec^\prime, \xvec)
+			\frac{\partial g(f, f^*)}{\partial f},
 		\quad
 		\frac{\delta \mathcal{F}}{\delta f^{\prime*}}
-		= \delta_{\restbasis}^*(\xvec^\prime, \xvec) \left.
-			\frac{\partial g(z, z^*)}{\partial z^*}
-		\right|_{z=f^*(x)}
+		= \delta_{\restbasis}^*(\xvec^\prime, \xvec)
+			\frac{\partial g(f, f^*)}{\partial f^*}
 	\end{eqn*}
 \end{lemma}
 

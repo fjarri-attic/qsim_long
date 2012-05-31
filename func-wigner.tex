@@ -13,21 +13,21 @@ The detailed description of the Wigner function $W(\alpha, \alpha^*) \equiv \mat
 In this section we will extend this definition to the multimode case.
 
 The important part of the definition is the functional analogue of the displacement operator.
-\todo{Need to explicitly state that $F^\prime \equiv F(\xvec^\prime)$. Also, explain why we write $F[\Lambda, \Lambda^*]$ and not $F[\Lambda]$.}
+\todo{Need to explain why we write $F[\Lambda, \Lambda^*]$ and not $F[\Lambda]$?}
 
 \begin{definition}
     Functional displacement operator
 	\begin{eqn*}
 		\hat{D} :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{H}_{\restbasis} \\
 		\hat{D}[\Lambda, \Lambda^*] = \exp \int d\xvec \left(
-			\Lambda(\xvec) \Psiop^\dagger(\xvec) - \Lambda^*(\xvec) \Psiop(\xvec)
+			\Lambda \Psiop^\dagger - \Lambda^* \Psiop
 		\right).
 	\end{eqn*}
 	It is also convenient to define the displacement functional as
 	\begin{eqn*}
 		D :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}_{\restbasis} \rightarrow \mathbb{C} \\
 		D[\Lambda, \Lambda^*, \Psi, \Psi^*] = \exp \int d\xvec \left(
-			-\Lambda(\xvec) \Psi^*(\xvec) + \Lambda^*(\xvec) \Psi(\xvec)
+			-\Lambda \Psi^* + \Lambda^* \Psi
 		\right).
 	\end{eqn*}
 \end{definition}

@@ -2,28 +2,27 @@
 \section{Master equation}
 % =============================================================================
 
-
-Examples of usage can be found in~\cite{Steel1998,Norrie2006a}.
-
-The system can be described by the second-quantized Hamiltonian
-\begin{eqn}
-\label{eqn:master-eqn:hamiltonian}
-\fl	\hat{H}
-    = \int d\xvec \left\{
-		\Psiop_j^{\dagger} K_{jk} \Psiop_k
-		+ \frac{1}{2} \int d\xvec^\prime
-			\Psiop_j^\dagger (\xvec) \Psiop_k^\dagger (\xvec^\prime)
-			U_{jk}(\xvec - \xvec^\prime)
-			\Psiop_j (\xvec^\prime) \Psiop_k (\xvec)
-	\right\},
-\end{eqn}
-where $\xvec$ is a $D$-dimensional coordinate vector, $U_{jk}$ is the two-body scattering potential, and $\Psiop_j^{\dagger}(\xvec)$ and $\Psiop_j(\xvec)$ are bosonic field creation and annihilation operators, which obey standard bosonic commutation relation
+In this paper we consider a zero-temperature $C$-component BEC in $D$ effective dimensions.
+The Hamiltonian for this system is expressed in terms of bosonic field creation and annihilation operators $\Psiop_j^{\dagger}(\xvec)$ and $\Psiop_j(\xvec)$, $j = 1 \ldots C$, which obey standard bosonic commutation relation
 \begin{eqn}
 \label{eqn:master-eqn:commutators}
-	[ \Psiop_{j}(\xvec), \Psiop_{k}^{\dagger}(\xvec^\prime) ]
-	= \delta_{jk} \delta(\xvec^\prime-\xvec).
+	[ \Psiop_j, \Psiop_k^{\prime\dagger} ]
+	= \delta_{jk} \delta(\xvec^\prime-\xvec),
 \end{eqn}
-Single-particle Hamiltonian $K_{jk}$ is
+where $\xvec \in \mathbb{R}^D$ is a $D$-dimensional coordinate vector, and we dubbed $\Psiop_j \equiv \Psiop_j(\xvec)$ and $\Psiop_k^\prime \equiv \Psiop_k(\xvec^\prime)$ for brevity (hereinafter the same abbreviation will be used for all functions of coordinates).
+The second-quantized Hamiltonian for the system is
+\begin{eqn}
+\label{eqn:master-eqn:hamiltonian}
+	\hat{H}
+	= \int d\xvec \left\{
+		\Psiop_j^{\dagger} K_{jk} \Psiop_k
+		+ \frac{1}{2} \int d\xvec^\prime
+			\Psiop_j^\dagger \Psiop_k^{\prime\dagger}
+			U_{jk}(\xvec - \xvec^\prime)
+			\Psiop_j^\prime \Psiop_k
+	\right\},
+\end{eqn}
+where $U_{jk}$ is the two-body scattering potential, and the single-particle Hamiltonian $K_{jk}$ is
 \begin{eqn}
 \label{eqn:master-eqn:single-particle}
 	K_{jk} = \left(
