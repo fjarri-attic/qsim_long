@@ -3,11 +3,11 @@
 % =============================================================================
 \label{sec:func-operators}
 
-We define an orthonormal basis $\fullbasis$ consisting of $\phi_{\nvec}(\xvec)$, where $\nvec$ is a state vector.
+For each component $j$ we define an orthonormal basis consisting of $\phi_{j,\nvec}(\xvec)$, where $\nvec \in \fullbasis_j$ is a mode identifier.
 Orthonormality and completeness conditions for basis functions are, respectively,
 \begin{eqns}
-	\int\limits_A \phi_{\nvec}^* \phi_{\mvec} d\xvec = \delta_{\nvec\mvec}, \\
-	\sum_{\nvec} \phi_{\nvec}^* \phi_{\nvec}^\prime = \delta(\xvec^\prime - \xvec),
+	\int\limits_A \phi_{j,\nvec}^* \phi_{j,\mvec} d\xvec = \delta_{\nvec\mvec}, \\
+	\sum_{\nvec} \phi_{j,\nvec}^* \phi_{j,\nvec}^\prime = \delta(\xvec^\prime - \xvec),
 \end{eqns}
 where the exact nature of integration area $A$ depends on the basis set (for example, $A$ is the whole space for harmonic oscillator modes, or a box for plane waves).
 Hereinafter we assume that the integration $\int d\xvec$ is always performed over $A$.
@@ -15,19 +15,18 @@ Hereinafter we assume that the integration $\int d\xvec$ is always performed ove
 Standard bosonic field operators from~\eqnref{master-eqn:commutators} which project coordinates to the full Hilbert space $\mathbb{H}$ can be decomposed as
 \begin{eqn}
     \Psiop_j \in (\mathbb{R}^D \rightarrow \mathbb{H}): \quad
-	\Psiop_j = \sum_{\nvec \in \fullbasis} \phi_{\nvec} \hat{a}_{j,\nvec},
+	\Psiop_j = \sum_{\nvec \in \fullbasis_j} \phi_{j,\nvec} \hat{a}_{j,\nvec},
 \end{eqn}
 where single mode operators $\hat{a}_{j,\nvec}$ obey bosonic commutation relations, the pair $j,\nvec$ serving as a mode identifier.
-\todo{Can we generalize to each component having its own set of basis functions?}
-The energy cutoff mentioned in the previous section will result in operating with some fixed subset of the basis.
-Let $\restbasis$ be this subset with cardinality $|\restbasis|$.
-Restricted field operators contain only modes from the subset $\restbasis$:
+The energy cutoff mentioned in the previous section will result in operating with some fixed subset of each component's basis.
+Let $\restbasis_j \subseteq \fullbasis_j$ be this subset with cardinality $|\restbasis|$.
+Restricted field operators contain only modes from the subset $\restbasis_j$:
 \begin{eqn}
-    \Psiop_j \in (\mathbb{R}^D \rightarrow \mathbb{H}_{\restbasis}): \quad
-	\Psiop_j = \sum_{\nvec \in \restbasis} \phi_{\nvec} \hat{a}_{j,\nvec}.
+    \Psiop_j \in (\mathbb{R}^D \rightarrow \mathbb{H}_{\restbasis_j}): \quad
+	\Psiop_j = \sum_{\nvec \in \restbasis_j} \phi_{j,\nvec} \hat{a}_{j,\nvec}.
 \end{eqn}
 In this paper we will use them without explicit indices in order to avoid clutter \todo{Should we explicitly mark ``full basis'' operators in the previous section?}.
-Restricted field operators have type $\mathbb{FH}_{\restbasis} \equiv (\mathbb{R}^D \rightarrow \mathbb{H}_{\restbasis})$, where $\mathbb{H}_{\restbasis}$ is the Hilbert space of the restricted subset of modes.
+Restricted field operators have the type $\mathbb{FH}_{\restbasis_j} \equiv (\mathbb{R}^D \rightarrow \mathbb{H}_{\restbasis_j})$, where $\mathbb{H}_{\restbasis_j}$ is the Hilbert space of the restricted subset of modes.
 
 Because of the restricted nature of the operator, commutation relations~\eqnref{master-eqn:commutators} no longer apply.
 The following ones should be used instead:
@@ -36,6 +35,6 @@ The following ones should be used instead:
 	\left[ \Psiop_j, \Psiop_k^\prime \right]
 	& = \left[ \Psiop_j^\dagger, \Psiop_k^{\prime\dagger} \right] = 0, \\
 	\left[ \Psiop_j, \Psiop_k^{\prime\dagger} \right]
-	& = \delta_{jk} \delta_{\restbasis}(\xvec^\prime, \xvec),
+	& = \delta_{jk} \delta_{\restbasis_j}(\xvec^\prime, \xvec),
 \end{eqn}
-where $\delta_{\restbasis}$ is the restricted delta-function from \defref{func-calculus:restricted-delta}.
+where $\delta_{\restbasis_j}$ is the restricted delta-function from \defref{func-calculus:restricted-delta}.

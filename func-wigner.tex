@@ -18,14 +18,14 @@ The important part of the definition is the functional analogue of the displacem
 \begin{definition}
     Functional displacement operator
 	\begin{eqn*}
-		\hat{D} :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{H}_{\restbasis} \\
-		\hat{D}[\Lambda, \Lambda^*] = \exp \int d\xvec \left(
-			\Lambda \Psiop^\dagger - \Lambda^* \Psiop
+		\hat{D}_j :: \mathbb{F}_{\restbasis_j} \rightarrow \mathbb{H}_{\restbasis_j} \\
+		\hat{D}_j[\Lambda, \Lambda^*] = \exp \int d\xvec \left(
+			\Lambda \Psiop_j^\dagger - \Lambda^* \Psiop_j
 		\right).
 	\end{eqn*}
 	It is also convenient to define the displacement functional as
 	\begin{eqn*}
-		D :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}_{\restbasis} \rightarrow \mathbb{C} \\
+		D :: \mathbb{F}_{\restbasis_j} \rightarrow \mathbb{F}_{\restbasis_j} \rightarrow \mathbb{C} \\
 		D[\Lambda, \Lambda^*, \Psi, \Psi^*] = \exp \int d\xvec \left(
 			-\Lambda \Psi^* + \Lambda^* \Psi
 		\right).
@@ -37,59 +37,71 @@ It can be shown that the functional displacement operator has properties similar
 \begin{lemma}
 \label{lmm:func-wigner:displacement-derivatives}
 	\begin{eqn*}
-		\frac{\delta}{\delta \Lambda^\prime} \hat{D}[\Lambda, \Lambda^*]
-		= \hat{D}[\Lambda, \Lambda^*] (\Psiop^{\prime\dagger} + \frac{1}{2} \Lambda^{\prime*})
-		= (\Psiop^{\prime\dagger} - \frac{1}{2} \Lambda^{\prime*}) \hat{D}[\Lambda, \Lambda^*], \\
-		-\frac{\delta}{\delta \Lambda^{\prime*}} \hat{D}[\Lambda, \Lambda^*]
-		= \hat{D}(\Lambda, \Lambda^*) (\Psiop^\prime + \frac{1}{2} \Lambda^\prime)
-		= (\Psiop^\prime - \frac{1}{2} \Lambda^\prime) \hat{D}[\Lambda, \Lambda^*].
+		\frac{\delta}{\delta \Lambda^\prime} \hat{D}_j[\Lambda, \Lambda^*]
+		= \hat{D}_j[\Lambda, \Lambda^*] (\Psiop_j^{\prime\dagger} + \frac{1}{2} \Lambda^{\prime*})
+		= (\Psiop_j^{\prime\dagger} - \frac{1}{2} \Lambda^{\prime*}) \hat{D}_j[\Lambda, \Lambda^*], \\
+		-\frac{\delta}{\delta \Lambda^{\prime*}} \hat{D}_j[\Lambda, \Lambda^*]
+		= \hat{D}_j(\Lambda, \Lambda^*) (\Psiop_j^\prime + \frac{1}{2} \Lambda^\prime)
+		= (\Psiop_j^\prime - \frac{1}{2} \Lambda^\prime) \hat{D}_j[\Lambda, \Lambda^*].
 	\end{eqn*}
 \end{lemma}
 \begin{proof}
 Proved using Baker-Hausdorff theorem and evaluating integrals.
 \end{proof}
 
+It is convenient to first define a general Wigner transformation.
+
 \begin{definition}
-\label{eqn:func-wigner:w-transformation}
-	Functional Wigner transformation $\mathcal{W}$ is defined as
+\label{def:func-wigner:w-transformation}
+	Multi-component functional Wigner transformation $\mathcal{W}$ is defined as
+	\todo{Is the return value real or complex?}
 	\begin{eqn*}
-		\mathcal{W} :: \mathbb{FH}_{\restbasis} \rightarrow (\mathbb{F}_{\restbasis} \rightarrow \mathbb{C}) \\
+		\mathcal{W} :: \left( \mathbb{R}^D \rightarrow \prod_{j=1}^C \mathbb{H}_{\restbasis_j} \right)
+			\rightarrow \prod_{j=1}^C \mathbb{F}_{\restbasis_j}
+			\rightarrow \mathbb{R} \\
 		\mathcal{W}[\hat{A}]
-		= \frac{1}{\pi^{2|\restbasis|}} \int \delta^2 \Lambda
-			D[\Lambda, \Lambda^*, \Psi, \Psi^*]
-			\Trace{ \hat{A} \hat{D}[\Lambda, \Lambda^*] }.
+		= \frac{1}{\pi^{2 \sum|\restbasis_j|}} \int \delta^2 \bLambda
+			\left( \prod_{j=1}^C D[\Lambda_j, \Lambda_j^*, \Psi_j, \Psi_j^*] \right)
+			\Trace{ \hat{A} \prod_{j=1}^C \hat{D}_j[\Lambda_j, \Lambda_j^*] },
 	\end{eqn*}
-	It transforms an operator $\hat{A}$ on a restricted Hilbert space to a functional $(\mathcal{W}[\hat{A}])[\Psi, \Psi^*]$.
-	By analogy with the single-mode case, the Wigner functional is
+	where $\Lambda_j \in \mathbb{F}_{\restbasis_j}$, and $\int \delta^2 \bLambda \equiv \int \delta^2 \Lambda_1 \ldots \delta^2 \Lambda_C$.
+	It transforms a coordinate-dependent operator $\hat{A}$ on a restricted subset of a Hilbert space to a functional $(\mathcal{W}[\hat{A}])[\bPsi, \bPsi^*]$.
+	\todo{Add expression for Weyl transformation?}
+\end{definition}
+
+Wigner functional is a special case of Wigner transformation.
+
+\begin{definition}
+\label{def:func-wigner:w-functional}
+	The Wigner functional is
 	\begin{eqn*}
-		W :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{C} \\
-		W [\Psi, \Psi^*]
+		W :: \prod_{j=1}^C \mathbb{F}_{\restbasis_j} \rightarrow \mathbb{R} \\
+		W [\bPsi, \bPsi^*]
 		\equiv \mathcal{W}[\hat{\rho}]
-		= \frac{1}{\pi^{2|\restbasis|}} \int \delta^2 \Lambda
-			D[\Lambda, \Lambda^*, \Psi, \Psi^*]
-			\chi_W [\Lambda, \Lambda^*],
+		= \frac{1}{\pi^{2 \sum|\restbasis_j|}} \int \delta^2 \bLambda
+			\left( \prod_{j=1}^C D[\Lambda_j, \Lambda_j^*, \Psi_j, \Psi_j^*] \right) \chi_W,
 	\end{eqn*}
-	where $\chi_W [\Lambda, \Lambda^*]$ is the characteristic functional
+	where $\chi_W [\bLambda, \bLambda^*]$ is the characteristic functional
 	\begin{eqn*}
-		\chi_W :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{R} \\
-		\chi_W [\Lambda, \Lambda^*]
-		= \Trace{ \hat{\rho} \hat{D}[\Lambda, \Lambda^*] }.
+		\chi_W [\bLambda, \bLambda^*]
+		= \Trace{ \hat{\rho} \prod_{j=1}^C \hat{D}_j[\Lambda_j, \Lambda_j^*] }.
 	\end{eqn*}
 \end{definition}
 
-The multi-mode Wigner function has two important properties analogous to the single-mode case.
+The Wigner functional has two important properties analogous to the single-mode case.
 First one is used to successively transform operator products.
 In order to prove it, we will need an auxiliary lemma.
 
 \begin{lemma}
 \label{lmm:func-wigner:zero-integrals}
+	For $\Lambda \in \mathbb{F}_j$, $\Psi \in \mathbb{F}_j$:
 	\begin{eqn*}
 		\int \delta^2\Lambda
 			\frac{\delta}{\delta \Lambda^\prime} \left(
-				D[\Lambda, \Lambda^*, \Psi, \Psi^*]
+				D[\Lambda, \Lambda^*, \Psi_j, \Psi_j^*]
 				\left( \frac{\delta}{\delta \Lambda^\prime} \right)^r
 				\left( -\frac{\delta}{\delta \Lambda^{\prime*}} \right)^s
-				\hat{D}[\Lambda, \Lambda^*]
+				\hat{D}_j[\Lambda, \Lambda^*]
 			\right)
 		= 0, \\
 		\int \delta^2\Lambda
@@ -98,7 +110,7 @@ In order to prove it, we will need an auxiliary lemma.
 				D[\Lambda, \Lambda^*, \Psi, \Psi^*]
 				\left( \frac{\delta}{\delta \Lambda^\prime} \right)^r
 				\left( -\frac{\delta}{\delta \Lambda^{\prime*}} \right)^s
-				\hat{D}[\Lambda, \Lambda^*]
+				\hat{D}_j[\Lambda, \Lambda^*]
 			\right)
 		= 0.
 	\end{eqn*}
@@ -107,36 +119,36 @@ In order to prove it, we will need an auxiliary lemma.
 Displacement operator and displacement functional can be represented as functions of vectors:
 \begin{eqn}
 	\hat{D}[\Lambda, \Lambda^*]
-	= \prod_{\nvec \in \restbasis} \exp \left(
-		\lambda_{\nvec} \hat{a}_{\nvec}^\dagger - \lambda_{\nvec}^* \hat{a}_{\nvec}
+	= \prod_{\nvec \in \restbasis_j} \exp \left(
+		\lambda_{\nvec} \hat{a}_{j,\nvec}^\dagger - \lambda_{\nvec}^* \hat{a}_{j,\nvec}
 	\right),
 \end{eqn}
 \begin{eqn}
 	D[\Lambda, \Lambda^*, \Psi, \Psi^*]
-	= \prod_{\nvec \in \restbasis} \exp
-		(-\lambda_{\nvec} \alpha_{\nvec}^* + \lambda_{\nvec}^* \alpha_{\nvec}),
+	= \prod_{\nvec \in \restbasis_j} \exp
+		(-\lambda_{\nvec} \alpha_{j,\nvec}^* + \lambda_{\nvec}^* \alpha_{j,\nvec}),
 \end{eqn}
 The proof consists of substituting these in the equations from the statement and applying \lmmref{c-numbers:zero-integrals}.
 \end{proof}
 
 \begin{theorem}[Functional correspondences]
 \label{thm:func-wigner:correspondences}
-    If $\mathcal{W} [ \hat{A} ] \equiv (\mathcal{W} [ \hat{A} ]) [\Psi, \Psi^*]$, then
+    If $\mathcal{W} [ \hat{A} ] \equiv (\mathcal{W} [ \hat{A} ]) [\bPsi, \bPsi^*]$, then
 	\begin{eqn*}
-		\mathcal{W} [ \Psiop \hat{A} ]
-			& = \left( \Psi + \frac{1}{2} \frac{\delta}{\delta \Psi^*} \right) \mathcal{W}[\hat{A}],
+		\mathcal{W} [ \Psiop_j \hat{A} ]
+			& = \left( \Psi_j + \frac{1}{2} \frac{\delta}{\delta \Psi_j^*} \right) \mathcal{W}[\hat{A}],
 		\quad
-		\mathcal{W} [ \Psiop^\dagger \hat{A} ]
-			= \left( \Psi^* - \frac{1}{2} \frac{\delta}{\delta \Psi} \right) \mathcal{W}[\hat{A}], \\
-		\mathcal{W} [ \hat{A} \Psiop ]
-			& = \left( \Psi - \frac{1}{2} \frac{\delta}{\delta \Psi^*} \right) \mathcal{W}[\hat{A}],
+		\mathcal{W} [ \Psiop_j^\dagger \hat{A} ]
+			= \left( \Psi_j^* - \frac{1}{2} \frac{\delta}{\delta \Psi_j} \right) \mathcal{W}[\hat{A}], \\
+		\mathcal{W} [ \hat{A} \Psiop_j ]
+			& = \left( \Psi_j - \frac{1}{2} \frac{\delta}{\delta \Psi_j^*} \right) \mathcal{W}[\hat{A}],
 		\quad
-		\mathcal{W} [ \hat{A} \Psiop^\dagger ]
-			= \left( \Psi^* + \frac{1}{2} \frac{\delta}{\partial \Psi} \right) \mathcal{W}[\hat{A}].
+		\mathcal{W} [ \hat{A} \Psiop_j^\dagger ]
+			= \left( \Psi_j^* + \frac{1}{2} \frac{\delta}{\partial \Psi_j} \right) \mathcal{W}[\hat{A}].
 	\end{eqn*}
 \end{theorem}
 \begin{proof}
-The proof uses \lmmref{func-wigner:displacement-derivatives} to transform the $\hat{A}\hat{D}$ product inside the trace, and \lmmref{func-wigner:zero-integrals} to integrate by parts, effectively moving the differentials to intended places.
+The proof uses \lmmref{func-wigner:displacement-derivatives} to transform the $\hat{A} \prod_j \hat{D}_j$ product inside the trace, and \lmmref{func-wigner:zero-integrals} to integrate by parts, effectively moving the differentials to intended places.
 \end{proof}
 
 The second property complements the first one, providing the way to obtain expectations of operator products given the Wigner function.
@@ -146,123 +158,101 @@ Again, it requires a supplementary lemma.
 \label{lmm:func-wigner:moments-from-chi}
     For any non-negative integer $r$ and $s$:
 	\begin{eqn*}
-		\langle \symprod{ (\Psiop^\prime)^r (\Psiop^{\prime\dagger})^s } \rangle
+		\langle \symprod{ (\Psiop_j^\prime)^r (\Psiop_j^{\prime\dagger})^s } \rangle
 		= \left.
-			\left( \frac{\delta}{\delta \Lambda^\prime} \right)^s
-			\left( -\frac{\delta}{\delta \Lambda^{\prime*}} \right)^r
-			\chi_W [\Lambda, \Lambda^*]
-		\right|_{\Lambda \equiv 0}.
+			\left( \frac{\delta}{\delta \Lambda_j^\prime} \right)^s
+			\left( -\frac{\delta}{\delta \Lambda_j^{\prime*}} \right)^r
+			\chi_W [\bLambda, \bLambda^*]
+		\right|_{\bLambda \equiv 0}.
 	\end{eqn*}
 \end{lemma}
 \begin{proof}
-The displacement operator can be expanded as
+The factor corresponding to $j$-th component in the displacement operator can be expanded as
 \begin{eqn}
-	\exp (\Lambda \Psiop^\dagger - \Lambda^* \Psiop)
+	\exp (\Lambda_j \Psiop_j^\dagger - \Lambda_j^* \Psiop_j)
 	= \sum_{r,s}
 		\frac{
 			\symprod{
-				\left( \int d\xvec \Lambda \Psiop^\dagger \right)^r
-				\left( -\int d\xvec \Lambda^* \Psiop \right)^s
+				\left( \int d\xvec \Lambda_j \Psiop_j^\dagger \right)^r
+				\left( -\int d\xvec \Lambda_j^* \Psiop_j \right)^s
 			}
 		}
 		{r!s!}.
 \end{eqn}
 We can swap functional derivative with both integration and multiplication by independent function, so:
 \begin{eqn}
-	\frac{\delta}{\delta \Lambda^\prime} \left( \int d\xvec \Lambda \Psiop^\dagger \right)^r
-	= r \Psiop^{\prime\dagger} \left( \int d\xvec \Lambda \Psiop^\dagger \right)^{r-1},
+	\frac{\delta}{\delta \Lambda_j^\prime} \left( \int d\xvec \Lambda_j \Psiop_j^\dagger \right)^r
+	= r \Psiop_j^{\prime\dagger} \left( \int d\xvec \Lambda_j \Psiop_j^\dagger \right)^{r-1},
 \end{eqn}
 and multiple application of the differential gives us
 \begin{eqn}
-	\left( \frac{\delta}{\delta \Lambda^\prime} \right)^r
-	\left( \int d\xvec \Lambda \Psiop^\dagger \right)^r
-	= r! ( \Psiop^{\prime\dagger} )^r.
+	\left( \frac{\delta}{\delta \Lambda_j^\prime} \right)^r
+	\left( \int d\xvec \Lambda_j \Psiop_j^\dagger \right)^r
+	= r! ( \Psiop_j^{\prime\dagger} )^r.
 \end{eqn}
 Similarly for the other differential:
 \begin{eqn}
-	\left( -\frac{\delta}{\delta \Lambda^{\prime*}} \right)^s
-	\left( -\int d\xvec \Lambda \Psiop^\dagger \right)^s
-	= s! ( \Psiop^{\prime\dagger} )^s.
+	\left( -\frac{\delta}{\delta \Lambda_j^{\prime*}} \right)^s
+	\left( -\int d\xvec \Lambda_j \Psiop_j^\dagger \right)^s
+	= s! ( \Psiop_j^{\prime\dagger} )^s.
 \end{eqn}
 
-Thus, differentiation will eliminate all lower order terms in the expansion, and all higher order terms will be eliminated by setting $\Lambda \equiv 0$, leaving only one operator product with required order.
+Thus, differentiation will eliminate all lower order terms in the expansion, and all higher order terms will be eliminated by setting $\Lambda_j \equiv 0$ for every $j$, leaving only one operator product with required order.
 \end{proof}
 
 \begin{theorem}[Calculation of expectations]
 \label{thm:func-wigner:moments}
-    For any non-negative integer $r$ and $s$:
+	For any non-negative integer $r_j$, $s_j$
 	\begin{eqn*}
-		\langle \symprod{ \Psiop^r (\Psiop^\dagger)^s } \rangle
-		= \int \delta^2\Psi\, \Psi^r (\Psi^*)^s W[\Psi, \Psi^*].
+		\langle \symprod{ \prod_{j=1}^C \Psiop_j^{r_j} (\Psiop_j^\dagger)^{s_j} } \rangle
+		= \int \delta^2 \bPsi
+			\left( \prod_{j=1}^C \Psi_j^{r_j} (\Psi_j^*)^{s_j} \right) W[\bPsi, \bPsi^*].
 	\end{eqn*}
 \end{theorem}
 \begin{proof}
-By definition of Wigner functional:
+By definition of the Wigner functional:
 \begin{eqn}
-	\int \delta^2\Psi\, \Psi^r (\Psi^*)^s W[\Psi, \Psi^*] \\
-	= \frac{1}{\pi^{2|\restbasis|}} \Trace{ \hat{\rho}
-		\int \delta^2\Psi\, \Psi^r (\Psi^*)^s
-		\int \delta^2\Lambda D[\Lambda, \Lambda^*, \Psi, \Psi^*]
-		\hat{D}[\Lambda, \Lambda^*]
-	}
+\fl	\int \delta^2\bPsi \left( \prod_{j=1}^C \Psi_j^{r_j} (\Psi_j^*)^{s_j} \right) W[\bPsi, \bPsi^*] \\
+\fl	= \frac{1}{\pi^{2\sum|\restbasis_j|}} \Trace{ \hat{\rho}
+		\prod_{j=1}^C
+			\int \delta^2 \Lambda_j \left(
+				\int \delta^2 \Psi_j\, \Psi_j^{r_j} (\Psi_j^*)^{s_j}
+				D[\Lambda_j, \Lambda_j^*, \Psi_j, \Psi_j^*]
+			\right)
+			\hat{D}_j[\Lambda_j, \Lambda_j^*]
+	}.
 \end{eqn}
-Integrating by parts and eliminating terms which fit \lmmref{func-wigner:zero-integrals}:
+Evaluating the integral over $\Psi_j$ using \lmmref{func-calculus:fourier-of-moments}:
 \begin{eqn}
-\fl	= \frac{1}{\pi^{2|\restbasis|}} \Trace{ \hat{\rho}
-		\int \delta^2\Psi \int \delta^2\Lambda
-		D[\Lambda, \Lambda^*, \Psi, \Psi^*]
-		\left( \frac{\delta}{\delta \Lambda} \right)^s
-		\left( -\frac{\delta}{\delta \Lambda^*} \right)^r
-		\hat{D}[\Lambda, \Lambda^*]
-	}
+	= \Trace{ \hat{\rho}
+		\prod_{j=1}^C
+			\int \delta^2 \Lambda_j \left(
+				\left( -\frac{\delta}{\delta \Lambda_j^*} \right)^{r_j}
+				\left( \frac{\delta}{\delta \Lambda_j} \right)^{s_j}
+				\Delta_{\restbasis_j}[\Lambda_j]
+			\right)
+			\hat{D}_j[\Lambda_j, \Lambda_j^*]
+	}.
 \end{eqn}
-Evaluating the integral over $\Psi$ using \lmmref{func-calculus:fourier-of-moments}:
-\begin{eqn*}
-	& = \int \delta^2\Lambda\,
-		\Delta_{\restbasis}[\Lambda]
-		\left( \frac{\delta}{\delta \Lambda} \right)^s
-		\left( -\frac{\delta}{\delta \Lambda^*} \right)^r
-		\Trace{
-			\hat{\rho}
-			\hat{D}[\Lambda, \Lambda^*]
-		} \\
+Integrating by parts for each component in turn and eliminating terms which fit \lmmref{func-wigner:zero-integral}:
+\begin{eqn}
+	& = \Trace{ \hat{\rho}
+		\prod_{j=1}^C \int \delta^2 \Lambda_j
+			\Delta_{\restbasis_j}[\Lambda_j]
+			\left( -\frac{\delta}{\delta \Lambda_j^*} \right)^{r_j}
+			\left( \frac{\delta}{\delta \Lambda_j} \right)^{s_j}
+			\hat{D}_j[\Lambda_j, \Lambda_j^*]
+	} \\
 	& = \left.
-		\left( \frac{\delta}{\delta \Lambda} \right)^s
-		\left( -\frac{\delta}{\delta \Lambda^*} \right)^r
-		\chi_W [\Lambda, \Lambda^*]
-	\right|_{\Lambda \equiv 0},
-\end{eqn*}
-where $\Delta_{\restbasis}[\Lambda]$ is a delta functional from \defref{func-calculus:delta-functional}.
+		\left(
+			\prod_{j=1}^C
+			\left( \frac{\delta}{\delta \Lambda_j} \right)^{s_j}
+			\left( -\frac{\delta}{\delta \Lambda_j^*} \right)^{r_j}
+		\right)
+		\chi_W [\bLambda, \bLambda^*]
+	\right|_{\bLambda \equiv 0},
+\end{eqn}
+where $\Delta_{\restbasis_j}[\Lambda_j]$ is a delta functional from \defref{func-calculus:delta-functional}.
 Now, recognising the final expression as a part of \lmmref{func-wigner:moments-from-chi},
 we immediately get the statement of the theorem.
 \end{proof}
-
-\thmref{func-wigner:correspondences} and \thmref{func-wigner:moments} can be further extended to the case of several components.
-\todo{Do we need them here?}
-
-\begin{theorem}[Multi-component extension of \thmref{func-wigner:correspondences}]
-\label{thm:func-wigner:mc-correspondences}
-    If $\mathcal{W} [ \hat{A} ] \equiv (\mathcal{W} [ \hat{A} ]) [\Psivec, \Psivec^*]$, then
-    \begin{eqn*}
-    	\mathcal{W} [ \Psiop_c \hat{A} ]
-    		& = \left( \Psi_c + \frac{1}{2} \frac{\delta}{\delta \Psi_c^*} \right) \mathcal{W}[\hat{A}],
-    	\quad
-    	\mathcal{W} [ \Psiop_c^\dagger \hat{A} ]
-    		= \left( \Psi_c^* - \frac{1}{2} \frac{\delta}{\delta \Psi_c} \right) \mathcal{W}[\hat{A}], \\
-    	\mathcal{W} [ \hat{A} \Psiop_c ]
-    		& = \left( \Psi_c - \frac{1}{2} \frac{\delta}{\delta \Psi_c^*} \right) \mathcal{W}[\hat{A}],
-    	\quad
-    	\mathcal{W} [ \hat{A} \Psiop_c^\dagger ]
-    		= \left( \Psi_c^* + \frac{1}{2} \frac{\delta}{\partial \Psi_c} \right) \mathcal{W}[\hat{A}].
-    \end{eqn*}
-\end{theorem}
-
-\begin{theorem}[Multi-component extension of \thmref{func-wigner:moments}]
-\label{thm:func-wigner:mc-moments}
-	For any non-negative integers $r_c$ and $s_c$, $c \in [1, C]$
-	\begin{eqn*}
-	    \langle \symprod{ \prod_{c=1}^C \Psiop_c^{r_c} (\Psiop_c^\dagger)^{s_c} } \rangle
-		= \left( \prod_{c=1}^C \int \delta^2\Psi_c \right)
-		\left( \prod_{c=1}^C \Psi_c^{r_c} (\Psi_c^*)^{s_c} \right) W[\Psivec, \Psivec^*].
-	\end{eqn*}
-\end{theorem}
