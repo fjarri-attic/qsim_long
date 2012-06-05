@@ -9,7 +9,7 @@ One can find thorough description of these rules, for example, in~\cite{Kreutz-D
 \begin{definition}
 	For a complex variable $z = x + iy$ and a function $f(z) = u(x, y) + iv(x, y)$ the Wirtinger differential is
 	\begin{eqn*}
-		\frac{df(z)}{dz}
+		\frac{\partial f(z)}{\partial z}
 		= \frac{1}{2} \left(
 			\frac{\partial f}{\partial x} - i \frac{\partial f}{\partial y}
 		\right).
@@ -56,7 +56,7 @@ Another important property is used extensively throughout the paper.
 \begin{lemma}
 \label{lmm:c-numbers:zero-integrals}
 	For any non-negative integers $r$, $s$, and a complex $\alpha$:
-	\begin{eqn}
+	\begin{eqn*}
 		\int d^2\lambda
 			\frac{\partial}{\partial \lambda} \left(
 				\exp(-\lambda \alpha^* + \lambda^* \alpha)
@@ -70,7 +70,7 @@ Another important property is used extensively throughout the paper.
 				\exp(ixy) x^r y^s
 			\right)
 		= 0,
-	\end{eqn}
+	\end{eqn*}
 	where $\lambda = x + iy$.
 \end{lemma}
 \begin{proof}
