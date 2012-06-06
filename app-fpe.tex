@@ -108,54 +108,54 @@ Proved by joining vectors from all components into one vector and applying \thmr
     \begin{eqn*}
 \fl    	\frac{dW}{dt}
     	= \int d\xvec \left(
-    		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} A_j
-    		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} A_j^*
+    		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} \mathcal{A}_j
+    		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} \mathcal{A}_j^*
     		+ \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j \delta \Psi_k^*}
-    			\sum_{\lvec} B_{\lvec}^{(k)} (B_{\lvec}^{(j)})^*
+    			\sum_{\lvec} \mathcal{B}_{\lvec}^{(k)} (\mathcal{B}_{\lvec}^{(j)})^*
     	\right) W
     \end{eqn*}
     is equivalent to the set of SDEs in It\^{o} form
     \begin{eqn*}
-    	d\Psi_j = \mathcal{P}_{\restbasis} \left[
-    		A^{(j)} dt + \sum_{\lvec} B_{\lvec}^{(j)} d\boldsymbol{Q}_{\lvec}
+    	d\Psi_j = \mathcal{P}_{\restbasis_j} \left[
+    		\mathcal{A}^{(j)} dt + \sum_{\lvec} \mathcal{B}_{\lvec}^{(j)} dQ_{\lvec}
     	\right],
     \end{eqn*}
     or in Stratonovich form
     \begin{eqn*}
-    	d\Psi_j = \mathcal{P}_{\restbasis} \left[
-    		(A^{(j)} - S^{(j)}) dt + \sum_{\lvec} B_{\lvec}^{(j)} d\boldsymbol{Q}_{\lvec}
+    	d\Psi_j = \mathcal{P}_{\restbasis_j} \left[
+    		(\mathcal{A}^{(j)} - \mathcal{S}^{(j)}) dt + \sum_{\lvec} \mathcal{B}_{\lvec}^{(j)} dQ_{\lvec}
     	\right],
     \end{eqn*}
     where
     \begin{eqn*}
-    	S^{(j)} = \sum_{c=1}^C \sum_{\lvec}
-    		(B_{\lvec}^{(c)})^*
+    	\mathcal{S}^{(j)} = \sum_{c=1}^C \sum_{\lvec}
+    		(\mathcal{B}_{\lvec}^{(c)})^*
     		\frac{\delta}{\delta \Psi_c^*}
-    		B_{\lvec}^{(j)},
+    		\mathcal{B}_{\lvec}^{(j)},
     \end{eqn*}
-    and $\boldsymbol{Q}_{\lvec}$ is a functional Wiener process:
+    and $Q_{\lvec}$ is a functional Wiener process:
     \begin{eqn*}
-    	\boldsymbol{Q}_{\lvec} = \sum_{\nvec \in \fullbasis} \phi_{\nvec} Z_{\lvec,\nvec}.
+    	Q_{\lvec} = \sum_{\nvec \in \fullbasis} \phi_{\nvec} Z_{\lvec,\nvec}.
     \end{eqn*}
 \end{theorem}
 \begin{proof}
 Proved by expanding functional derivatives and applying \thmref{app-fpe:mc-fpe-sde}.
 The diffusion term has to be transformed in order to conform to the theorem:
-\begin{eqn*}
-\fl	\int d\xvec \phi_{\nvec} \phi_{\mvec}^* \sum_{\lvec} B_{\lvec}^{(k)} (B_{\lvec}^{(j)})^*
+\begin{eqn}
+\fl	\int d\xvec \phi_{k,\nvec} \phi_{j,\mvec}^* \sum_{\lvec} \mathcal{B}_{\lvec}^{(k)} (\mathcal{B}_{\lvec}^{(j)})^*
 	& = \int d\xvec \int d\xvec^\prime
-			\phi_{\nvec}^\prime \phi_{\mvec}^*
-			\sum_{\lvec} B_{\lvec}^{(k)} (B_{\lvec}^{(j)})^{\prime*}
+			\phi_{k,\nvec}^\prime \phi_{j,\mvec}^*
+			\sum_{\lvec} \mathcal{B}_{\lvec}^{(k)} (\mathcal{B}_{\lvec}^{(j)})^{\prime*}
 			\delta(\xvec - \xvec^\prime) \\
 \fl	& = \int d\xvec \int d\xvec^\prime
-			\phi_{\nvec}^\prime \phi_{\mvec}^*
-			\sum_{\lvec} B_{\lvec}^{(k)} (B_{\lvec}^{(j)})^{\prime*}
+			\phi_{k,\nvec}^\prime \phi_{j,\mvec}^*
+			\sum_{\lvec} \mathcal{B}_{\lvec}^{(k)} (\mathcal{B}_{\lvec}^{(j)})^{\prime*}
 			\sum_{\pvec \in \fullbasis} \phi_{\pvec}^{\prime*} \phi_{\pvec} \\
 \fl	& = \sum_{\pvec \in \fullbasis, \lvec}
 		\int d\xvec
-			\phi_{\nvec}^* B_{\lvec}^{(k)} \phi_{\pvec}
+			\phi_{k,\nvec}^* \mathcal{B}_{\lvec}^{(k)} \phi_{\pvec}
 		\int d\xvec
-			\phi_{\mvec} (B_{\lvec}^{(j)})^* \phi_{\pvec}^*
-\end{eqn*}
+			\phi_{j,\mvec} (\mathcal{B}_{\lvec}^{(j)})^* \phi_{\pvec}^*
+\end{eqn}
 Grouping terms back and recognising the definition of projection transformation, one gets the statement of the theorem.
 \end{proof}

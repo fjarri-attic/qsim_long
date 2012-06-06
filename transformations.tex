@@ -79,56 +79,56 @@ Next theorem describes the transformation of the non-linear part of the Hamilton
 
 \begin{theorem}
 \label{thm:transformations:w-commutator2}
-    \begin{eqn*}
-    	\mathcal{W} \left[
-    		[
-    			\int d\xvec \int d\xvec^\prime
-    			\Psiop_j^\dagger \Psiop_k^{\prime\dagger} \Psiop_j^\prime \Psiop_k,
-    			\hat{A}
-    		]
-    	\right] \\
-    	= \int d\xvec \int d\xvec^\prime \left(
-    		\frac{\delta}{\delta \Psi_j} \left(
-    			- \Psi_j^\prime \Psi_k \Psi_k^{\prime*}
-    			+ \frac{1}{2} \delta_{jk} \delta_{\restbasis}(\xvec^\prime, \xvec^\prime) \Psi_k
-    			+ \frac{1}{2} \delta_{\restbasis}(\xvec, \xvec^\prime) \Psi_j^\prime
-    		\right) \right . \\
-    	\left. + \frac{\delta}{\delta \Psi_j^{\prime*}} \left(
-    			\Psi_j^* \Psi_k \Psi_k^{\prime*}
-    			- \frac{1}{2} \delta_{jk} \delta_{\restbasis}(\xvec, \xvec) \Psi_k^{\prime*}
-    			- \frac{1}{2} \delta_{\restbasis}(\xvec, \xvec^\prime) \Psi_j^*
-    		\right) \right. \\
-    	\left. + \frac{\delta}{\delta \Psi_k^\prime} \left(
-    			- \Psi_j^\prime \Psi_j^* \Psi_k
-    			+ \frac{1}{2} \delta_{jk} \delta_{\restbasis}(\xvec, \xvec) \Psi_j^\prime
-    			+ \frac{1}{2} \delta_{\restbasis}(\xvec^\prime, \xvec) \Psi_k
-    		\right) \right .\\
-    	\left. + \frac{\delta}{\delta \Psi_k^*} \left(
-    			\Psi_j^\prime \Psi_j^* \Psi_k^{\prime*}
-    			- \frac{1}{2} \delta_{jk} \delta_{\restbasis}(\xvec^\prime, \xvec^\prime) \Psi_j^*
-    			- \frac{1}{2} \delta_{\restbasis}(\xvec^\prime, \xvec) \Psi_k^{\prime*}
-    		\right) \right. \\
-    	\left.
-    			+ \frac{\delta}{\delta \Psi_j}
-    			\frac{\delta}{\delta \Psi_j^{\prime*}}
-    			\frac{\delta}{\delta \Psi_k^\prime}
-    			\frac{1}{4} \Psi_k
-    			- \frac{\delta}{\delta \Psi_j}
-    			\frac{\delta}{\delta \Psi_j^{\prime*}}
-    			\frac{\delta}{\delta \Psi_k^*}
-    			\frac{1}{4} \Psi_k^{\prime*}
-    		\right. \\
-    	\left.
-    			+ \frac{\delta}{\delta \Psi_k^\prime}
-    			\frac{\delta}{\delta \Psi_k^*}
-    			\frac{\delta}{\delta \Psi_j}
-    			\frac{1}{4} \Psi_j^\prime
-    			- \frac{\delta}{\delta \Psi_k^\prime}
-    			\frac{\delta}{\delta \Psi_k^*}
-    			\frac{\delta}{\delta \Psi_j^{\prime*}}
-    			\frac{1}{4} \Psi_j^*
-    	\right) \mathcal{W}[\hat{A}].
-    \end{eqn*}
+	\begin{eqn*}
+		& \mathcal{W} \left[
+			[
+				\int d\xvec \int d\xvec^\prime
+				\Psiop_j^\dagger \Psiop_k^{\prime\dagger} \Psiop_j^\prime \Psiop_k,
+				\hat{A}
+			]
+		\right] \\
+		& = \int d\xvec \int d\xvec^\prime \left(
+			\frac{\delta}{\delta \Psi_j} \left(
+				- \Psi_j^\prime \Psi_k \Psi_k^{\prime*}
+				+ \frac{1}{2} \delta_{jk} \delta_{\restbasis_j}(\xvec^\prime, \xvec^\prime) \Psi_k
+				+ \frac{1}{2} \delta_{\restbasis_j}(\xvec, \xvec^\prime) \Psi_j^\prime
+			\right) \right . \\
+		&	\left. + \frac{\delta}{\delta \Psi_j^{\prime*}} \left(
+				\Psi_j^* \Psi_k \Psi_k^{\prime*}
+				- \frac{1}{2} \delta_{jk} \delta_{\restbasis_j}(\xvec, \xvec) \Psi_k^{\prime*}
+				- \frac{1}{2} \delta_{\restbasis_j}(\xvec, \xvec^\prime) \Psi_j^*
+			\right) \right. \\
+		&	\left. + \frac{\delta}{\delta \Psi_k^\prime} \left(
+				- \Psi_j^\prime \Psi_j^* \Psi_k
+				+ \frac{1}{2} \delta_{jk} \delta_{\restbasis_j}(\xvec, \xvec) \Psi_j^\prime
+				+ \frac{1}{2} \delta_{\restbasis_k}(\xvec^\prime, \xvec) \Psi_k
+			\right) \right .\\
+		&	\left. + \frac{\delta}{\delta \Psi_k^*} \left(
+				\Psi_j^\prime \Psi_j^* \Psi_k^{\prime*}
+				- \frac{1}{2} \delta_{jk} \delta_{\restbasis_j}(\xvec^\prime, \xvec^\prime) \Psi_j^*
+				- \frac{1}{2} \delta_{\restbasis_k}(\xvec^\prime, \xvec) \Psi_k^{\prime*}
+			\right) \right. \\
+		&	\left.
+				+ \frac{\delta}{\delta \Psi_j}
+				\frac{\delta}{\delta \Psi_j^{\prime*}}
+				\frac{\delta}{\delta \Psi_k^\prime}
+				\frac{1}{4} \Psi_k
+				- \frac{\delta}{\delta \Psi_j}
+				\frac{\delta}{\delta \Psi_j^{\prime*}}
+				\frac{\delta}{\delta \Psi_k^*}
+				\frac{1}{4} \Psi_k^{\prime*}
+			\right. \\
+		&	\left.
+				+ \frac{\delta}{\delta \Psi_k^\prime}
+				\frac{\delta}{\delta \Psi_k^*}
+				\frac{\delta}{\delta \Psi_j}
+				\frac{1}{4} \Psi_j^\prime
+				- \frac{\delta}{\delta \Psi_k^\prime}
+				\frac{\delta}{\delta \Psi_k^*}
+				\frac{\delta}{\delta \Psi_j^{\prime*}}
+				\frac{1}{4} \Psi_j^*
+		\right) \mathcal{W}[\hat{A}].
+	\end{eqn*}
 \end{theorem}
 \begin{proof}
 Proof is the same as in case of \thmref{transformations:w-commutator1}.
@@ -145,7 +145,7 @@ First one will help us move functional differentials to their intended places (i
     	\Psi^a \left( \frac{\delta}{\delta \Psi} \right)^b \mathcal{F}[\Psi, \Psi^*] \\
     	= \sum_{j=0}^{\min(a, b)}
     		\binom{b}{j} \frac{(-1)^j a!}{(a - j)!}
-    		\delta_{\restbasis}(\xvec, \xvec)^j
+    		\delta_{\restbasis}^j(\xvec, \xvec)
     		\left( \frac{\delta}{\delta \Psi} \right)^{b - j}
     		\Psi^{a - j}
     		\mathcal{F}[\Psi, \Psi^*]
@@ -174,35 +174,35 @@ Finally, the loss transformation theorem can be proved.
 \begin{theorem}
 \label{thm:transformations:w-losses}
     The Wigner transformation of loss term~\eqnref{master-eqn:loss-term} is
+	\begin{eqn*}
+\fl		\mathcal{W} \left[ \int d\xvec \hat{\mathcal{L}}_{\lvec} [\hat{A}] \right]
+		= \int d\xvec
+			\sum_{j_1=0}^{l_1} \sum_{k_1=0}^{l_1} \ldots
+			\sum_{j_C=0}^{l_C} \sum_{k_C=0}^{l_C}
+				\left(
+					\prod_{c=1}^C
+						\left( \frac{\delta}{\delta \Psi_c^*} \right)^{j_c}
+						\left( \frac{\delta}{\delta \Psi_c} \right)^{k_c}
+				\right)
+				L_{\lvec, \jvec, \kvec}
+			\mathcal{W}[\hat{A}],
+	\end{eqn*}
+	where
     \begin{eqn*}
-\fl    	\mathcal{W} \left[ \int d\xvec \hat{\mathcal{L}}_{\lvec} [\hat{A}] \right]
-    	= \int d\xvec
-    		\sum_{j_1=0}^{l_1} \sum_{k_1=0}^{l_1} \ldots
-    		\sum_{j_C=0}^{l_C} \sum_{k_C=0}^{l_C}
-    			\left(
-    				\prod_{c=1}^C
-    					\left( \frac{\delta}{\delta \Psi_c^*} \right)^{j_c}
-    					\left( \frac{\delta}{\delta \Psi_c} \right)^{k_c}
-    			\right)
-    			L_{\lvec, \jvec, \kvec}
-    		\mathcal{W}[\hat{A}],
-    \end{eqn*}
-    where
-    \begin{eqn*}
-\fl    	L_{\lvec, \jvec, \kvec}
-    	= \left( 2 - (-1)^{\sum_c j_c} - (-1)^{\sum_c k_c} \right) \\
-    		\prod_{c=1}^C \left(
+\fl		L_{\lvec, \jvec, \kvec}
+    	={} & \left( 2 - (-1)^{\sum_c j_c} - (-1)^{\sum_c k_c} \right) \\
+    	&	\prod_{c=1}^C \left(
     			\sum_{m_c=0}^{l_c - \max(j_c, k_c)}
     			Q(l_c, j_c, k_c, m_c)
-    			\delta_{\restbasis}(\xvec, \xvec)^{m_c}
+    			\delta_{\restbasis_c}^{m_c}(\xvec, \xvec)
     			\Psi_c^{l_c - j_c - m_c}
     			(\Psi_c^*)^{l_c - k_c - m_c}
     		\right),
     \end{eqn*}
     and
     \begin{eqn*}
-        Q(l, j, k, m)
-    	= (-1)^m \left( \frac{1}{2} \right)^{j + k + m}
+		Q(l, j, k, m)
+    	= \frac{(-1)^m}{2^{j + k + m}}
     		\frac{(l!)^2}{m! j! k! (l - k - m)! (l - j - m)!}.
     \end{eqn*}
 \end{theorem}

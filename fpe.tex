@@ -65,7 +65,7 @@ In the assumption of the state being coherent, the condition for truncation can 
 where $N$ is the number of atoms.
 This condition is equivalent to~\cite{Norrie2006}
 \begin{eqn}
-    \delta_L(\xvec, \xvec) \ll | \Psi_j |^2.
+    \delta_{\restbasis_j}(\xvec, \xvec) \ll | \Psi_j |^2.
 \end{eqn}
 
 Wigner truncation allows us to simplify the results of \thmref{transformations:w-commutator2} and \thmref{transformations:w-losses}.
@@ -147,7 +147,7 @@ Therefore the equation can be further transformed to the equivalent set of stoch
 
 \begin{eqn}
 \label{eqn:fpe:sdes}
-	d\Psi_j = \mathcal{P} \left[
+	d\Psi_j = \mathcal{P}_{\restbasis_j} \left[
 		A^{(j)} dt + \sum_{\lvec} B_{\lvec}^{(j)} Q_{\lvec}
 	\right],
 \end{eqn}
