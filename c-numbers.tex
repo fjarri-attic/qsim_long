@@ -55,57 +55,23 @@ Another important property is used extensively throughout the paper.
 
 \begin{lemma}
 \label{lmm:c-numbers:zero-integrals}
-	For any non-negative integers $r$, $s$, and a complex $\alpha$:
+	If $f(\lambda, \lambda^*)$ is bounded, then for any complex $\alpha$:
 	\begin{eqn*}
 		\int d^2\lambda
 			\frac{\partial}{\partial \lambda} \left(
 				\exp(-\lambda \alpha^* + \lambda^* \alpha)
-				\exp(ixy) x^r y^s
+				f(\lambda, \lambda^*)
 			\right)
-		= 0, \\
+		& = 0 \\
 		\int d^2\lambda
 			\frac{\partial}{\partial \lambda^*}
 			\left(
 				\exp(-\lambda \alpha^* + \lambda^* \alpha)
-				\exp(ixy) x^r y^s
+				f(\lambda, \lambda^*)
 			\right)
-		= 0,
+		& = 0.
 	\end{eqn*}
-	where $\lambda = x + iy$.
 \end{lemma}
 \begin{proof}
-We will prove the first equation.
-First, note that the complex-valued integral of derivative is evaluated as
-\begin{eqn}
-\fl	\int d^2\lambda \frac{\partial}{\partial \lambda} f(\lambda, \lambda^*)
-	= \frac{1}{2} \int\limits_{-\infty}^{\infty} dy \left(
-			\left. g(x, y) \right|_{x=-\infty}^{\infty}
-		\right)
-	- \frac{i}{2} \int\limits_{-\infty}^{\infty} dx \left(
-			\left. h(x, y) \right|_{y=-\infty}^{\infty}
-		\right),
-\end{eqn}
-where we expanded $f = g + ih$.
-Thus
-\begin{eqn}
-\int & d^2\lambda
-		\frac{\partial}{\partial \lambda} \left(
-			\exp(-\lambda \alpha^* + \lambda^* \alpha)
-			\exp(ixy) x^r y^s
-		\right) \\
-= & \left(
-			\frac{1}{2} \exp(2ixv) x^r \int dy \exp(iy(x-2u)) y^s
-		\right)_{x = -\infty}^\infty \\
-&	- \left(
-			\frac{i}{2} \exp(-2ixy) y^s \int dx \exp(ix(y+2v)) x^r
-		\right)_{y = -\infty}^\infty \\
-= & \left(
-			\frac{1}{2} \exp(2ixv) x^r 2 \pi i^s \delta^{(s)}(x-2u)
-		\right)_{x = -\infty}^\infty \\
-&	- \left(
-			\frac{i}{2} \exp(-2ixy) y^s 2 \pi i^r \delta^{(r)}(y+2v)
-		\right)_{y = -\infty}^\infty \\
-= & 0,
-\end{eqn}
-because any derivative of the delta function is zero on the infinity.
+\todo{Needs proof?}
 \end{proof}

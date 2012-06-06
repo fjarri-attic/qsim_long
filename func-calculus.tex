@@ -164,6 +164,59 @@ The delta functional has the same property as the common delta function:
 The proof consists of expanding functions into sums of modes and applying \lmmref{c-numbers:fourier-of-moments} $|\restbasis|$ times.
 \end{proof}
 
+\begin{lemma}
+\label{lmm:func-calculus:zero-integrals}
+	For a bounded functional $F(\blambda, \blambda^*)$
+	\begin{eqn*}
+		\int \delta^2\Lambda
+			\frac{\delta}{\delta \Lambda^\prime} \left(
+				D[\Lambda, \Lambda^*, \Psi, \Psi^*]
+				F[\Lambda, \Lambda^*]
+			\right)
+		& = 0 \\
+		\int \delta^2\Lambda
+			\frac{\delta}{\delta \Lambda^{\prime*}}
+			\left(
+				D[\Lambda, \Lambda^*, \Psi, \Psi^*]
+				F[\Lambda, \Lambda^*]
+			\right)
+		& = 0.
+	\end{eqn*}
+\end{lemma}
+\begin{proof}
+Proved by expanding integrals and differentials into modes and applying \lmmref{c-numbers:zero-integrals}.
+\end{proof}
+
+\begin{lemma}
+\label{lmm:func-calculus:zero-delta-integrals}
+	For $\Lambda \in \mathbb{F}_{\restbasis}$ \todo{Any limitations on $F$?}
+	\begin{eqn*}
+		\int \delta^2\Lambda
+			\frac{\delta}{\delta \Lambda} \left(
+				\left(
+					\left( \frac{\delta}{\delta \Lambda} \right)^s
+					\left( -\frac{\delta}{\delta \Lambda^*} \right)^r
+					\Delta_{\restbasis}[\Lambda]
+				\right)
+				F[\lambda, \lambda^*]
+			\right)
+		& = 0 \\
+		\int \delta^2\Lambda
+			\frac{\delta}{\delta \Lambda^*} \left(
+				\left(
+					\left( \frac{\delta}{\delta \Lambda} \right)^s
+					\left( -\frac{\delta}{\delta \Lambda^*} \right)^r
+					\Delta_{\restbasis}[\Lambda]
+				\right)
+				F[\lambda, \lambda^*]
+			\right)
+		& = 0 \\
+	\end{eqn*}
+\end{lemma}
+\begin{proof}
+Proved by expanding functional integration and differentials into modes and integrating separately over each $\lambda_{\nvec}$, using the fact that any differential of the delta function is zero on the infinity.
+\end{proof}
+
 In order to perform transformations of master equations, we will need a lemma that justifies the ``relocation'' of the Laplacian (which is a part of the kinetic term in the Hamiltonian) inside the functional integral.
 
 \begin{lemma}
