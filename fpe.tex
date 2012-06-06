@@ -2,7 +2,7 @@
 \section{Wigner truncation and Fokker-Planck equation}
 % =============================================================================
 
-Now we have all necessary tools to transform the master equation~\eqnref{master-eqn:master-eqn} with the Wigner transformation ~\eqnref{func-wigner:w-transformation} \todo{need a specific definition for multi-component transformation?} to the partial differential equation.
+Now we have all necessary tools to transform the master equation~\eqnref{master-eqn:master-eqn} with the Wigner transformation from \defref{func-wigner:w-transformation} to the partial differential equation.
 
 Namely, the single-particle term~\eqnref{master-eqn:single-particle} is transformed using \thmref{transformations:w-commutator1} and \thmref{transformations:w-laplacian-commutator1} (since $K_j$ is basically a sum of Laplacian operator and functions of $\xvec$):
 \begin{eqn}
@@ -161,7 +161,7 @@ and $Q_{\lvec}$ is a functional Wiener process:
 \end{eqn}
 and $Z_{\lvec,\nvec}$ are, in turn, independent complex-valued Wiener processes.
 
-These equations can now be solved using conventional methods, and any required expectations symmetrically ordered operator products can be obtained from their solution using \thmref{func-wigner:mc-moments}:
+These equations can now be solved using conventional methods, and any required expectations symmetrically ordered operator products can be obtained from their solution using \thmref{func-wigner:moments}:
 \begin{eqn}
     \langle \symprod{
         \prod_{c=1}^C \Psiop_c^{r_c} (\Psiop_c^\dagger)^{s_c}
