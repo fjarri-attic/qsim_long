@@ -54,11 +54,10 @@ It is convenient to first define a general Wigner transformation.
 \begin{definition}
 \label{def:func-wigner:w-transformation}
 	Multi-component functional Wigner transformation $\mathcal{W}$ is defined as
-	\todo{Is the return value real or complex?}
 	\begin{eqn*}
 		\mathcal{W} :: \left( \mathbb{R}^D \rightarrow \prod_{j=1}^C \mathbb{H}_{\restbasis_j} \right)
 			\rightarrow \prod_{j=1}^C \mathbb{F}_{\restbasis_j}
-			\rightarrow \mathbb{R} \\
+			\rightarrow \mathbb{C} \\
 		\mathcal{W}[\hat{A}]
 		= \frac{1}{\pi^{2 \sum|\restbasis_j|}} \int \delta^2 \bLambda
 			\left( \prod_{j=1}^C D[\Lambda_j, \Lambda_j^*, \Psi_j, \Psi_j^*] \right)
@@ -86,6 +85,8 @@ Wigner functional is a special case of Wigner transformation.
 		\chi_W [\bLambda, \bLambda^*]
 		= \Trace{ \hat{\rho} \prod_{j=1}^C \hat{D}_j[\Lambda_j, \Lambda_j^*] }.
 	\end{eqn*}
+	\todo{Need proof that $W$ is real-valued?
+	Or just an explicit statement that $\mathcal{W}[\hat{A}]$ is real when $\hat{A}$ is Hermitian.}
 \end{definition}
 
 The Wigner functional has two important properties analogous to the single-mode case.
