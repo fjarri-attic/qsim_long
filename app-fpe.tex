@@ -48,7 +48,7 @@ For details see~\cite{Risken1996}, sections 3.3 and 3.4.
     \begin{eqn*}
     	\frac{dW}{dt}
     	= -\boldsymbol{\partial}_{\boldsymbol{\alpha}}^T \boldsymbol{a} W - \boldsymbol{\partial}_{\boldsymbol{\alpha}^*}^T \boldsymbol{a}^* W
-    	+ \Trace{ \boldsymbol{\partial}_{\boldsymbol{\alpha}} \boldsymbol{\partial}_{\boldsymbol{\alpha}^*}^T B B^H } W
+    	+ \Trace{ \boldsymbol{\partial}_{\boldsymbol{\alpha}^*} \boldsymbol{\partial}_{\boldsymbol{\alpha}}^T B B^H } W
     \end{eqn*}
     is equivalent to a set of stochastic differential equations in It\^{o} form
     \begin{eqn*}
@@ -78,8 +78,8 @@ Proved straightforwardly by transforming the equation to real variables and appl
     	- \sum_{c=1}^C \boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(c)})^*}^T (\boldsymbol{a}^{(c)})^* W \\
         & + \sum_{m=1}^c \sum_{n=1}^c
     		\Trace{
-    			\boldsymbol{\partial}_{\boldsymbol{\alpha}^{(m)}}
-    			\boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(n)})^*}^T
+    			\boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(m)})^*}
+    			\boldsymbol{\partial}_{\boldsymbol{\alpha}^{(n)}}^T
     			B^{(n)} (B^{(m)})^H
     		} W
     \end{eqn}
@@ -110,7 +110,7 @@ Proved by joining vectors from all components into one vector and applying \thmr
     	= \int d\xvec \left(
     		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} \mathcal{A}_j
     		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} \mathcal{A}_j^*
-    		+ \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j \delta \Psi_k^*}
+    		+ \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j^* \delta \Psi_k}
     			\sum_{\lvec} \mathcal{B}_{\lvec}^{(k)} (\mathcal{B}_{\lvec}^{(j)})^*
     	\right) W
     \end{eqn*}
@@ -142,20 +142,20 @@ Proved by joining vectors from all components into one vector and applying \thmr
 Proved by expanding functional derivatives and applying \thmref{app-fpe:mc-fpe-sde}.
 The diffusion term has to be transformed in order to conform to the theorem:
 \begin{eqn}
-\fl	\int d\xvec \phi_{k,\nvec} \phi_{j,\mvec}^* \sum_{\lvec} \mathcal{B}_{\lvec}^{(k)} (\mathcal{B}_{\lvec}^{(j)})^*
+\fl	\int d\xvec \phi_{j,\mvec} \phi_{k,\nvec}^* \sum_{\lvec} \mathcal{B}_{\lvec}^{(k)} (\mathcal{B}_{\lvec}^{(j)})^*
 	& = \int d\xvec \int d\xvec^\prime
-			\phi_{k,\nvec}^\prime \phi_{j,\mvec}^*
-			\sum_{\lvec} \mathcal{B}_{\lvec}^{(k)} (\mathcal{B}_{\lvec}^{(j)})^{\prime*}
+			\phi_{j,\mvec}^\prime \phi_{k,\nvec}^*
+			\sum_{\lvec} (\mathcal{B}_{\lvec}^{(j)})^{\prime *} \mathcal{B}_{\lvec}^{(k)}
 			\delta(\xvec - \xvec^\prime) \\
-\fl	& = \int d\xvec \int d\xvec^\prime
-			\phi_{k,\nvec}^\prime \phi_{j,\mvec}^*
-			\sum_{\lvec} \mathcal{B}_{\lvec}^{(k)} (\mathcal{B}_{\lvec}^{(j)})^{\prime*}
+	& = \int d\xvec \int d\xvec^\prime
+			\phi_{j,\mvec}^\prime \phi_{k,\nvec}^*
+			\sum_{\lvec} (\mathcal{B}_{\lvec}^{(j)})^{\prime *} \mathcal{B}_{\lvec}^{(k)}
 			\sum_{\pvec \in \fullbasis} \phi_{\pvec}^{\prime*} \phi_{\pvec} \\
-\fl	& = \sum_{\pvec \in \fullbasis, \lvec}
-		\int d\xvec
-			\phi_{k,\nvec}^* \mathcal{B}_{\lvec}^{(k)} \phi_{\pvec}
+	& = \sum_{\pvec \in \fullbasis, \lvec}
 		\int d\xvec
 			\phi_{j,\mvec} (\mathcal{B}_{\lvec}^{(j)})^* \phi_{\pvec}^*
+		\int d\xvec
+			\phi_{k,\nvec}^* \mathcal{B}_{\lvec}^{(k)} \phi_{\pvec}
 \end{eqn}
 Grouping terms back and recognising the definition of projection transformation, one gets the statement of the theorem.
 \end{proof}
