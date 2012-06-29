@@ -122,14 +122,14 @@ Thus the truncated Fokker-Planck equation is
 \begin{eqn}
 \fl	\frac{dW}{dt}
 	= \int d\xvec \left(
-		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} A_j
-		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} A_j^*
+		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} \mathcal{A}^{(j)}
+		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} (\mathcal{A}^{(j)})^*
 		+ \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j^* \delta \Psi_k} D_{jk}
 	\right) W,
 \end{eqn}
 where
 \begin{eqn}
-	A_j = -\frac{i}{\hbar} \left(
+	\mathcal{A}^{(j)} = -\frac{i}{\hbar} \left(
 			\sum_{k=1}^C K_{jk} \Psi_k
 			+ \sum_{k=1}^C U_{jk} \Psi_j \Psi_k \Psi_k^*
 		\right)
@@ -143,17 +143,16 @@ and
 \end{eqn}
 
 Since the diffusion matrix is positive-definite, the truncated Wigner function $W$ is a probability distribution
-Therefore the equation can be further transformed to the equivalent set of stochastic differential equations in It\^{o} form as described by \thmref{app-fpe:fpe-sde-func}.
-
+Therefore the equation can be further transformed to the equivalent set of stochastic differential equations in It\^{o} form as described by \thmref{app-fpe:fpe-sde-func}:
 \begin{eqn}
 \label{eqn:fpe:sdes}
 	d\Psi_j = \mathcal{P}_{\restbasis_j} \left[
-		A^{(j)} dt + \sum_{\lvec} B_{\lvec}^{(j)} Q_{\lvec}
+		\mathcal{A}^{(j)} dt + \sum_{\lvec} \mathcal{B}_{\lvec}^{(j)} Q_{\lvec}
 	\right],
 \end{eqn}
 where
 \begin{eqn}
-    B_{\lvec}^{(j)} = \sqrt{\kappa_{\lvec}} \frac{\partial O_{\lvec}}{\partial \Psi_j},
+    \mathcal{B}_{\lvec}^{(j)} = \sqrt{\kappa_{\lvec}} \frac{\partial O_{\lvec}^*}{\partial \Psi_j^*},
 \end{eqn}
 and $Q_{\lvec}$ is a functional Wiener process:
 \begin{eqn}
