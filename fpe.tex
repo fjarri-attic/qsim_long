@@ -49,10 +49,10 @@ Loss terms~\eqnref{master-eqn:loss-term} are transformed with \thmref{transforma
 
 Assuming that $K_{jk}$, $U_{jk}$ and $\kappa_{\lvec}$ are real-valued, all the transformations described above result in a partial differential equation for $W$ of the form
 \begin{eqn}
-\fl	\frac{\partial W}{\partial t} = \int d^D\xvec \left\{
-    	- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} A_j
-    	- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} A_j^*
-    	+ \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j^* \delta \Psi_k} D_{jk}
+\fl	\frac{\partial W}{\partial t} = \int d\xvec \left\{
+    	- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} \mathcal{A}_j
+    	- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} \mathcal{A}_j^*
+    	+ \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j^* \delta \Psi_k} \mathcal{D}_{jk}
 		+ \mbox{O} \left[ \frac{\delta^3}{\delta\Psi_j^3} \right]
 	\right\} W.
 \end{eqn}
@@ -122,14 +122,14 @@ Thus the truncated Fokker-Planck equation is
 \begin{eqn}
 \fl	\frac{dW}{dt}
 	= \int d\xvec \left(
-		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} \mathcal{A}^{(j)}
-		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} (\mathcal{A}^{(j)})^*
-		+ \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j^* \delta \Psi_k} D_{jk}
+		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} \mathcal{A}_j
+		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} \mathcal{A}_j^*
+		+ \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j^* \delta \Psi_k} \mathcal{D}_{jk}
 	\right) W,
 \end{eqn}
 where
 \begin{eqn}
-	\mathcal{A}^{(j)} = -\frac{i}{\hbar} \left(
+	\mathcal{A}_j = -\frac{i}{\hbar} \left(
 			\sum_{k=1}^C K_{jk} \Psi_k
 			+ \sum_{k=1}^C U_{jk} \Psi_j \Psi_k \Psi_k^*
 		\right)
@@ -137,7 +137,7 @@ where
 \end{eqn}
 and
 \begin{eqn}
-	D_{jk} = \sum_{\lvec} \kappa_{\lvec}
+	\mathcal{D}_{jk} = \sum_{\lvec} \kappa_{\lvec}
 		\frac{\partial O_{\lvec}}{\partial \Psi_j}
 		\frac{\partial O_{\lvec}^*}{\partial \Psi_k^*}.
 \end{eqn}
@@ -147,12 +147,12 @@ Therefore the equation can be further transformed to the equivalent set of stoch
 \begin{eqn}
 \label{eqn:fpe:sdes}
 	d\Psi_j = \mathcal{P}_{\restbasis_j} \left[
-		\mathcal{A}^{(j)} dt + \sum_{\lvec} \mathcal{B}_{\lvec}^{(j)} Q_{\lvec}
+		\mathcal{A}_j dt + \sum_{\lvec} \mathcal{B}_{j \lvec} Q_{\lvec}
 	\right],
 \end{eqn}
 where
 \begin{eqn}
-    \mathcal{B}_{\lvec}^{(j)} = \sqrt{\kappa_{\lvec}} \frac{\partial O_{\lvec}^*}{\partial \Psi_j^*},
+    \mathcal{B}_{j \lvec} = \sqrt{\kappa_{\lvec}} \frac{\partial O_{\lvec}^*}{\partial \Psi_j^*},
 \end{eqn}
 and $Q_{\lvec}$ is a functional Wiener process:
 \begin{eqn}
@@ -162,12 +162,12 @@ and $Z_{\lvec,\nvec}$ are, in turn, independent complex-valued Wiener processes.
 Alternatively, in Stratonovich form the SDEs look like
 \begin{eqn}
 	d\Psi_j = \mathcal{P}_{\restbasis_j} \left[
-		(\mathcal{A}^{(j)} - \mathcal{S}^{(j)}) dt + \sum_{\lvec} B_{\lvec}^{(j)} Q_{\lvec}
+		(\mathcal{A}_j - \mathcal{S}_j) dt + \sum_{\lvec} B_{j \lvec} Q_{\lvec}
 	\right],
 \end{eqn}
 where the Stratonovich term is
 \begin{eqn}
-	\mathcal{S}^{(j)}
+	\mathcal{S}_j
 	= \sum_{n=1}^C \sum_{\lvec} \kappa_{\lvec}
 		\frac{\partial O_{\lvec}}{\partial \Psi_n}
 		\left(\frac{\partial^2 O_{\lvec}}{\partial \Psi_n \partial \Psi_j} \right)^*
@@ -179,8 +179,9 @@ These equations can now be solved using conventional methods, and any required e
     \langle \symprod{
         \prod_{c=1}^C \Psiop_c^{r_c} (\Psiop_c^\dagger)^{s_c}
     } \rangle
-    & = \int \delta^2\Psi_1 \ldots \int \delta^2\Psi_C\,
-		    \prod_{c=1}^C \Psi_c^{r_c} (\Psi_c^*)^{s_c} W \\
+    & = \int \delta \bPsi \left(
+		    \prod_{c=1}^C \Psi_c^{r_c} (\Psi_c^*)^{s_c}
+		\right) W \\
     & \approx \pathavg{
         \prod_{c=1}^C \Psi_c^{r_c} (\Psi_c^*)^{s_c}
     },
