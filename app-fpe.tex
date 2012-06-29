@@ -71,6 +71,7 @@ Proved straightforwardly by transforming the equation to real variables and appl
 
 \begin{theorem}[Multi-component extension of \thmref{app-fpe:fpe-sde-complex}]
 \label{thm:app-fpe:mc-fpe-sde}
+	\todo{Perhaps not necessary.}
     If $\boldsymbol{\alpha}^{(c)},\, c = 1..C$ are $C$ sets of complex variables $\boldsymbol{\alpha}^{(c)} \equiv (\alpha_1^{(c)} \ldots \alpha_M^{(c)})$, then the Fokker-Planck equation
     \begin{eqn}
     	\frac{dW}{dt}
@@ -111,28 +112,49 @@ Proved by joining vectors from all components into one vector and applying \thmr
     		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} \mathcal{A}_j
     		- \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} \mathcal{A}_j^*
     		+ \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j^* \delta \Psi_k}
-    			\sum_{\lvec} \mathcal{B}_{\lvec}^{(k)} (\mathcal{B}_{\lvec}^{(j)})^*
+    			\sum_{\lvec} \mathcal{B}_{k \lvec} \mathcal{B}_{j \lvec}^*
     	\right) W
     \end{eqn*}
+	\todo{alternatively, in matrix form
+	\begin{eqn*}
+		\frac{dW}{dt}
+		= \int d\xvec \left(
+			- 2 \Real \left( \bdelta_{\bPsi} \cdot \vec{\mathcal{A}} \right)
+			+ \Trace{ \bdelta_{\bPsi^*} \bdelta_{\bPsi}^T \mathcal{B} \mathcal{B}^H }
+		\right) W
+	\end{eqn*}
+	}
     is equivalent to the set of SDEs in It\^{o} form
     \begin{eqn*}
     	d\Psi_j = \mathcal{P}_{\restbasis_j} \left[
-    		\mathcal{A}^{(j)} dt + \sum_{\lvec} \mathcal{B}_{\lvec}^{(j)} dQ_{\lvec}
+    		\mathcal{A}_j dt + \sum_{\lvec} \mathcal{B}_{j \lvec} dQ_{\lvec}
     	\right],
     \end{eqn*}
+	\todo{alternatively, in matrix form
+	\begin{eqn*}
+    	d\bPsi = \vec{\mathcal{P}} \left[
+    		\vec{\mathcal{A}} dt + \mathcal{B} d\boldsymbol{Q}
+    	\right]
+	\end{eqn*}
+	}
     or in Stratonovich form
     \begin{eqn*}
     	d\Psi_j = \mathcal{P}_{\restbasis_j} \left[
-    		(\mathcal{A}^{(j)} - \mathcal{S}^{(j)}) dt + \sum_{\lvec} \mathcal{B}_{\lvec}^{(j)} dQ_{\lvec}
+    		(\mathcal{A}_j - \mathcal{S}_j) dt + \sum_{\lvec} \mathcal{B}_{j \lvec} dQ_{\lvec}
     	\right],
     \end{eqn*}
     where
     \begin{eqn*}
-    	\mathcal{S}^{(j)} = \sum_{c=1}^C \sum_{\lvec}
-    		(\mathcal{B}_{\lvec}^{(c)})^*
+    	\mathcal{S}_j = \sum_{c=1}^C \sum_{\lvec}
+    		\mathcal{B}_{c \lvec}^*
     		\frac{\delta}{\delta \Psi_c^*}
-    		\mathcal{B}_{\lvec}^{(j)},
+    		\mathcal{B}_{j \lvec},
     \end{eqn*}
+	\todo{alternatively, in matrix form
+    \begin{eqn*}
+    	\mathcal{S}_j = \Trace{ \mathcal{B}^H \bpartial_{\bPsi^*} \boldsymbol{e}_j^T \mathcal{B} },
+    \end{eqn*}
+	}
     and $Q_{\lvec}$ is a functional Wiener process:
     \begin{eqn*}
     	Q_{\lvec} = \sum_{\nvec \in \fullbasis} \phi_{\nvec} Z_{\lvec,\nvec}.
