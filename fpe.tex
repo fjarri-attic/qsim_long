@@ -160,6 +160,20 @@ and $Q_{\lvec}$ is a functional Wiener process:
 	Q_{\lvec} = \sum_{\nvec \in \fullbasis} \phi_j Z_{\lvec,\nvec},
 \end{eqn}
 and $Z_{\lvec,\nvec}$ are, in turn, independent complex-valued Wiener processes.
+Alternatively, in Stratonovich form the SDEs look like
+\begin{eqn}
+	d\Psi_j = \mathcal{P}_{\restbasis_j} \left[
+		(\mathcal{A}^{(j)} - \mathcal{S}^{(j)}) dt + \sum_{\lvec} B_{\lvec}^{(j)} Q_{\lvec}
+	\right],
+\end{eqn}
+where the Stratonovich term is
+\begin{eqn}
+	\mathcal{S}^{(j)}
+	= \sum_{n=1}^C \sum_{\lvec} \kappa_{\lvec}
+		\frac{\partial O_{\lvec}}{\partial \Psi_n}
+		\left(\frac{\partial^2 O_{\lvec}}{\partial \Psi_n \partial \Psi_j} \right)^*
+		\delta_{\restbasis_n} (\xvec, \xvec).
+\end{eqn}
 
 These equations can now be solved using conventional methods, and any required expectations symmetrically ordered operator products can be obtained from their solution using \thmref{func-wigner:moments}:
 \begin{eqn}
