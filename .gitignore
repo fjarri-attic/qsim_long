@@ -8,4 +8,5 @@
 *.out
 *.toc
 *.fdb_latexmk
+*.sublime-workspace
 
