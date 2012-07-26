@@ -1,5 +1,4 @@
-\documentclass[12pt]{iopart}
-\usepackage{iopams}
+\documentclass[12pt,aip,jmp,amssymb,amsmath]{revtex4-1}
 \usepackage{amsthm}
 \usepackage{dsfont}
 
@@ -16,9 +15,14 @@
 \newcommand{\xvec}{\boldsymbol{x}}
 \newcommand{\zvec}{\boldsymbol{z}}
 \newcommand{\Zvec}{\boldsymbol{Z}}
+\newcommand{\bpartial}{\boldsymbol{\partial}}
+\newcommand{\balpha}{\boldsymbol{\alpha}}
+\newcommand{\blambda}{\boldsymbol{\lambda}}
+\newcommand{\bdelta}{\boldsymbol{\delta}}
+\newcommand{\bLambda}{\boldsymbol{\Lambda}}
+\newcommand{\bPsi}{\boldsymbol{\Psi}}
 
-%\newcommand{\Tr}{\operatorname{Tr}}
-\newcommand{\Trace}[1]{\Tr \left\{ #1 \right\}}
+\newcommand{\Trace}[1]{\operatorname{Tr} \left\{ #1 \right\}}
 
 \newcommand{\symprod}[1]{\left\{ #1 \right\}_{\mathrm{sym}}}
 \newcommand{\pathavg}[1]{\langle #1 \rangle_{\mathrm{paths}}}
@@ -33,20 +37,7 @@
 \newcommand{\fullbasis}{\mathbb{B}}
 \newcommand{\restbasis}{\mathbb{M}}
 
-\def\starteqalign#1\end{\eqalign{#1}\end} % magic to wrap \eqalign{} in the environment
-\newenvironment{eqn}
-	{\begin{eqnarray}\starteqalign}
-	{\end{eqnarray}}
-\newenvironment{eqns}
-	{\begin{eqnarray}}
-	{\end{eqnarray}}
-\newenvironment{eqn*}
-	{\begin{eqnarray*}}
-	{\end{eqnarray*}}
-
-\newcommand{\binom}[2]{{#1 \choose #2}}
-
-\newcommand{\eqnref}[1]{\eref{eqn:#1}}
+\newcommand{\eqnref}[1]{(\ref{eqn:#1})}
 \newcommand{\figref}[1]{Fig.~\ref{fig:#1}}
 \newcommand{\thmref}[1]{Theorem~\ref{thm:#1}}
 \newcommand{\lmmref}[1]{Lemma~\ref{lmm:#1}}
@@ -62,9 +53,11 @@
 \begin{document}
 \title{Wigner representation of BEC}
 
-\author{Bogdan Opanchuk and Peter D Drummond}
-\address{\swinaffiliation}
-\ead{bogdan@opanchuk.net}
+\author{B. Opanchuk}
+\email{bogdan@opanchuk.net}
+\affiliation{\swinaffiliation}
+\author{P. D. Drummond}
+\affiliation{\swinaffiliation}
 
 \date{\today}
 \begin{abstract}
@@ -77,7 +70,7 @@ Our approach describes spatial evolution of spinor components and properly accou
 %\pacs{}
 
 % uncomment if the separate page for title is needed
-%\maketitle
+\maketitle
 
 
 
@@ -113,14 +106,14 @@ Applications of method from this paper: Ramsey interferometry simulations~\cite{
 
 In this paper we consider a zero-temperature $C$-component BEC in $D$ effective dimensions.
 The Hamiltonian for this system is expressed in terms of bosonic field creation and annihilation operators $\Psiop_j^{\dagger}(\xvec)$ and $\Psiop_j(\xvec)$, $j = 1 \ldots C$, which obey standard bosonic commutation relation
-\begin{eqn}
+\begin{equation}\begin{split}
 \label{eqn:master-eqn:commutators}
     [ \Psiop_j, \Psiop_k^{\prime\dagger} ]
     = \delta_{jk} \delta(\xvec^\prime-\xvec),
-\end{eqn}
+\end{split}\end{equation}
 where $\xvec \in \mathbb{R}^D$ is a $D$-dimensional coordinate vector, and we dubbed $\Psiop_j \equiv \Psiop_j(\xvec)$ and $\Psiop_k^\prime \equiv \Psiop_k(\xvec^\prime)$ for brevity (hereinafter the same abbreviation will be used for all functions of coordinates).
 The second-quantized Hamiltonian for the system is
-\begin{eqn}
+\begin{equation}\begin{split}
 \label{eqn:master-eqn:hamiltonian}
     \hat{H}
     = \int d\xvec \left\{
@@ -130,52 +123,52 @@ The second-quantized Hamiltonian for the system is
             U_{jk}(\xvec - \xvec^\prime)
             \Psiop_j^\prime \Psiop_k
     \right\},
-\end{eqn}
+\end{split}\end{equation}
 where $U_{jk}$ is the two-body scattering potential, and the single-particle Hamiltonian $K_{jk}$ is
-\begin{eqn}
+\begin{equation}\begin{split}
 \label{eqn:master-eqn:single-particle}
     K_{jk} = \left(
             -\frac{\hbar^2}{2m} \nabla^2 + \hbar \omega_j + V_j(\xvec)
         \right) \delta_{jk}
         + \hbar \Omega_{jk}(t),
-\end{eqn}
+\end{split}\end{equation}
 where $m$ is the atomic mass, $V_j$ is the external trapping potential for spin $j$, $\hbar \omega_j$ is the internal energy of spin $j$, and $\Omega_{jk}$ represents a time-dependent coupling that is used to rotate one spin projection into another.
 
 If we impose an energy cutoff $\ecut$ and only take into account low-energy modes, the non-local scattering potential $U_{jk}(\xvec - \xvec^\prime)$ can be replaced by the contact potential $U_{jk} \delta(\xvec - \xvec^\prime)$~\cite{Morgan2000}, giving the effective Hamiltonian
-\begin{eqn}
+\begin{equation}\begin{split}
 \label{eqn:master-eqn:effective-H}
     \hat{H}
     = \int d\xvec \left\{
         \Psiop_j^{\dagger} K_{jk} \Psiop_k
         + \frac{U_{jk}}{2} \Psiop_j^\dagger \Psiop_k^\dagger \Psiop_j \Psiop_k
     \right\},
-\end{eqn}
+\end{split}\end{equation}
 where $\Psiop_j^{\dagger}$ and $\Psiop_j$ are field operators in the new restricted basis of low-energy modes, which is described in detail in the next section.
 For the $s$-wave scattering in three dimensions the coefficient is $U_{jk} = 4 \pi \hbar^2 a_{jk} / m$, where $a_{jk}$ is the scattering length.
 Note that in general case the coefficient must be renormalised depending on the grid~\cite{Sinatra2002}, but the change is small if $dx \gg a_{jk}$.
 
 The Markovian master equation for the system with the inclusion of losses can be written as~\cite{Jack2002}
-\begin{eqn}
+\begin{equation}\begin{split}
 \label{eqn:master-eqn:master-eqn}
     \frac{d\hat{\rho}}{dt} =
         - \frac{i}{\hbar} \left[ \hat{H}, \hat{\rho} \right]
         + \sum_{\lvec} \kappa_{\lvec} \int d\xvec
             \mathcal{L}_{\lvec} \left[ \hat{\rho} \right],
-\end{eqn}
+\end{split}\end{equation}
 where $\lvec = (l_1, l_2, \ldots, l_C)$ is a tuple indicating the number of atoms from each component involved in the inelastic interaction, $C$ being the total number of components, and we have introduced local Liouville loss terms,
-\begin{eqn}
+\begin{equation}\begin{split}
 \label{eqn:master-eqn:loss-term}
     \mathcal{L}_{\lvec} \left[ \hat{\rho} \right] =
         2\hat{O}_{\lvec} \hat{\rho} \hat{O}_{\lvec}^\dagger
         - \hat{O}_{\lvec}^\dagger \hat{O}_{\lvec} \hat{\rho}
         - \hat{\rho} \hat{O}_{\lvec}^\dagger \hat{O}_{\lvec}.
-\end{eqn}
+\end{split}\end{equation}
 The reservoir coupling operators $\hat{O}_{\lvec}$ are products of local field annihilation operators:
-\begin{eqn}
+\begin{equation}\begin{split}
     \hat{O}_{\lvec}
     \equiv \hat{O}_{\lvec} (\Psiopvec)
     = \prod_{c=1}^C \Psiop_c^{l_c} (\xvec),
-\end{eqn}
+\end{split}\end{equation}
 describing local $\left( \sum_{c=1}^C l_c \right)$-body collision losses.
 
 
@@ -187,38 +180,38 @@ describing local $\left( \sum_{c=1}^C l_c \right)$-body collision losses.
 
 For each component $j$ we define an orthonormal basis consisting of $\phi_{j,\nvec}(\xvec)$, where $\nvec \in \fullbasis_j$ is a mode identifier.
 Orthonormality and completeness conditions for basis functions are, respectively,
-\begin{eqns}
+\begin{align}
     \int\limits_A \phi_{j,\nvec}^* \phi_{j,\mvec} d\xvec = \delta_{\nvec\mvec}, \\
     \sum_{\nvec} \phi_{j,\nvec}^* \phi_{j,\nvec}^\prime = \delta(\xvec^\prime - \xvec),
-\end{eqns}
+\end{align}
 where the exact nature of integration area $A$ depends on the basis set (for example, $A$ is the whole space for harmonic oscillator modes, or a box for plane waves).
 Hereinafter we assume that the integration $\int d\xvec$ is always performed over $A$.
 
 Standard bosonic field operators from~\eqnref{master-eqn:commutators} which project coordinates to the full Hilbert space $\mathbb{H}$ can be decomposed as
-\begin{eqn}
+\begin{equation}\begin{split}
     \Psiop_j \in (\mathbb{R}^D \rightarrow \mathbb{H}): \quad
     \Psiop_j = \sum_{\nvec \in \fullbasis_j} \phi_{j,\nvec} \hat{a}_{j,\nvec},
-\end{eqn}
+\end{split}\end{equation}
 where single mode operators $\hat{a}_{j,\nvec}$ obey bosonic commutation relations, the pair $j,\nvec$ serving as a mode identifier.
 The energy cutoff mentioned in the previous section will result in operating with some fixed subset of each component's basis.
 Let $\restbasis_j \subseteq \fullbasis_j$ be this subset with cardinality $|\restbasis|$.
 Restricted field operators contain only modes from the subset $\restbasis_j$:
-\begin{eqn}
+\begin{equation}\begin{split}
     \Psiop_j \in (\mathbb{R}^D \rightarrow \mathbb{H}_{\restbasis_j}): \quad
     \Psiop_j = \sum_{\nvec \in \restbasis_j} \phi_{j,\nvec} \hat{a}_{j,\nvec}.
-\end{eqn}
+\end{split}\end{equation}
 In this paper we will use them without explicit indices in order to avoid clutter \todo{Should we explicitly mark ``full basis'' operators in the previous section?}.
 Restricted field operators have the type $\mathbb{FH}_{\restbasis_j} \equiv (\mathbb{R}^D \rightarrow \mathbb{H}_{\restbasis_j})$, where $\mathbb{H}_{\restbasis_j}$ is the Hilbert space of the restricted subset of modes.
 
 Because of the restricted nature of the operator, commutation relations~\eqnref{master-eqn:commutators} no longer apply.
 The following ones should be used instead:
-\begin{eqn}
+\begin{equation}\begin{split}
 \label{eqn:func-operators:restricted-commutators}
     \left[ \Psiop_j, \Psiop_k^\prime \right]
     & = \left[ \Psiop_j^\dagger, \Psiop_k^{\prime\dagger} \right] = 0, \\
     \left[ \Psiop_j, \Psiop_k^{\prime\dagger} \right]
     & = \delta_{jk} \delta_{\restbasis_j}(\xvec^\prime, \xvec),
-\end{eqn}
+\end{split}\end{equation}
 where $\delta_{\restbasis_j}$ is the restricted delta-function from \defref{func-calculus:restricted-delta}.
 
 
@@ -228,11 +221,11 @@ where $\delta_{\restbasis_j}$ is the restricted delta-function from \defref{func
 % =============================================================================
 
 The single-mode Wigner transformation of the operator $\hat{A}$ is defined as
-\begin{eqn}
+\begin{equation}\begin{split}
     \mathcal{W}_{\mathrm{sm}}[\hat{A}]
     = \frac{1}{\pi^2} \int d^2 \lambda \exp(-\lambda \alpha^* + \lambda^* \alpha)
         \Trace{ \hat{A} \hat{D}(\lambda, \lambda^*) },
-\end{eqn}
+\end{split}\end{equation}
 where the displacement operator $\hat{D}(\lambda, \lambda^*) = \exp(\lambda \hat{a}^\dagger - \lambda^* \hat{a})$ was first introduced by Weyl~\cite{Weyl1950}.
 The detailed description of the Wigner function $W(\alpha, \alpha^*) \equiv \mathcal{W}_{\mathrm{sm}}[\hat{\rho}]$ can be found in~\cite{Gardiner2004}.
 In this section we will extend this definition to the multimode case.
@@ -242,33 +235,33 @@ The important part of the definition is the functional analogue of the displacem
 
 \begin{definition}
     Functional displacement operator
-    \begin{eqn*}
-        \hat{D}_j :: \mathbb{F}_{\restbasis_j} \rightarrow \mathbb{H}_{\restbasis_j} \\
-        \hat{D}_j[\Lambda, \Lambda^*] = \exp \int d\xvec \left(
+    \begin{equation*}\begin{split}
+        & \hat{D}_j :: \mathbb{F}_{\restbasis_j} \rightarrow \mathbb{H}_{\restbasis_j} \\
+        & \hat{D}_j[\Lambda, \Lambda^*] = \exp \int d\xvec \left(
             \Lambda \Psiop_j^\dagger - \Lambda^* \Psiop_j
         \right).
-    \end{eqn*}
+    \end{split}\end{equation*}
     It is also convenient to define the displacement functional as
-    \begin{eqn*}
-        D :: \mathbb{F}_{\restbasis_j} \rightarrow \mathbb{F}_{\restbasis_j} \rightarrow \mathbb{C} \\
-        D[\Lambda, \Lambda^*, \Psi, \Psi^*] = \exp \int d\xvec \left(
+    \begin{equation*}\begin{split}
+        & D :: \mathbb{F}_{\restbasis_j} \rightarrow \mathbb{F}_{\restbasis_j} \rightarrow \mathbb{C} \\
+        & D[\Lambda, \Lambda^*, \Psi, \Psi^*] = \exp \int d\xvec \left(
             -\Lambda \Psi^* + \Lambda^* \Psi
         \right).
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{definition}
 
 It can be shown that the functional displacement operator has properties similar to its single-mode equivalent.
 
 \begin{lemma}
 \label{lmm:func-wigner:displacement-derivatives}
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \frac{\delta}{\delta \Lambda^\prime} \hat{D}_j[\Lambda, \Lambda^*]
         = \hat{D}_j[\Lambda, \Lambda^*] (\Psiop_j^{\prime\dagger} + \frac{1}{2} \Lambda^{\prime*})
         = (\Psiop_j^{\prime\dagger} - \frac{1}{2} \Lambda^{\prime*}) \hat{D}_j[\Lambda, \Lambda^*], \\
         -\frac{\delta}{\delta \Lambda^{\prime*}} \hat{D}_j[\Lambda, \Lambda^*]
         = \hat{D}_j(\Lambda, \Lambda^*) (\Psiop_j^\prime + \frac{1}{2} \Lambda^\prime)
         = (\Psiop_j^\prime - \frac{1}{2} \Lambda^\prime) \hat{D}_j[\Lambda, \Lambda^*].
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{lemma}
 \begin{proof}
 Proved using Baker-Hausdorff theorem and evaluating integrals.
@@ -279,15 +272,15 @@ It is convenient to first define a general Wigner transformation.
 \begin{definition}
 \label{def:func-wigner:w-transformation}
     Multi-component functional Wigner transformation $\mathcal{W}$ is defined as
-    \begin{eqn*}
-        \mathcal{W} :: \left( \mathbb{R}^D \rightarrow \prod_{j=1}^C \mathbb{H}_{\restbasis_j} \right)
+    \begin{equation*}\begin{split}
+    &    \mathcal{W} :: \left( \mathbb{R}^D \rightarrow \prod_{j=1}^C \mathbb{H}_{\restbasis_j} \right)
             \rightarrow \prod_{j=1}^C \mathbb{F}_{\restbasis_j}
             \rightarrow \mathbb{C} \\
-        \mathcal{W}[\hat{A}]
+    &    \mathcal{W}[\hat{A}]
         = \frac{1}{\pi^{2 \sum|\restbasis_j|}} \int \delta^2 \bLambda
             \left( \prod_{j=1}^C D[\Lambda_j, \Lambda_j^*, \Psi_j, \Psi_j^*] \right)
             \Trace{ \hat{A} \prod_{j=1}^C \hat{D}_j[\Lambda_j, \Lambda_j^*] },
-    \end{eqn*}
+    \end{split}\end{equation*}
     where $\Lambda_j \in \mathbb{F}_{\restbasis_j}$, and $\int \delta^2 \bLambda \equiv \int \delta^2 \Lambda_1 \ldots \delta^2 \Lambda_C$.
     It transforms a coordinate-dependent operator $\hat{A}$ on a restricted subset of a Hilbert space to a functional $(\mathcal{W}[\hat{A}])[\bPsi, \bPsi^*]$.
     \todo{Add expression for Weyl transformation?}
@@ -298,18 +291,18 @@ Wigner functional is a special case of Wigner transformation.
 \begin{definition}
 \label{def:func-wigner:w-functional}
     The Wigner functional is
-    \begin{eqn*}
-        W :: \prod_{j=1}^C \mathbb{F}_{\restbasis_j} \rightarrow \mathbb{R} \\
-        W [\bPsi, \bPsi^*]
+    \begin{equation*}\begin{split}
+    &    W :: \prod_{j=1}^C \mathbb{F}_{\restbasis_j} \rightarrow \mathbb{R} \\
+    &    W [\bPsi, \bPsi^*]
         \equiv \mathcal{W}[\hat{\rho}]
         = \frac{1}{\pi^{2 \sum|\restbasis_j|}} \int \delta^2 \bLambda
             \left( \prod_{j=1}^C D[\Lambda_j, \Lambda_j^*, \Psi_j, \Psi_j^*] \right) \chi_W,
-    \end{eqn*}
+    \end{split}\end{equation*}
     where $\chi_W [\bLambda, \bLambda^*]$ is the characteristic functional
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \chi_W [\bLambda, \bLambda^*]
         = \Trace{ \hat{\rho} \prod_{j=1}^C \hat{D}_j[\Lambda_j, \Lambda_j^*] }.
-    \end{eqn*}
+    \end{split}\end{equation*}
     \todo{Need proof that $W$ is real-valued?
     Or just an explicit statement that $\mathcal{W}[\hat{A}]$ is real when $\hat{A}$ is Hermitian.}
 \end{definition}
@@ -320,7 +313,7 @@ First one is used to successively transform operator products.
 \begin{theorem}[Functional correspondences]
 \label{thm:func-wigner:correspondences}
     If $\mathcal{W} [ \hat{A} ] \equiv (\mathcal{W} [ \hat{A} ]) [\bPsi, \bPsi^*]$, then
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \mathcal{W} [ \Psiop_j \hat{A} ]
             & = \left( \Psi_j + \frac{1}{2} \frac{\delta}{\delta \Psi_j^*} \right) \mathcal{W}[\hat{A}],
         \quad
@@ -331,7 +324,7 @@ First one is used to successively transform operator products.
         \quad
         \mathcal{W} [ \hat{A} \Psiop_j^\dagger ]
             = \left( \Psi_j^* + \frac{1}{2} \frac{\delta}{\partial \Psi_j} \right) \mathcal{W}[\hat{A}].
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{theorem}
 \begin{proof}
 The proof uses \lmmref{func-wigner:displacement-derivatives} to transform the $\hat{A} \prod_j \hat{D}_j$ product inside the trace, and \lmmref{func-calculus:zero-integrals} to integrate by parts, effectively moving the differentials to intended places.
@@ -343,18 +336,18 @@ Again, it requires a supplementary lemma.
 \begin{lemma}
 \label{lmm:func-wigner:moments-from-chi}
     For any non-negative integer $r$ and $s$:
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \langle \symprod{ (\Psiop_j^\prime)^r (\Psiop_j^{\prime\dagger})^s } \rangle
         = \left.
             \left( \frac{\delta}{\delta \Lambda_j^\prime} \right)^s
             \left( -\frac{\delta}{\delta \Lambda_j^{\prime*}} \right)^r
             \chi_W [\bLambda, \bLambda^*]
         \right|_{\bLambda \equiv 0}.
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{lemma}
 \begin{proof}
 The factor corresponding to $j$-th component in the displacement operator can be expanded as
-\begin{eqn}
+\begin{equation}\begin{split}
     \exp (\Lambda_j \Psiop_j^\dagger - \Lambda_j^* \Psiop_j)
     = \sum_{r,s}
         \frac{
@@ -364,24 +357,24 @@ The factor corresponding to $j$-th component in the displacement operator can be
             }
         }
         {r!s!}.
-\end{eqn}
+\end{split}\end{equation}
 We can swap functional derivative with both integration and multiplication by independent function, so:
-\begin{eqn}
+\begin{equation}\begin{split}
     \frac{\delta}{\delta \Lambda_j^\prime} \left( \int d\xvec \Lambda_j \Psiop_j^\dagger \right)^r
     = r \Psiop_j^{\prime\dagger} \left( \int d\xvec \Lambda_j \Psiop_j^\dagger \right)^{r-1},
-\end{eqn}
+\end{split}\end{equation}
 and multiple application of the differential gives us
-\begin{eqn}
+\begin{equation}\begin{split}
     \left( \frac{\delta}{\delta \Lambda_j^\prime} \right)^r
     \left( \int d\xvec \Lambda_j \Psiop_j^\dagger \right)^r
     = r! ( \Psiop_j^{\prime\dagger} )^r.
-\end{eqn}
+\end{split}\end{equation}
 Similarly for the other differential:
-\begin{eqn}
+\begin{equation}\begin{split}
     \left( -\frac{\delta}{\delta \Lambda_j^{\prime*}} \right)^s
     \left( -\int d\xvec \Lambda_j \Psiop_j^\dagger \right)^s
     = s! ( \Psiop_j^{\prime\dagger} )^s.
-\end{eqn}
+\end{split}\end{equation}
 
 Thus, differentiation will eliminate all lower order terms in the expansion, and all higher order terms will be eliminated by setting $\Lambda_j \equiv 0$ for every $j$, leaving only one operator product with required order.
 \end{proof}
@@ -389,17 +382,17 @@ Thus, differentiation will eliminate all lower order terms in the expansion, and
 \begin{theorem}[Calculation of expectations]
 \label{thm:func-wigner:moments}
     For any non-negative integer $r_j$, $s_j$
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \langle \symprod{ \prod_{j=1}^C \Psiop_j^{r_j} (\Psiop_j^\dagger)^{s_j} } \rangle
         = \int \delta^2 \bPsi
             \left( \prod_{j=1}^C \Psi_j^{r_j} (\Psi_j^*)^{s_j} \right) W[\bPsi, \bPsi^*].
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{theorem}
 \begin{proof}
 By definition of the Wigner functional:
-\begin{eqn}
-\fl \int \delta^2\bPsi \left( \prod_{j=1}^C \Psi_j^{r_j} (\Psi_j^*)^{s_j} \right) W[\bPsi, \bPsi^*] \\
-\fl = \frac{1}{\pi^{2\sum|\restbasis_j|}} \Trace{ \hat{\rho}
+\begin{equation}\begin{split}
+    & \int \delta^2\bPsi \left( \prod_{j=1}^C \Psi_j^{r_j} (\Psi_j^*)^{s_j} \right) W[\bPsi, \bPsi^*] \\
+    & = \frac{1}{\pi^{2\sum|\restbasis_j|}} \Trace{ \hat{\rho}
         \prod_{j=1}^C
             \int \delta^2 \Lambda_j \left(
                 \int \delta^2 \Psi_j\, \Psi_j^{r_j} (\Psi_j^*)^{s_j}
@@ -407,9 +400,9 @@ By definition of the Wigner functional:
             \right)
             \hat{D}_j[\Lambda_j, \Lambda_j^*]
     }.
-\end{eqn}
+\end{split}\end{equation}
 Evaluating the integral over $\Psi_j$ using \lmmref{func-calculus:fourier-of-moments}:
-\begin{eqn}
+\begin{equation}\begin{split}
     = \Trace{ \hat{\rho}
         \prod_{j=1}^C
             \int \delta^2 \Lambda_j \left(
@@ -419,9 +412,9 @@ Evaluating the integral over $\Psi_j$ using \lmmref{func-calculus:fourier-of-mom
             \right)
             \hat{D}_j[\Lambda_j, \Lambda_j^*]
     }.
-\end{eqn}
+\end{split}\end{equation}
 Integrating by parts for each component in turn and eliminating terms which fit \lmmref{func-calculus:zero-delta-integrals}:
-\begin{eqn}
+\begin{equation}\begin{split}
     & = \Trace{ \hat{\rho}
         \prod_{j=1}^C \int \delta^2 \Lambda_j
             \Delta_{\restbasis_j}[\Lambda_j]
@@ -437,7 +430,7 @@ Integrating by parts for each component in turn and eliminating terms which fit 
         \right)
         \chi_W [\bLambda, \bLambda^*]
     \right|_{\bLambda \equiv 0},
-\end{eqn}
+\end{split}\end{equation}
 where $\Delta_{\restbasis_j}[\Lambda_j]$ is a delta functional from \defref{func-calculus:delta-functional}.
 Now, recognising the final expression as a part of \lmmref{func-wigner:moments-from-chi},
 we immediately get the statement of the theorem.
@@ -455,12 +448,12 @@ First, we will need an expression for high-order commutators of restricted field
 They look somewhat similar to those for single-mode bosonic operators, or standard field operators from~\cite{Louisell1990}.
 
 \begin{lemma}
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \left[ \Psiop, ( \Psiop^{\prime\dagger} )^l \right]
         & = l \delta_{\restbasis} (\xvec^\prime - \xvec) ( \Psiop^{\prime\dagger} )^{l-1}, \\
         \left[ \Psiop^\dagger, ( \Psiop^\prime )^l \right]
         & = - l \delta_{\restbasis}^* (\xvec^\prime - \xvec) ( \Psiop^\prime )^{l-1}.
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{lemma}
 \begin{proof}
 Proved by induction.
@@ -470,12 +463,12 @@ A further generalisation of these relations is
 
 \begin{lemma}
 \label{lmm:func-operators:functional-commutators}
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \left[ \Psiop, f( \Psiop^\prime, \Psiop^{\prime\dagger} ) \right]
         & = \delta_{\restbasis} (\xvec^\prime - \xvec) \frac{\partial f}{\partial \Psiop^{\prime\dagger}} \\
         \left[ \Psiop^\dagger, f( \Psiop^\prime, \Psiop^{\prime\dagger} ) \right]
         & = -\delta_{\restbasis}^* (\xvec^\prime - \xvec) \frac{\partial f}{\partial \Psiop^\prime},
-    \end{eqn*}
+    \end{split}\end{equation*}
     where $f(z, z^*)$ is a function that can be expanded into the power series of $z$ and $z^*$.
 \end{lemma}
 
@@ -483,23 +476,23 @@ First theorem describes the transformation of the linear part of the Hamiltonian
 
 \begin{theorem}
 \label{thm:transformations:w-commutator1}
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \mathcal{W} \left[ [\int d\xvec \Psiop_j^\dagger \Psiop_k, \hat{A}] \right]
         = \int d\xvec \left(
             - \frac{\delta}{\delta \Psi_j} \Psi_k
             + \frac{\delta}{\delta \Psi_k^*} \Psi_j^*
         \right) \mathcal{W}[\hat{A}].
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{theorem}
 \begin{proof}
 Proved straightforwardly using \thmref{func-wigner:correspondences} and the relation
-\begin{eqn}
+\begin{equation}\begin{split}
     \Psi_k \frac{\delta}{\delta \Psi_j} \mathcal{F}
     = \left(
         \frac{\delta}{\delta \Psi_j} \Psi_k
         - \delta_{jk} \delta_{\restbasis}(\xvec, \xvec)
     \right) \mathcal{F}.
-\end{eqn}
+\end{split}\end{equation}
 \end{proof}
 
 Commutators with the Laplacian inside require somewhat special treatment, because it acts on basis functions and, in general, cannot be dragged around like a constant.
@@ -507,7 +500,7 @@ But for our purposes we only need one specific case, and, fortunately, in this c
 
 \begin{theorem}
 \label{thm:transformations:w-laplacian-commutator1}
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \mathcal{W} \left[
             \int d\xvec [\Psiop^\dagger \nabla^2 \Psiop, \hat{A}]
         \right]
@@ -515,7 +508,7 @@ But for our purposes we only need one specific case, and, fortunately, in this c
             - \frac{\delta}{\delta \Psi} \nabla^2 \Psi
             + \frac{\delta}{\delta \Psi^*} \nabla^2 \Psi^*
         \right) \mathcal{W}[\hat{A}].
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{theorem}
 \begin{proof}
 Proved using \thmref{func-wigner:correspondences} and \lmmref{func-calculus:move-laplacian}.
@@ -526,7 +519,7 @@ Next theorem describes the transformation of the non-linear part of the Hamilton
 
 \begin{theorem}
 \label{thm:transformations:w-commutator2}
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         & \mathcal{W} \left[
             [
                 \int d\xvec \int d\xvec^\prime
@@ -575,7 +568,7 @@ Next theorem describes the transformation of the non-linear part of the Hamilton
                 \frac{\delta}{\delta \Psi_j^{\prime*}}
                 \frac{1}{4} \Psi_j^*
         \right) \mathcal{W}[\hat{A}].
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{theorem}
 \begin{proof}
 Proof is the same as in case of \thmref{transformations:w-commutator1}.
@@ -588,15 +581,15 @@ First one will help us move functional differentials to their intended places (i
 \begin{lemma}
 \label{lmm:transformations:swap-differential}
     For $\mathcal{F} \in \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}$ and any non-negative integer $a$, $b$:
-    \begin{eqn*}
-        \Psi^a \left( \frac{\delta}{\delta \Psi} \right)^b \mathcal{F}[\Psi, \Psi^*] \\
-        = \sum_{j=0}^{\min(a, b)}
+    \begin{equation*}\begin{split}
+    &    \Psi^a \left( \frac{\delta}{\delta \Psi} \right)^b \mathcal{F}[\Psi, \Psi^*] \\
+    &    = \sum_{j=0}^{\min(a, b)}
             \binom{b}{j} \frac{(-1)^j a!}{(a - j)!}
             \delta_{\restbasis}^j(\xvec, \xvec)
             \left( \frac{\delta}{\delta \Psi} \right)^{b - j}
             \Psi^{a - j}
             \mathcal{F}[\Psi, \Psi^*]
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{lemma}
 \begin{proof}
 Proved straightforwardly by induction.
@@ -607,10 +600,10 @@ Second lemma gives a way to simplify sums obtained from the application of the p
 \begin{lemma}[Sum rearrangement]
 \label{lmm:transformations:sum-rearrangement}
     For any non-negative integer $l$, $u$:
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \sum_{j=0}^l \sum_{k=0}^{\min(l-u,j)} x^{j-k} Q(j, k)
         = \sum_{v=0}^l x^v \sum_{k=0}^{l-\max(u,v)} Q(v + k, k).
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{lemma}
 \begin{proof}
 Can be proved either by formal manipulation with sets, or by drawing a picture.
@@ -621,8 +614,8 @@ Finally, the loss transformation theorem can be proved.
 \begin{theorem}
 \label{thm:transformations:w-losses}
     The Wigner transformation of loss term~\eqnref{master-eqn:loss-term} is
-    \begin{eqn*}
-\fl     \mathcal{W} \left[ \int d\xvec \hat{\mathcal{L}}_{\lvec} [\hat{A}] \right]
+    \begin{equation*}\begin{split}
+        \mathcal{W} \left[ \int d\xvec \hat{\mathcal{L}}_{\lvec} [\hat{A}] \right]
         = \int d\xvec
             \sum_{j_1=0}^{l_1} \sum_{k_1=0}^{l_1} \ldots
             \sum_{j_C=0}^{l_C} \sum_{k_C=0}^{l_C}
@@ -633,10 +626,10 @@ Finally, the loss transformation theorem can be proved.
                 \right)
                 L_{\lvec, \jvec, \kvec}
             \mathcal{W}[\hat{A}],
-    \end{eqn*}
+    \end{split}\end{equation*}
     where
-    \begin{eqn*}
-\fl     L_{\lvec, \jvec, \kvec}
+    \begin{equation*}\begin{split}
+        L_{\lvec, \jvec, \kvec}
         ={} & \left( 2 - (-1)^{\sum_c j_c} - (-1)^{\sum_c k_c} \right) \\
         &   \prod_{c=1}^C \left(
                 \sum_{m_c=0}^{l_c - \max(j_c, k_c)}
@@ -645,13 +638,13 @@ Finally, the loss transformation theorem can be proved.
                 \Psi_c^{l_c - j_c - m_c}
                 (\Psi_c^*)^{l_c - k_c - m_c}
             \right),
-    \end{eqn*}
+    \end{split}\end{equation*}
     and
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         Q(l, j, k, m)
         = \frac{(-1)^m}{2^{j + k + m}}
             \frac{(l!)^2}{m! j! k! (l - k - m)! (l - j - m)!}.
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{theorem}
 \begin{proof}
 Proved by applying \thmref{func-wigner:correspondences}, expanding products using binomial theorem, using \lmmref{transformations:swap-differential} to move differentials to front, and applying \lmmref{transformations:sum-rearrangement} to transform summations.
@@ -666,18 +659,18 @@ Proved by applying \thmref{func-wigner:correspondences}, expanding products usin
 Now we have all necessary tools to transform the master equation~\eqnref{master-eqn:master-eqn} with the Wigner transformation from \defref{func-wigner:w-transformation} to the partial differential equation.
 
 Namely, the single-particle term~\eqnref{master-eqn:single-particle} is transformed using \thmref{transformations:w-commutator1} and \thmref{transformations:w-laplacian-commutator1} (since $K_j$ is basically a sum of Laplacian operator and functions of $\xvec$):
-\begin{eqn}
+\begin{equation}\begin{split}
     \mathcal{W} \left[ [ \int d\xvec \Psiop_j^\dagger K_{jk} \Psiop_k, \hat{\rho} ] \right]
     = \int d\xvec \left(
             - \frac{\delta}{\delta \Psi_j} K_{jk} \Psi_k
             + \frac{\delta}{\delta \Psi_k^*} K_{jk} \Psi_j^*
         \right)
         W,
-\end{eqn}
+\end{split}\end{equation}
 where Wigner function $W = \mathcal{W}[\hat{\rho}]$.
 Nonlinear term is transformed with \thmref{transformations:w-commutator2} (minding the locality of interaction and assuming $U_{kj} = U_{jk}$):
-\begin{eqn}
-\fl \mathcal{W} \left[
+\begin{equation}\begin{split}
+    \mathcal{W} \left[
         [
             \int d\xvec \frac{U_{jk}}{2}
                 \Psiop_j^\dagger \Psiop_k^\dagger \Psiop_j \Psiop_k,
@@ -703,38 +696,38 @@ Nonlinear term is transformed with \thmref{transformations:w-commutator2} (mindi
             \frac{\delta}{\delta \Psi_k^*}
             \frac{1}{4} \Psi_k^*
         \right) W.
-\end{eqn}
+\end{split}\end{equation}
 
 Loss terms~\eqnref{master-eqn:loss-term} are transformed with \thmref{transformations:w-losses}.
 \todo{Not writing the resulting expression here, because with the absence of truncation it is too long, and is practically the same as in theorem statement.}
 
 Assuming that $K_{jk}$, $U_{jk}$ and $\kappa_{\lvec}$ are real-valued, all the transformations described above result in a partial differential equation for $W$ of the form
-\begin{eqn}
-\fl \frac{\partial W}{\partial t} = \int d\xvec \left\{
+\begin{equation}\begin{split}
+    \frac{\partial W}{\partial t} = \int d\xvec \left\{
         - \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} \mathcal{A}_j
         - \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} \mathcal{A}_j^*
         + \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j^* \delta \Psi_k} \mathcal{D}_{jk}
         + \mbox{O} \left[ \frac{\delta^3}{\delta\Psi_j^3} \right]
     \right\} W.
-\end{eqn}
+\end{split}\end{equation}
 The terms of order higher than 2 are produced both by the nonlinear term in the Hamiltonian and loss terms.
 Such an equation could be solved without additional approximations if there were only orders up to 3 (which means the absence of losses)~\cite{Polkovnikov2003}, but in most cases all terms except for first- and second-order ones are truncated.
 In the assumption of the state being coherent, the condition for truncation can be shown to be~\cite{Sinatra2002}
-\begin{eqn}
+\begin{equation}\begin{split}
     N \gg |\restbasis|,
-\end{eqn}
+\end{split}\end{equation}
 where $N$ is the number of atoms.
 This condition is equivalent to~\cite{Norrie2006}
-\begin{eqn}
+\begin{equation}\begin{split}
     \delta_{\restbasis_j}(\xvec, \xvec) \ll | \Psi_j |^2.
-\end{eqn}
+\end{split}\end{equation}
 
 Wigner truncation allows us to simplify the results of \thmref{transformations:w-commutator2} and \thmref{transformations:w-losses}.
 
 \begin{lemma}
     Assuming the conditions for Wigner truncation are satisfied,
     the result of Wigner transformation of the nonlinear term can be written as
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \mathcal{W} \left[
             [
                 \frac{U_{jk}}{2}
@@ -746,13 +739,13 @@ Wigner truncation allows us to simplify the results of \thmref{transformations:w
             \frac{\delta}{\delta \Psi_j^*} \Psi_j^* \Psi_k \Psi_k^*
             - \frac{\delta}{\delta \Psi_j} \Psi_j \Psi_k \Psi_k^*
         \right) W.
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{lemma}
 
 \begin{lemma}
     Assuming the conditions for Wigner truncation are satisfied, the result of Wigner transformation of the loss term can be written as
-    \begin{eqn*}
-\fl     \mathcal{W}[\mathcal{L}_{\lvec}[\hat{\rho}]]
+    \begin{equation*}\begin{split}
+        \mathcal{W}[\mathcal{L}_{\lvec}[\hat{\rho}]]
         = \sum_{n=1}^C
                 \frac{\delta}{\delta \Psi_n^*} \frac{\partial O_{\lvec}}{\partial \Psi_n} O_{\lvec}^*
         + \sum_{n=1}^C
@@ -761,7 +754,7 @@ Wigner truncation allows us to simplify the results of \thmref{transformations:w
             \frac{\delta^2}{\delta \Psi_n^* \delta \Psi_p}
             \frac{\partial O_{\lvec}}{\partial \Psi_n}
             \frac{\partial O_{\lvec}^*}{\partial \Psi_p^*},
-    \end{eqn*}
+    \end{split}\end{equation*}
     where $O_{\lvec} \equiv O_{\lvec}[\Psivec] = \prod_{c=1}^C \Psi_c^{l_c}$.
 \end{lemma}
 \begin{proof}
@@ -780,63 +773,63 @@ Applying these conditions one can get the statement of the theorem.
 \end{proof}
 
 Thus the truncated Fokker-Planck equation is
-\begin{eqn}
-\fl \frac{dW}{dt}
+\begin{equation}\begin{split}
+    \frac{dW}{dt}
     = \int d\xvec \left(
         - \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} \mathcal{A}_j
         - \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} \mathcal{A}_j^*
         + \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j^* \delta \Psi_k} \mathcal{D}_{jk}
     \right) W,
-\end{eqn}
+\end{split}\end{equation}
 where
-\begin{eqn}
+\begin{equation}\begin{split}
     \mathcal{A}_j = -\frac{i}{\hbar} \left(
             \sum_{k=1}^C K_{jk} \Psi_k
             + \sum_{k=1}^C U_{jk} \Psi_j \Psi_k \Psi_k^*
         \right)
         - \sum_{\lvec} \kappa_{\lvec} \frac{\partial O_{\lvec}^*}{\partial \Psi_j^*} O_{\lvec},
-\end{eqn}
+\end{split}\end{equation}
 and
-\begin{eqn}
+\begin{equation}\begin{split}
     \mathcal{D}_{jk} = \sum_{\lvec} \kappa_{\lvec}
         \frac{\partial O_{\lvec}}{\partial \Psi_j}
         \frac{\partial O_{\lvec}^*}{\partial \Psi_k^*}.
-\end{eqn}
+\end{split}\end{equation}
 
 Since the diffusion matrix is positive-definite, the truncated Wigner function $W$ is a probability distribution
 Therefore the equation can be further transformed to the equivalent set of stochastic differential equations in It\^{o} form as described by \thmref{app-fpe:fpe-sde-func}:
-\begin{eqn}
+\begin{equation}\begin{split}
 \label{eqn:fpe:sdes}
     d\Psi_j = \mathcal{P}_{\restbasis_j} \left[
         \mathcal{A}_j dt + \sum_{\lvec} \mathcal{B}_{j \lvec} Q_{\lvec}
     \right],
-\end{eqn}
+\end{split}\end{equation}
 where
-\begin{eqn}
+\begin{equation}\begin{split}
     \mathcal{B}_{j \lvec} = \sqrt{\kappa_{\lvec}} \frac{\partial O_{\lvec}^*}{\partial \Psi_j^*},
-\end{eqn}
+\end{split}\end{equation}
 and $Q_{\lvec}$ is a functional Wiener process:
-\begin{eqn}
+\begin{equation}\begin{split}
     Q_{\lvec} = \sum_{\nvec \in \fullbasis} \phi_j Z_{\lvec,\nvec},
-\end{eqn}
+\end{split}\end{equation}
 and $Z_{\lvec,\nvec}$ are, in turn, independent complex-valued Wiener processes.
 Alternatively, in Stratonovich form the SDEs look like
-\begin{eqn}
+\begin{equation}\begin{split}
     d\Psi_j = \mathcal{P}_{\restbasis_j} \left[
         (\mathcal{A}_j - \mathcal{S}_j) dt + \sum_{\lvec} B_{j \lvec} Q_{\lvec}
     \right],
-\end{eqn}
+\end{split}\end{equation}
 where the Stratonovich term is
-\begin{eqn}
+\begin{equation}\begin{split}
     \mathcal{S}_j
     = \sum_{n=1}^C \sum_{\lvec} \kappa_{\lvec}
         \frac{\partial O_{\lvec}}{\partial \Psi_n}
         \left(\frac{\partial^2 O_{\lvec}}{\partial \Psi_n \partial \Psi_j} \right)^*
         \delta_{\restbasis_n} (\xvec, \xvec).
-\end{eqn}
+\end{split}\end{equation}
 
 These equations can now be solved using conventional methods, and any required expectations symmetrically ordered operator products can be obtained from their solution using \thmref{func-wigner:moments}:
-\begin{eqn}
+\begin{equation}\begin{split}
     \langle \symprod{
         \prod_{c=1}^C \Psiop_c^{r_c} (\Psiop_c^\dagger)^{s_c}
     } \rangle
@@ -846,7 +839,7 @@ These equations can now be solved using conventional methods, and any required e
     & \approx \pathavg{
         \prod_{c=1}^C \Psi_c^{r_c} (\Psi_c^*)^{s_c}
     },
-\end{eqn}
+\end{split}\end{equation}
 where $r_c$ and $s_c$ is some set of non-negative integers, and $\pathavg{}$ stands for the average over the simulation paths.
 
 
@@ -861,31 +854,31 @@ As an example, consider the simple case with a coherent initial state.
 \begin{theorem}
     The Wigner distribution for a multi-mode coherent state with expectation values
     $\alpha_{\nvec}(0) = \alpha_{\nvec}^{(0)}$, $\nvec \in \restbasis$ is
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         W_c (\balpha^{(0)})
         = \left( \frac{2}{\pi} \right)^{|\restbasis|} \prod_{\nvec \in \restbasis}
             \exp(-2 |\alpha_{\nvec} - \alpha_{\nvec}^{(0)}|^2).
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{theorem}
 \begin{proof}
 The density matrix of the state is
-\begin{eqn}
+\begin{equation}\begin{split}
     \hat{\rho}
     = \vert \alpha_{\nvec}^{(0)},\, \nvec \in \restbasis \rangle
         \langle \alpha_{\nvec}^{(0)},\, \nvec \in \restbasis \vert
     = \left( \prod_{\nvec \in \restbasis} \vert \alpha_{\nvec}^{(0)} \rangle \right)
         \left( \prod_{\nvec \in \restbasis} \langle \alpha_{\nvec}^{(0)} \vert \right).
-\end{eqn}
+\end{split}\end{equation}
 Then the characteristic function is
-\begin{eqn}
+\begin{equation}\begin{split}
     \chi_W (\balpha^{(0)})
     = \prod_{\nvec \in \restbasis}
         \langle \alpha_{\nvec}^{(0)} \vert
         \hat{D}_{\nvec} (\lambda_{\nvec}, \lambda_{\nvec}^*)
         \vert \alpha_{\nvec}^{(0)} \rangle
-\end{eqn}
+\end{split}\end{equation}
 Using the properties of the displacement operator, this can be transformed to
-\begin{eqn}
+\begin{equation}\begin{split}
     \chi_W (\balpha^{(0)})
     = \prod_{\nvec \in \restbasis}
         \exp(
@@ -893,11 +886,11 @@ Using the properties of the displacement operator, this can be transformed to
             + \lambda_{\nvec} (\alpha_{\nvec}^{(0)})^*
             - \frac{1}{2} |\lambda|^2
         ).
-\end{eqn}
+\end{split}\end{equation}
 Finally, Wigner function is
-\begin{eqn}
-\fl W_c (\balpha^{(0)})
-    = \frac{1}{\pi^{2|\restbasis|}} \prod_{\nvec \in \restbasis} \left(
+\begin{equation}\begin{split}
+    W_c (\balpha^{(0)})
+    & = \frac{1}{\pi^{2|\restbasis|}} \prod_{\nvec \in \restbasis} \left(
         \int d^2\lambda_{\nvec}
             \exp(
                 - \lambda_{\nvec} (\alpha_{\nvec}^* - (\alpha_{\nvec}^{(0)})^*)
@@ -905,30 +898,30 @@ Finally, Wigner function is
                 - \frac{1}{2} |\lambda|^2
             )
     \right) \\
-    = \left( \frac{2}{\pi} \right)^{|\restbasis|} \prod_{\nvec \in \restbasis}
+    & = \left( \frac{2}{\pi} \right)^{|\restbasis|} \prod_{\nvec \in \restbasis}
         \exp(-2 |\alpha_{\nvec} - \alpha_{\nvec}^{(0)}|^2).
     \qedhere
-\end{eqn}
+\end{split}\end{equation}
 \end{proof}
 
 The resulting Wigner distribution is a product of independent complex-valued Gaussian distributions for each mode,
 with the expectation value equal to the expectation value of the mode,
 and the variance equal to $\frac{1}{2}$.
 Therefore the initial state can be sampled as
-\begin{eqn}
+\begin{equation}\begin{split}
     \alpha_{\nvec} = \alpha_{\nvec}^{(0)} + \frac{1}{\sqrt{2}} \eta_{\nvec},
-\end{eqn}
+\end{split}\end{equation}
 where $\eta_{\nvec}$ are normally distributed complex random numbers with zero mean,
 $\langle \eta_{\mvec} \eta_{\nvec} \rangle = 0$ and
 $\langle \eta_{\mvec} \eta_{\nvec}^* \rangle = \delta_{\mvec,\nvec}$
 (in other words, with components distributed independently with variance $\frac{1}{2}$).
 This looks like adding half a ``vacuum particle'' to each mode.
 In functional form this can be written as
-\begin{eqn}
+\begin{equation}\begin{split}
     \Psi_j(\xvec, 0)
     = \Psi_j^{(0)}(\xvec, 0)
         + \sum_{\nvec \in \restbasis_j} \frac{\eta_{j,\nvec}}{\sqrt{2}} \phi_{j,\nvec},
-\end{eqn}
+\end{split}\end{equation}
 where $\Psi_j^{(0)}(\xvec, 0)$ is the ``classical'' ground state of the system.
 
 \todo{We can describe the Wigner function for the number state here, as an example of non-positive Wigner function.}
@@ -956,12 +949,12 @@ One can find thorough description of these rules, for example, in~\cite{Kreutz-D
 
 \begin{definition}
     For a complex variable $z = x + iy$ and a function $f(z) = u(x, y) + iv(x, y)$ the Wirtinger differential is
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \frac{\partial f(z)}{\partial z}
         = \frac{1}{2} \left(
             \frac{\partial f}{\partial x} - i \frac{\partial f}{\partial y}
         \right).
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{definition}
 
 One can easily prove that if $f(z)$ is holomorphic, then the above definition coincides with the classical differential for complex functions.
@@ -971,9 +964,9 @@ In addition, we will need a non-standard integration over the complex variable:
 
 \begin{definition}
     For a complex variable $z = x + iy$ the integral
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \int d^2 z \equiv \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} dx\, dy,
-    \end{eqn*}
+    \end{split}\end{equation*}
     or, in other words, stands for the two-dimensional integral over the complex plane.
 \end{definition}
 
@@ -982,20 +975,20 @@ Such integration has a property similar to a Fourier transformation in real spac
 \begin{lemma}
 \label{lmm:c-numbers:fourier-of-moments}
     If $\lambda$ is a complex variable, then for any non-negative integers $r$ and $s$:
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \int d^2\alpha\, \alpha^r (\alpha^*)^s \exp(-\lambda \alpha^* + \lambda^* \alpha)
         = \pi^2
             \left( -\frac{\partial}{\partial \lambda^*} \right)^r
             \left( \frac{\partial}{\partial \lambda} \right)^s
             \delta(\Real \lambda) \delta(\Imag \lambda)
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{lemma}
 \begin{proof}
 First, using known Fourier transform relations, it is easy to prove that for real $x$ and $v$, and non-negative integer $n$
-\begin{eqn*}
+\begin{equation*}\begin{split}
     \int\limits_{-\infty}^{\infty} dv\, v^n \exp(\pm 2 i x v)
     = \pi (\mp i / 2)^n \delta^{(n)}(x).
-\end{eqn*}
+\end{split}\end{equation*}
 Substituting $\alpha = x + iy$, expanding the $\alpha^r (\alpha^*)^s$ term using binomial theorem and employing the above property, one can reach the statement of the lemma.
 \end{proof}
 
@@ -1004,7 +997,7 @@ Another important property is used extensively throughout the paper.
 \begin{lemma}
 \label{lmm:c-numbers:zero-integrals}
     If $f(\lambda, \lambda^*)$ is bounded, then for any complex $\alpha$:
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \int d^2\lambda
             \frac{\partial}{\partial \lambda} \left(
                 \exp(-\lambda \alpha^* + \lambda^* \alpha)
@@ -1018,7 +1011,7 @@ Another important property is used extensively throughout the paper.
                 f(\lambda, \lambda^*)
             \right)
         & = 0.
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{lemma}
 \begin{proof}
 \todo{Needs proof?}
@@ -1038,16 +1031,16 @@ Given the basis, we can define the correspondence between some function of coord
 \begin{definition}
     Let $\mathbb{F}$ be a space of all functions of coordinates, which consists only of modes from $\restbasis$: $\mathbb{F}_{\restbasis} \equiv (\mathbb{R}^D \rightarrow \mathbb{C})_{\restbasis}$ (restricted functions).
     Composition transformation creates a function from a vector of mode populations:
-    \begin{eqn*}
-        \mathcal{C}_{\restbasis} :: \mathbb{C}^{|\restbasis|} \rightarrow \mathbb{F}_{\restbasis} \\
-        \mathcal{C}_{\restbasis}(\balpha) = \sum_{\nvec \in \restbasis} \phi_{\nvec} \alpha_{\nvec}.
-    \end{eqn*}
+    \begin{equation*}\begin{split}
+        & \mathcal{C}_{\restbasis} :: \mathbb{C}^{|\restbasis|} \rightarrow \mathbb{F}_{\restbasis} \\
+        & \mathcal{C}_{\restbasis}(\balpha) = \sum_{\nvec \in \restbasis} \phi_{\nvec} \alpha_{\nvec}.
+    \end{split}\end{equation*}
     Decomposition transformation, correspondingly, creates a vector of populations out of a function:
-    \begin{eqn*}
-        \mathcal{C}_{\restbasis}^{-1} :: \mathbb{F} \rightarrow \mathbb{C}^{|\restbasis|} \\
-        (\mathcal{C}_{\restbasis}^{-1}[f])_{\nvec}
+    \begin{equation*}\begin{split}
+        & \mathcal{C}_{\restbasis}^{-1} :: \mathbb{F} \rightarrow \mathbb{C}^{|\restbasis|} \\
+        & (\mathcal{C}_{\restbasis}^{-1}[f])_{\nvec}
         = \int d\xvec \phi_{\nvec}^* f,\,{\nvec} \in \restbasis.
-    \end{eqn*}
+    \end{split}\end{equation*}
     Note that for any $f \in \mathbb{F}_{\restbasis}$, $\mathcal{C}_{\restbasis}(\mathcal{C}_{\restbasis}^{-1}[f]) \equiv f$.
 \end{definition}
 
@@ -1058,10 +1051,10 @@ To avoid confusion with the common delta function, we introduce the restricted d
 \begin{definition}
 \label{def:func-calculus:restricted-delta}
     The restricted delta function $\delta_{\restbasis} \in \mathbb{F}_{\restbasis}$ is defined as
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \delta_{\restbasis}(\xvec^\prime, \xvec)
         = \sum_{\nvec \in \restbasis} \phi_{\nvec}^{\prime*} \phi_{\nvec}.
-    \end{eqn*}
+    \end{split}\end{equation*}
     Note that $\delta_{\restbasis}^*(\xvec^\prime, \xvec) = \delta_{\restbasis}(\xvec, \xvec^\prime)$.
 \end{definition}
 
@@ -1070,38 +1063,38 @@ Any function can be projected to $\restbasis$ using the projection transformatio
 \begin{definition}
 \label{def:func-calculus:projector}
     Projection transformation
-    \begin{eqn*}
-        \mathcal{P}_{\restbasis} ::
+    \begin{equation*}\begin{split}
+        & \mathcal{P}_{\restbasis} ::
         \mathbb{F} \rightarrow \mathbb{F}_{\restbasis} \\
-        \mathcal{P}_{\restbasis}[f](\xvec)
-        & = (\mathcal{C}_{\restbasis}(\mathcal{C}_{\restbasis}^{-1}[f])) (\xvec) \\
-        & = \sum_{\nvec \in \restbasis} \phi_{\nvec} \int
-            d\xvec^\prime\, \phi_{\nvec}^{\prime*} f^\prime \\
-        & = \int d\xvec^\prime \delta_{\restbasis}(\xvec^\prime, \xvec) f^\prime,
-    \end{eqn*}
+        & \mathcal{P}_{\restbasis}[f](\xvec)
+        = (\mathcal{C}_{\restbasis}(\mathcal{C}_{\restbasis}^{-1}[f])) (\xvec)
+        = \sum_{\nvec \in \restbasis} \phi_{\nvec} \int
+            d\xvec^\prime\, \phi_{\nvec}^{\prime*} f^\prime
+        = \int d\xvec^\prime \delta_{\restbasis}(\xvec^\prime, \xvec) f^\prime.
+    \end{split}\end{equation*}
     Obviously, $\mathcal{P}_{\fullbasis} \equiv \mathds{1}$.
 \end{definition}
 
 The conjugate of $\mathcal{P}_{\restbasis}$ is thus defined as
-\begin{eqn}
+\begin{equation}\begin{split}
     (\mathcal{P}_{\restbasis}[f](\xvec))^*
     = \int d\xvec^\prime \delta_{\restbasis}^*(\xvec^\prime, \xvec) f^{\prime*}
     = \mathcal{P}_{\restbasis}^* [f^*](\xvec).
-\end{eqn}
+\end{split}\end{equation}
 
 Let $\mathcal{F}[f] :: \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}$ be some transformation (note that the result is not guaranteed to belong to the restricted basis).
 Because of the bijection between $\mathbb{F}_{\restbasis}$ and $\mathbb{C}^{|\restbasis|}$, $\mathcal{F}$ can be alternatively treated as a function of a vector of complex numbers:
-\begin{eqn}
-    \mathcal{F} :: \mathbb{C}^{|\restbasis|} \rightarrow \mathbb{C}^\infty \\
-    \mathcal{F}(\balpha) \equiv \mathcal{C}_{\restbasis}^{-1}[\mathcal{F}[\mathcal{C}_{\restbasis}(\balpha)]].
-\end{eqn}
+\begin{equation}\begin{split}
+    & \mathcal{F} :: \mathbb{C}^{|\restbasis|} \rightarrow \mathbb{C}^\infty \\
+    & \mathcal{F}(\balpha) \equiv \mathcal{C}_{\restbasis}^{-1}[\mathcal{F}[\mathcal{C}_{\restbasis}(\balpha)]].
+\end{split}\end{equation}
 Using this correspondence, we can define the functional differentiation.
 
 \begin{definition}
 \label{def:func-calculus:func-diff}
     Functional derivative is defined as
-    \begin{eqn*}
-        \frac{\delta}{\delta f^\prime} ::
+    \begin{equation*}\begin{split}
+        & \frac{\delta}{\delta f^\prime} ::
         \left(
             \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}
         \right)
@@ -1109,10 +1102,10 @@ Using this correspondence, we can define the functional differentiation.
         \left(
             \mathbb{R}^D \rightarrow \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}
         \right) \\
-        \frac{\delta \mathcal{F}[f]}{\delta f^\prime}
+        & \frac{\delta \mathcal{F}[f]}{\delta f^\prime}
         = \sum_{\nvec \in \restbasis} \phi_{\nvec}^{\prime*}
             \frac{\partial \mathcal{F}(\balpha)}{\partial \alpha_{\nvec}}.
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{definition}
 
 Note that the transformation being returned differs from the one which was taken: the result of the new transformation is a function of the additional variable from $\mathbb{R}^D$ ($\xvec^\prime$).
@@ -1125,7 +1118,7 @@ In particular, the following useful lemma gives us the ability to differentiate 
 \begin{lemma}
     If $g(z)$ is a function of complex variable that can be expanded into series of $z^n (z^*)^m$, and functional $\mathcal{F}[f, f^*] \equiv g(f, f^*)$, $\mathcal{F} \in \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}$, then $\delta \mathcal{F} / \delta f^\prime$ and $\delta \mathcal{F} / \delta f^{\prime*}$ can be treated as partial differentiation of the functional of two independent variables $f$ and $f^*$.
     In other words:
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \frac{\delta \mathcal{F}}{\delta f^\prime}
         = \delta_{\restbasis}(\xvec^\prime, \xvec)
             \frac{\partial g(f, f^*)}{\partial f},
@@ -1133,20 +1126,20 @@ In particular, the following useful lemma gives us the ability to differentiate 
         \frac{\delta \mathcal{F}}{\delta f^{\prime*}}
         = \delta_{\restbasis}^*(\xvec^\prime, \xvec)
             \frac{\partial g(f, f^*)}{\partial f^*}
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{lemma}
 
 Functional integration is defined as
 
 \begin{definition}
-    \begin{eqn*}
-        \int \delta^2 f :: (\mathbb{F}_{\restbasis} \rightarrow \mathbb{F}) \rightarrow \mathbb{C} \\
-        \int \delta^2 f \mathcal{F}[f]
+    \begin{equation*}\begin{split}
+        & \int \delta^2 f :: (\mathbb{F}_{\restbasis} \rightarrow \mathbb{F}) \rightarrow \mathbb{C} \\
+        & \int \delta^2 f \mathcal{F}[f]
         = \int d^2\balpha \mathcal{F}(\balpha)
         = \left(
             \prod_{\nvec \in \restbasis} \int d^2\alpha_{\nvec}
         \right) \mathcal{F}(\balpha).
-    \end{eqn*}
+    \end{split}\end{equation*}
     If the basis contains an infinite number of modes, the integral is treated as a limit $|\restbasis| \rightarrow \infty$.
     \todo{Product of integrals means successive applications of those integrals --- do we need to state it explicitly?}
 \end{definition}
@@ -1156,15 +1149,15 @@ Functional integration has the Fourier-like property analogous to Lemma~\lmmref{
 \begin{definition}
 \label{def:func-calculus:delta-functional}
     For a function $\Lambda \in \mathbb{F}_{\restbasis}$ the delta functional is
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \Delta_{\restbasis}[\Lambda]
         \equiv \prod_{\nvec \in \restbasis} \delta(\Real \lambda_{\nvec}) \delta(\Imag \lambda_{\nvec}),
-    \end{eqn*}
+    \end{split}\end{equation*}
     where $\blambda = \mathcal{C}_{\restbasis}^{-1}[\Lambda]$.
 \end{definition}
 
 The delta functional has the same property as the common delta function:
-\begin{eqn}
+\begin{equation}\begin{split}
     \int \delta^2 \Lambda \mathcal{F}[\Lambda] \Delta_{\restbasis}[\Lambda]
     & = \left(
             \prod_{\nvec \in \restbasis} \int d^2\lambda_{\nvec}
@@ -1173,12 +1166,12 @@ The delta functional has the same property as the common delta function:
         \prod_{\nvec \in \restbasis} \delta(\Real \lambda_{\nvec}) \delta(\Imag \lambda_{\nvec}) \\
     & = \left. \mathcal{F}(\blambda) \right|_{\forall \nvec \in \restbasis\, \lambda_{\nvec} = 0} \\
     & = \left. \mathcal{F}[\Lambda] \right|_{\Lambda \equiv 0}
-\end{eqn}
+\end{split}\end{equation}
 
 \begin{lemma}[Functional extension of \lmmref{c-numbers:fourier-of-moments}]
 \label{lmm:func-calculus:fourier-of-moments}
     For $\Psi \in \mathbb{F}_{\restbasis}$ and $\Lambda \in \mathbb{F}_{\restbasis}$, and for any non-negative integers $r$ and $s$:
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \int \delta^2\Psi\, \Psi^r (\Psi^*)^s \exp \left(
                 \int d\xvec \left( -\Lambda \Psi^* + \Lambda^* \Psi \right)
             \right) \\
@@ -1186,7 +1179,7 @@ The delta functional has the same property as the common delta function:
             \left( -\frac{\delta}{\delta \Lambda^*} \right)^r
             \left( \frac{\delta}{\delta \Lambda} \right)^s
             \Delta_{\restbasis}[\Lambda]
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{lemma}
 \begin{proof}
 The proof consists of expanding functions into sums of modes and applying \lmmref{c-numbers:fourier-of-moments} $|\restbasis|$ times.
@@ -1195,7 +1188,7 @@ The proof consists of expanding functions into sums of modes and applying \lmmre
 \begin{lemma}
 \label{lmm:func-calculus:zero-integrals}
     For a bounded functional $F(\blambda, \blambda^*)$
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \int \delta^2\Lambda
             \frac{\delta}{\delta \Lambda^\prime} \left(
                 D[\Lambda, \Lambda^*, \Psi, \Psi^*]
@@ -1209,7 +1202,7 @@ The proof consists of expanding functions into sums of modes and applying \lmmre
                 F[\Lambda, \Lambda^*]
             \right)
         & = 0.
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{lemma}
 \begin{proof}
 Proved by expanding integrals and differentials into modes and applying \lmmref{c-numbers:zero-integrals}.
@@ -1218,7 +1211,7 @@ Proved by expanding integrals and differentials into modes and applying \lmmref{
 \begin{lemma}
 \label{lmm:func-calculus:zero-delta-integrals}
     For $\Lambda \in \mathbb{F}_{\restbasis}$ \todo{Any limitations on $F$?}
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \int \delta^2\Lambda
             \frac{\delta}{\delta \Lambda} \left(
                 \left(
@@ -1239,7 +1232,7 @@ Proved by expanding integrals and differentials into modes and applying \lmmref{
                 F[\lambda, \lambda^*]
             \right)
         & = 0 \\
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{lemma}
 \begin{proof}
 Proved by expanding functional integration and differentials into modes and integrating separately over each $\lambda_{\nvec}$, using the fact that any differential of the delta function is zero on the infinity.
@@ -1250,13 +1243,13 @@ In order to perform transformations of master equations, we will need a lemma th
 \begin{lemma}
 \label{lmm:func-calculus:move-laplacian}
     If $\mathcal{F} \in \mathbb{F}_{\restbasis} \rightarrow \mathbb{F}$, and $\forall \nvec \in \restbasis, \xvec \in \partial A$ $\phi_{\nvec}(\xvec) = 0$, then
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \int\limits_A d\xvec \left(
             \nabla^2 \frac{\delta}{\delta \Psi}
         \right) \Psi \mathcal{F}[\Psi, \Psi^*]
         = \int\limits_A d\xvec \frac{\delta}{\delta \Psi}
         ( \nabla^2 \Psi ) \mathcal{F}[\Psi, \Psi^*]
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{lemma}
 \begin{proof}
 The proof consists of a function expansion into a mode sum and an application of Green's first identity.
@@ -1281,25 +1274,25 @@ Our starting point is the reformulation of the theorem for real-valued multivari
 \label{lmm:app-fpe:fpe-sde-real}
     If $\zvec^T \equiv (z_1 \ldots z_M)$ is a set of real-valued variables,
     Fokker-Planck equation
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \frac{dW}{dt}
         = -\boldsymbol{\partial}_{\zvec}^T \boldsymbol{a} W
         + \frac{1}{2} \Trace{ \boldsymbol{\partial}_{\zvec} \boldsymbol{\partial}_{\zvec}^T B B^T } W
-    \end{eqn*}
+    \end{split}\end{equation*}
     is equivalent to a set of stochastic differential equations in It\^{o} form
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         d\zvec = \boldsymbol{a} dt + B d\Zvec
-    \end{eqn*}
+    \end{split}\end{equation*}
     and to a set of stochastic differential equations in Stratonovich form
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         d\zvec = (\boldsymbol{a} - \boldsymbol{s})dt + B d\Zvec,
-    \end{eqn*}
+    \end{split}\end{equation*}
     where the noise-induced (or spurious) drift vector $\boldsymbol{s}$ has elements
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         s_i
         = \sum_{k,j} B_{kj} \frac{\partial}{\partial z_k} B_{ij}
         = \Trace{B^T \boldsymbol{\partial}_z \boldsymbol{e}_i^T B},
-    \end{eqn*}
+    \end{split}\end{equation*}
     $\boldsymbol{e}_i$ being the unit vector with elements $(\boldsymbol{e}_i)_j = \delta_{ij}$.
     Here $W \equiv W(\zvec)$ is a probability distribution,
     $\boldsymbol{a} \equiv \boldsymbol{a}(\zvec)$ is a vector function,
@@ -1315,23 +1308,23 @@ For details see~\cite{Risken1996}, sections 3.3 and 3.4.
 \label{thm:app-fpe:fpe-sde-complex}
     If $\boldsymbol{\alpha}^T \equiv (\alpha_1 \ldots \alpha_M)$ is a set of complex-valued variables,
     Fokker-Planck equation
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \frac{dW}{dt}
         = -\boldsymbol{\partial}_{\boldsymbol{\alpha}}^T \boldsymbol{a} W - \boldsymbol{\partial}_{\boldsymbol{\alpha}^*}^T \boldsymbol{a}^* W
         + \Trace{ \boldsymbol{\partial}_{\boldsymbol{\alpha}^*} \boldsymbol{\partial}_{\boldsymbol{\alpha}}^T B B^H } W
-    \end{eqn*}
+    \end{split}\end{equation*}
     is equivalent to a set of stochastic differential equations in It\^{o} form
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         d\boldsymbol{\alpha} = \boldsymbol{a} dt + B d\Zvec,
-    \end{eqn*}
+    \end{split}\end{equation*}
     or to Stratonovich form
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         d\boldsymbol{\alpha} = (\boldsymbol{a} - \boldsymbol{s}) dt + B d\Zvec,
-    \end{eqn*}
+    \end{split}\end{equation*}
     where noise-induced drift term is
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         s_j = \Trace{ B^H \boldsymbol{\partial}_{\boldsymbol{\alpha}^*} \boldsymbol{e}_j^T B },
-    \end{eqn*}
+    \end{split}\end{equation*}
     and $d\Zvec = (d\boldsymbol{X} + id\boldsymbol{Y}) / \sqrt{2}$ is an $M$-dimensional complex-valued Wiener process,
     containing two real-valued $L$-dimensional Wiener processes $d\boldsymbol{X}$ and $d\boldsymbol{Y}$.
 \end{theorem}
@@ -1343,7 +1336,7 @@ Proved straightforwardly by transforming the equation to real variables and appl
 \label{thm:app-fpe:mc-fpe-sde}
     \todo{Perhaps not necessary.}
     If $\boldsymbol{\alpha}^{(c)},\, c = 1..C$ are $C$ sets of complex variables $\boldsymbol{\alpha}^{(c)} \equiv (\alpha_1^{(c)} \ldots \alpha_M^{(c)})$, then the Fokker-Planck equation
-    \begin{eqn}
+    \begin{equation}\begin{split}
         \frac{dW}{dt}
         = & - \sum_{c=1}^C \boldsymbol{\partial}_{\boldsymbol{\alpha}^{(c)}}^T \boldsymbol{a}^{(c)} W
         - \sum_{c=1}^C \boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(c)})^*}^T (\boldsymbol{a}^{(c)})^* W \\
@@ -1353,20 +1346,20 @@ Proved straightforwardly by transforming the equation to real variables and appl
                 \boldsymbol{\partial}_{\boldsymbol{\alpha}^{(n)}}^T
                 B^{(n)} (B^{(m)})^H
             } W
-    \end{eqn}
+    \end{split}\end{equation}
     is equivalent to a set of stochastic differential equations in It\^{o} form
-    \begin{eqn}
+    \begin{equation}\begin{split}
         d\boldsymbol{\alpha}^{(c)} = \boldsymbol{a}^{(c)} dt + B^{(c)} d\Zvec,\, c = 1..C
-    \end{eqn}
+    \end{split}\end{equation}
     or to Stratonovich form
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         d\boldsymbol{\alpha}^{(c)} = (\boldsymbol{a}^{(c)} - \boldsymbol{s}^{(c)}) dt + B^{(c)} d\Zvec,
-    \end{eqn*}
+    \end{split}\end{equation*}
     where noise-induced drift term is
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         s_j^{(c)} = \sum_{d=1}^C
             \Trace{ (B^{(d)})^H \boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(d)})^*} \boldsymbol{e}_j^T B^{(c)} },
-    \end{eqn*}
+    \end{split}\end{equation*}
     and $d\Zvec$ is an $L$-dimensional complex-valued Wiener process.
 \end{theorem}
 \begin{proof}
@@ -1376,65 +1369,63 @@ Proved by joining vectors from all components into one vector and applying \thmr
 \begin{theorem}
 \label{thm:app-fpe:fpe-sde-func}
     For the probability distribution $W[\Psivec, \Psivec^*] \in (\mathbb{F}_{\restbasis}^C \rightarrow \mathbb{R})$ the functional FPE
-    \begin{eqn*}
-\fl     \frac{dW}{dt}
+    \begin{equation*}\begin{split}
+        \frac{dW}{dt}
         = \int d\xvec \left(
             - \sum_{j=1}^C \frac{\delta}{\delta \Psi_j} \mathcal{A}_j
             - \sum_{j=1}^C \frac{\delta}{\delta \Psi_j^*} \mathcal{A}_j^*
             + \sum_{j=1}^C \sum_{k=1}^C \frac{\delta^2}{\delta \Psi_j^* \delta \Psi_k}
                 \sum_{\lvec} \mathcal{B}_{k \lvec} \mathcal{B}_{j \lvec}^*
         \right) W
-    \end{eqn*}
-    \todo{alternatively, in matrix form
-    \begin{eqn*}
+    \end{split}\end{equation*}
+    \todo{alternatively, in matrix form}
+    \begin{equation*}\begin{split}
         \frac{dW}{dt}
         = \int d\xvec \left(
             - 2 \Real \left( \bdelta_{\bPsi} \cdot \vec{\mathcal{A}} \right)
             + \Trace{ \bdelta_{\bPsi^*} \bdelta_{\bPsi}^T \mathcal{B} \mathcal{B}^H }
         \right) W
-    \end{eqn*}
-    }
+    \end{split}\end{equation*}
     is equivalent to the set of SDEs in It\^{o} form
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         d\Psi_j = \mathcal{P}_{\restbasis_j} \left[
             \mathcal{A}_j dt + \sum_{\lvec} \mathcal{B}_{j \lvec} dQ_{\lvec}
         \right],
-    \end{eqn*}
+    \end{split}\end{equation*}
     \todo{alternatively, in matrix form
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         d\bPsi = \vec{\mathcal{P}} \left[
             \vec{\mathcal{A}} dt + \mathcal{B} d\boldsymbol{Q}
         \right]
-    \end{eqn*}
+    \end{split}\end{equation*}
     }
     or in Stratonovich form
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         d\Psi_j = \mathcal{P}_{\restbasis_j} \left[
             (\mathcal{A}_j - \mathcal{S}_j) dt + \sum_{\lvec} \mathcal{B}_{j \lvec} dQ_{\lvec}
         \right],
-    \end{eqn*}
+    \end{split}\end{equation*}
     where
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         \mathcal{S}_j = \sum_{c=1}^C \sum_{\lvec}
             \mathcal{B}_{c \lvec}^*
             \frac{\delta}{\delta \Psi_c^*}
             \mathcal{B}_{j \lvec},
-    \end{eqn*}
-    \todo{alternatively, in matrix form
-    \begin{eqn*}
+    \end{split}\end{equation*}
+    \todo{alternatively, in matrix form}
+    \begin{equation*}\begin{split}
         \mathcal{S}_j = \Trace{ \mathcal{B}^H \bpartial_{\bPsi^*} \boldsymbol{e}_j^T \mathcal{B} },
-    \end{eqn*}
-    }
+    \end{split}\end{equation*}
     and $Q_{\lvec}$ is a functional Wiener process:
-    \begin{eqn*}
+    \begin{equation*}\begin{split}
         Q_{\lvec} = \sum_{\nvec \in \fullbasis} \phi_{\nvec} Z_{\lvec,\nvec}.
-    \end{eqn*}
+    \end{split}\end{equation*}
 \end{theorem}
 \begin{proof}
 Proved by expanding functional derivatives and applying \thmref{app-fpe:mc-fpe-sde}.
 The diffusion term has to be transformed in order to conform to the theorem:
-\begin{eqn}
-\fl \int d\xvec \phi_{j,\mvec} \phi_{k,\nvec}^* \sum_{\lvec} \mathcal{B}_{\lvec}^{(k)} (\mathcal{B}_{\lvec}^{(j)})^*
+\begin{equation}\begin{split}
+    \int d\xvec \phi_{j,\mvec} \phi_{k,\nvec}^* \sum_{\lvec} \mathcal{B}_{\lvec}^{(k)} (\mathcal{B}_{\lvec}^{(j)})^*
     & = \int d\xvec \int d\xvec^\prime
             \phi_{j,\mvec}^\prime \phi_{k,\nvec}^*
             \sum_{\lvec} (\mathcal{B}_{\lvec}^{(j)})^{\prime *} \mathcal{B}_{\lvec}^{(k)}
@@ -1448,15 +1439,14 @@ The diffusion term has to be transformed in order to conform to the theorem:
             \phi_{j,\mvec} (\mathcal{B}_{\lvec}^{(j)})^* \phi_{\pvec}^*
         \int d\xvec
             \phi_{k,\nvec}^* \mathcal{B}_{\lvec}^{(k)} \phi_{\pvec}
-\end{eqn}
+\end{split}\end{equation}
 Grouping terms back and recognising the definition of projection transformation, one gets the statement of the theorem.
 \end{proof}
 
 
 
 \section*{References}
-%\bibliographystyle{unsrt} % recommended by IOP guide, but produces results inconsistent with their requirements
-\bibliographystyle{iopart-num} % actually does the job
+%\bibliographystyle{aipsamp}
 \bibliography{qsim-long}
 
 \end{document}
