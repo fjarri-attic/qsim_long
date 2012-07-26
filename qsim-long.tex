@@ -140,7 +140,7 @@ Orthonormality and completeness conditions for basis functions are, respectively
 where the exact nature of integration area $A$ depends on the basis set (for example, $A$ is the whole space for harmonic oscillator modes, or a box for plane waves).
 Hereinafter we assume that the integration $\int d\boldsymbol{x}$ is always performed over $A$.
 
-Standard bosonic field operators from~\ref{eqn:master-eqn:commutators} which project coordinates to the full Hilbert space $\mathbb{H}$ can be decomposed as
+Standard bosonic field operators from~((\ref{eqn:master-eqn:commutators})) which project coordinates to the full Hilbert space $\mathbb{H}$ can be decomposed as
 \begin{equation}\begin{split}
     \hat{\Psi}_j \in (\mathbb{R}^D \rightarrow \mathbb{H}): \qquad
     \hat{\Psi}_j = \sum_{\boldsymbol{n} \in \mathbb{B}_j} \phi_{j,\boldsymbol{n}} \hat{a}_{j,\boldsymbol{n}},
@@ -156,7 +156,7 @@ Restricted field operators contain only modes from the subset $\mathbb{M}_j$:
 In this paper we will use them without explicit indices in order to avoid clutter [TODO: Should we explicitly mark ``full basis'' operators in the previous section?].
 Restricted field operators have the type $\mathbb{FH}_{\mathbb{M}_j} \equiv (\mathbb{R}^D \rightarrow \mathbb{H}_{\mathbb{M}_j})$, where $\mathbb{H}_{\mathbb{M}_j}$ is the Hilbert space of the restricted subset of modes.
 
-Because of the restricted nature of the operator, commutation relations~\ref{eqn:master-eqn:commutators} no longer apply.
+Because of the restricted nature of the operator, commutation relations~((\ref{eqn:master-eqn:commutators})) no longer apply.
 The following ones should be used instead:
 \begin{equation}\label{eqn:func-operators:restricted-commutators}\begin{split}
     \left[ \hat{\Psi}_j, \hat{\Psi}_k^\prime \right]
@@ -394,7 +394,7 @@ we immediately get the statement of the theorem.
 \section{Specific cases of transformations}
 % =============================================================================
 
-In order to Wigner transform the master equation~\ref{eqn:master-eqn:master-eqn}, we will need several theorems about transformations of specific operator sequences.
+In order to Wigner transform the master equation~((\ref{eqn:master-eqn:master-eqn})), we will need several theorems about transformations of specific operator sequences.
 
 First, we will need an expression for high-order commutators of restricted field operators.
 They look somewhat similar to those for single-mode bosonic operators, or standard field operators from~\cite{Louisell1990}.
@@ -424,7 +424,7 @@ A further generalisation of these relations is
     where $f(z, z^*)$ is a function that can be expanded into the power series of $z$ and $z^*$.
 \end{lemma}
 
-First theorem describes the transformation of the linear part of the Hamiltonian~\ref{eqn:master-eqn:hamiltonian}.
+First theorem describes the transformation of the linear part of the Hamiltonian~((\ref{eqn:master-eqn:hamiltonian})).
 
 \begin{theorem}
 \label{thm:transformations:w-commutator1}
@@ -526,7 +526,7 @@ Next theorem describes the transformation of the non-linear part of the Hamilton
 Proof is the same as in case of Theorem~\ref{thm:transformations:w-commutator1}.
 \end{proof}
 
-Finally, the transformation of loss terms~\ref{eqn:master-eqn:loss-term} requires more work.
+Finally, the transformation of loss terms~((\ref{eqn:master-eqn:loss-term})) requires more work.
 The proof makes use of two auxiliary lemmas.
 First one will help us move functional differentials to their intended places (i.e., to the left).
 
@@ -565,7 +565,7 @@ Finally, the loss transformation theorem can be proved.
 
 \begin{theorem}
 \label{thm:transformations:w-losses}
-    The Wigner transformation of loss term~\ref{eqn:master-eqn:loss-term} is
+    The Wigner transformation of loss term~(\ref{eqn:master-eqn:loss-term}) is
     \begin{equation*}\begin{split}
         \mathcal{W} \left[ \int d\boldsymbol{x} \hat{\mathcal{L}}_{\boldsymbol{l}} [\hat{A}] \right]
         = \int d\boldsymbol{x}
@@ -608,9 +608,9 @@ Proved by applying Theorem~\ref{thm:func-wigner:correspondences}, expanding prod
 \section{Wigner truncation and Fokker-Planck equation}
 % =============================================================================
 
-Now we have all necessary tools to transform the master equation~\ref{eqn:master-eqn:master-eqn} with the Wigner transformation from Definition~\ref{def:func-wigner:w-transformation} to the partial differential equation.
+Now we have all necessary tools to transform the master equation~(\ref{eqn:master-eqn:master-eqn}) with the Wigner transformation from Definition~\ref{def:func-wigner:w-transformation} to the partial differential equation.
 
-Namely, the single-particle term~\ref{eqn:master-eqn:single-particle} is transformed using Theorem~\ref{thm:transformations:w-commutator1} and Theorem~\ref{thm:transformations:w-laplacian-commutator1} (since $K_j$ is basically a sum of Laplacian operator and functions of $\boldsymbol{x}$):
+Namely, the single-particle term~(\ref{eqn:master-eqn:single-particle}) is transformed using Theorem~\ref{thm:transformations:w-commutator1} and Theorem~\ref{thm:transformations:w-laplacian-commutator1} (since $K_j$ is basically a sum of Laplacian operator and functions of $\boldsymbol{x}$):
 \begin{equation}\begin{split}
     \mathcal{W} \left[ [ \int d\boldsymbol{x} \hat{\Psi}_j^\dagger K_{jk} \hat{\Psi}_k, \hat{\rho} ] \right]
     = \int d\boldsymbol{x} \left(
@@ -650,7 +650,7 @@ Nonlinear term is transformed with Theorem~\ref{thm:transformations:w-commutator
         \right) W.
 \end{split}\end{equation}
 
-Loss terms~\ref{eqn:master-eqn:loss-term} are transformed with Theorem~\ref{thm:transformations:w-losses}.
+Loss terms~(\ref{eqn:master-eqn:loss-term}) are transformed with Theorem~\ref{thm:transformations:w-losses}.
 [TODO: Not writing the resulting expression here, because with the absence of truncation it is too long, and is practically the same as in theorem statement.]
 
 Assuming that $K_{jk}$, $U_{jk}$ and $\kappa_{\boldsymbol{l}}$ are real-valued, all the transformations described above result in a partial differential equation for $W$ of the form
@@ -799,7 +799,7 @@ where $r_c$ and $s_c$ is some set of non-negative integers, and $\left\{\right\}
 \section{Initial states}
 % =============================================================================
 
-Initial values for the numerical integration of equations~\ref{eqn:fpe:sdes} are obtained by finding the Wigner transformation of the density matrix for the desired initial state, and then sampling the initial values according to the resulting Wigner function.
+Initial values for the numerical integration of equations~(\ref{eqn:fpe:sdes}) are obtained by finding the Wigner transformation of the density matrix for the desired initial state, and then sampling the initial values according to the resulting Wigner function.
 As an example, consider the simple case with a coherent initial state.
 
 \begin{theorem}
