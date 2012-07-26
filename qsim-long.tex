@@ -65,15 +65,13 @@ Applications of method from this paper: Ramsey interferometry simulations~\cite{
 
 In this paper we consider a zero-temperature $C$-component BEC in $D$ effective dimensions.
 The Hamiltonian for this system is expressed in terms of bosonic field creation and annihilation operators $\hat{\Psi}_j^{\dagger}(\boldsymbol{x})$ and $\hat{\Psi}_j(\boldsymbol{x})$, $j = 1 \ldots C$, which obey standard bosonic commutation relation
-\begin{equation}\begin{split}
-\label{eqn:master-eqn:commutators}
+\begin{equation}\label{eqn:master-eqn:commutators}\begin{split}
     [ \hat{\Psi}_j, \hat{\Psi}_k^{\prime\dagger} ]
     = \delta_{jk} \delta(\boldsymbol{x}^\prime-\boldsymbol{x}),
 \end{split}\end{equation}
 where $\boldsymbol{x} \in \mathbb{R}^D$ is a $D$-dimensional coordinate vector, and we dubbed $\hat{\Psi}_j \equiv \hat{\Psi}_j(\boldsymbol{x})$ and $\hat{\Psi}_k^\prime \equiv \hat{\Psi}_k(\boldsymbol{x}^\prime)$ for brevity (hereinafter the same abbreviation will be used for all functions of coordinates).
 The second-quantized Hamiltonian for the system is
-\begin{equation}\begin{split}
-\label{eqn:master-eqn:hamiltonian}
+\begin{equation}\label{eqn:master-eqn:hamiltonian}\begin{split}
     \hat{H}
     = \int d\boldsymbol{x} \left\{
         \hat{\Psi}_j^{\dagger} K_{jk} \hat{\Psi}_k
@@ -84,8 +82,7 @@ The second-quantized Hamiltonian for the system is
     \right\},
 \end{split}\end{equation}
 where $U_{jk}$ is the two-body scattering potential, and the single-particle Hamiltonian $K_{jk}$ is
-\begin{equation}\begin{split}
-\label{eqn:master-eqn:single-particle}
+\begin{equation}\label{eqn:master-eqn:single-particle}\begin{split}
     K_{jk} = \left(
             -\frac{\hbar^2}{2m} \nabla^2 + \hbar \omega_j + V_j(\boldsymbol{x})
         \right) \delta_{jk}
@@ -94,8 +91,7 @@ where $U_{jk}$ is the two-body scattering potential, and the single-particle Ham
 where $m$ is the atomic mass, $V_j$ is the external trapping potential for spin $j$, $\hbar \omega_j$ is the internal energy of spin $j$, and $\Omega_{jk}$ represents a time-dependent coupling that is used to rotate one spin projection into another.
 
 If we impose an energy cutoff $\epsilon_{\mathrm{cut}}$ and only take into account low-energy modes, the non-local scattering potential $U_{jk}(\boldsymbol{x} - \boldsymbol{x}^\prime)$ can be replaced by the contact potential $U_{jk} \delta(\boldsymbol{x} - \boldsymbol{x}^\prime)$~\cite{Morgan2000}, giving the effective Hamiltonian
-\begin{equation}\begin{split}
-\label{eqn:master-eqn:effective-H}
+\begin{equation}\label{eqn:master-eqn:effective-H}\begin{split}
     \hat{H}
     = \int d\boldsymbol{x} \left\{
         \hat{\Psi}_j^{\dagger} K_{jk} \hat{\Psi}_k
@@ -107,16 +103,14 @@ For the $s$-wave scattering in three dimensions the coefficient is $U_{jk} = 4 \
 Note that in general case the coefficient must be renormalised depending on the grid~\cite{Sinatra2002}, but the change is small if $dx \gg a_{jk}$.
 
 The Markovian master equation for the system with the inclusion of losses can be written as~\cite{Jack2002}
-\begin{equation}\begin{split}
-\label{eqn:master-eqn:master-eqn}
+\begin{equation}\label{eqn:master-eqn:master-eqn}\begin{split}
     \frac{d\hat{\rho}}{dt} =
         - \frac{i}{\hbar} \left[ \hat{H}, \hat{\rho} \right]
         + \sum_{\boldsymbol{l}} \kappa_{\boldsymbol{l}} \int d\boldsymbol{x}
             \mathcal{L}_{\boldsymbol{l}} \left[ \hat{\rho} \right],
 \end{split}\end{equation}
 where $\boldsymbol{l} = (l_1, l_2, \ldots, l_C)$ is a tuple indicating the number of atoms from each component involved in the inelastic interaction, $C$ being the total number of components, and we have introduced local Liouville loss terms,
-\begin{equation}\begin{split}
-\label{eqn:master-eqn:loss-term}
+\begin{equation}\label{eqn:master-eqn:loss-term}\begin{split}
     \mathcal{L}_{\boldsymbol{l}} \left[ \hat{\rho} \right] =
         2\hat{O}_{\boldsymbol{l}} \hat{\rho} \hat{O}_{\boldsymbol{l}}^\dagger
         - \hat{O}_{\boldsymbol{l}}^\dagger \hat{O}_{\boldsymbol{l}} \hat{\rho}
@@ -148,7 +142,7 @@ Hereinafter we assume that the integration $\int d\boldsymbol{x}$ is always perf
 
 Standard bosonic field operators from~\ref{eqn:master-eqn:commutators} which project coordinates to the full Hilbert space $\mathbb{H}$ can be decomposed as
 \begin{equation}\begin{split}
-    \hat{\Psi}_j \in (\mathbb{R}^D \rightarrow \mathbb{H}): \quad
+    \hat{\Psi}_j \in (\mathbb{R}^D \rightarrow \mathbb{H}): \qquad
     \hat{\Psi}_j = \sum_{\boldsymbol{n} \in \mathbb{B}_j} \phi_{j,\boldsymbol{n}} \hat{a}_{j,\boldsymbol{n}},
 \end{split}\end{equation}
 where single mode operators $\hat{a}_{j,\boldsymbol{n}}$ obey bosonic commutation relations, the pair $j,\boldsymbol{n}$ serving as a mode identifier.
@@ -156,7 +150,7 @@ The energy cutoff mentioned in the previous section will result in operating wit
 Let $\mathbb{M}_j \subseteq \mathbb{B}_j$ be this subset with cardinality $|\mathbb{M}|$.
 Restricted field operators contain only modes from the subset $\mathbb{M}_j$:
 \begin{equation}\begin{split}
-    \hat{\Psi}_j \in (\mathbb{R}^D \rightarrow \mathbb{H}_{\mathbb{M}_j}): \quad
+    \hat{\Psi}_j \in (\mathbb{R}^D \rightarrow \mathbb{H}_{\mathbb{M}_j}): \qquad
     \hat{\Psi}_j = \sum_{\boldsymbol{n} \in \mathbb{M}_j} \phi_{j,\boldsymbol{n}} \hat{a}_{j,\boldsymbol{n}}.
 \end{split}\end{equation}
 In this paper we will use them without explicit indices in order to avoid clutter [TODO: Should we explicitly mark ``full basis'' operators in the previous section?].
@@ -164,8 +158,7 @@ Restricted field operators have the type $\mathbb{FH}_{\mathbb{M}_j} \equiv (\ma
 
 Because of the restricted nature of the operator, commutation relations~\ref{eqn:master-eqn:commutators} no longer apply.
 The following ones should be used instead:
-\begin{equation}\begin{split}
-\label{eqn:func-operators:restricted-commutators}
+\begin{equation}\label{eqn:func-operators:restricted-commutators}\begin{split}
     \left[ \hat{\Psi}_j, \hat{\Psi}_k^\prime \right]
     & = \left[ \hat{\Psi}_j^\dagger, \hat{\Psi}_k^{\prime\dagger} \right] = 0, \\
     \left[ \hat{\Psi}_j, \hat{\Psi}_k^{\prime\dagger} \right]
@@ -183,7 +176,7 @@ The single-mode Wigner transformation of the operator $\hat{A}$ is defined as
 \begin{equation}\begin{split}
     \mathcal{W}_{\mathrm{sm}}[\hat{A}]
     = \frac{1}{\pi^2} \int d^2 \lambda \exp(-\lambda \alpha^* + \lambda^* \alpha)
-        \operatorname{Tr} \left\{ \hat{A} \hat{D}(\lambda, \lambda^*) \right\},
+        \mathrm{Tr} \left\{ \hat{A} \hat{D}(\lambda, \lambda^*) \right\},
 \end{split}\end{equation}
 where the displacement operator $\hat{D}(\lambda, \lambda^*) = \exp(\lambda \hat{a}^\dagger - \lambda^* \hat{a})$ was first introduced by Weyl~\cite{Weyl1950}.
 The detailed description of the Wigner function $W(\alpha, \alpha^*) \equiv \mathcal{W}_{\mathrm{sm}}[\hat{\rho}]$ can be found in~\cite{Gardiner2004}.
@@ -238,7 +231,7 @@ It is convenient to first define a general Wigner transformation.
     &    \mathcal{W}[\hat{A}]
         = \frac{1}{\pi^{2 \sum|\mathbb{M}_j|}} \int \delta^2 \boldsymbol{\Lambda}
             \left( \prod_{j=1}^C D[\Lambda_j, \Lambda_j^*, \Psi_j, \Psi_j^*] \right)
-            \operatorname{Tr} \left\{ \hat{A} \prod_{j=1}^C \hat{D}_j[\Lambda_j, \Lambda_j^*] \right\},
+            \mathrm{Tr} \left\{ \hat{A} \prod_{j=1}^C \hat{D}_j[\Lambda_j, \Lambda_j^*] \right\},
     \end{split}\end{equation*}
     where $\Lambda_j \in \mathbb{F}_{\mathbb{M}_j}$, and $\int \delta^2 \boldsymbol{\Lambda} \equiv \int \delta^2 \Lambda_1 \ldots \delta^2 \Lambda_C$.
     It transforms a coordinate-dependent operator $\hat{A}$ on a restricted subset of a Hilbert space to a functional $(\mathcal{W}[\hat{A}])[\boldsymbol{\Psi}, \boldsymbol{\Psi}^*]$.
@@ -260,7 +253,7 @@ Wigner functional is a special case of Wigner transformation.
     where $\chi_W [\boldsymbol{\Lambda}, \boldsymbol{\Lambda}^*]$ is the characteristic functional
     \begin{equation*}\begin{split}
         \chi_W [\boldsymbol{\Lambda}, \boldsymbol{\Lambda}^*]
-        = \operatorname{Tr} \left\{ \hat{\rho} \prod_{j=1}^C \hat{D}_j[\Lambda_j, \Lambda_j^*] \right\}.
+        = \mathrm{Tr} \left\{ \hat{\rho} \prod_{j=1}^C \hat{D}_j[\Lambda_j, \Lambda_j^*] \right\}.
     \end{split}\end{equation*}
     [TODO: Need proof that $W$ is real-valued?
     Or just an explicit statement that $\mathcal{W}[\hat{A}]$ is real when $\hat{A}$ is Hermitian.]
@@ -275,12 +268,12 @@ First one is used to successively transform operator products.
     \begin{equation*}\begin{split}
         \mathcal{W} [ \hat{\Psi}_j \hat{A} ]
             & = \left( \Psi_j + \frac{1}{2} \frac{\delta}{\delta \Psi_j^*} \right) \mathcal{W}[\hat{A}],
-        \quad
+        \qquad
         \mathcal{W} [ \hat{\Psi}_j^\dagger \hat{A} ]
             = \left( \Psi_j^* - \frac{1}{2} \frac{\delta}{\delta \Psi_j} \right) \mathcal{W}[\hat{A}], \\
         \mathcal{W} [ \hat{A} \hat{\Psi}_j ]
             & = \left( \Psi_j - \frac{1}{2} \frac{\delta}{\delta \Psi_j^*} \right) \mathcal{W}[\hat{A}],
-        \quad
+        \qquad
         \mathcal{W} [ \hat{A} \hat{\Psi}_j^\dagger ]
             = \left( \Psi_j^* + \frac{1}{2} \frac{\delta}{\partial \Psi_j} \right) \mathcal{W}[\hat{A}].
     \end{split}\end{equation*}
@@ -351,7 +344,7 @@ Thus, differentiation will eliminate all lower order terms in the expansion, and
 By definition of the Wigner functional:
 \begin{equation}\begin{split}
     & \int \delta^2\boldsymbol{\Psi} \left( \prod_{j=1}^C \Psi_j^{r_j} (\Psi_j^*)^{s_j} \right) W[\boldsymbol{\Psi}, \boldsymbol{\Psi}^*] \\
-    & = \frac{1}{\pi^{2\sum|\mathbb{M}_j|}} \operatorname{Tr} \left\{ \hat{\rho}
+    & = \frac{1}{\pi^{2\sum|\mathbb{M}_j|}} \mathrm{Tr} \left\{ \hat{\rho}
         \prod_{j=1}^C
             \int \delta^2 \Lambda_j \left(
                 \int \delta^2 \Psi_j\, \Psi_j^{r_j} (\Psi_j^*)^{s_j}
@@ -362,7 +355,7 @@ By definition of the Wigner functional:
 \end{split}\end{equation}
 Evaluating the integral over $\Psi_j$ using Lemma~\ref{lmm:func-calculus:fourier-of-moments}:
 \begin{equation}\begin{split}
-    = \operatorname{Tr} \left\{ \hat{\rho}
+    = \mathrm{Tr} \left\{ \hat{\rho}
         \prod_{j=1}^C
             \int \delta^2 \Lambda_j \left(
                 \left( -\frac{\delta}{\delta \Lambda_j^*} \right)^{r_j}
@@ -374,7 +367,7 @@ Evaluating the integral over $\Psi_j$ using Lemma~\ref{lmm:func-calculus:fourier
 \end{split}\end{equation}
 Integrating by parts for each component in turn and eliminating terms which fit Lemma~\ref{lmm:func-calculus:zero-delta-integrals}:
 \begin{equation}\begin{split}
-    & = \operatorname{Tr} \left\{ \hat{\rho}
+    & = \mathrm{Tr} \left\{ \hat{\rho}
         \prod_{j=1}^C \int \delta^2 \Lambda_j
             \Delta_{\mathbb{M}_j}[\Lambda_j]
             \left( -\frac{\delta}{\delta \Lambda_j^*} \right)^{r_j}
@@ -757,8 +750,7 @@ and
 
 Since the diffusion matrix is positive-definite, the truncated Wigner function $W$ is a probability distribution
 Therefore the equation can be further transformed to the equivalent set of stochastic differential equations in It\^{o} form as described by Theorem~\ref{thm:app-fpe:fpe-sde-func}:
-\begin{equation}\begin{split}
-\label{eqn:fpe:sdes}
+\begin{equation}\label{eqn:fpe:sdes}\begin{split}
     d\Psi_j = \mathcal{P}_{\mathbb{M}_j} \left[
         \mathcal{A}_j dt + \sum_{\boldsymbol{l}} \mathcal{B}_{j \boldsymbol{l}} Q_{\boldsymbol{l}}
     \right],
@@ -1081,7 +1073,7 @@ In particular, the following useful lemma gives us the ability to differentiate 
         \frac{\delta \mathcal{F}}{\delta f^\prime}
         = \delta_{\mathbb{M}}(\boldsymbol{x}^\prime, \boldsymbol{x})
             \frac{\partial g(f, f^*)}{\partial f},
-        \quad
+        \qquad
         \frac{\delta \mathcal{F}}{\delta f^{\prime*}}
         = \delta_{\mathbb{M}}^*(\boldsymbol{x}^\prime, \boldsymbol{x})
             \frac{\partial g(f, f^*)}{\partial f^*}
@@ -1236,7 +1228,7 @@ Our starting point is the reformulation of the theorem for real-valued multivari
     \begin{equation*}\begin{split}
         \frac{dW}{dt}
         = -\boldsymbol{\partial}_{\boldsymbol{z}}^T \boldsymbol{a} W
-        + \frac{1}{2} \operatorname{Tr} \left\{ \boldsymbol{\partial}_{\boldsymbol{z}} \boldsymbol{\partial}_{\boldsymbol{z}}^T B B^T \right\} W
+        + \frac{1}{2} \mathrm{Tr} \left\{ \boldsymbol{\partial}_{\boldsymbol{z}} \boldsymbol{\partial}_{\boldsymbol{z}}^T B B^T \right\} W
     \end{split}\end{equation*}
     is equivalent to a set of stochastic differential equations in It\^{o} form
     \begin{equation*}\begin{split}
@@ -1250,7 +1242,7 @@ Our starting point is the reformulation of the theorem for real-valued multivari
     \begin{equation*}\begin{split}
         s_i
         = \sum_{k,j} B_{kj} \frac{\partial}{\partial z_k} B_{ij}
-        = \operatorname{Tr} \left\{ B^T \boldsymbol{\partial}_z \boldsymbol{e}_i^T B \right\},
+        = \mathrm{Tr} \left\{ B^T \boldsymbol{\partial}_z \boldsymbol{e}_i^T B \right\},
     \end{split}\end{equation*}
     $\boldsymbol{e}_i$ being the unit vector with elements $(\boldsymbol{e}_i)_j = \delta_{ij}$.
     Here $W \equiv W(\boldsymbol{z})$ is a probability distribution,
@@ -1270,7 +1262,7 @@ For details see~\cite{Risken1996}, sections 3.3 and 3.4.
     \begin{equation*}\begin{split}
         \frac{dW}{dt}
         = -\boldsymbol{\partial}_{\boldsymbol{\alpha}}^T \boldsymbol{a} W - \boldsymbol{\partial}_{\boldsymbol{\alpha}^*}^T \boldsymbol{a}^* W
-        + \operatorname{Tr} \left\{ \boldsymbol{\partial}_{\boldsymbol{\alpha}^*} \boldsymbol{\partial}_{\boldsymbol{\alpha}}^T B B^H \right\} W
+        + \mathrm{Tr} \left\{ \boldsymbol{\partial}_{\boldsymbol{\alpha}^*} \boldsymbol{\partial}_{\boldsymbol{\alpha}}^T B B^H \right\} W
     \end{split}\end{equation*}
     is equivalent to a set of stochastic differential equations in It\^{o} form
     \begin{equation*}\begin{split}
@@ -1282,7 +1274,7 @@ For details see~\cite{Risken1996}, sections 3.3 and 3.4.
     \end{split}\end{equation*}
     where noise-induced drift term is
     \begin{equation*}\begin{split}
-        s_j = \operatorname{Tr} \left\{ B^H \boldsymbol{\partial}_{\boldsymbol{\alpha}^*} \boldsymbol{e}_j^T B \right\},
+        s_j = \mathrm{Tr} \left\{ B^H \boldsymbol{\partial}_{\boldsymbol{\alpha}^*} \boldsymbol{e}_j^T B \right\},
     \end{split}\end{equation*}
     and $d\boldsymbol{Z} = (d\boldsymbol{X} + id\boldsymbol{Y}) / \sqrt{2}$ is an $M$-dimensional complex-valued Wiener process,
     containing two real-valued $L$-dimensional Wiener processes $d\boldsymbol{X}$ and $d\boldsymbol{Y}$.
@@ -1300,7 +1292,7 @@ Proved straightforwardly by transforming the equation to real variables and appl
         = & - \sum_{c=1}^C \boldsymbol{\partial}_{\boldsymbol{\alpha}^{(c)}}^T \boldsymbol{a}^{(c)} W
         - \sum_{c=1}^C \boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(c)})^*}^T (\boldsymbol{a}^{(c)})^* W \\
         & + \sum_{m=1}^c \sum_{n=1}^c
-            \operatorname{Tr} \left\{
+            \mathrm{Tr} \left\{
                 \boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(m)})^*}
                 \boldsymbol{\partial}_{\boldsymbol{\alpha}^{(n)}}^T
                 B^{(n)} (B^{(m)})^H
@@ -1317,7 +1309,7 @@ Proved straightforwardly by transforming the equation to real variables and appl
     where noise-induced drift term is
     \begin{equation*}\begin{split}
         s_j^{(c)} = \sum_{d=1}^C
-            \operatorname{Tr} \left\{ (B^{(d)})^H \boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(d)})^*} \boldsymbol{e}_j^T B^{(c)} \right\},
+            \mathrm{Tr} \left\{ (B^{(d)})^H \boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(d)})^*} \boldsymbol{e}_j^T B^{(c)} \right\},
     \end{split}\end{equation*}
     and $d\boldsymbol{Z}$ is an $L$-dimensional complex-valued Wiener process.
 \end{theorem}
@@ -1342,7 +1334,7 @@ Proved by joining vectors from all components into one vector and applying Theor
         \frac{dW}{dt}
         = \int d\boldsymbol{x} \left(
             - 2 \mathrm{Re} \left( \boldsymbol{\delta}_{\boldsymbol{\Psi}} \cdot \vec{\mathcal{A}} \right)
-            + \operatorname{Tr} \left\{ \boldsymbol{\delta}_{\boldsymbol{\Psi}^*} \boldsymbol{\delta}_{\boldsymbol{\Psi}}^T \mathcal{B} \mathcal{B}^H \right\}
+            + \mathrm{Tr} \left\{ \boldsymbol{\delta}_{\boldsymbol{\Psi}^*} \boldsymbol{\delta}_{\boldsymbol{\Psi}}^T \mathcal{B} \mathcal{B}^H \right\}
         \right) W
     \end{split}\end{equation*}
     is equivalent to the set of SDEs in It\^{o} form
@@ -1372,7 +1364,7 @@ Proved by joining vectors from all components into one vector and applying Theor
     \end{split}\end{equation*}
     [TODO: alternatively, in matrix form]
     \begin{equation*}\begin{split}
-        \mathcal{S}_j = \operatorname{Tr} \left\{ \mathcal{B}^H \boldsymbol{\partial}_{\boldsymbol{\Psi}^*} \boldsymbol{e}_j^T \mathcal{B} \right\},
+        \mathcal{S}_j = \mathrm{Tr} \left\{ \mathcal{B}^H \boldsymbol{\partial}_{\boldsymbol{\Psi}^*} \boldsymbol{e}_j^T \mathcal{B} \right\},
     \end{split}\end{equation*}
     and $Q_{\boldsymbol{l}}$ is a functional Wiener process:
     \begin{equation*}\begin{split}
