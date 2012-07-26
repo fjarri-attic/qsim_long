@@ -1,0 +1,3658 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass revtex4-1
+\begin_preamble
+\usepackage{dsfont}
+\end_preamble
+\options aip,jmp,amssymb,amsmath
+\use_default_options false
+\begin_modules
+theorems-ams
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 0
+\use_mathdots 0
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\notefontcolor #ff0000
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Wigner representation of BEC
+\end_layout
+
+\begin_layout Author
+B.
+ Opanchuk
+\end_layout
+
+\begin_layout Author Email
+bogdan@opanchuk.net
+\end_layout
+
+\begin_layout Affiliation
+Centre for Atom Optics and Ultrafast Spectroscopy, Swinburne University
+ of Technology, Hawthorn, VIC 3122, Australia
+\end_layout
+
+\begin_layout Author
+P.
+ D.
+ Drummond
+\end_layout
+
+\begin_layout Affiliation
+Centre for Atom Optics and Ultrafast Spectroscopy, Swinburne University
+ of Technology, Hawthorn, VIC 3122, Australia
+\end_layout
+
+\begin_layout Date
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+We develop a method of simulating full quantum dynamics of multi-mode multi-comp
+onent Bose-Einstein condensate in a trap.
+ We use truncated Wigner representation to produce stochastic equations
+ that can be solved using conventional methods.
+ Our approach describes spatial evolution of spinor components and properly
+ accounts for nonlinear losses.
+ 
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: Introductory words?]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Wigner representation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Gardiner2004"
+
+\end_inset
+
+ is a convenient and effective method of simulating the dynamics of Bose-Einstei
+n condensates (BECs).
+ It works best in the limit of large particle number, where direct diagonalizati
+on approaches like
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sakmann2009"
+
+\end_inset
+
+ become computationally impossible.
+ Large particle number usually implies large amount of field modes with
+ significant population, which makes two-mode variational approaches
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Li2008,Li2009,Sinatra2011"
+
+\end_inset
+
+ less accurate.
+\end_layout
+
+\begin_layout Standard
+Phase-space treatment of multimode problems can be simplified by working
+ with multimode field operators instead of single-mode operators.
+ This approach was initially introduced by Graham
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Graham1970,Graham1970a"
+
+\end_inset
+
+.
+ Later it was used in a number of works
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Steel1998,Isella2006,Norrie2006a"
+
+\end_inset
+
+ without formally defining and generalizing corresponding transformation,
+ or accompanying theorems.
+ In order to numerically calculate the evolution of the Wigner function
+ of a system, one has to employ Wigner truncation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Drummond1993,Steel1998,Sinatra2002"
+
+\end_inset
+
+, which further complicates the formal description of the method.
+\end_layout
+
+\begin_layout Standard
+In this paper we present a formal description of the application of truncated
+ Wigner representation to simulating the multi-mode dynamics of Bose-Einstein
+ condensates (BECs).
+ We successively reduce the problem in its initial form, the master equation
+ for bosonic field operators, to the system of stochastic differential equations
+, which have significantly lower computational complexity (at a price of
+ making several approximations).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: Possibly worth mentioning:]
+\end_layout
+
+\end_inset
+
+ Positive-P and Wigner application:
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Deuar2007"
+
+\end_inset
+
+.
+ Multimode Wigner using decomposition into modes (no losses):
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Norrie2005,Norrie2006"
+
+\end_inset
+
+.
+ Functional Wigner, finite-temperature:
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Steel1998,Isella2006"
+
+\end_inset
+
+.
+ Applications of method from this paper: Ramsey interferometry simulations
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Egorov2011"
+
+\end_inset
+
+, short letter on Ramsey and squeezing
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Opanchuk2012"
+
+\end_inset
+
+, 4-mode truncated Wigner and losses in entanglement calculations
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Opanchuk2012a"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Master equation
+\end_layout
+
+\begin_layout Standard
+In this paper we consider a zero-temperature 
+\begin_inset Formula $C$
+\end_inset
+
+-component BEC in 
+\begin_inset Formula $D$
+\end_inset
+
+ effective dimensions.
+ The Hamiltonian for this system is expressed in terms of bosonic field
+ creation and annihilation operators 
+\begin_inset Formula $\hat{\Psi}_{j}^{\dagger}(\boldsymbol{x})$
+\end_inset
+
+ and 
+\begin_inset Formula $\hat{\Psi}_{j}(\boldsymbol{x})$
+\end_inset
+
+, 
+\begin_inset Formula $j=1\ldots C$
+\end_inset
+
+, which obey standard bosonic commutation relation 
+\begin_inset Formula 
+\begin{equation}
+[\hat{\Psi}_{j},\hat{\Psi}_{k}^{\prime\dagger}]=\delta_{jk}\delta(\boldsymbol{x}^{\prime}-\boldsymbol{x}),\label{eqn:master-eqn:commutators}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\boldsymbol{x}\in\mathbb{R}^{D}$
+\end_inset
+
+ is a 
+\begin_inset Formula $D$
+\end_inset
+
+-dimensional coordinate vector, and we dubbed 
+\begin_inset Formula $\hat{\Psi}_{j}\equiv\hat{\Psi}_{j}(\boldsymbol{x})$
+\end_inset
+
+ and 
+\begin_inset Formula $\hat{\Psi}_{k}^{\prime}\equiv\hat{\Psi}_{k}(\boldsymbol{x}^{\prime})$
+\end_inset
+
+ for brevity (hereinafter the same abbreviation will be used for all functions
+ of coordinates).
+ The second-quantized Hamiltonian for the system is 
+\begin_inset Formula 
+\begin{equation}
+\hat{H}=\int d\boldsymbol{x}\left\{ \hat{\Psi}_{j}^{\dagger}K_{jk}\hat{\Psi}_{k}+\frac{1}{2}\int d\boldsymbol{x}^{\prime}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k}^{\prime\dagger}U_{jk}(\boldsymbol{x}-\boldsymbol{x}^{\prime})\hat{\Psi}_{j}^{\prime}\hat{\Psi}_{k}\right\} ,\label{eqn:master-eqn:hamiltonian}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $U_{jk}$
+\end_inset
+
+ is the two-body scattering potential, and the single-particle Hamiltonian
+ 
+\begin_inset Formula $K_{jk}$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\begin{equation}
+K_{jk}=\left(-\frac{\hbar^{2}}{2m}\nabla^{2}+\hbar\omega_{j}+V_{j}(\boldsymbol{x})\right)\delta_{jk}+\hbar\Omega_{jk}(t),\label{eqn:master-eqn:single-particle}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $m$
+\end_inset
+
+ is the atomic mass, 
+\begin_inset Formula $V_{j}$
+\end_inset
+
+ is the external trapping potential for spin 
+\begin_inset Formula $j$
+\end_inset
+
+, 
+\begin_inset Formula $\hbar\omega_{j}$
+\end_inset
+
+ is the internal energy of spin 
+\begin_inset Formula $j$
+\end_inset
+
+, and 
+\begin_inset Formula $\Omega_{jk}$
+\end_inset
+
+ represents a time-dependent coupling that is used to rotate one spin projection
+ into another.
+\end_layout
+
+\begin_layout Standard
+If we impose an energy cutoff 
+\begin_inset Formula $\epsilon_{\mathrm{cut}}$
+\end_inset
+
+ and only take into account low-energy modes, the non-local scattering potential
+ 
+\begin_inset Formula $U_{jk}(\boldsymbol{x}-\boldsymbol{x}^{\prime})$
+\end_inset
+
+ can be replaced by the contact potential 
+\begin_inset Formula $U_{jk}\delta(\boldsymbol{x}-\boldsymbol{x}^{\prime})$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Morgan2000"
+
+\end_inset
+
+, giving the effective Hamiltonian 
+\begin_inset Formula 
+\begin{equation}
+\hat{H}=\int d\boldsymbol{x}\left\{ \hat{\Psi}_{j}^{\dagger}K_{jk}\hat{\Psi}_{k}+\frac{U_{jk}}{2}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k}^{\dagger}\hat{\Psi}_{j}\hat{\Psi}_{k}\right\} ,\label{eqn:master-eqn:effective-H}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\hat{\Psi}_{j}^{\dagger}$
+\end_inset
+
+ and 
+\begin_inset Formula $\hat{\Psi}_{j}$
+\end_inset
+
+ are field operators in the new restricted basis of low-energy modes, which
+ is described in detail in the next section.
+ For the 
+\begin_inset Formula $s$
+\end_inset
+
+-wave scattering in three dimensions the coefficient is 
+\begin_inset Formula $U_{jk}=4\pi\hbar^{2}a_{jk}/m$
+\end_inset
+
+, where 
+\begin_inset Formula $a_{jk}$
+\end_inset
+
+ is the scattering length.
+ Note that in general case the coefficient must be renormalised depending
+ on the grid
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sinatra2002"
+
+\end_inset
+
+, but the change is small if 
+\begin_inset Formula $dx\gg a_{jk}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The Markovian master equation for the system with the inclusion of losses
+ can be written as
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Jack2002"
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{equation}
+\frac{d\hat{\rho}}{dt}=-\frac{i}{\hbar}\left[\hat{H},\hat{\rho}\right]+\sum_{\boldsymbol{l}}\kappa_{\boldsymbol{l}}\int d\boldsymbol{x}\mathcal{L}_{\boldsymbol{l}}\left[\hat{\rho}\right],\label{eqn:master-eqn:master-eqn}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\boldsymbol{l}=(l_{1},l_{2},\ldots,l_{C})$
+\end_inset
+
+ is a tuple indicating the number of atoms from each component involved
+ in the inelastic interaction, 
+\begin_inset Formula $C$
+\end_inset
+
+ being the total number of components, and we have introduced local Liouville
+ loss terms, 
+\begin_inset Formula 
+\begin{equation}
+\mathcal{L}_{\boldsymbol{l}}\left[\hat{\rho}\right]=2\hat{O}_{\boldsymbol{l}}\hat{\rho}\hat{O}_{\boldsymbol{l}}^{\dagger}-\hat{O}_{\boldsymbol{l}}^{\dagger}\hat{O}_{\boldsymbol{l}}\hat{\rho}-\hat{\rho}\hat{O}_{\boldsymbol{l}}^{\dagger}\hat{O}_{\boldsymbol{l}}.\label{eqn:master-eqn:loss-term}
+\end{equation}
+
+\end_inset
+
+The reservoir coupling operators 
+\begin_inset Formula $\hat{O}_{\boldsymbol{l}}$
+\end_inset
+
+ are products of local field annihilation operators: 
+\begin_inset Formula 
+\[
+\hat{O}_{\boldsymbol{l}}\equiv\hat{O}_{\boldsymbol{l}}(\hat{\boldsymbol{\Psi}})=\prod_{c=1}^{C}\hat{\Psi}_{c}^{l_{c}}(\boldsymbol{x}),
+\]
+
+\end_inset
+
+describing local 
+\begin_inset Formula $\left(\sum_{c=1}^{C}l_{c}\right)$
+\end_inset
+
+-body collision losses.
+\end_layout
+
+\begin_layout Section
+Field operators and restricted basis
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:func-operators"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For each component 
+\begin_inset Formula $j$
+\end_inset
+
+ we define an orthonormal basis consisting of 
+\begin_inset Formula $\phi_{j,\boldsymbol{n}}(\boldsymbol{x})$
+\end_inset
+
+, where 
+\begin_inset Formula $\boldsymbol{n}\in\mathbb{B}_{j}$
+\end_inset
+
+ is a mode identifier.
+ Orthonormality and completeness conditions for basis functions are, respectivel
+y, 
+\begin_inset Formula 
+\begin{eqnarray}
+ &  & \int\limits _{A}\phi_{j,\boldsymbol{n}}^{*}\phi_{j,\boldsymbol{m}}d\boldsymbol{x}=\delta_{\boldsymbol{n}\boldsymbol{m}},\\
+ &  & \sum_{\boldsymbol{n}}\phi_{j,\boldsymbol{n}}^{*}\phi_{j,\boldsymbol{n}}^{\prime}=\delta(\boldsymbol{x}^{\prime}-\boldsymbol{x}),
+\end{eqnarray}
+
+\end_inset
+
+where the exact nature of integration area 
+\begin_inset Formula $A$
+\end_inset
+
+ depends on the basis set (for example, 
+\begin_inset Formula $A$
+\end_inset
+
+ is the whole space for harmonic oscillator modes, or a box for plane waves).
+ Hereinafter we assume that the integration 
+\begin_inset Formula $\int d\boldsymbol{x}$
+\end_inset
+
+ is always performed over 
+\begin_inset Formula $A$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Standard bosonic field operators from
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:master-eqn:commutators"
+
+\end_inset
+
+) which project coordinates to the full Hilbert space 
+\begin_inset Formula $\mathbb{H}$
+\end_inset
+
+ can be decomposed as 
+\begin_inset Formula 
+\[
+\hat{\Psi}_{j}\in(\mathbb{R}^{D}\rightarrow\mathbb{H}):\quad\hat{\Psi}_{j}=\sum_{\boldsymbol{n}\in\mathbb{B}_{j}}\phi_{j,\boldsymbol{n}}\hat{a}_{j,\boldsymbol{n}},
+\]
+
+\end_inset
+
+where single mode operators 
+\begin_inset Formula $\hat{a}_{j,\boldsymbol{n}}$
+\end_inset
+
+ obey bosonic commutation relations, the pair 
+\begin_inset Formula $j,\boldsymbol{n}$
+\end_inset
+
+ serving as a mode identifier.
+ The energy cutoff mentioned in the previous section will result in operating
+ with some fixed subset of each component's basis.
+ Let 
+\begin_inset Formula $\mathbb{M}_{j}\subseteq\mathbb{B}_{j}$
+\end_inset
+
+ be this subset with cardinality 
+\begin_inset Formula $|\mathbb{M}|$
+\end_inset
+
+.
+ Restricted field operators contain only modes from the subset 
+\begin_inset Formula $\mathbb{M}_{j}$
+\end_inset
+
+: 
+\begin_inset Formula 
+\[
+\hat{\Psi}_{j}\in(\mathbb{R}^{D}\rightarrow\mathbb{H}_{\mathbb{M}_{j}}):\quad\hat{\Psi}_{j}=\sum_{\boldsymbol{n}\in\mathbb{M}_{j}}\phi_{j,\boldsymbol{n}}\hat{a}_{j,\boldsymbol{n}}.
+\]
+
+\end_inset
+
+In this paper we will use them without explicit indices in order to avoid
+ clutter [TODO: Should we explicitly mark 
+\begin_inset Quotes eld
+\end_inset
+
+full basis
+\begin_inset Quotes erd
+\end_inset
+
+ operators in the previous section?].
+ Restricted field operators have the type 
+\begin_inset Formula $\mathbb{FH}_{\mathbb{M}_{j}}\equiv(\mathbb{R}^{D}\rightarrow\mathbb{H}_{\mathbb{M}_{j}})$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbb{H}_{\mathbb{M}_{j}}$
+\end_inset
+
+ is the Hilbert space of the restricted subset of modes.
+\end_layout
+
+\begin_layout Standard
+Because of the restricted nature of the operator, commutation relations
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:master-eqn:commutators"
+
+\end_inset
+
+) no longer apply.
+ The following ones should be used instead:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\left[\hat{\Psi}_{j},\hat{\Psi}_{k}^{\prime}\right]=\left[\hat{\Psi}_{j}^{\dagger},\hat{\Psi}_{k}^{\prime\dagger}\right]=0,\qquad\left[\hat{\Psi}_{j},\hat{\Psi}_{k}^{\prime\dagger}\right]=\delta_{jk}\delta_{\mathbb{M}_{j}}(\boldsymbol{x}^{\prime},\boldsymbol{x}),\label{eqn:func-operators:restricted-commutators}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\delta_{\mathbb{M}_{j}}$
+\end_inset
+
+ is the restricted delta-function from Definition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "def:func-calculus:restricted-delta"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Functional Wigner representation
+\end_layout
+
+\begin_layout Standard
+The single-mode Wigner transformation of the operator 
+\begin_inset Formula $\hat{A}$
+\end_inset
+
+ is defined as 
+\begin_inset Formula 
+\[
+\mathcal{W}_{\mathrm{sm}}[\hat{A}]=\frac{1}{\pi^{2}}\int d^{2}\lambda\exp(-\lambda\alpha^{*}+\lambda^{*}\alpha)\mathrm{Tr}\left\{ \hat{A}\hat{D}(\lambda,\lambda^{*})\right\} ,
+\]
+
+\end_inset
+
+where the displacement operator 
+\begin_inset Formula $\hat{D}(\lambda,\lambda^{*})=\exp(\lambda\hat{a}^{\dagger}-\lambda^{*}\hat{a})$
+\end_inset
+
+ was first introduced by Weyl
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Weyl1950"
+
+\end_inset
+
+.
+ The detailed description of the Wigner function 
+\begin_inset Formula $W(\alpha,\alpha^{*})\equiv\mathcal{W}_{\mathrm{sm}}[\hat{\rho}]$
+\end_inset
+
+ can be found in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Gardiner2004"
+
+\end_inset
+
+.
+ In this section we will extend this definition to the multimode case.
+\end_layout
+
+\begin_layout Standard
+The important part of the definition is the functional analogue of the displacem
+ent operator.
+ 
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: Need to explain why we write 
+\begin_inset Formula $F[\Lambda,\Lambda^{*}]$
+\end_inset
+
+ and not 
+\begin_inset Formula $F[\Lambda]$
+\end_inset
+
+?]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+Functional displacement operator 
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & \hat{D}_{j}::\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{H}_{\mathbb{M}_{j}}\\
+ &  & \hat{D}_{j}[\Lambda,\Lambda^{*}]=\exp\int d\boldsymbol{x}\left(\Lambda\hat{\Psi}_{j}^{\dagger}-\Lambda^{*}\hat{\Psi}_{j}\right).
+\end{eqnarray*}
+
+\end_inset
+
+It is also convenient to define the displacement functional as 
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & D::\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{C}\\
+ &  & D[\Lambda,\Lambda^{*},\Psi,\Psi^{*}]=\exp\int d\boldsymbol{x}\left(-\Lambda\Psi^{*}+\Lambda^{*}\Psi\right).
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It can be shown that the functional displacement operator has properties
+ similar to its single-mode equivalent.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lmm:func-wigner:displacement-derivatives"
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & \frac{\delta}{\delta\Lambda^{\prime}}\hat{D}_{j}[\Lambda,\Lambda^{*}]=\hat{D}_{j}[\Lambda,\Lambda^{*}](\hat{\Psi}_{j}^{\prime\dagger}+\frac{1}{2}\Lambda^{\prime*})=(\hat{\Psi}_{j}^{\prime\dagger}-\frac{1}{2}\Lambda^{\prime*})\hat{D}_{j}[\Lambda,\Lambda^{*}],\\
+ &  & -\frac{\delta}{\delta\Lambda^{\prime*}}\hat{D}_{j}[\Lambda,\Lambda^{*}]=\hat{D}_{j}(\Lambda,\Lambda^{*})(\hat{\Psi}_{j}^{\prime}+\frac{1}{2}\Lambda^{\prime})=(\hat{\Psi}_{j}^{\prime}-\frac{1}{2}\Lambda^{\prime})\hat{D}_{j}[\Lambda,\Lambda^{*}].
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Proved using Baker-Hausdorff theorem and evaluating integrals.
+\end_layout
+
+\begin_layout Standard
+It is convenient to first define a general Wigner transformation.
+\end_layout
+
+\begin_layout Definition
+\begin_inset CommandInset label
+LatexCommand label
+name "def:func-wigner:w-transformation"
+
+\end_inset
+
+ Multi-component functional Wigner transformation 
+\begin_inset Formula $\mathcal{W}$
+\end_inset
+
+ is defined as 
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & \mathcal{W}::\left(\mathbb{R}^{D}\rightarrow\prod_{j=1}^{C}\mathbb{H}_{\mathbb{M}_{j}}\right)\rightarrow\prod_{j=1}^{C}\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{C}\\
+ &  & \mathcal{W}[\hat{A}]=\frac{1}{\pi^{2\sum|\mathbb{M}_{j}|}}\int\delta^{2}\boldsymbol{\Lambda}\left(\prod_{j=1}^{C}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\mathrm{Tr}\left\{ \hat{A}\prod_{j=1}^{C}\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} ,
+\end{eqnarray*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\Lambda_{j}\in\mathbb{F}_{\mathbb{M}_{j}}$
+\end_inset
+
+, and 
+\begin_inset Formula $\int\delta^{2}\boldsymbol{\Lambda}\equiv\int\delta^{2}\Lambda_{1}\ldots\delta^{2}\Lambda_{C}$
+\end_inset
+
+.
+ It transforms a coordinate-dependent operator 
+\begin_inset Formula $\hat{A}$
+\end_inset
+
+ on a restricted subset of a Hilbert space to a functional 
+\begin_inset Formula $(\mathcal{W}[\hat{A}])[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]$
+\end_inset
+
+.
+ 
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: Add expression for Weyl transformation?] 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Wigner functional is a special case of Wigner transformation.
+\end_layout
+
+\begin_layout Definition
+\begin_inset CommandInset label
+LatexCommand label
+name "def:func-wigner:w-functional"
+
+\end_inset
+
+ The Wigner functional is 
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & W::\prod_{j=1}^{C}\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{R}\\
+ &  & W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]\equiv\mathcal{W}[\hat{\rho}]=\frac{1}{\pi^{2\sum|\mathbb{M}_{j}|}}\int\delta^{2}\boldsymbol{\Lambda}\left(\prod_{j=1}^{C}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\chi_{W},
+\end{eqnarray*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\chi_{W}[\boldsymbol{\Lambda},\boldsymbol{\Lambda}^{*}]$
+\end_inset
+
+ is the characteristic functional 
+\begin_inset Formula 
+\[
+\chi_{W}[\boldsymbol{\Lambda},\boldsymbol{\Lambda}^{*}]=\mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} .
+\]
+
+\end_inset
+
+
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: Need proof that 
+\begin_inset Formula $W$
+\end_inset
+
+ is real-valued? Or just an explicit statement that 
+\begin_inset Formula $\mathcal{W}[\hat{A}]$
+\end_inset
+
+ is real when 
+\begin_inset Formula $\hat{A}$
+\end_inset
+
+ is Hermitian.]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Wigner functional has two important properties analogous to the single-mode
+ case.
+ First one is used to successively transform operator products.
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:func-wigner:correspondences"
+
+\end_inset
+
+ If 
+\begin_inset Formula $\mathcal{W}[\hat{A}]\equiv(\mathcal{W}[\hat{A}])[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]$
+\end_inset
+
+, then 
+\begin_inset Formula 
+\begin{eqnarray*}
+\mathcal{W}[\hat{\Psi}_{j}\hat{A}] & =\left(\Psi_{j}+\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\hat{\Psi}_{j}^{\dagger}\hat{A}]=\left(\Psi_{j}^{*}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}}\right)\mathcal{W}[\hat{A}],\\
+\mathcal{W}[\hat{A}\hat{\Psi}_{j}] & =\left(\Psi_{j}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\hat{A}\hat{\Psi}_{j}^{\dagger}]=\left(\Psi_{j}^{*}+\frac{1}{2}\frac{\delta}{\partial\Psi_{j}}\right)\mathcal{W}[\hat{A}].
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+The proof uses Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:func-wigner:displacement-derivatives"
+
+\end_inset
+
+ to transform the 
+\begin_inset Formula $\hat{A}\prod_{j}\hat{D}_{j}$
+\end_inset
+
+ product inside the trace, and Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:func-calculus:zero-integrals"
+
+\end_inset
+
+ to integrate by parts, effectively moving the differentials to intended
+ places.
+ 
+\end_layout
+
+\begin_layout Standard
+The second property complements the first one, providing the way to obtain
+ expectations of operator products given the Wigner function.
+ Again, it requires a supplementary lemma.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lmm:func-wigner:moments-from-chi"
+
+\end_inset
+
+ For any non-negative integer 
+\begin_inset Formula $r$
+\end_inset
+
+ and 
+\begin_inset Formula $s$
+\end_inset
+
+: 
+\begin_inset Formula 
+\[
+\langle\left\{ (\hat{\Psi}_{j}^{\prime})^{r}(\hat{\Psi}_{j}^{\prime\dagger})^{s}\right\} _{\mathrm{sym}}\rangle=\left.\left(\frac{\delta}{\delta\Lambda_{j}^{\prime}}\right)^{s}\left(-\frac{\delta}{\delta\Lambda_{j}^{\prime*}}\right)^{r}\chi_{W}[\boldsymbol{\Lambda},\boldsymbol{\Lambda}^{*}]\right|_{\boldsymbol{\Lambda}\equiv0}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+The factor corresponding to 
+\begin_inset Formula $j$
+\end_inset
+
+-th component in the displacement operator can be expanded as 
+\begin_inset Formula 
+\[
+\exp(\Lambda_{j}\hat{\Psi}_{j}^{\dagger}-\Lambda_{j}^{*}\hat{\Psi}_{j})=\sum_{r,s}\frac{\left\{ \left(\int d\boldsymbol{x}\Lambda_{j}\hat{\Psi}_{j}^{\dagger}\right)^{r}\left(-\int d\boldsymbol{x}\Lambda_{j}^{*}\hat{\Psi}_{j}\right)^{s}\right\} _{\mathrm{sym}}}{r!s!}.
+\]
+
+\end_inset
+
+We can swap functional derivative with both integration and multiplication
+ by independent function, so: 
+\begin_inset Formula 
+\[
+\frac{\delta}{\delta\Lambda_{j}^{\prime}}\left(\int d\boldsymbol{x}\Lambda_{j}\hat{\Psi}_{j}^{\dagger}\right)^{r}=r\hat{\Psi}_{j}^{\prime\dagger}\left(\int d\boldsymbol{x}\Lambda_{j}\hat{\Psi}_{j}^{\dagger}\right)^{r-1},
+\]
+
+\end_inset
+
+and multiple application of the differential gives us 
+\begin_inset Formula 
+\[
+\left(\frac{\delta}{\delta\Lambda_{j}^{\prime}}\right)^{r}\left(\int d\boldsymbol{x}\Lambda_{j}\hat{\Psi}_{j}^{\dagger}\right)^{r}=r!(\hat{\Psi}_{j}^{\prime\dagger})^{r}.
+\]
+
+\end_inset
+
+Similarly for the other differential: 
+\begin_inset Formula 
+\[
+\left(-\frac{\delta}{\delta\Lambda_{j}^{\prime*}}\right)^{s}\left(-\int d\boldsymbol{x}\Lambda_{j}\hat{\Psi}_{j}^{\dagger}\right)^{s}=s!(\hat{\Psi}_{j}^{\prime\dagger})^{s}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Thus, differentiation will eliminate all lower order terms in the expansion,
+ and all higher order terms will be eliminated by setting 
+\begin_inset Formula $\Lambda_{j}\equiv0$
+\end_inset
+
+ for every 
+\begin_inset Formula $j$
+\end_inset
+
+, leaving only one operator product with required order.
+ 
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:func-wigner:moments"
+
+\end_inset
+
+ For any non-negative integer 
+\begin_inset Formula $r_{j}$
+\end_inset
+
+, 
+\begin_inset Formula $s_{j}$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\langle\left\{ \prod_{j=1}^{C}\hat{\Psi}_{j}^{r_{j}}(\hat{\Psi}_{j}^{\dagger})^{s_{j}}\right\} _{\mathrm{sym}}\rangle=\int\delta^{2}\boldsymbol{\Psi}\left(\prod_{j=1}^{C}\Psi_{j}^{r_{j}}(\Psi_{j}^{*})^{s_{j}}\right)W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+By definition of the Wigner functional: 
+\begin_inset Formula 
+\begin{eqnarray}
+ &  & \int\delta^{2}\boldsymbol{\Psi}\left(\prod_{j=1}^{C}\Psi_{j}^{r_{j}}(\Psi_{j}^{*})^{s_{j}}\right)W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]\nonumber \\
+ &  & =\frac{1}{\pi^{2\sum|\mathbb{M}_{j}|}}\mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\int\delta^{2}\Lambda_{j}\left(\int\delta^{2}\Psi_{j}\,\Psi_{j}^{r_{j}}(\Psi_{j}^{*})^{s_{j}}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} .
+\end{eqnarray}
+
+\end_inset
+
+Evaluating the integral over 
+\begin_inset Formula $\Psi_{j}$
+\end_inset
+
+ using Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:func-calculus:fourier-of-moments"
+
+\end_inset
+
+: 
+\begin_inset Formula 
+\[
+=\mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\int\delta^{2}\Lambda_{j}\left(\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\Delta_{\mathbb{M}_{j}}[\Lambda_{j}]\right)\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} .
+\]
+
+\end_inset
+
+Integrating by parts for each component in turn and eliminating terms which
+ fit Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:func-calculus:zero-delta-integrals"
+
+\end_inset
+
+: 
+\begin_inset Formula 
+\begin{eqnarray}
+ &  & =\mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\int\delta^{2}\Lambda_{j}\Delta_{\mathbb{M}_{j}}[\Lambda_{j}]\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} \nonumber \\
+ &  & =\left.\left(\prod_{j=1}^{C}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\right)\chi_{W}[\boldsymbol{\Lambda},\boldsymbol{\Lambda}^{*}]\right|_{\boldsymbol{\Lambda}\equiv0},
+\end{eqnarray}
+
+\end_inset
+
+where 
+\begin_inset Formula $\Delta_{\mathbb{M}_{j}}[\Lambda_{j}]$
+\end_inset
+
+ is a delta functional from Definition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "def:func-calculus:delta-functional"
+
+\end_inset
+
+.
+ Now, recognising the final expression as a part of Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:func-wigner:moments-from-chi"
+
+\end_inset
+
+, we immediately get the statement of the theorem.
+ 
+\end_layout
+
+\begin_layout Section
+Specific cases of transformations
+\end_layout
+
+\begin_layout Standard
+In order to Wigner transform the master equation
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:master-eqn:master-eqn"
+
+\end_inset
+
+), we will need several theorems about transformations of specific operator
+ sequences.
+\end_layout
+
+\begin_layout Standard
+First, we will need an expression for high-order commutators of restricted
+ field operators.
+ They look somewhat similar to those for single-mode bosonic operators,
+ or standard field operators from
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Louisell1990"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+Commutators for restricted field operators:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left[\hat{\Psi},(\hat{\Psi}^{\prime\dagger})^{l}\right]=l\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime}-\boldsymbol{x})(\hat{\Psi}^{\prime\dagger})^{l-1},\qquad\left[\hat{\Psi}^{\dagger},(\hat{\Psi}^{\prime})^{l}\right]=-l\delta_{\mathbb{M}}^{*}(\boldsymbol{x}^{\prime}-\boldsymbol{x})(\hat{\Psi}^{\prime})^{l-1}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Proved by induction.
+ 
+\end_layout
+
+\begin_layout Standard
+A further generalisation of these relations is
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lmm:func-operators:functional-commutators"
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\left[\hat{\Psi},f(\hat{\Psi}^{\prime},\hat{\Psi}^{\prime\dagger})\right]=\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime}-\boldsymbol{x})\frac{\partial f}{\partial\hat{\Psi}^{\prime\dagger}},\qquad\left[\hat{\Psi}^{\dagger},f(\hat{\Psi}^{\prime},\hat{\Psi}^{\prime\dagger})\right]=-\delta_{\mathbb{M}}^{*}(\boldsymbol{x}^{\prime}-\boldsymbol{x})\frac{\partial f}{\partial\hat{\Psi}^{\prime}},
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $f(z,z^{*})$
+\end_inset
+
+ is a function that can be expanded into the power series of 
+\begin_inset Formula $z$
+\end_inset
+
+ and 
+\begin_inset Formula $z^{*}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+First theorem describes the transformation of the linear part of the Hamiltonian
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:master-eqn:hamiltonian"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:transformations:w-commutator1"
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\mathcal{W}\left[[\int d\boldsymbol{x}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k},\hat{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi_{j}}\Psi_{k}+\frac{\delta}{\delta\Psi_{k}^{*}}\Psi_{j}^{*}\right)\mathcal{W}[\hat{A}].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Proved straightforwardly using Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:func-wigner:correspondences"
+
+\end_inset
+
+ and the relation 
+\begin_inset Formula 
+\[
+\Psi_{k}\frac{\delta}{\delta\Psi_{j}}\mathcal{F}=\left(\frac{\delta}{\delta\Psi_{j}}\Psi_{k}-\delta_{jk}\delta_{\mathbb{M}}(\boldsymbol{x},\boldsymbol{x})\right)\mathcal{F}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Commutators with the Laplacian inside require somewhat special treatment,
+ because it acts on basis functions and, in general, cannot be dragged around
+ like a constant.
+ But for our purposes we only need one specific case, and, fortunately,
+ in this case it does act like a constant.
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:transformations:w-laplacian-commutator1"
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{eqnarray*}
+\mathcal{W}\left[\int d\boldsymbol{x}[\hat{\Psi}^{\dagger}\nabla^{2}\hat{\Psi},\hat{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi}\nabla^{2}\Psi+\frac{\delta}{\delta\Psi^{*}}\nabla^{2}\Psi^{*}\right)\mathcal{W}[\hat{A}].
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Proved using Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:func-wigner:correspondences"
+
+\end_inset
+
+ and Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:func-calculus:move-laplacian"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Next theorem describes the transformation of the non-linear part of the
+ Hamiltonian.
+ 
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: Can be simplified by assuming the locality of the interaction, thus
+ getting rid of 
+\begin_inset Formula $\boldsymbol{x}^{\prime}$
+\end_inset
+
+.]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:transformations:w-commutator2"
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & \mathcal{W}\left[[\int d\boldsymbol{x}\int d\boldsymbol{x}^{\prime}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k}^{\prime\dagger}\hat{\Psi}_{j}^{\prime}\hat{\Psi}_{k},\hat{A}]\right]\\
+ &  & =\int d\boldsymbol{x}\int d\boldsymbol{x}^{\prime}\left(\frac{\delta}{\delta\Psi_{j}}\left(-\Psi_{j}^{\prime}\Psi_{k}\Psi_{k}^{\prime*}+\frac{1}{2}\delta_{jk}\delta_{\mathbb{M}_{j}}(\boldsymbol{x}^{\prime},\boldsymbol{x}^{\prime})\Psi_{k}+\frac{1}{2}\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x}^{\prime})\Psi_{j}^{\prime}\right)\right.\\
+ &  & \left.+\frac{\delta}{\delta\Psi_{j}^{\prime*}}\left(\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{\prime*}-\frac{1}{2}\delta_{jk}\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x})\Psi_{k}^{\prime*}-\frac{1}{2}\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x}^{\prime})\Psi_{j}^{*}\right)\right.\\
+ &  & \left.+\frac{\delta}{\delta\Psi_{k}^{\prime}}\left(-\Psi_{j}^{\prime}\Psi_{j}^{*}\Psi_{k}+\frac{1}{2}\delta_{jk}\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x})\Psi_{j}^{\prime}+\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x}^{\prime},\boldsymbol{x})\Psi_{k}\right)\right.\\
+ &  & \left.+\frac{\delta}{\delta\Psi_{k}^{*}}\left(\Psi_{j}^{\prime}\Psi_{j}^{*}\Psi_{k}^{\prime*}-\frac{1}{2}\delta_{jk}\delta_{\mathbb{M}_{j}}(\boldsymbol{x}^{\prime},\boldsymbol{x}^{\prime})\Psi_{j}^{*}-\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x}^{\prime},\boldsymbol{x})\Psi_{k}^{\prime*}\right)\right.\\
+ &  & \left.+\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{\prime*}}\frac{\delta}{\delta\Psi_{k}^{\prime}}\frac{1}{4}\Psi_{k}-\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{\prime*}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{1}{4}\Psi_{k}^{\prime*}\right.\\
+ &  & \left.+\frac{\delta}{\delta\Psi_{k}^{\prime}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{\delta}{\delta\Psi_{j}}\frac{1}{4}\Psi_{j}^{\prime}-\frac{\delta}{\delta\Psi_{k}^{\prime}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{\delta}{\delta\Psi_{j}^{\prime*}}\frac{1}{4}\Psi_{j}^{*}\right)\mathcal{W}[\hat{A}].
+\end{eqnarray*}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Proof
+Proof is the same as in case of Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:transformations:w-commutator1"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Finally, the transformation of loss terms
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:master-eqn:loss-term"
+
+\end_inset
+
+) requires more work.
+ The proof makes use of two auxiliary lemmas.
+ First one will help us move functional differentials to their intended
+ places (i.e., to the left).
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lmm:transformations:swap-differential"
+
+\end_inset
+
+ For 
+\begin_inset Formula $\mathcal{F}\in\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F}$
+\end_inset
+
+ and any non-negative integer 
+\begin_inset Formula $a$
+\end_inset
+
+, 
+\begin_inset Formula $b$
+\end_inset
+
+: 
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & \Psi^{a}\left(\frac{\delta}{\delta\Psi}\right)^{b}\mathcal{F}[\Psi,\Psi^{*}]\\
+ &  & =\sum_{j=0}^{\min(a,b)}\binom{b}{j}\frac{(-1)^{j}a!}{(a-j)!}\delta_{\mathbb{M}}^{j}(\boldsymbol{x},\boldsymbol{x})\left(\frac{\delta}{\delta\Psi}\right)^{b-j}\Psi^{a-j}\mathcal{F}[\Psi,\Psi^{*}]
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Proved straightforwardly by induction.
+ 
+\end_layout
+
+\begin_layout Standard
+Second lemma gives a way to simplify sums obtained from the application
+ of the previous lemma.
+\end_layout
+
+\begin_layout Lemma
+[Sum rearrangement] 
+\begin_inset CommandInset label
+LatexCommand label
+name "lmm:transformations:sum-rearrangement"
+
+\end_inset
+
+ For any non-negative integer 
+\begin_inset Formula $l$
+\end_inset
+
+, 
+\begin_inset Formula $u$
+\end_inset
+
+: 
+\begin_inset Formula 
+\[
+\sum_{j=0}^{l}\sum_{k=0}^{\min(l-u,j)}x^{j-k}Q(j,k)=\sum_{v=0}^{l}x^{v}\sum_{k=0}^{l-\max(u,v)}Q(v+k,k).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Can be proved either by formal manipulation with sets, or by drawing a picture.
+ 
+\end_layout
+
+\begin_layout Standard
+Finally, the loss transformation theorem can be proved.
+\end_layout
+
+\begin_layout Proof
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:transformations:w-losses"
+
+\end_inset
+
+ The Wigner transformation of loss term
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:master-eqn:loss-term"
+
+\end_inset
+
+) is 
+\begin_inset Formula 
+\[
+\mathcal{W}\left[\int d\boldsymbol{x}\hat{\mathcal{L}}_{\boldsymbol{l}}[\hat{A}]\right]=\int d\boldsymbol{x}\sum_{j_{1}=0}^{l_{1}}\sum_{k_{1}=0}^{l_{1}}\ldots\sum_{j_{C}=0}^{l_{C}}\sum_{k_{C}=0}^{l_{C}}\left(\prod_{c=1}^{C}\left(\frac{\delta}{\delta\Psi_{c}^{*}}\right)^{j_{c}}\left(\frac{\delta}{\delta\Psi_{c}}\right)^{k_{c}}\right)L_{\boldsymbol{l},\boldsymbol{j},\boldsymbol{k}}\mathcal{W}[\hat{A}],
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{eqnarray*}
+L_{\boldsymbol{l},\boldsymbol{j},\boldsymbol{k}}= &  & \left(2-(-1)^{\sum_{c}j_{c}}-(-1)^{\sum_{c}k_{c}}\right)\\
+ &  & \prod_{c=1}^{C}\left(\sum_{m_{c}=0}^{l_{c}-\max(j_{c},k_{c})}Q(l_{c},j_{c},k_{c},m_{c})\delta_{\mathbb{M}_{c}}^{m_{c}}(\boldsymbol{x},\boldsymbol{x})\Psi_{c}^{l_{c}-j_{c}-m_{c}}(\Psi_{c}^{*})^{l_{c}-k_{c}-m_{c}}\right),
+\end{eqnarray*}
+
+\end_inset
+
+and 
+\begin_inset Formula 
+\[
+Q(l,j,k,m)=\frac{(-1)^{m}}{2^{j+k+m}}\frac{(l!)^{2}}{m!j!k!(l-k-m)!(l-j-m)!}.
+\]
+
+\end_inset
+
+Proved by applying Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:func-wigner:correspondences"
+
+\end_inset
+
+, expanding products using binomial theorem, using Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:transformations:swap-differential"
+
+\end_inset
+
+ to move differentials to front, and applying Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:transformations:sum-rearrangement"
+
+\end_inset
+
+ to transform summations.
+ 
+\end_layout
+
+\begin_layout Section
+Wigner truncation and Fokker-Planck equation
+\end_layout
+
+\begin_layout Standard
+Now we have all necessary tools to transform the master equation
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:master-eqn:master-eqn"
+
+\end_inset
+
+) with the Wigner transformation from Definition
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "def:func-wigner:w-transformation"
+
+\end_inset
+
+ to the partial differential equation.
+\end_layout
+
+\begin_layout Standard
+Namely, the single-particle term
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:master-eqn:single-particle"
+
+\end_inset
+
+) is transformed using Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:transformations:w-commutator1"
+
+\end_inset
+
+ and Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:transformations:w-laplacian-commutator1"
+
+\end_inset
+
+ (since 
+\begin_inset Formula $K_{j}$
+\end_inset
+
+ is basically a sum of Laplacian operator and functions of 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+): 
+\begin_inset Formula 
+\[
+\mathcal{W}\left[[\int d\boldsymbol{x}\hat{\Psi}_{j}^{\dagger}K_{jk}\hat{\Psi}_{k},\hat{\rho}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi_{j}}K_{jk}\Psi_{k}+\frac{\delta}{\delta\Psi_{k}^{*}}K_{jk}\Psi_{j}^{*}\right)W,
+\]
+
+\end_inset
+
+where Wigner function 
+\begin_inset Formula $W=\mathcal{W}[\hat{\rho}]$
+\end_inset
+
+.
+ Nonlinear term is transformed with Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:transformations:w-commutator2"
+
+\end_inset
+
+ (minding the locality of interaction and assuming 
+\begin_inset Formula $U_{kj}=U_{jk}$
+\end_inset
+
+): 
+\begin_inset Formula 
+\begin{eqnarray}
+\mathcal{W}\left[[\int d\boldsymbol{x}\frac{U_{jk}}{2}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k}^{\dagger}\hat{\Psi}_{j}\hat{\Psi}_{k},\hat{\rho}]\right]= &  & \int d\boldsymbol{x}U_{jk}\left(\frac{\delta}{\delta\Psi_{j}}\left(-\Psi_{j}\Psi_{k}\Psi_{k}^{*}+\frac{\delta_{\mathbb{M}}(\boldsymbol{x},\boldsymbol{x})}{2}(\delta_{jk}\Psi_{k}+\Psi_{j})\right)\right.\nonumber \\
+ &  & \left.+\frac{\delta}{\delta\Psi_{j}^{*}}\left(\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{*}-\frac{\delta_{\mathbb{M}}(\boldsymbol{x},\boldsymbol{x})}{2}(\delta_{jk}\Psi_{k}^{*}+\Psi_{j}^{*})\right)\right.\nonumber \\
+ &  & \left.+\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{\delta}{\delta\Psi_{k}}\frac{1}{4}\Psi_{k}-\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{1}{4}\Psi_{k}^{*}\right)W.
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Loss terms
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:master-eqn:loss-term"
+
+\end_inset
+
+) are transformed with Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:transformations:w-losses"
+
+\end_inset
+
+.
+ [TODO: Not writing the resulting expression here, because with the absence
+ of truncation it is too long, and is practically the same as in theorem
+ statement.]
+\end_layout
+
+\begin_layout Standard
+Assuming that 
+\begin_inset Formula $K_{jk}$
+\end_inset
+
+, 
+\begin_inset Formula $U_{jk}$
+\end_inset
+
+ and 
+\begin_inset Formula $\kappa_{\boldsymbol{l}}$
+\end_inset
+
+ are real-valued, all the transformations described above result in a partial
+ differential equation for 
+\begin_inset Formula $W$
+\end_inset
+
+ of the form 
+\begin_inset Formula 
+\[
+\frac{\partial W}{\partial t}=\int d\boldsymbol{x}\left\{ -\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}}\mathcal{A}_{j}-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}^{*}}\mathcal{A}_{j}^{*}+\sum_{j=1}^{C}\sum_{k=1}^{C}\frac{\delta^{2}}{\delta\Psi_{j}^{*}\delta\Psi_{k}}\mathcal{D}_{jk}+\mbox{O}\left[\frac{\delta^{3}}{\delta\Psi_{j}^{3}}\right]\right\} W.
+\]
+
+\end_inset
+
+The terms of order higher than 2 are produced both by the nonlinear term
+ in the Hamiltonian and loss terms.
+ Such an equation could be solved without additional approximations if there
+ were only orders up to 3 (which means the absence of losses)
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Polkovnikov2003"
+
+\end_inset
+
+, but in most cases all terms except for first- and second-order ones are
+ truncated.
+ In the assumption of the state being coherent, the condition for truncation
+ can be shown to be
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sinatra2002"
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+N\gg|\mathbb{M}|,
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $N$
+\end_inset
+
+ is the number of atoms.
+ This condition is equivalent to
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Norrie2006"
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x})\ll|\Psi_{j}|^{2}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Wigner truncation allows us to simplify the results of Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:transformations:w-commutator2"
+
+\end_inset
+
+ and Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:transformations:w-losses"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+Assuming the conditions for Wigner truncation are satisfied, the result
+ of Wigner transformation of the nonlinear term can be written as 
+\begin_inset Formula 
+\[
+\mathcal{W}\left[[\frac{U_{jk}}{2}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k}^{\dagger}\hat{\Psi}_{j}\hat{\Psi}_{k},\hat{\rho}]\right]=U_{jk}\left(\frac{\delta}{\delta\Psi_{j}^{*}}\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{*}-\frac{\delta}{\delta\Psi_{j}}\Psi_{j}\Psi_{k}\Psi_{k}^{*}\right)W.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: Lyx joins two lemmas, so some text is needed here.]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+Assuming the conditions for Wigner truncation are satisfied, the result
+ of Wigner transformation of the loss term can be written as 
+\begin_inset Formula 
+\[
+\mathcal{W}[\mathcal{L}_{\boldsymbol{l}}[\hat{\rho}]]=\sum_{n=1}^{C}\frac{\delta}{\delta\Psi_{n}^{*}}\frac{\partial O_{\boldsymbol{l}}}{\partial\Psi_{n}}O_{\boldsymbol{l}}^{*}+\sum_{n=1}^{C}\frac{\delta}{\delta\Psi_{n}}\frac{\partial O_{\boldsymbol{l}}^{*}}{\partial\Psi_{n}^{*}}O_{\boldsymbol{l}}+\sum_{n=1}^{C}\sum_{p=1}^{C}\frac{\delta^{2}}{\delta\Psi_{n}^{*}\delta\Psi_{p}}\frac{\partial O_{\boldsymbol{l}}}{\partial\Psi_{n}}\frac{\partial O_{\boldsymbol{l}}^{*}}{\partial\Psi_{p}^{*}},
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $O_{\boldsymbol{l}}\equiv O_{\boldsymbol{l}}[\boldsymbol{\Psi}]=\prod_{c=1}^{C}\Psi_{c}^{l_{c}}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+The proof is basically a simplification of the result of Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:transformations:w-losses"
+
+\end_inset
+
+ under certain conditions.
+ First, we are neglecting all occurrences of 
+\begin_inset Formula $\delta_{\mathbb{M}}$
+\end_inset
+
+, which means setting 
+\begin_inset Formula $m_{c}=0$
+\end_inset
+
+ for every 
+\begin_inset Formula $c$
+\end_inset
+
+.
+ Second, we are dropping all terms with high order differentials, which
+ can be expressed as limiting 
+\begin_inset Formula $\sum j_{c}+\sum k_{c}\le2$
+\end_inset
+
+.
+ The only combinations of 
+\begin_inset Formula $j_{c}$
+\end_inset
+
+ and 
+\begin_inset Formula $k_{c}$
+\end_inset
+
+ for which 
+\begin_inset Formula $Z(\boldsymbol{j},\boldsymbol{k})$
+\end_inset
+
+ is not zero are thus 
+\begin_inset Formula $\{j_{c}=\delta_{cn},k_{c}=0,n\in[1,C]\}$
+\end_inset
+
+, 
+\begin_inset Formula $\{j_{c}=0,k_{c}=\delta_{cn},n\in[1,C]\}$
+\end_inset
+
+ and 
+\begin_inset Formula $\{j_{c}=\delta_{cn},k_{c}=\delta_{cp},n\in[1,C],p\in[1,C]\}$
+\end_inset
+
+.
+ These combinations produce terms with 
+\begin_inset Formula $\delta/\delta\Psi_{n}^{*}$
+\end_inset
+
+, 
+\begin_inset Formula $\delta/\delta\Psi_{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta^{2}/\delta\Psi_{p}\delta\Psi_{n}^{*}$
+\end_inset
+
+ respectively.
+ Applying these conditions one can get the statement of the theorem.
+\end_layout
+
+\begin_layout Standard
+Thus the truncated Fokker-Planck equation is 
+\begin_inset Formula 
+\[
+\frac{dW}{dt}=\int d\boldsymbol{x}\left(-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}}\mathcal{A}_{j}-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}^{*}}\mathcal{A}_{j}^{*}+\sum_{j=1}^{C}\sum_{k=1}^{C}\frac{\delta^{2}}{\delta\Psi_{j}^{*}\delta\Psi_{k}}\mathcal{D}_{jk}\right)W,
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\[
+\mathcal{A}_{j}=-\frac{i}{\hbar}\left(\sum_{k=1}^{C}K_{jk}\Psi_{k}+\sum_{k=1}^{C}U_{jk}\Psi_{j}\Psi_{k}\Psi_{k}^{*}\right)-\sum_{\boldsymbol{l}}\kappa_{\boldsymbol{l}}\frac{\partial O_{\boldsymbol{l}}^{*}}{\partial\Psi_{j}^{*}}O_{\boldsymbol{l}},
+\]
+
+\end_inset
+
+and 
+\begin_inset Formula 
+\[
+\mathcal{D}_{jk}=\sum_{\boldsymbol{l}}\kappa_{\boldsymbol{l}}\frac{\partial O_{\boldsymbol{l}}}{\partial\Psi_{j}}\frac{\partial O_{\boldsymbol{l}}^{*}}{\partial\Psi_{k}^{*}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the diffusion matrix is positive-definite, the truncated Wigner function
+ 
+\begin_inset Formula $W$
+\end_inset
+
+ is a probability distribution Therefore the equation can be further transformed
+ to the equivalent set of stochastic differential equations in Itô form
+ as described by Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:app-fpe:fpe-sde-func"
+
+\end_inset
+
+: 
+\begin_inset Formula 
+\begin{equation}
+d\Psi_{j}=\mathcal{P}_{\mathbb{M}_{j}}\left[\mathcal{A}_{j}dt+\sum_{\boldsymbol{l}}\mathcal{B}_{j\boldsymbol{l}}Q_{\boldsymbol{l}}\right],\label{eqn:fpe:sdes}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\[
+\mathcal{B}_{j\boldsymbol{l}}=\sqrt{\kappa_{\boldsymbol{l}}}\frac{\partial O_{\boldsymbol{l}}^{*}}{\partial\Psi_{j}^{*}},
+\]
+
+\end_inset
+
+and 
+\begin_inset Formula $Q_{\boldsymbol{l}}$
+\end_inset
+
+ is a functional Wiener process: 
+\begin_inset Formula 
+\[
+Q_{\boldsymbol{l}}=\sum_{\boldsymbol{n}\in\mathbb{B}}\phi_{j}Z_{\boldsymbol{l},\boldsymbol{n}},
+\]
+
+\end_inset
+
+and 
+\begin_inset Formula $Z_{\boldsymbol{l},\boldsymbol{n}}$
+\end_inset
+
+ are, in turn, independent complex-valued Wiener processes.
+ Alternatively, in Stratonovich form the SDEs look like 
+\begin_inset Formula 
+\[
+d\Psi_{j}=\mathcal{P}_{\mathbb{M}_{j}}\left[(\mathcal{A}_{j}-\mathcal{S}_{j})dt+\sum_{\boldsymbol{l}}B_{j\boldsymbol{l}}Q_{\boldsymbol{l}}\right],
+\]
+
+\end_inset
+
+where the Stratonovich term is 
+\begin_inset Formula 
+\[
+\mathcal{S}_{j}=\sum_{n=1}^{C}\sum_{\boldsymbol{l}}\kappa_{\boldsymbol{l}}\frac{\partial O_{\boldsymbol{l}}}{\partial\Psi_{n}}\left(\frac{\partial^{2}O_{\boldsymbol{l}}}{\partial\Psi_{n}\partial\Psi_{j}}\right)^{*}\delta_{\mathbb{M}_{n}}(\boldsymbol{x},\boldsymbol{x}).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+These equations can now be solved using conventional methods, and any required
+ expectations symmetrically ordered operator products can be obtained from
+ their solution using Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:func-wigner:moments"
+
+\end_inset
+
+: 
+\begin_inset Formula 
+\begin{eqnarray}
+\langle\left\{ \prod_{c=1}^{C}\hat{\Psi}_{c}^{r_{c}}(\hat{\Psi}_{c}^{\dagger})^{s_{c}}\right\} _{\mathrm{sym}}\rangle &  & =\int\delta\boldsymbol{\Psi}\left(\prod_{c=1}^{C}\Psi_{c}^{r_{c}}(\Psi_{c}^{*})^{s_{c}}\right)W\nonumber \\
+ &  & \approx\left\{ \prod_{c=1}^{C}\Psi_{c}^{r_{c}}(\Psi_{c}^{*})^{s_{c}}\right\} _{\mathrm{paths}},
+\end{eqnarray}
+
+\end_inset
+
+where 
+\begin_inset Formula $r_{c}$
+\end_inset
+
+ and 
+\begin_inset Formula $s_{c}$
+\end_inset
+
+ is some set of non-negative integers, and 
+\begin_inset Formula $\left\{ \right\} _{\mathrm{paths}}$
+\end_inset
+
+ stands for the average over the simulation paths.
+\end_layout
+
+\begin_layout Section
+Initial states
+\end_layout
+
+\begin_layout Standard
+Initial values for the numerical integration of equations
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:fpe:sdes"
+
+\end_inset
+
+) are obtained by finding the Wigner transformation of the density matrix
+ for the desired initial state, and then sampling the initial values according
+ to the resulting Wigner function.
+ As an example, consider the simple case with a coherent initial state.
+\end_layout
+
+\begin_layout Theorem
+The Wigner distribution for a multi-mode coherent state with expectation
+ values 
+\begin_inset Formula $\alpha_{\boldsymbol{n}}(0)=\alpha_{\boldsymbol{n}}^{(0)}$
+\end_inset
+
+, 
+\begin_inset Formula $\boldsymbol{n}\in\mathbb{M}$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\[
+W_{c}(\boldsymbol{\alpha}^{(0)})=\left(\frac{2}{\pi}\right)^{|\mathbb{M}|}\prod_{\boldsymbol{n}\in\mathbb{M}}\exp(-2|\alpha_{\boldsymbol{n}}-\alpha_{\boldsymbol{n}}^{(0)}|^{2}).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+The density matrix of the state is 
+\begin_inset Formula 
+\[
+\hat{\rho}=\vert\alpha_{\boldsymbol{n}}^{(0)},\,\boldsymbol{n}\in\mathbb{M}\rangle\langle\alpha_{\boldsymbol{n}}^{(0)},\,\boldsymbol{n}\in\mathbb{M}\vert=\left(\prod_{\boldsymbol{n}\in\mathbb{M}}\vert\alpha_{\boldsymbol{n}}^{(0)}\rangle\right)\left(\prod_{\boldsymbol{n}\in\mathbb{M}}\langle\alpha_{\boldsymbol{n}}^{(0)}\vert\right).
+\]
+
+\end_inset
+
+Then the characteristic function is 
+\begin_inset Formula 
+\[
+\chi_{W}(\boldsymbol{\alpha}^{(0)})=\prod_{\boldsymbol{n}\in\mathbb{M}}\langle\alpha_{\boldsymbol{n}}^{(0)}\vert\hat{D}_{\boldsymbol{n}}(\lambda_{\boldsymbol{n}},\lambda_{\boldsymbol{n}}^{*})\vert\alpha_{\boldsymbol{n}}^{(0)}\rangle
+\]
+
+\end_inset
+
+Using the properties of the displacement operator, this can be transformed
+ to 
+\begin_inset Formula 
+\[
+\chi_{W}(\boldsymbol{\alpha}^{(0)})=\prod_{\boldsymbol{n}\in\mathbb{M}}\exp(-\lambda_{\boldsymbol{n}}^{*}\alpha_{\boldsymbol{n}}^{(0)}+\lambda_{\boldsymbol{n}}(\alpha_{\boldsymbol{n}}^{(0)})^{*}-\frac{1}{2}|\lambda|^{2}).
+\]
+
+\end_inset
+
+Finally, Wigner function is 
+\begin_inset Formula 
+\begin{eqnarray}
+W_{c}(\boldsymbol{\alpha}^{(0)}) &  & =\frac{1}{\pi^{2|\mathbb{M}|}}\prod_{\boldsymbol{n}\in\mathbb{M}}\left(\int d^{2}\lambda_{\boldsymbol{n}}\exp(-\lambda_{\boldsymbol{n}}(\alpha_{\boldsymbol{n}}^{*}-(\alpha_{\boldsymbol{n}}^{(0)})^{*})+\lambda_{\boldsymbol{n}}^{*}(\alpha_{\boldsymbol{n}}-\alpha_{\boldsymbol{n}}^{(0)})-\frac{1}{2}|\lambda|^{2})\right)\nonumber \\
+ &  & =\left(\frac{2}{\pi}\right)^{|\mathbb{M}|}\prod_{\boldsymbol{n}\in\mathbb{M}}\exp(-2|\alpha_{\boldsymbol{n}}-\alpha_{\boldsymbol{n}}^{(0)}|^{2}).
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The resulting Wigner distribution is a product of independent complex-valued
+ Gaussian distributions for each mode, with the expectation value equal
+ to the expectation value of the mode, and the variance equal to 
+\begin_inset Formula $\frac{1}{2}$
+\end_inset
+
+.
+ Therefore the initial state can be sampled as 
+\begin_inset Formula 
+\[
+\alpha_{\boldsymbol{n}}=\alpha_{\boldsymbol{n}}^{(0)}+\frac{1}{\sqrt{2}}\eta_{\boldsymbol{n}},
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\eta_{\boldsymbol{n}}$
+\end_inset
+
+ are normally distributed complex random numbers with zero mean, 
+\begin_inset Formula $\langle\eta_{\boldsymbol{m}}\eta_{\boldsymbol{n}}\rangle=0$
+\end_inset
+
+ and 
+\begin_inset Formula $\langle\eta_{\boldsymbol{m}}\eta_{\boldsymbol{n}}^{*}\rangle=\delta_{\boldsymbol{m},\boldsymbol{n}}$
+\end_inset
+
+ (in other words, with components distributed independently with variance
+ 
+\begin_inset Formula $\frac{1}{2}$
+\end_inset
+
+).
+ This looks like adding half a 
+\begin_inset Quotes eld
+\end_inset
+
+vacuum particle
+\begin_inset Quotes erd
+\end_inset
+
+ to each mode.
+ In functional form this can be written as 
+\begin_inset Formula 
+\[
+\Psi_{j}(\boldsymbol{x},0)=\Psi_{j}^{(0)}(\boldsymbol{x},0)+\sum_{\boldsymbol{n}\in\mathbb{M}_{j}}\frac{\eta_{j,\boldsymbol{n}}}{\sqrt{2}}\phi_{j,\boldsymbol{n}},
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\Psi_{j}^{(0)}(\boldsymbol{x},0)$
+\end_inset
+
+ is the 
+\begin_inset Quotes eld
+\end_inset
+
+classical
+\begin_inset Quotes erd
+\end_inset
+
+ ground state of the system.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: We can describe the Wigner function for the number state here, as
+ an example of non-positive Wigner function.]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: Conclusion goes here.]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\start_of_appendix
+Wirtinger differentiation
+\end_layout
+
+\begin_layout Standard
+In this paper we are using differentiation of complex functions extensively.
+ Instead of the classical definition of differential which only works for
+ holomorphic functions, we use Wirtinger differentiation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wirtinger1927"
+
+\end_inset
+
+.
+ One can find thorough description of these rules, for example, in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kreutz-Delgado2009"
+
+\end_inset
+
+; in this section we will only outline the basics.
+\end_layout
+
+\begin_layout Definition
+For a complex variable 
+\begin_inset Formula $z=x+iy$
+\end_inset
+
+ and a function 
+\begin_inset Formula $f(z)=u(x,y)+iv(x,y)$
+\end_inset
+
+ the Wirtinger differential is 
+\begin_inset Formula 
+\[
+\frac{\partial f(z)}{\partial z}=\frac{1}{2}\left(\frac{\partial f}{\partial x}-i\frac{\partial f}{\partial y}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+One can easily prove that if 
+\begin_inset Formula $f(z)$
+\end_inset
+
+ is holomorphic, then the above definition coincides with the classical
+ differential for complex functions.
+ Wirtinger differential obeys sum, product, quotient, and chain differentiation
+ rules (the former one is applied as if 
+\begin_inset Formula $f(z)\equiv f(z,z^{*})$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+In addition, we will need a non-standard integration over the complex variable:
+\end_layout
+
+\begin_layout Definition
+For a complex variable 
+\begin_inset Formula $z=x+iy$
+\end_inset
+
+ the integral 
+\begin_inset Formula 
+\[
+\int d^{2}z\equiv\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}dx\, dy,
+\]
+
+\end_inset
+
+or, in other words, stands for the two-dimensional integral over the complex
+ plane.
+\end_layout
+
+\begin_layout Standard
+Such integration has a property similar to a Fourier transformation in real
+ space.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lmm:c-numbers:fourier-of-moments"
+
+\end_inset
+
+ If 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ is a complex variable, then for any non-negative integers 
+\begin_inset Formula $r$
+\end_inset
+
+ and 
+\begin_inset Formula $s$
+\end_inset
+
+: 
+\begin_inset Formula 
+\[
+\int d^{2}\alpha\,\alpha^{r}(\alpha^{*})^{s}\exp(-\lambda\alpha^{*}+\lambda^{*}\alpha)=\pi^{2}\left(-\frac{\partial}{\partial\lambda^{*}}\right)^{r}\left(\frac{\partial}{\partial\lambda}\right)^{s}\delta(\mathrm{Re}\lambda)\delta(\mathrm{Im}\lambda)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+First, using known Fourier transform relations, it is easy to prove that
+ for real 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $v$
+\end_inset
+
+, and non-negative integer 
+\begin_inset Formula $n$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\int\limits _{-\infty}^{\infty}dv\, v^{n}\exp(\pm2ixv)=\pi(\mp i/2)^{n}\delta^{(n)}(x).
+\]
+
+\end_inset
+
+Substituting 
+\begin_inset Formula $\alpha=x+iy$
+\end_inset
+
+, expanding the 
+\begin_inset Formula $\alpha^{r}(\alpha^{*})^{s}$
+\end_inset
+
+ term using binomial theorem and employing the above property, one can reach
+ the statement of the lemma.
+ 
+\end_layout
+
+\begin_layout Standard
+Another important property is used extensively throughout the paper.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lmm:c-numbers:zero-integrals"
+
+\end_inset
+
+ If 
+\begin_inset Formula $f(\lambda,\lambda^{*})$
+\end_inset
+
+ is bounded, then for any complex 
+\begin_inset Formula $\alpha$
+\end_inset
+
+: 
+\begin_inset Formula 
+\begin{eqnarray*}
+\int d^{2}\lambda\frac{\partial}{\partial\lambda}\left(\exp(-\lambda\alpha^{*}+\lambda^{*}\alpha)f(\lambda,\lambda^{*})\right) & =0,\\
+\int d^{2}\lambda\frac{\partial}{\partial\lambda^{*}}\left(\exp(-\lambda\alpha^{*}+\lambda^{*}\alpha)f(\lambda,\lambda^{*})\right) & =0.
+\end{eqnarray*}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Proof
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: Needs proof?]
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Section
+Functional calculus
+\end_layout
+
+\begin_layout Standard
+This section outlines the functional calculus, which is heavily used throughout
+ the paper.
+ Detailed description is given in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Dalton2011"
+
+\end_inset
+
+, and here we only provide some important definitions and results which
+ are used later in the paper.
+ In this section we will use the definitions from the Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:func-operators"
+
+\end_inset
+
+, namely the full basis 
+\begin_inset Formula $\mathbb{B}$
+\end_inset
+
+ and the restricted basis 
+\begin_inset Formula $\mathbb{M}$
+\end_inset
+
+.
+ Given the basis, we can define the correspondence between some function
+ of coordinates and its representation in mode space.
+\end_layout
+
+\begin_layout Definition
+Let 
+\begin_inset Formula $\mathbb{F}$
+\end_inset
+
+ be a space of all functions of coordinates, which consists only of modes
+ from 
+\begin_inset Formula $\mathbb{M}$
+\end_inset
+
+: 
+\begin_inset Formula $\mathbb{F}_{\mathbb{M}}\equiv(\mathbb{R}^{D}\rightarrow\mathbb{C})_{\mathbb{M}}$
+\end_inset
+
+ (restricted functions).
+ Composition transformation creates a function from a vector of mode populations
+: 
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & \mathcal{C}_{\mathbb{M}}::\mathbb{C}^{|\mathbb{M}|}\rightarrow\mathbb{F}_{\mathbb{M}}\\
+ &  & \mathcal{C}_{\mathbb{M}}(\boldsymbol{\alpha})=\sum_{\boldsymbol{n}\in\mathbb{M}}\phi_{\boldsymbol{n}}\alpha_{\boldsymbol{n}}.
+\end{eqnarray*}
+
+\end_inset
+
+Decomposition transformation, correspondingly, creates a vector of populations
+ out of a function: 
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & \mathcal{C}_{\mathbb{M}}^{-1}::\mathbb{F}\rightarrow\mathbb{C}^{|\mathbb{M}|}\\
+ &  & (\mathcal{C}_{\mathbb{M}}^{-1}[f])_{\boldsymbol{n}}=\int d\boldsymbol{x}\phi_{\boldsymbol{n}}^{*}f,\,\boldsymbol{n}\in\mathbb{M}.
+\end{eqnarray*}
+
+\end_inset
+
+Note that for any 
+\begin_inset Formula $f\in\mathbb{F}_{\mathbb{M}}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathcal{C}_{\mathbb{M}}(\mathcal{C}_{\mathbb{M}}^{-1}[f])\equiv f$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The result of any non-linear transformation of a function 
+\begin_inset Formula $f\in\mathbb{F}_{\mathbb{M}}$
+\end_inset
+
+ is not guaranteed to belong to 
+\begin_inset Formula $\mathbb{F}_{\mathbb{M}}$
+\end_inset
+
+ and requires explicit projection to be used with other restricted functions.
+ This applies to the delta function of coordinates.
+ To avoid confusion with the common delta function, we introduce the restricted
+ delta function.
+\end_layout
+
+\begin_layout Definition
+\begin_inset CommandInset label
+LatexCommand label
+name "def:func-calculus:restricted-delta"
+
+\end_inset
+
+ The restricted delta function 
+\begin_inset Formula $\delta_{\mathbb{M}}\in\mathbb{F}_{\mathbb{M}}$
+\end_inset
+
+ is defined as 
+\begin_inset Formula 
+\[
+\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime},\boldsymbol{x})=\sum_{\boldsymbol{n}\in\mathbb{M}}\phi_{\boldsymbol{n}}^{\prime*}\phi_{\boldsymbol{n}}.
+\]
+
+\end_inset
+
+Note that 
+\begin_inset Formula $\delta_{\mathbb{M}}^{*}(\boldsymbol{x}^{\prime},\boldsymbol{x})=\delta_{\mathbb{M}}(\boldsymbol{x},\boldsymbol{x}^{\prime})$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Any function can be projected to 
+\begin_inset Formula $\mathbb{M}$
+\end_inset
+
+ using the projection transformation.
+\end_layout
+
+\begin_layout Definition
+\begin_inset CommandInset label
+LatexCommand label
+name "def:func-calculus:projector"
+
+\end_inset
+
+ Projection transformation 
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & \mathcal{P}_{\mathbb{M}}::\mathbb{F}\rightarrow\mathbb{F}_{\mathbb{M}}\\
+ &  & \mathcal{P}_{\mathbb{M}}[f](\boldsymbol{x})=(\mathcal{C}_{\mathbb{M}}(\mathcal{C}_{\mathbb{M}}^{-1}[f]))(\boldsymbol{x})=\sum_{\boldsymbol{n}\in\mathbb{M}}\phi_{\boldsymbol{n}}\int d\boldsymbol{x}^{\prime}\,\phi_{\boldsymbol{n}}^{\prime*}f^{\prime}=\int d\boldsymbol{x}^{\prime}\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime},\boldsymbol{x})f^{\prime}.
+\end{eqnarray*}
+
+\end_inset
+
+Obviously, 
+\begin_inset Formula $\mathcal{P}_{\mathbb{B}}\equiv\mathds{1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The conjugate of 
+\begin_inset Formula $\mathcal{P}_{\mathbb{M}}$
+\end_inset
+
+ is thus defined as 
+\begin_inset Formula 
+\[
+(\mathcal{P}_{\mathbb{M}}[f](\boldsymbol{x}))^{*}=\int d\boldsymbol{x}^{\prime}\delta_{\mathbb{M}}^{*}(\boldsymbol{x}^{\prime},\boldsymbol{x})f^{\prime*}=\mathcal{P}_{\mathbb{M}}^{*}[f^{*}](\boldsymbol{x}).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\mathcal{F}[f]::\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F}$
+\end_inset
+
+ be some transformation (note that the result is not guaranteed to belong
+ to the restricted basis).
+ Because of the bijection between 
+\begin_inset Formula $\mathbb{F}_{\mathbb{M}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbb{C}^{|\mathbb{M}|}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathcal{F}$
+\end_inset
+
+ can be alternatively treated as a function of a vector of complex numbers:
+ 
+\begin_inset Formula 
+\begin{eqnarray}
+ &  & \mathcal{F}::\mathbb{C}^{|\mathbb{M}|}\rightarrow\mathbb{C}^{\infty}\nonumber \\
+ &  & \mathcal{F}(\boldsymbol{\alpha})\equiv\mathcal{C}_{\mathbb{M}}^{-1}[\mathcal{F}[\mathcal{C}_{\mathbb{M}}(\boldsymbol{\alpha})]].
+\end{eqnarray}
+
+\end_inset
+
+Using this correspondence, we can define the functional differentiation.
+\end_layout
+
+\begin_layout Definition
+\begin_inset CommandInset label
+LatexCommand label
+name "def:func-calculus:func-diff"
+
+\end_inset
+
+ Functional derivative is defined as 
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & \frac{\delta}{\delta f^{\prime}}::\left(\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F}\right)\rightarrow\left(\mathbb{R}^{D}\rightarrow\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F}\right)\\
+ &  & \frac{\delta\mathcal{F}[f]}{\delta f^{\prime}}=\sum_{\boldsymbol{n}\in\mathbb{M}}\phi_{\boldsymbol{n}}^{\prime*}\frac{\partial\mathcal{F}(\boldsymbol{\alpha})}{\partial\alpha_{\boldsymbol{n}}}.
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that the transformation being returned differs from the one which was
+ taken: the result of the new transformation is a function of the additional
+ variable from 
+\begin_inset Formula $\mathbb{R}^{D}$
+\end_inset
+
+ (
+\begin_inset Formula $\boldsymbol{x}^{\prime}$
+\end_inset
+
+).
+ This variable comes from the function we are differentiating by.
+\end_layout
+
+\begin_layout Standard
+Functional derivatives behave in many ways similar to Wirtinger derivatives.
+ The detailed treatment can be found in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Dalton2011"
+
+\end_inset
+
+.
+ In particular, the following useful lemma gives us the ability to differentiate
+ functionals based on the intuition for common functions:
+\end_layout
+
+\begin_layout Lemma
+If 
+\begin_inset Formula $g(z)$
+\end_inset
+
+ is a function of complex variable that can be expanded into series of 
+\begin_inset Formula $z^{n}(z^{*})^{m}$
+\end_inset
+
+, and functional 
+\begin_inset Formula $\mathcal{F}[f,f^{*}]\equiv g(f,f^{*})$
+\end_inset
+
+, 
+\begin_inset Formula $\mathcal{F}\in\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F}$
+\end_inset
+
+, then 
+\begin_inset Formula $\delta\mathcal{F}/\delta f^{\prime}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathcal{F}/\delta f^{\prime*}$
+\end_inset
+
+ can be treated as partial differentiation of the functional of two independent
+ variables 
+\begin_inset Formula $f$
+\end_inset
+
+ and 
+\begin_inset Formula $f^{*}$
+\end_inset
+
+.
+ In other words: 
+\begin_inset Formula 
+\[
+\frac{\delta\mathcal{F}}{\delta f^{\prime}}=\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime},\boldsymbol{x})\frac{\partial g(f,f^{*})}{\partial f},\qquad\frac{\delta\mathcal{F}}{\delta f^{\prime*}}=\delta_{\mathbb{M}}^{*}(\boldsymbol{x}^{\prime},\boldsymbol{x})\frac{\partial g(f,f^{*})}{\partial f^{*}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+Functional integration is defined as
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & \int\delta^{2}f::(\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F})\rightarrow\mathbb{C}\\
+ &  & \int\delta^{2}f\mathcal{F}[f]=\int d^{2}\boldsymbol{\alpha}\mathcal{F}(\boldsymbol{\alpha})=\left(\prod_{\boldsymbol{n}\in\mathbb{M}}\int d^{2}\alpha_{\boldsymbol{n}}\right)\mathcal{F}(\boldsymbol{\alpha}).
+\end{eqnarray*}
+
+\end_inset
+
+If the basis contains an infinite number of modes, the integral is treated
+ as a limit 
+\begin_inset Formula $|\mathbb{M}|\rightarrow\infty$
+\end_inset
+
+.
+ 
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: Product of integrals means successive applications of those integrals
+ --- do we need to state it explicitly?]
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Functional integration has the Fourier-like property analogous to Lemma
+\begin_inset space ~
+\end_inset
+
+Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:c-numbers:fourier-of-moments"
+
+\end_inset
+
+, but its statement requires the definition of the delta functional:
+\end_layout
+
+\begin_layout Definition
+\begin_inset CommandInset label
+LatexCommand label
+name "def:func-calculus:delta-functional"
+
+\end_inset
+
+ For a function 
+\begin_inset Formula $\Lambda\in\mathbb{F}_{\mathbb{M}}$
+\end_inset
+
+ the delta functional is 
+\begin_inset Formula 
+\[
+\Delta_{\mathbb{M}}[\Lambda]\equiv\prod_{\boldsymbol{n}\in\mathbb{M}}\delta(\mathrm{Re}\lambda_{\boldsymbol{n}})\delta(\mathrm{Im}\lambda_{\boldsymbol{n}}),
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\boldsymbol{\lambda}=\mathcal{C}_{\mathbb{M}}^{-1}[\Lambda]$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The delta functional has the same property as the common delta function:
+ 
+\begin_inset Formula 
+\begin{eqnarray}
+\int\delta^{2}\Lambda\mathcal{F}[\Lambda]\Delta_{\mathbb{M}}[\Lambda] & = & \left(\prod_{\boldsymbol{n}\in\mathbb{M}}\int d^{2}\lambda_{\boldsymbol{n}}\right)\mathcal{F}(\boldsymbol{\lambda})\prod_{\boldsymbol{n}\in\mathbb{M}}\delta(\mathrm{Re}\lambda_{\boldsymbol{n}})\delta(\mathrm{Im}\lambda_{\boldsymbol{n}})\nonumber \\
+ & = & \left.\mathcal{F}(\boldsymbol{\lambda})\right|_{\forall\boldsymbol{n}\in\mathbb{M}\,\lambda_{\boldsymbol{n}}=0}\nonumber \\
+ & = & \left.\mathcal{F}[\Lambda]\right|_{\Lambda\equiv0}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+[Functional extension of Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:c-numbers:fourier-of-moments"
+
+\end_inset
+
+] 
+\begin_inset CommandInset label
+LatexCommand label
+name "lmm:func-calculus:fourier-of-moments"
+
+\end_inset
+
+ For 
+\begin_inset Formula $\Psi\in\mathbb{F}_{\mathbb{M}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\Lambda\in\mathbb{F}_{\mathbb{M}}$
+\end_inset
+
+, and for any non-negative integers 
+\begin_inset Formula $r$
+\end_inset
+
+ and 
+\begin_inset Formula $s$
+\end_inset
+
+: 
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & \int\delta^{2}\Psi\,\Psi^{r}(\Psi^{*})^{s}\exp\left(\int d\boldsymbol{x}\left(-\Lambda\Psi^{*}+\Lambda^{*}\Psi\right)\right)\\
+ &  & =\pi^{2|\mathbb{M}|}\left(-\frac{\delta}{\delta\Lambda^{*}}\right)^{r}\left(\frac{\delta}{\delta\Lambda}\right)^{s}\Delta_{\mathbb{M}}[\Lambda]
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+The proof consists of expanding functions into sums of modes and applying
+ Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:c-numbers:fourier-of-moments"
+
+\end_inset
+
+ 
+\begin_inset Formula $|\mathbb{M}|$
+\end_inset
+
+ times.
+ 
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lmm:func-calculus:zero-integrals"
+
+\end_inset
+
+ For a bounded functional 
+\begin_inset Formula $F(\boldsymbol{\lambda},\boldsymbol{\lambda}^{*})$
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{eqnarray*}
+\int\delta^{2}\Lambda\frac{\delta}{\delta\Lambda^{\prime}}\left(D[\Lambda,\Lambda^{*},\Psi,\Psi^{*}]F[\Lambda,\Lambda^{*}]\right) & =0\\
+\int\delta^{2}\Lambda\frac{\delta}{\delta\Lambda^{\prime*}}\left(D[\Lambda,\Lambda^{*},\Psi,\Psi^{*}]F[\Lambda,\Lambda^{*}]\right) & =0.
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Proved by expanding integrals and differentials into modes and applying
+ Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:c-numbers:zero-integrals"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lmm:func-calculus:zero-delta-integrals"
+
+\end_inset
+
+ For 
+\begin_inset Formula $\Lambda\in\mathbb{F}_{\mathbb{M}}$
+\end_inset
+
+ 
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: Any limitations on 
+\begin_inset Formula $F$
+\end_inset
+
+?]
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{eqnarray*}
+\int\delta^{2}\Lambda\frac{\delta}{\delta\Lambda}\left(\left(\left(\frac{\delta}{\delta\Lambda}\right)^{s}\left(-\frac{\delta}{\delta\Lambda^{*}}\right)^{r}\Delta_{\mathbb{M}}[\Lambda]\right)F[\lambda,\lambda^{*}]\right) & =0\\
+\int\delta^{2}\Lambda\frac{\delta}{\delta\Lambda^{*}}\left(\left(\left(\frac{\delta}{\delta\Lambda}\right)^{s}\left(-\frac{\delta}{\delta\Lambda^{*}}\right)^{r}\Delta_{\mathbb{M}}[\Lambda]\right)F[\lambda,\lambda^{*}]\right) & =0
+\end{eqnarray*}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Proof
+Proved by expanding functional integration and differentials into modes
+ and integrating separately over each 
+\begin_inset Formula $\lambda_{\boldsymbol{n}}$
+\end_inset
+
+, using the fact that any differential of the delta function is zero on
+ the infinity.
+ 
+\end_layout
+
+\begin_layout Standard
+In order to perform transformations of master equations, we will need a
+ lemma that justifies the 
+\begin_inset Quotes eld
+\end_inset
+
+relocation
+\begin_inset Quotes erd
+\end_inset
+
+ of the Laplacian (which is a part of the kinetic term in the Hamiltonian)
+ inside the functional integral.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lmm:func-calculus:move-laplacian"
+
+\end_inset
+
+ If 
+\begin_inset Formula $\mathcal{F}\in\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F}$
+\end_inset
+
+, and 
+\begin_inset Formula $\forall\boldsymbol{n}\in\mathbb{M},\boldsymbol{x}\in\partial A$
+\end_inset
+
+ 
+\begin_inset Formula $\phi_{\boldsymbol{n}}(\boldsymbol{x})=0$
+\end_inset
+
+, then 
+\begin_inset Formula 
+\[
+\int\limits _{A}d\boldsymbol{x}\left(\nabla^{2}\frac{\delta}{\delta\Psi}\right)\Psi\mathcal{F}[\Psi,\Psi^{*}]=\int\limits _{A}d\boldsymbol{x}\frac{\delta}{\delta\Psi}(\nabla^{2}\Psi)\mathcal{F}[\Psi,\Psi^{*}]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+The proof consists of a function expansion into a mode sum and an application
+ of Green's first identity.
+ 
+\end_layout
+
+\begin_layout Standard
+Note that the above lemma imposes an additional requirement for basis functions,
+ but in practical applications it is always satisfied.
+ For example, in plane wave basis eigenfunctions are equal to zero at the
+ border of the bounding box, and in harmonic oscillator basis they are equal
+ to zero on the infinity (which can be considered the boundary of their
+ integration area).
+ Hereinafter we will assume that this condition is true for any basis we
+ work with.
+\end_layout
+
+\begin_layout Section
+Functional Fokker-Planck equation
+\end_layout
+
+\begin_layout Standard
+The general approach to numerical solution of the Fokker-Planck equation
+ is to transform it to the equivalent set of stochastic differential equations
+ (SDEs).
+ In the textbooks this transformation is defined for real variables only
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Risken1996"
+
+\end_inset
+
+, while we have functional FPE with complex-valued functions.
+\end_layout
+
+\begin_layout Standard
+Our starting point is the reformulation of the theorem for real-valued multivari
+able FPE from
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Risken1996"
+
+\end_inset
+
+ in terms of vectors and matrices:
+\end_layout
+
+\begin_layout Lemma
+[FPE--SDEs correspondence in convenient form.] 
+\begin_inset CommandInset label
+LatexCommand label
+name "lmm:app-fpe:fpe-sde-real"
+
+\end_inset
+
+ If 
+\begin_inset Formula $\boldsymbol{z}^{T}\equiv(z_{1}\ldots z_{M})$
+\end_inset
+
+ is a set of real-valued variables, Fokker-Planck equation 
+\begin_inset Formula 
+\[
+\frac{dW}{dt}=-\boldsymbol{\partial}_{\boldsymbol{z}}^{T}\boldsymbol{a}W+\frac{1}{2}\mathrm{Tr}\left\{ \boldsymbol{\partial}_{\boldsymbol{z}}\boldsymbol{\partial}_{\boldsymbol{z}}^{T}BB^{T}\right\} W
+\]
+
+\end_inset
+
+is equivalent to a set of stochastic differential equations in Itô form
+ 
+\begin_inset Formula 
+\[
+d\boldsymbol{z}=\boldsymbol{a}dt+Bd\boldsymbol{Z}
+\]
+
+\end_inset
+
+and to a set of stochastic differential equations in Stratonovich form 
+\begin_inset Formula 
+\[
+d\boldsymbol{z}=(\boldsymbol{a}-\boldsymbol{s})dt+Bd\boldsymbol{Z},
+\]
+
+\end_inset
+
+where the noise-induced (or spurious) drift vector 
+\begin_inset Formula $\boldsymbol{s}$
+\end_inset
+
+ has elements 
+\begin_inset Formula 
+\[
+s_{i}=\sum_{k,j}B_{kj}\frac{\partial}{\partial z_{k}}B_{ij}=\mathrm{Tr}\left\{ B^{T}\boldsymbol{\partial}_{z}\boldsymbol{e}_{i}^{T}B\right\} ,
+\]
+
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{e}_{i}$
+\end_inset
+
+ being the unit vector with elements 
+\begin_inset Formula $(\boldsymbol{e}_{i})_{j}=\delta_{ij}$
+\end_inset
+
+.
+ Here 
+\begin_inset Formula $W\equiv W(\boldsymbol{z})$
+\end_inset
+
+ is a probability distribution, 
+\begin_inset Formula $\boldsymbol{a}\equiv\boldsymbol{a}(\boldsymbol{z})$
+\end_inset
+
+ is a vector function, 
+\begin_inset Formula $B\equiv B(\boldsymbol{z})$
+\end_inset
+
+ is a matrix function (
+\begin_inset Formula $B$
+\end_inset
+
+ having size 
+\begin_inset Formula $M\times L$
+\end_inset
+
+, where 
+\begin_inset Formula $L$
+\end_inset
+
+ corresponds to the number of noise sources), 
+\begin_inset Formula $\boldsymbol{\partial}_{\boldsymbol{z}}^{T}\equiv(\partial_{z_{1}}\ldots\partial_{z_{M}})$
+\end_inset
+
+ is a vector differential, and 
+\begin_inset Formula $d\boldsymbol{Z}$
+\end_inset
+
+ is a standard 
+\begin_inset Formula $L$
+\end_inset
+
+-dimensional real-valued Wiener process.
+ 
+\end_layout
+
+\begin_layout Proof
+For details see
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Risken1996"
+
+\end_inset
+
+, sections 3.3 and 3.4.
+ 
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:app-fpe:fpe-sde-complex"
+
+\end_inset
+
+ If 
+\begin_inset Formula $\boldsymbol{\alpha}^{T}\equiv(\alpha_{1}\ldots\alpha_{M})$
+\end_inset
+
+ is a set of complex-valued variables, Fokker-Planck equation 
+\begin_inset Formula 
+\[
+\frac{dW}{dt}=-\boldsymbol{\partial}_{\boldsymbol{\alpha}}^{T}\boldsymbol{a}W-\boldsymbol{\partial}_{\boldsymbol{\alpha}^{*}}^{T}\boldsymbol{a}^{*}W+\mathrm{Tr}\left\{ \boldsymbol{\partial}_{\boldsymbol{\alpha}^{*}}\boldsymbol{\partial}_{\boldsymbol{\alpha}}^{T}BB^{H}\right\} W
+\]
+
+\end_inset
+
+is equivalent to a set of stochastic differential equations in Itô form
+ 
+\begin_inset Formula 
+\[
+d\boldsymbol{\alpha}=\boldsymbol{a}dt+Bd\boldsymbol{Z},
+\]
+
+\end_inset
+
+or to Stratonovich form 
+\begin_inset Formula 
+\[
+d\boldsymbol{\alpha}=(\boldsymbol{a}-\boldsymbol{s})dt+Bd\boldsymbol{Z},
+\]
+
+\end_inset
+
+where noise-induced drift term is 
+\begin_inset Formula 
+\[
+s_{j}=\mathrm{Tr}\left\{ B^{H}\boldsymbol{\partial}_{\boldsymbol{\alpha}^{*}}\boldsymbol{e}_{j}^{T}B\right\} ,
+\]
+
+\end_inset
+
+and 
+\begin_inset Formula $d\boldsymbol{Z}=(d\boldsymbol{X}+id\boldsymbol{Y})/\sqrt{2}$
+\end_inset
+
+ is an 
+\begin_inset Formula $M$
+\end_inset
+
+-dimensional complex-valued Wiener process, containing two real-valued 
+\begin_inset Formula $L$
+\end_inset
+
+-dimensional Wiener processes 
+\begin_inset Formula $d\boldsymbol{X}$
+\end_inset
+
+ and 
+\begin_inset Formula $d\boldsymbol{Y}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+Proved straightforwardly by transforming the equation to real variables
+ and applying Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:app-fpe:fpe-sde-real"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:app-fpe:mc-fpe-sde"
+
+\end_inset
+
+ 
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: Perhaps not necessary.]
+\end_layout
+
+\end_inset
+
+ If 
+\begin_inset Formula $\boldsymbol{\alpha}^{(c)},\, c=1..C$
+\end_inset
+
+ are 
+\begin_inset Formula $C$
+\end_inset
+
+ sets of complex variables 
+\begin_inset Formula $\boldsymbol{\alpha}^{(c)}\equiv(\alpha_{1}^{(c)}\ldots\alpha_{M}^{(c)})$
+\end_inset
+
+, then the Fokker-Planck equation 
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{dW}{dt}= &  & -\sum_{c=1}^{C}\boldsymbol{\partial}_{\boldsymbol{\alpha}^{(c)}}^{T}\boldsymbol{a}^{(c)}W-\sum_{c=1}^{C}\boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(c)})^{*}}^{T}(\boldsymbol{a}^{(c)})^{*}W\\
+ &  & +\sum_{m=1}^{c}\sum_{n=1}^{c}\mathrm{Tr}\left\{ \boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(m)})^{*}}\boldsymbol{\partial}_{\boldsymbol{\alpha}^{(n)}}^{T}B^{(n)}(B^{(m)})^{H}\right\} W
+\end{eqnarray*}
+
+\end_inset
+
+is equivalent to a set of stochastic differential equations in Itô form
+ 
+\begin_inset Formula 
+\[
+d\boldsymbol{\alpha}^{(c)}=\boldsymbol{a}^{(c)}dt+B^{(c)}d\boldsymbol{Z},\, c=1..C
+\]
+
+\end_inset
+
+or to Stratonovich form 
+\begin_inset Formula 
+\[
+d\boldsymbol{\alpha}^{(c)}=(\boldsymbol{a}^{(c)}-\boldsymbol{s}^{(c)})dt+B^{(c)}d\boldsymbol{Z},
+\]
+
+\end_inset
+
+where noise-induced drift term is 
+\begin_inset Formula 
+\[
+s_{j}^{(c)}=\sum_{d=1}^{C}\mathrm{Tr}\left\{ (B^{(d)})^{H}\boldsymbol{\partial}_{(\boldsymbol{\alpha}^{(d)})^{*}}\boldsymbol{e}_{j}^{T}B^{(c)}\right\} ,
+\]
+
+\end_inset
+
+and 
+\begin_inset Formula $d\boldsymbol{Z}$
+\end_inset
+
+ is an 
+\begin_inset Formula $L$
+\end_inset
+
+-dimensional complex-valued Wiener process.
+ 
+\end_layout
+
+\begin_layout Proof
+Proved by joining vectors from all components into one vector and applying
+ Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:app-fpe:fpe-sde-complex"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:app-fpe:fpe-sde-func"
+
+\end_inset
+
+ For the probability distribution 
+\begin_inset Formula $W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]\in(\mathbb{F}_{\mathbb{M}}^{C}\rightarrow\mathbb{R})$
+\end_inset
+
+ the functional FPE 
+\begin_inset Formula 
+\[
+\frac{dW}{dt}=\int d\boldsymbol{x}\left(-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}}\mathcal{A}_{j}-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}^{*}}\mathcal{A}_{j}^{*}+\sum_{j=1}^{C}\sum_{k=1}^{C}\frac{\delta^{2}}{\delta\Psi_{j}^{*}\delta\Psi_{k}}\sum_{\boldsymbol{l}}\mathcal{B}_{k\boldsymbol{l}}\mathcal{B}_{j\boldsymbol{l}}^{*}\right)W
+\]
+
+\end_inset
+
+
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: alternatively, in matrix form]
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\frac{dW}{dt}=\int d\boldsymbol{x}\left(-2\mathrm{Re}\left(\boldsymbol{\delta}_{\boldsymbol{\Psi}}\cdot\vec{\mathcal{A}}\right)+\mathrm{Tr}\left\{ \boldsymbol{\delta}_{\boldsymbol{\Psi}^{*}}\boldsymbol{\delta}_{\boldsymbol{\Psi}}^{T}\mathcal{B}\mathcal{B}^{H}\right\} \right)W
+\]
+
+\end_inset
+
+is equivalent to the set of SDEs in Itô form 
+\begin_inset Formula 
+\[
+d\Psi_{j}=\mathcal{P}_{\mathbb{M}_{j}}\left[\mathcal{A}_{j}dt+\sum_{\boldsymbol{l}}\mathcal{B}_{j\boldsymbol{l}}dQ_{\boldsymbol{l}}\right],
+\]
+
+\end_inset
+
+
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: alternatively, in matrix form]
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+d\boldsymbol{\Psi}=\vec{\mathcal{P}}\left[\vec{\mathcal{A}}dt+\mathcal{B}d\boldsymbol{Q}\right]
+\]
+
+\end_inset
+
+or in Stratonovich form 
+\begin_inset Formula 
+\[
+d\Psi_{j}=\mathcal{P}_{\mathbb{M}_{j}}\left[(\mathcal{A}_{j}-\mathcal{S}_{j})dt+\sum_{\boldsymbol{l}}\mathcal{B}_{j\boldsymbol{l}}dQ_{\boldsymbol{l}}\right],
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\[
+\mathcal{S}_{j}=\sum_{c=1}^{C}\sum_{\boldsymbol{l}}\mathcal{B}_{c\boldsymbol{l}}^{*}\frac{\delta}{\delta\Psi_{c}^{*}}\mathcal{B}_{j\boldsymbol{l}},
+\]
+
+\end_inset
+
+
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+[TODO: alternatively, in matrix form]
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\mathcal{S}_{j}=\mathrm{Tr}\left\{ \mathcal{B}^{H}\boldsymbol{\partial}_{\boldsymbol{\Psi}^{*}}\boldsymbol{e}_{j}^{T}\mathcal{B}\right\} ,
+\]
+
+\end_inset
+
+and 
+\begin_inset Formula $Q_{\boldsymbol{l}}$
+\end_inset
+
+ is a functional Wiener process: 
+\begin_inset Formula 
+\[
+Q_{\boldsymbol{l}}=\sum_{\boldsymbol{n}\in\mathbb{B}}\phi_{\boldsymbol{n}}Z_{\boldsymbol{l},\boldsymbol{n}}.
+\]
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Proof
+Proved by expanding functional derivatives and applying Theorem
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:app-fpe:mc-fpe-sde"
+
+\end_inset
+
+.
+ The diffusion term has to be transformed in order to conform to the theorem:
+ 
+\begin_inset Formula 
+\begin{eqnarray}
+\int d\boldsymbol{x}\phi_{j,\boldsymbol{m}}\phi_{k,\boldsymbol{n}}^{*}\sum_{\boldsymbol{l}}\mathcal{B}_{\boldsymbol{l}}^{(k)}(\mathcal{B}_{\boldsymbol{l}}^{(j)})^{*} & = & \int d\boldsymbol{x}\int d\boldsymbol{x}^{\prime}\phi_{j,\boldsymbol{m}}^{\prime}\phi_{k,\boldsymbol{n}}^{*}\sum_{\boldsymbol{l}}(\mathcal{B}_{\boldsymbol{l}}^{(j)})^{\prime*}\mathcal{B}_{\boldsymbol{l}}^{(k)}\delta(\boldsymbol{x}-\boldsymbol{x}^{\prime})\nonumber \\
+ & = & \int d\boldsymbol{x}\int d\boldsymbol{x}^{\prime}\phi_{j,\boldsymbol{m}}^{\prime}\phi_{k,\boldsymbol{n}}^{*}\sum_{\boldsymbol{l}}(\mathcal{B}_{\boldsymbol{l}}^{(j)})^{\prime*}\mathcal{B}_{\boldsymbol{l}}^{(k)}\sum_{\boldsymbol{p}\in\mathbb{B}}\phi_{\boldsymbol{p}}^{\prime*}\phi_{\boldsymbol{p}}\nonumber \\
+ & = & \sum_{\boldsymbol{p}\in\mathbb{B},\boldsymbol{l}}\int d\boldsymbol{x}\phi_{j,\boldsymbol{m}}(\mathcal{B}_{\boldsymbol{l}}^{(j)})^{*}\phi_{\boldsymbol{p}}^{*}\int d\boldsymbol{x}\phi_{k,\boldsymbol{n}}^{*}\mathcal{B}_{\boldsymbol{l}}^{(k)}\phi_{\boldsymbol{p}}
+\end{eqnarray}
+
+\end_inset
+
+Grouping terms back and recognising the definition of projection transformation,
+ one gets the statement of the theorem.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "qsim-long"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
