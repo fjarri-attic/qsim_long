@@ -531,7 +531,7 @@ key "Morgan2000"
 , giving the effective Hamiltonian 
 \begin_inset Formula 
 \begin{equation}
-\hat{H}=\int d\boldsymbol{x}\left\{ \vec{n}_{j}^{\dagger}K_{jk}\tilde{\Psi}_{k}+\frac{U_{jk}}{2}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k}^{\dagger}\tilde{\Psi}_{j}\tilde{\Psi}_{k}\right\} ,\label{eqn:master-eqn:effective-H}
+\hat{H}=\int d\boldsymbol{x}\left\{ \tilde{\Psi}_{j}^{\dagger}K_{jk}\tilde{\Psi}_{k}+\frac{U_{jk}}{2}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k}^{\dagger}\tilde{\Psi}_{j}\tilde{\Psi}_{k}\right\} ,\label{eqn:master-eqn:effective-H}
 \end{equation}
 
 \end_inset
@@ -845,13 +845,13 @@ reference "eqn:master-eqn:commutators"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\left[\tilde{\Psi}_{j},\tilde{\Psi}_{k}^{\prime}\right]=\left[\tilde{\Psi}_{j}^{\dagger},\tilde{\Psi}_{k}^{\prime\dagger}\right]=0,\qquad\left[\tilde{\Psi}_{j},\tilde{\Psi}_{k}^{\prime\dagger}\right]=\delta_{jk}\tilde{\delta}(\boldsymbol{x}^{\prime},\boldsymbol{x}),\label{eqn:func-operators:restricted-commutators}
+\left[\tilde{\Psi}_{j},\tilde{\Psi}_{k}^{\prime}\right]=\left[\tilde{\Psi}_{j}^{\dagger},\tilde{\Psi}_{k}^{\prime\dagger}\right]=0,\qquad\left[\tilde{\Psi}_{j},\tilde{\Psi}_{k}^{\prime\dagger}\right]=\delta_{jk}\delta_{\mathbb{M}_{j}}(\boldsymbol{x}^{\prime},\boldsymbol{x}),\label{eqn:func-operators:restricted-commutators}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $\tilde{\delta}$
+\begin_inset Formula $\delta_{\mathbb{M}}$
 \end_inset
 
  is a restricted delta-function.
@@ -931,6 +931,47 @@ key "Gardiner2004"
  a functional notation.
 \end_layout
 
+\begin_layout Standard
+In order to specify domains and ranges of discussed functions, functionals
+ and transformations formally, we will employ a special notation.
+ In general, 
+\begin_inset Formula $F\in A\rightarrow B\rightarrow C$
+\end_inset
+
+ will denote a function 
+\begin_inset Formula $F$
+\end_inset
+
+ that depends on two values of types 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+, and has a value of type 
+\begin_inset Formula $C$
+\end_inset
+
+.
+ Note this expression at the same time describes a function that depends
+ on a value of type 
+\begin_inset Formula $A$
+\end_inset
+
+, and returns a function with a type 
+\begin_inset Formula $B\rightarrow C$
+\end_inset
+
+.
+ The types can be nested, for example 
+\begin_inset Formula $(A\rightarrow B)\rightarrow(C\rightarrow D)$
+\end_inset
+
+ denotes a function to function mapping.
+\end_layout
+
 \begin_layout Subsection
 Definitions of functional operators
 \end_layout
@@ -951,11 +992,14 @@ We introduce complex functions
 
 \begin_layout Definition
 Functional displacement operator 
+\begin_inset Formula $\hat{D}_{j}\in\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{H}_{\mathbb{M}_{j}}$
+\end_inset
+
+ 
 \begin_inset Formula 
-\begin{eqnarray}
- &  & \hat{D}_{j}::\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{H}_{\mathbb{M}_{j}}\nonumber \\
- &  & \hat{D}_{j}[\Lambda,\Lambda^{*}]=\exp\int d\boldsymbol{x}\left(\Lambda\tilde{\Psi}_{j}^{\dagger}-\Lambda^{*}\tilde{\Psi}_{j}\right).
-\end{eqnarray}
+\[
+\hat{D}_{j}[\Lambda,\Lambda^{*}]=\exp\int d\boldsymbol{x}\left(\Lambda\tilde{\Psi}_{j}^{\dagger}-\Lambda^{*}\tilde{\Psi}_{j}\right).
+\]
 
 \end_inset
 
@@ -967,15 +1011,15 @@ It is also convenient to define the displacement functional as:
 \end_layout
 
 \begin_layout Definition
-Displacement functional
-\end_layout
+Displacement functional 
+\begin_inset Formula $D\in\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{C}$
+\end_inset
 
-\begin_layout Standard
+
 \begin_inset Formula 
-\begin{eqnarray}
- &  & D::\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{C}\nonumber \\
- &  & D[\Lambda,\Lambda^{*},\Psi,\Psi^{*}]=\exp\int d\boldsymbol{x}\left(-\Lambda\Psi^{*}+\Lambda^{*}\Psi\right).
-\end{eqnarray}
+\[
+D[\Lambda,\Lambda^{*},\Psi,\Psi^{*}]=\exp\int d\boldsymbol{x}\left(-\Lambda\Psi^{*}+\Lambda^{*}\Psi\right).
+\]
 
 \end_inset
 
@@ -1018,15 +1062,42 @@ name "def:func-wigner:w-transformation"
 \end_inset
 
  A multi-component functional Wigner transformation 
-\begin_inset Formula $\mathcal{W}$
+\begin_inset Formula $ $
 \end_inset
 
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathcal{W}\in\left(\mathbb{R}^{D}\rightarrow\prod_{j=1}^{C}\mathbb{H}_{\mathbb{M}_{j}}\right)\rightarrow\prod_{j=1}^{C}\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{C}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
  is defined as 
 \begin_inset Formula 
-\begin{eqnarray}
- &  & \mathcal{W}::\left(\mathbb{R}^{D}\rightarrow\prod_{j=1}^{C}\mathbb{H}_{\mathbb{M}_{j}}\right)\rightarrow\prod_{j=1}^{C}\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{C}\nonumber \\
- &  & \mathcal{W}[\tilde{A}]=\frac{1}{\pi^{2\sum|\mathbb{M}_{j}|}}\int\delta^{2}\boldsymbol{\Lambda}\left(\prod_{j=1}^{C}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\mathrm{Tr}\left\{ \hat{A}\prod_{j=1}^{C}\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} ,
-\end{eqnarray}
+\[
+\mathcal{W}[\hat{A}]=\frac{1}{\pi^{2\sum|\mathbb{M}_{j}|}}\int\delta^{2}\boldsymbol{\Lambda}\left(\prod_{j=1}^{C}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\mathrm{Tr}\left\{ \hat{A}\prod_{j=1}^{C}\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} ,
+\]
 
 \end_inset
 
@@ -1044,7 +1115,7 @@ where
 \end_inset
 
  on a restricted subset of a Hilbert space to a functional 
-\begin_inset Formula $(\mathcal{W}[\tilde{A}])[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]$
+\begin_inset Formula $(\mathcal{W}[\hat{A}])[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]$
 \end_inset
 
 .
@@ -1062,12 +1133,15 @@ name "def:func-wigner:w-functional"
 
 \end_inset
 
- The Wigner functional is 
+ The Wigner functional 
+\begin_inset Formula $W\in\prod_{j=1}^{C}\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{R}$
+\end_inset
+
+ is 
 \begin_inset Formula 
-\begin{eqnarray}
- &  & W::\prod_{j=1}^{C}\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{R}\nonumber \\
- &  & W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]\equiv\mathcal{W}[\hat{\rho}]=\frac{1}{\pi^{2M}}\int\delta^{2}\boldsymbol{\Lambda}\left(\prod_{j=1}^{C}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\chi_{W},
-\end{eqnarray}
+\[
+W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]\equiv\mathcal{W}[\hat{\rho}]=\frac{1}{\pi^{2M}}\int\delta^{2}\boldsymbol{\Lambda}\left(\prod_{j=1}^{C}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\chi_{W},
+\]
 
 \end_inset
 
@@ -1100,18 +1174,18 @@ name "thm:func-wigner:correspondences"
 \end_inset
 
  For any Hilbert-Schmidt operator 
-\begin_inset Formula $\tilde{A}$
+\begin_inset Formula $\hat{A}$
 \end_inset
 
 , if 
-\begin_inset Formula $\mathcal{W}[\tilde{A}]\equiv(\mathcal{W}[\tilde{A}])[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]$
+\begin_inset Formula $\mathcal{W}[\hat{A}]\equiv(\mathcal{W}[\hat{A}])[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]$
 \end_inset
 
 , then 
 \begin_inset Formula 
 \begin{eqnarray}
-\mathcal{W}[\tilde{\Psi}_{j}\tilde{A}] & =\left(\Psi_{j}+\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\tilde{\Psi}_{j}^{\dagger}\tilde{A}]=\left(\Psi_{j}^{*}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}}\right)\mathcal{W}[\tilde{A}],\nonumber \\
-\mathcal{W}[\tilde{A}\tilde{\Psi}_{j}] & =\left(\Psi_{j}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\tilde{A}\tilde{\Psi}_{j}^{\dagger}]=\left(\Psi_{j}^{*}+\frac{1}{2}\frac{\delta}{\partial\Psi_{j}}\right)\mathcal{W}[\tilde{A}].
+\mathcal{W}[\tilde{\Psi}_{j}\hat{A}] & =\left(\Psi_{j}+\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\tilde{\Psi}_{j}^{\dagger}\hat{A}]=\left(\Psi_{j}^{*}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}}\right)\mathcal{W}[\hat{A}],\nonumber \\
+\mathcal{W}[\hat{A}\tilde{\Psi}_{j}] & =\left(\Psi_{j}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\hat{A}\tilde{\Psi}_{j}^{\dagger}]=\left(\Psi_{j}^{*}+\frac{1}{2}\frac{\delta}{\partial\Psi_{j}}\right)\mathcal{W}[\hat{A}].
 \end{eqnarray}
 
 \end_inset
@@ -1132,7 +1206,7 @@ reference "lmm:func-wigner:displacement-derivatives"
 \end_inset
 
  given above to transform the 
-\begin_inset Formula $\tilde{A}\prod_{j}\hat{D}_{j}$
+\begin_inset Formula $\hat{A}\prod_{j}\hat{D}_{j}$
 \end_inset
 
  product inside the trace, together with Lemma
@@ -1148,7 +1222,7 @@ reference "lmm:func-calculus:zero-integrals"
 
  from the Appendix to integrate by parts (because of the restriction on
  
-\begin_inset Formula $\tilde{A}$
+\begin_inset Formula $\hat{A}$
 \end_inset
 
 , the traces will be square-integrable
@@ -1308,7 +1382,7 @@ reference "lmm:func-calculus:fourier-of-moments"
 : 
 \begin_inset Formula 
 \begin{equation}
-I=\mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\int\delta^{2}\Lambda_{j}\left(\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\tilde{\delta}[\Lambda_{j}]\right)\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} .
+I=\mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\int\delta^{2}\Lambda_{j}\left(\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\Delta_{\mathbb{M}_{j}}[\Lambda_{j}]\right)\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} .
 \end{equation}
 
 \end_inset
@@ -1328,14 +1402,14 @@ reference "lmm:func-calculus:zero-delta-integrals"
 : 
 \begin_inset Formula 
 \begin{eqnarray}
-I & = & \mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\int\delta^{2}\Lambda_{j}\tilde{\delta}[\Lambda_{j}]\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} \nonumber \\
+I & = & \mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\int\delta^{2}\Lambda_{j}\Delta_{\mathbb{M}_{j}}[\Lambda_{j}]\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} \nonumber \\
  & = & \left.\left(\prod_{j=1}^{C}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\right)\chi_{W}[\boldsymbol{\Lambda},\boldsymbol{\Lambda}^{*}]\right|_{\boldsymbol{\Lambda}\equiv0},
 \end{eqnarray}
 
 \end_inset
 
 where 
-\begin_inset Formula $\tilde{\delta}[\Lambda_{j}]$
+\begin_inset Formula $\Delta_{\mathbb{M}_{j}}$
 \end_inset
 
  is a delta functional from Definition
@@ -1525,7 +1599,7 @@ name "thm:transformations:w-commutator1"
  
 \begin_inset Formula 
 \begin{equation}
-\mathcal{W}\left[[\int d\boldsymbol{x}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k},\tilde{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi_{j}}\Psi_{k}+\frac{\delta}{\delta\Psi_{k}^{*}}\Psi_{j}^{*}\right)\mathcal{W}[\tilde{A}].
+\mathcal{W}\left[[\int d\boldsymbol{x}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k},\hat{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi_{j}}\Psi_{k}+\frac{\delta}{\delta\Psi_{k}^{*}}\Psi_{j}^{*}\right)\mathcal{W}[\hat{A}].
 \end{equation}
 
 \end_inset
@@ -1573,7 +1647,7 @@ name "thm:transformations:w-laplacian-commutator1"
  
 \begin_inset Formula 
 \begin{equation}
-\mathcal{W}\left[\int d\boldsymbol{x}[\tilde{\Psi}^{\dagger}\nabla^{2}\tilde{\Psi},\tilde{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi}\nabla^{2}\Psi+\frac{\delta}{\delta\Psi^{*}}\nabla^{2}\Psi^{*}\right)\mathcal{W}[\tilde{A}].
+\mathcal{W}\left[\int d\boldsymbol{x}[\tilde{\Psi}^{\dagger}\nabla^{2}\tilde{\Psi},\hat{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi}\nabla^{2}\Psi+\frac{\delta}{\delta\Psi^{*}}\nabla^{2}\Psi^{*}\right)\mathcal{W}[\hat{A}].
 \end{equation}
 
 \end_inset
@@ -1634,13 +1708,13 @@ name "thm:transformations:w-commutator2"
  
 \begin_inset Formula 
 \begin{eqnarray}
- &  & \mathcal{W}\left[[\int d\boldsymbol{x}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k}^{\dagger}\tilde{\Psi}_{j}\tilde{\Psi}_{k},\tilde{A}]\right]\nonumber \\
+ &  & \mathcal{W}\left[[\int d\boldsymbol{x}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k}^{\dagger}\tilde{\Psi}_{j}\tilde{\Psi}_{k},\hat{A}]\right]\nonumber \\
  &  & =\int d\boldsymbol{x}\left(\frac{\delta}{\delta\Psi_{j}}\left(-\Psi_{j}\Psi_{k}\Psi_{k}^{*}+\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x},\boldsymbol{x})\left(\delta_{jk}\Psi_{k}+\Psi_{j}\right)\right)\right.\nonumber \\
  &  & \left.+\frac{\delta}{\delta\Psi_{j}^{*}}\left(\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{*}-\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x},\boldsymbol{x})\left(\delta_{jk}\Psi_{k}^{*}+\Psi_{j}^{*}\right)\right)\right.\nonumber \\
  &  & \left.+\frac{\delta}{\delta\Psi_{k}}\left(-\Psi_{j}\Psi_{j}^{*}\Psi_{k}+\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x},\boldsymbol{x})\left(\delta_{jk}\Psi_{j}+\Psi_{k}\right)\right)\right.\nonumber \\
  &  & \left.+\frac{\delta}{\delta\Psi_{k}^{*}}\left(\Psi_{j}\Psi_{j}^{*}\Psi_{k}^{*}-\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x},\boldsymbol{x})\left(\delta_{jk}\Psi_{j}^{*}+\Psi_{k}^{*}\right)\right)\right.\nonumber \\
  &  & \left.+\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{\delta}{\delta\Psi_{k}}\frac{1}{4}\Psi_{k}-\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{1}{4}\Psi_{k}^{*}\right.\nonumber \\
- &  & \left.+\frac{\delta}{\delta\Psi_{k}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{\delta}{\delta\Psi_{j}}\frac{1}{4}\Psi_{j}-\frac{\delta}{\delta\Psi_{k}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{1}{4}\Psi_{j}^{*}\right)\mathcal{W}[\tilde{A}].
+ &  & \left.+\frac{\delta}{\delta\Psi_{k}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{\delta}{\delta\Psi_{j}}\frac{1}{4}\Psi_{j}-\frac{\delta}{\delta\Psi_{k}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{1}{4}\Psi_{j}^{*}\right)\mathcal{W}[\hat{A}].
 \end{eqnarray}
 
 \end_inset
@@ -1928,7 +2002,7 @@ reference "eqn:master-eqn:loss-term"
 ) is 
 \begin_inset Formula 
 \begin{equation}
-\mathcal{W}\left[\int d\boldsymbol{x}\mathcal{L}_{\boldsymbol{l}}[\tilde{A}]\right]=\int d\boldsymbol{x}\sum_{j_{1}=0}^{l_{1}}\sum_{k_{1}=0}^{l_{1}}\ldots\sum_{j_{C}=0}^{l_{C}}\sum_{k_{C}=0}^{l_{C}}\left(\prod_{c=1}^{C}\left(\frac{\delta}{\delta\Psi_{c}^{*}}\right)^{j_{c}}\left(\frac{\delta}{\delta\Psi_{c}}\right)^{k_{c}}\right)L_{\boldsymbol{l},\boldsymbol{j},\boldsymbol{k}}\mathcal{W}[\tilde{A}],
+\mathcal{W}\left[\int d\boldsymbol{x}\mathcal{L}_{\boldsymbol{l}}[\hat{A}]\right]=\int d\boldsymbol{x}\sum_{j_{1}=0}^{l_{1}}\sum_{k_{1}=0}^{l_{1}}\ldots\sum_{j_{C}=0}^{l_{C}}\sum_{k_{C}=0}^{l_{C}}\left(\prod_{c=1}^{C}\left(\frac{\delta}{\delta\Psi_{c}^{*}}\right)^{j_{c}}\left(\frac{\delta}{\delta\Psi_{c}}\right)^{k_{c}}\right)L_{\boldsymbol{l},\boldsymbol{j},\boldsymbol{k}}\mathcal{W}[\hat{A}],
 \end{equation}
 
 \end_inset
@@ -2513,7 +2587,7 @@ reference "thm:func-wigner:moments"
 \begin_inset Formula 
 \begin{eqnarray}
 \langle\left\{ \prod_{c=1}^{C}\tilde{\Psi}_{c}^{r_{c}}(\tilde{\Psi}_{c}^{\dagger})^{s_{c}}\right\} _{\mathrm{sym}}\rangle &  & =\int\delta\boldsymbol{\Psi}\left(\prod_{c=1}^{C}\Psi_{c}^{r_{c}}(\Psi_{c}^{*})^{s_{c}}\right)W\nonumber \\
- &  & \approx\left\{ \prod_{c=1}^{C}\Psi_{c}^{r_{c}}(\Psi_{c}^{*})^{s_{c}}\right\} _{\mathrm{paths}},
+ &  & \approx\left\langle \prod_{c=1}^{C}\Psi_{c}^{r_{c}}(\Psi_{c}^{*})^{s_{c}}\right\rangle _{\mathrm{paths}},
 \end{eqnarray}
 
 \end_inset
@@ -2527,7 +2601,7 @@ where
 \end_inset
 
  is some set of non-negative integers, and 
-\begin_inset Formula $\left\{ \right\} _{\mathrm{paths}}$
+\begin_inset Formula $\left\langle \right\rangle _{\mathrm{paths}}$
 \end_inset
 
  stands for the average over the simulation paths.
@@ -2956,23 +3030,27 @@ Let
 \end_inset
 
  (restricted functions).
- Composition transformation creates a function from a vector of mode populations
-: 
+ Composition transformation 
+\begin_inset Formula $\mathcal{C}_{\mathbb{M}}\in\mathbb{C}^{|\mathbb{M}|}\rightarrow\mathbb{F}_{\mathbb{M}}$
+\end_inset
+
+ creates a function from a vector of mode populations: 
 \begin_inset Formula 
-\begin{eqnarray*}
- &  & \mathcal{C}_{\mathbb{M}}::\mathbb{C}^{|\mathbb{M}|}\rightarrow\mathbb{F}_{\mathbb{M}}\\
- &  & \mathcal{C}_{\mathbb{M}}(\boldsymbol{\alpha})=\sum_{\boldsymbol{n}\in\mathbb{M}}\phi_{\boldsymbol{n}}\alpha_{\boldsymbol{n}}.
-\end{eqnarray*}
+\[
+\mathcal{C}_{\mathbb{M}}(\boldsymbol{\alpha})=\sum_{\boldsymbol{n}\in\mathbb{M}}\phi_{\boldsymbol{n}}\alpha_{\boldsymbol{n}}.
+\]
 
 \end_inset
 
-Decomposition transformation, correspondingly, creates a vector of populations
- out of a function: 
+Decomposition transformation 
+\begin_inset Formula $\mathcal{C}_{\mathbb{M}}^{-1}\in\mathbb{F}\rightarrow\mathbb{C}^{|\mathbb{M}|}$
+\end_inset
+
+, correspondingly, creates a vector of populations out of a function: 
 \begin_inset Formula 
-\begin{eqnarray*}
- &  & \mathcal{C}_{\mathbb{M}}^{-1}::\mathbb{F}\rightarrow\mathbb{C}^{|\mathbb{M}|}\\
- &  & (\mathcal{C}_{\mathbb{M}}^{-1}[f])_{\boldsymbol{n}}=\int d\boldsymbol{x}\phi_{\boldsymbol{n}}^{*}f,\,\boldsymbol{n}\in\mathbb{M}.
-\end{eqnarray*}
+\[
+(\mathcal{C}_{\mathbb{M}}^{-1}[f])_{\boldsymbol{n}}=\int d\boldsymbol{x}\phi_{\boldsymbol{n}}^{*}f,\,\boldsymbol{n}\in\mathbb{M}.
+\]
 
 \end_inset
 
@@ -3046,11 +3124,38 @@ name "def:func-calculus:projector"
 \end_inset
 
  Projection transformation 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathcal{P}_{\mathbb{M}}\in\mathbb{F}\rightarrow\mathbb{F}_{\mathbb{M}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
 \begin_inset Formula 
-\begin{eqnarray*}
- &  & \mathcal{P}_{\mathbb{M}}::\mathbb{F}\rightarrow\mathbb{F}_{\mathbb{M}}\\
- &  & \mathcal{P}_{\mathbb{M}}[f](\boldsymbol{x})=(\mathcal{C}_{\mathbb{M}}(\mathcal{C}_{\mathbb{M}}^{-1}[f]))(\boldsymbol{x})=\sum_{\boldsymbol{n}\in\mathbb{M}}\phi_{\boldsymbol{n}}\int d\boldsymbol{x}^{\prime}\,\phi_{\boldsymbol{n}}^{\prime*}f^{\prime}=\int d\boldsymbol{x}^{\prime}\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime},\boldsymbol{x})f^{\prime}.
-\end{eqnarray*}
+\[
+\mathcal{P}_{\mathbb{M}}[f](\boldsymbol{x})=(\mathcal{C}_{\mathbb{M}}(\mathcal{C}_{\mathbb{M}}^{-1}[f]))(\boldsymbol{x})=\sum_{\boldsymbol{n}\in\mathbb{M}}\phi_{\boldsymbol{n}}\int d\boldsymbol{x}^{\prime}\,\phi_{\boldsymbol{n}}^{\prime*}f^{\prime}=\int d\boldsymbol{x}^{\prime}\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime},\boldsymbol{x})f^{\prime}.
+\]
 
 \end_inset
 
@@ -3079,7 +3184,7 @@ The conjugate of
 
 \begin_layout Standard
 Let 
-\begin_inset Formula $\mathcal{F}[f]::\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F}$
+\begin_inset Formula $\mathcal{F}[f]\in\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F}$
 \end_inset
 
  be some transformation (note that the result is not guaranteed to belong
@@ -3096,13 +3201,16 @@ Let
 \begin_inset Formula $\mathcal{F}$
 \end_inset
 
- can be alternatively treated as a function of a vector of complex numbers:
+ can be alternatively treated as a function of a vector of complex numbers
  
+\begin_inset Formula $\mathcal{F}\in\mathbb{C}^{|\mathbb{M}|}\rightarrow\mathbb{C}^{\infty}$
+\end_inset
+
+: 
 \begin_inset Formula 
-\begin{eqnarray}
- &  & \mathcal{F}::\mathbb{C}^{|\mathbb{M}|}\rightarrow\mathbb{C}^{\infty}\nonumber \\
- &  & \mathcal{F}(\boldsymbol{\alpha})\equiv\mathcal{C}_{\mathbb{M}}^{-1}[\mathcal{F}[\mathcal{C}_{\mathbb{M}}(\boldsymbol{\alpha})]].
-\end{eqnarray}
+\[
+\mathcal{F}(\boldsymbol{\alpha})\equiv\mathcal{C}_{\mathbb{M}}^{-1}[\mathcal{F}[\mathcal{C}_{\mathbb{M}}(\boldsymbol{\alpha})]].
+\]
 
 \end_inset
 
@@ -3116,12 +3224,15 @@ name "def:func-calculus:func-diff"
 
 \end_inset
 
- Functional derivative is defined as 
+ Functional derivative 
+\begin_inset Formula $\frac{\delta}{\delta f^{\prime}}\in\left(\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F}\right)\rightarrow\left(\mathbb{R}^{D}\rightarrow\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F}\right)$
+\end_inset
+
+ is defined as 
 \begin_inset Formula 
-\begin{eqnarray*}
- &  & \frac{\delta}{\delta f^{\prime}}::\left(\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F}\right)\rightarrow\left(\mathbb{R}^{D}\rightarrow\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F}\right)\\
- &  & \frac{\delta\mathcal{F}[f]}{\delta f^{\prime}}=\sum_{\boldsymbol{n}\in\mathbb{M}}\phi_{\boldsymbol{n}}^{\prime*}\frac{\partial\mathcal{F}(\boldsymbol{\alpha})}{\partial\alpha_{\boldsymbol{n}}}.
-\end{eqnarray*}
+\[
+\frac{\delta\mathcal{F}[f]}{\delta f^{\prime}}=\sum_{\boldsymbol{n}\in\mathbb{M}}\phi_{\boldsymbol{n}}^{\prime*}\frac{\partial\mathcal{F}(\boldsymbol{\alpha})}{\partial\alpha_{\boldsymbol{n}}}.
+\]
 
 \end_inset
 
@@ -3208,12 +3319,39 @@ If
 \end_layout
 
 \begin_layout Definition
-Functional integration is defined as
+Functional integration 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\int\delta^{2}f\in(\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F})\rightarrow\mathbb{C}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ is defined as
 \begin_inset Formula 
-\begin{eqnarray*}
- &  & \int\delta^{2}f::(\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F})\rightarrow\mathbb{C}\\
- &  & \int\delta^{2}f\mathcal{F}[f]=\int d^{2}\boldsymbol{\alpha}\mathcal{F}(\boldsymbol{\alpha})
-\end{eqnarray*}
+\[
+\int\delta^{2}f\mathcal{F}[f]=\int d^{2}\boldsymbol{\alpha}\mathcal{F}(\boldsymbol{\alpha})
+\]
 
 \end_inset
 
@@ -3865,29 +4003,19 @@ name "thm:app-fpe:fpe-sde-func"
 
 \end_inset
 
- For the probability distribution 
+ For a probability distribution 
 \begin_inset Formula $W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]\in(\mathbb{F}_{\mathbb{M}}^{C}\rightarrow\mathbb{R})$
 \end_inset
 
+, a vector of transformations 
+\begin_inset Formula $\vec{\mathcal{A}}$
+\end_inset
+
+ and a matrix of transformations 
+\begin_inset Formula $\mathcal{B}$
+\end_inset
+
  the functional FPE 
-\begin_inset Formula 
-\[
-\frac{dW}{dt}=\int d\boldsymbol{x}\left(-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}}\mathcal{A}_{j}-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}^{*}}\mathcal{A}_{j}^{*}+\sum_{j=1}^{C}\sum_{k=1}^{C}\frac{\delta^{2}}{\delta\Psi_{j}^{*}\delta\Psi_{k}}\sum_{\boldsymbol{l}}\mathcal{B}_{k\boldsymbol{l}}\mathcal{B}_{j\boldsymbol{l}}^{*}\right)W
-\]
-
-\end_inset
-
-
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: alternatively, in matrix form]
-\end_layout
-
-\end_inset
-
- 
 \begin_inset Formula 
 \[
 \frac{dW}{dt}=\int d\boldsymbol{x}\left(-2\mathrm{Re}\left(\boldsymbol{\delta}_{\boldsymbol{\Psi}}\cdot\vec{\mathcal{A}}\right)+\mathrm{Tr}\left\{ \boldsymbol{\delta}_{\boldsymbol{\Psi}^{*}}\boldsymbol{\delta}_{\boldsymbol{\Psi}}^{T}\mathcal{B}\mathcal{B}^{H}\right\} \right)W
@@ -3898,24 +4026,6 @@ status open
 is equivalent to the set of SDEs in Itô form 
 \begin_inset Formula 
 \[
-d\Psi_{j}=\mathcal{P}_{\mathbb{M}_{j}}\left[\mathcal{A}_{j}dt+\sum_{\boldsymbol{l}}\mathcal{B}_{j\boldsymbol{l}}dQ_{\boldsymbol{l}}\right],
-\]
-
-\end_inset
-
-
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: alternatively, in matrix form]
-\end_layout
-
-\end_inset
-
- 
-\begin_inset Formula 
-\[
 d\boldsymbol{\Psi}=\vec{\mathcal{P}}\left[\vec{\mathcal{A}}dt+\mathcal{B}d\boldsymbol{Q}\right]
 \]
 
@@ -3924,7 +4034,7 @@ d\boldsymbol{\Psi}=\vec{\mathcal{P}}\left[\vec{\mathcal{A}}dt+\mathcal{B}d\bolds
 or in Stratonovich form 
 \begin_inset Formula 
 \[
-d\Psi_{j}=\mathcal{P}_{\mathbb{M}_{j}}\left[(\mathcal{A}_{j}-\mathcal{S}_{j})dt+\sum_{\boldsymbol{l}}\mathcal{B}_{j\boldsymbol{l}}dQ_{\boldsymbol{l}}\right],
+d\boldsymbol{\Psi}=\vec{\mathcal{P}}\left[(\vec{\mathcal{A}}-\vec{\mathcal{S}})dt+\mathcal{B}d\boldsymbol{Q}\right],
 \]
 
 \end_inset
@@ -3932,42 +4042,32 @@ d\Psi_{j}=\mathcal{P}_{\mathbb{M}_{j}}\left[(\mathcal{A}_{j}-\mathcal{S}_{j})dt+
 where 
 \begin_inset Formula 
 \[
-\mathcal{S}_{j}=\sum_{c=1}^{C}\sum_{\boldsymbol{l}}\mathcal{B}_{c\boldsymbol{l}}^{*}\frac{\delta}{\delta\Psi_{c}^{*}}\mathcal{B}_{j\boldsymbol{l}},
-\]
-
-\end_inset
-
-
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: alternatively, in matrix form]
-\end_layout
-
-\end_inset
-
- 
-\begin_inset Formula 
-\[
 \mathcal{S}_{j}=\mathrm{Tr}\left\{ \mathcal{B}^{H}\boldsymbol{\partial}_{\boldsymbol{\Psi}^{*}}\boldsymbol{e}_{j}^{T}\mathcal{B}\right\} ,
 \]
 
 \end_inset
 
-and 
-\begin_inset Formula $Q_{\boldsymbol{l}}$
+
+\begin_inset Formula $\boldsymbol{Q}$
 \end_inset
 
- is a functional Wiener process: 
+ is a vector of functional Wiener processes: 
 \begin_inset Formula 
 \[
-Q_{\boldsymbol{l}}=\sum_{\boldsymbol{n}\in\mathbb{B}}\phi_{\boldsymbol{n}}Z_{\boldsymbol{l},\boldsymbol{n}}.
+Q_{\boldsymbol{l}}=\sum_{\boldsymbol{n}\in\mathbb{B}}\phi_{\boldsymbol{n}}Z_{\boldsymbol{l},\boldsymbol{n}},
 \]
 
 \end_inset
 
- 
+
+\end_layout
+
+\begin_layout Theorem
+and 
+\begin_inset Formula $\vec{\mathcal{P}}^{T}=\left(\mathcal{P}_{\mathbb{M}_{1}},\ldots,\mathcal{P}_{\mathbb{M}_{C}}\right)$
+\end_inset
+
+ is a vector of projection transformations.
 \end_layout
 
 \begin_layout Proof
