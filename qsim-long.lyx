@@ -69,7 +69,7 @@ theorems-ams
 \begin_body
 
 \begin_layout Title
-Wigner representation of BEC
+Functional Wigner representation of BEC quantum dynamics
 \end_layout
 
 \begin_layout Author
@@ -114,10 +114,15 @@ today
 \end_layout
 
 \begin_layout Abstract
-We develop a method of simulating full quantum dynamics of multi-mode multi-comp
-onent Bose-Einstein condensate in a trap.
- We use truncated Wigner representation to produce stochastic equations
- that can be solved using conventional methods.
+We develop a method of simulating the full quantum dynamics of multi-mode
+ multi-component Bose-Einstein condensates in a trap.
+ We use the truncated Wigner representation to obtain a probabilistic theory
+ that can be sampled.
+ This method produces c-number stochastic equations that can be solved using
+ conventional computational methods.
+ The technique is valid for large mode occupation numbers.
+ We give a detailed derivation of methods of functional Wigner representation
+ appropriate for quantum fields.
  Our approach describes spatial evolution of spinor components and properly
  accounts for nonlinear losses.
  
@@ -128,34 +133,44 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: Introductory words?]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Wigner representation
+The Wigner representation
 \begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Gardiner2004"
+key "Wigner1932,Moyal1947,Dirac1945"
 
 \end_inset
 
- is a convenient and effective method of simulating the dynamics of Bose-Einstei
-n condensates (BECs).
- It works best in the limit of large particle number, where direct diagonalizati
-on approaches like
+ is a convenient and effective method of simulating the dynamics of bosonic
+ quantum fields
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Drummond1993"
+
+\end_inset
+
+, including Bose-Einstein condensates (BECs)
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Steel1998"
+
+\end_inset
+
+.
+ It works best in the limit of large particle number, where third-order
+ derivative terms in the Wigner-Moyal time-evolution equation can be truncated,
+ and direct diagonalization approaches
 \begin_inset space ~
 \end_inset
 
@@ -167,7 +182,7 @@ key "Sakmann2009"
 \end_inset
 
  become computationally impossible.
- Large particle number usually implies large amount of field modes with
+ Large particle number usually implies large numbers of field modes with
  significant population, which makes two-mode variational approaches
 \begin_inset space ~
 \end_inset
@@ -180,11 +195,86 @@ key "Li2008,Li2009,Sinatra2011"
 \end_inset
 
  less accurate.
+ This technique has been applied to a number of quantum dynamics problems
+ in both quantum optical
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Drummond1993a,Corney2008,Corney2006"
+
+\end_inset
+
+ and BEC systems
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Norrie2005,Norrie2006,Egorov2011,Opanchuk2012"
+
+\end_inset
+
+.
+ A comparison of theoretical predictions of quantum fluctuations with experiment
+ has generally resulted in excellent agreement, provided the large particle
+ number criterion is met
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Deuar2007"
+
+\end_inset
+
+.
+ Other methods such as the positive-P representation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Drummond_Gardiner_PositivePRep"
+
+\end_inset
+
+ are known to work better
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Deuar2007"
+
+\end_inset
+
+ when the truncation approximation breaks down; however, the truncated Wigner
+ technique is a numerically robust and useful method for BEC simulations,
+ within its domain of applicability
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sinatra2002,Opanchuk2012a"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-Phase-space treatment of multimode problems can be simplified by working
- with multimode field operators instead of single-mode operators.
+The phase-space treatment of multimode problems can be simplified by working
+ with functional mappings to field operators rather than to single-mode
+ operators.
  This approach was initially introduced by Graham
 \begin_inset space ~
 \end_inset
@@ -208,10 +298,10 @@ key "Steel1998,Isella2006,Norrie2006a"
 
 \end_inset
 
- without formally defining and generalizing corresponding transformation,
- or accompanying theorems.
- In order to numerically calculate the evolution of the Wigner function
- of a system, one has to employ Wigner truncation
+ without formally defining the corresponding transformations or accompanying
+ theorems.
+ In order to numerically calculate the approximate evolution of the Wigner
+ function of a system, one has to truncate third-order derivative terms
 \begin_inset space ~
 \end_inset
 
@@ -222,111 +312,56 @@ key "Drummond1993,Steel1998,Sinatra2002"
 
 \end_inset
 
-, which further complicates the formal description of the method.
+, and project out modes with low occupation numbers.
+ This further complicates the formal description of the method.
+ Recent developments in ultra-cold atomic physics mean that processes like
+ nonlinear damping, not consdered in detail previously, have also become
+ important.
+ Accordingly, much of the mathematical derivation of these techniques is
+ not readily available.
 \end_layout
 
 \begin_layout Standard
-In this paper we present a formal description of the application of truncated
- Wigner representation to simulating the multi-mode dynamics of Bose-Einstein
- condensates (BECs).
+In this paper we present a formal description of the application of the
+ resulting truncated Wigner representation to simulating the multi-mode
+ dynamics of Bose-Einstein condensates (BECs).
  We successively reduce the problem in its initial form, the master equation
  for bosonic field operators, to the system of stochastic differential equations
-, which have significantly lower computational complexity (at a price of
- making several approximations).
+, which have significantly lower computational complexity.
+ While there is a price of making the truncation approximation, we emphasize
+ that this is a systematic expansion in a small parameter, 
+\begin_inset Formula $1/N$
+\end_inset
+
+, where 
+\begin_inset Formula $N$
+\end_inset
+
+ is the particle number.
+ The purpose of this paper is to provide a more rigorous proof, within the
+ functional analysis formalism, of several identities that are used for
+ these derivations.
+ We focus especially on the problem of nonlinear damping.
+ This is a dominant relaxation mechanism in BEC systems, and is often ignored
+ or (incorrectly) approximated using linear loss terms.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: Possibly worth mentioning:]
-\end_layout
-
-\end_inset
-
- Positive-P and Wigner application:
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Deuar2007"
-
-\end_inset
-
-.
- Multimode Wigner using decomposition into modes (no losses):
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Norrie2005,Norrie2006"
-
-\end_inset
-
-.
- Functional Wigner, finite-temperature:
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Steel1998,Isella2006"
-
-\end_inset
-
-.
- Applications of method from this paper: Ramsey interferometry simulations
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Egorov2011"
-
-\end_inset
-
-, short letter on Ramsey and squeezing
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Opanchuk2012"
-
-\end_inset
-
-, 4-mode truncated Wigner and losses in entanglement calculations
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Opanchuk2012a"
-
-\end_inset
-
-.
+We derive the resulting stochastic differential equations from the functional
+ Fokker-Planck equations, and show when the corresponding truncation approximato
+ins are applicable.
 \end_layout
 
 \begin_layout Section
-Master equation
+Quantum fields and dynamics
 \end_layout
 
 \begin_layout Standard
-In this paper we consider a zero-temperature 
+In this paper we consider a 
 \begin_inset Formula $C$
 \end_inset
 
--component BEC in 
+-component Bose gas in 
 \begin_inset Formula $D$
 \end_inset
 
@@ -344,15 +379,15 @@ In this paper we consider a zero-temperature
 \begin_inset Formula $j=1\ldots C$
 \end_inset
 
-, which obey standard bosonic commutation relation 
+, which obey standard bosonic commutation relations 
 \begin_inset Formula 
 \begin{equation}
-[\hat{\Psi}_{j},\hat{\Psi}_{k}^{\prime\dagger}]=\delta_{jk}\delta(\boldsymbol{x}^{\prime}-\boldsymbol{x}),\label{eqn:master-eqn:commutators}
+[\hat{\Psi}_{j},\hat{\Psi}_{k}^{\prime\dagger}]=\delta_{jk}\delta(\boldsymbol{x}^{\prime}-\boldsymbol{x}).\label{eqn:master-eqn:commutators}
 \end{equation}
 
 \end_inset
 
-where 
+Here 
 \begin_inset Formula $\boldsymbol{x}\in\mathbb{R}^{D}$
 \end_inset
 
@@ -360,7 +395,7 @@ where
 \begin_inset Formula $D$
 \end_inset
 
--dimensional coordinate vector, and we dubbed 
+-dimensional coordinate vector, we define 
 \begin_inset Formula $\hat{\Psi}_{j}\equiv\hat{\Psi}_{j}(\boldsymbol{x})$
 \end_inset
 
@@ -368,9 +403,53 @@ where
 \begin_inset Formula $\hat{\Psi}_{k}^{\prime}\equiv\hat{\Psi}_{k}(\boldsymbol{x}^{\prime})$
 \end_inset
 
- for brevity (hereinafter the same abbreviation will be used for all functions
- of coordinates).
- The second-quantized Hamiltonian for the system is 
+ for brevity (the same abbreviation will be used for all functions of coordinate
+s), and 
+\begin_inset Formula $\delta(\boldsymbol{x}^{\prime}-\boldsymbol{x})$
+\end_inset
+
+ is a D-dimensional Dirac delta function.
+ 
+\end_layout
+
+\begin_layout Subsection
+Quantized Hamiltonian
+\end_layout
+
+\begin_layout Standard
+The second-quantized Hamiltonian for the system, integrated with a 
+\begin_inset Formula $D-$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+dimensional
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ volume measure 
+\begin_inset Formula $d\boldsymbol{x}$
+\end_inset
+
+, is 
 \begin_inset Formula 
 \begin{equation}
 \hat{H}=\int d\boldsymbol{x}\left\{ \hat{\Psi}_{j}^{\dagger}K_{jk}\hat{\Psi}_{k}+\frac{1}{2}\int d\boldsymbol{x}^{\prime}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k}^{\prime\dagger}U_{jk}(\boldsymbol{x}-\boldsymbol{x}^{\prime})\hat{\Psi}_{j}^{\prime}\hat{\Psi}_{k}\right\} ,\label{eqn:master-eqn:hamiltonian}
@@ -390,12 +469,12 @@ where
  is 
 \begin_inset Formula 
 \begin{equation}
-K_{jk}=\left(-\frac{\hbar^{2}}{2m}\nabla^{2}+\hbar\omega_{j}+V_{j}(\boldsymbol{x})\right)\delta_{jk}+\hbar\Omega_{jk}(t),\label{eqn:master-eqn:single-particle}
+K_{jk}=\left(-\frac{\hbar^{2}}{2m}\nabla^{2}+\hbar\omega_{j}+V_{j}(\boldsymbol{x})\right)\delta_{jk}+\hbar\Omega_{jk}(t).\label{eqn:master-eqn:single-particle}
 \end{equation}
 
 \end_inset
 
-where 
+Here 
 \begin_inset Formula $m$
 \end_inset
 
@@ -424,8 +503,8 @@ where
 \end_layout
 
 \begin_layout Standard
-If we impose an energy cutoff 
-\begin_inset Formula $\epsilon_{\mathrm{cut}}$
+If we impose a momentum cutoff 
+\begin_inset Formula $k_{\mathrm{c}}$
 \end_inset
 
  and only take into account low-energy modes, the non-local scattering potential
@@ -451,22 +530,22 @@ key "Morgan2000"
 , giving the effective Hamiltonian 
 \begin_inset Formula 
 \begin{equation}
-\hat{H}=\int d\boldsymbol{x}\left\{ \hat{\Psi}_{j}^{\dagger}K_{jk}\hat{\Psi}_{k}+\frac{U_{jk}}{2}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k}^{\dagger}\hat{\Psi}_{j}\hat{\Psi}_{k}\right\} ,\label{eqn:master-eqn:effective-H}
+\hat{H}=\int d\boldsymbol{x}\left\{ \vec{n}_{j}^{\dagger}K_{jk}\tilde{\Psi}_{k}+\frac{U_{jk}}{2}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k}^{\dagger}\tilde{\Psi}_{j}\tilde{\Psi}_{k}\right\} ,\label{eqn:master-eqn:effective-H}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $\hat{\Psi}_{j}^{\dagger}$
+\begin_inset Formula $\tilde{\Psi}_{j}^{\dagger}$
 \end_inset
 
  and 
-\begin_inset Formula $\hat{\Psi}_{j}$
+\begin_inset Formula $\tilde{\Psi}_{j}$
 \end_inset
 
  are field operators in the new restricted basis of low-energy modes, which
  is described in detail in the next section.
- For the 
+ For 
 \begin_inset Formula $s$
 \end_inset
 
@@ -479,28 +558,32 @@ where
 \end_inset
 
  is the scattering length.
- Note that in general case the coefficient must be renormalised depending
- on the grid
+ In general, the coefficient must be renormalised depending on the momentum
+ cutoff
 \begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Sinatra2002"
+key "Sinatra2002,KokkelmansPhysRevA2002"
 
 \end_inset
 
 , but the change is small if 
-\begin_inset Formula $dx\gg a_{jk}$
+\begin_inset Formula $k_{c}a_{jk}\ll1$
 \end_inset
 
 .
 \end_layout
 
+\begin_layout Subsection
+Master Equation
+\end_layout
+
 \begin_layout Standard
-The Markovian master equation for the system with the inclusion of losses
- can be written as
+The time-evolution of the resulting quantum density matrix with particle
+ losses included can be written as a Markovian master equation
 \begin_inset space ~
 \end_inset
 
@@ -511,7 +594,7 @@ key "Jack2002"
 
 \end_inset
 
- 
+ for the system: 
 \begin_inset Formula 
 \begin{equation}
 \frac{d\hat{\rho}}{dt}=-\frac{i}{\hbar}\left[\hat{H},\hat{\rho}\right]+\sum_{\boldsymbol{l}}\kappa_{\boldsymbol{l}}\int d\boldsymbol{x}\mathcal{L}_{\boldsymbol{l}}\left[\hat{\rho}\right],\label{eqn:master-eqn:master-eqn}
@@ -524,12 +607,17 @@ where
 \end_inset
 
  is a tuple indicating the number of atoms from each component involved
- in the inelastic interaction, 
+ in the inelastic interaction that causes the relevant loss.
+ Here 
 \begin_inset Formula $C$
 \end_inset
 
- being the total number of components, and we have introduced local Liouville
- loss terms, 
+ is the total number of components, and we have introduced local Liouville
+ loss terms, that describe 
+\begin_inset Formula $n-$
+\end_inset
+
+body collisional losses in the Markovian approximation: 
 \begin_inset Formula 
 \begin{equation}
 \mathcal{L}_{\boldsymbol{l}}\left[\hat{\rho}\right]=2\hat{O}_{\boldsymbol{l}}\hat{\rho}\hat{O}_{\boldsymbol{l}}^{\dagger}-\hat{O}_{\boldsymbol{l}}^{\dagger}\hat{O}_{\boldsymbol{l}}\hat{\rho}-\hat{\rho}\hat{O}_{\boldsymbol{l}}^{\dagger}\hat{O}_{\boldsymbol{l}}.\label{eqn:master-eqn:loss-term}
@@ -537,15 +625,19 @@ where
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Standard
 The reservoir coupling operators 
 \begin_inset Formula $\hat{O}_{\boldsymbol{l}}$
 \end_inset
 
  are products of local field annihilation operators: 
 \begin_inset Formula 
-\[
-\hat{O}_{\boldsymbol{l}}\equiv\hat{O}_{\boldsymbol{l}}(\hat{\boldsymbol{\Psi}})=\prod_{c=1}^{C}\hat{\Psi}_{c}^{l_{c}}(\boldsymbol{x}),
-\]
+\begin{equation}
+\hat{O}_{\boldsymbol{l}}\equiv\hat{O}_{\boldsymbol{l}}(\tilde{\bm{\Psi}})=\prod_{c=1}^{C}\tilde{\Psi}_{c}^{l_{c}}(\boldsymbol{x}),
+\end{equation}
 
 \end_inset
 
@@ -554,9 +646,33 @@ describing local
 \end_inset
 
 -body collision losses.
+ In other words, this assumes that 
+\begin_inset Formula $l_{1},\ldots l_{C}$
+\end_inset
+
+, particles of internal state quantum number 
+\begin_inset Formula $c=1,\ldots C$
+\end_inset
+
+ all collide simultaneously within the volume corresponding to the inverse
+ momentum cutoff, and are removed from the Bose gas.
+ 
 \end_layout
 
-\begin_layout Section
+\begin_layout Standard
+This is a minimal approach to the complicated issue of particle loss, since
+ it assumes that the reservoir of `lost' particles does not interact with
+ the original Bose gas.
+ The accuracy of this approach depends on such issues as the trapping mechanism.
+ Since, for massive particles, the particle number is conserved in the non-relat
+ivistic limit, `lost' particles are simply in a different quantum state.
+ The assumption that these particles don't interact with the original Bose
+ gas is only valid if the trap is state-selective or the collision is highly
+ exothermic, such that the resulting particles are able to move rapidly
+ away.
+\end_layout
+
+\begin_layout Subsection
 Field operators and restricted basis
 \begin_inset CommandInset label
 LatexCommand label
@@ -568,7 +684,37 @@ name "sec:func-operators"
 \end_layout
 
 \begin_layout Standard
-For each component 
+It is always necessary in interacting quantum field theory to define a renormali
+zation together with a momentum cutoff.
+ In the case of the truncated Wigner method, this is more important, as
+ the truncation approximation is only valid if 
+\begin_inset Formula $M\ll N$
+\end_inset
+
+, where 
+\begin_inset Formula $M$
+\end_inset
+
+ is the number of modes and 
+\begin_inset Formula $N$
+\end_inset
+
+ the number of particles
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sinatra2002"
+
+\end_inset
+
+.
+ We therefore wish to treat this momentum cutoff procedure more carefully,
+ as it has a direct effect on the number of modes, and hence on the validity
+ of the truncation.
+ For each component 
 \begin_inset Formula $j$
 \end_inset
 
@@ -581,12 +727,12 @@ For each component
 \end_inset
 
  is a mode identifier.
- Orthonormality and completeness conditions for basis functions are, respectivel
-y, 
+ The orthonormality and completeness conditions for basis functions are,
+ respectively, 
 \begin_inset Formula 
 \begin{eqnarray}
- &  & \int\limits _{A}\phi_{j,\boldsymbol{n}}^{*}\phi_{j,\boldsymbol{m}}d\boldsymbol{x}=\delta_{\boldsymbol{n}\boldsymbol{m}},\\
- &  & \sum_{\boldsymbol{n}}\phi_{j,\boldsymbol{n}}^{*}\phi_{j,\boldsymbol{n}}^{\prime}=\delta(\boldsymbol{x}^{\prime}-\boldsymbol{x}),
+\int\limits _{A}\phi_{j,\boldsymbol{n}}^{*}\phi_{j,\boldsymbol{m}}d\boldsymbol{x} & = & \delta_{\boldsymbol{n}\boldsymbol{m}},\nonumber \\
+\sum_{\boldsymbol{n}}\phi_{j,\boldsymbol{n}}^{*}\phi_{j,\boldsymbol{n}}^{\prime} & = & \delta(\boldsymbol{x}^{\prime}-\boldsymbol{x}),
 \end{eqnarray}
 
 \end_inset
@@ -595,12 +741,13 @@ where the exact nature of integration area
 \begin_inset Formula $A$
 \end_inset
 
- depends on the basis set (for example, 
+ depends on the basis set.
+ For example, 
 \begin_inset Formula $A$
 \end_inset
 
- is the whole space for harmonic oscillator modes, or a box for plane waves).
- Hereinafter we assume that the integration 
+ is the whole space for harmonic oscillator modes, or a box for plane waves.
+ We assume that the integration 
 \begin_inset Formula $\int d\boldsymbol{x}$
 \end_inset
 
@@ -623,15 +770,11 @@ reference "eqn:master-eqn:commutators"
 
 \end_inset
 
-) which project coordinates to the full Hilbert space 
-\begin_inset Formula $\mathbb{H}$
-\end_inset
-
- can be decomposed as 
+) can be decomposed as 
 \begin_inset Formula 
-\[
-\hat{\Psi}_{j}\in(\mathbb{R}^{D}\rightarrow\mathbb{H}):\quad\hat{\Psi}_{j}=\sum_{\boldsymbol{n}\in\mathbb{B}_{j}}\phi_{j,\boldsymbol{n}}\hat{a}_{j,\boldsymbol{n}},
-\]
+\begin{equation}
+\hat{\Psi}_{j}=\sum_{\boldsymbol{n}\in\mathbb{B}_{j}}\phi_{j,\boldsymbol{n}}\hat{a}_{j,\boldsymbol{n}},
+\end{equation}
 
 \end_inset
 
@@ -644,40 +787,26 @@ where single mode operators
 \end_inset
 
  serving as a mode identifier.
- The energy cutoff mentioned in the previous section will result in operating
- with some fixed subset of each component's basis.
+ The cutoff mentioned in the previous section will result in operating with
+ some fixed subset of each component's basis.
  Let 
 \begin_inset Formula $\mathbb{M}_{j}\subseteq\mathbb{B}_{j}$
 \end_inset
 
- be this subset with cardinality 
-\begin_inset Formula $|\mathbb{M}|$
-\end_inset
-
-.
+ be this subset.
  Restricted field operators contain only modes from the subset 
 \begin_inset Formula $\mathbb{M}_{j}$
 \end_inset
 
 : 
 \begin_inset Formula 
-\[
-\hat{\Psi}_{j}\in(\mathbb{R}^{D}\rightarrow\mathbb{H}_{\mathbb{M}_{j}}):\quad\hat{\Psi}_{j}=\sum_{\boldsymbol{n}\in\mathbb{M}_{j}}\phi_{j,\boldsymbol{n}}\hat{a}_{j,\boldsymbol{n}}.
-\]
+\begin{equation}
+\tilde{\Psi}_{j}\in(\mathbb{R}^{D}\rightarrow\mathbb{H}_{\mathbb{M}_{j}}):\quad\tilde{\Psi}_{j}=\sum_{\boldsymbol{n}\in\mathbb{M}_{j}}\phi_{j,\boldsymbol{n}}\hat{a}_{j,\boldsymbol{n}}.
+\end{equation}
 
 \end_inset
 
-In this paper we will use them without explicit indices in order to avoid
- clutter [TODO: Should we explicitly mark 
-\begin_inset Quotes eld
-\end_inset
-
-full basis
-\begin_inset Quotes erd
-\end_inset
-
- operators in the previous section?].
- Restricted field operators have the type 
+ Formally, these field operators have the functional type 
 \begin_inset Formula $\mathbb{FH}_{\mathbb{M}_{j}}\equiv(\mathbb{R}^{D}\rightarrow\mathbb{H}_{\mathbb{M}_{j}})$
 \end_inset
 
@@ -707,16 +836,17 @@ reference "eqn:master-eqn:commutators"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\left[\hat{\Psi}_{j},\hat{\Psi}_{k}^{\prime}\right]=\left[\hat{\Psi}_{j}^{\dagger},\hat{\Psi}_{k}^{\prime\dagger}\right]=0,\qquad\left[\hat{\Psi}_{j},\hat{\Psi}_{k}^{\prime\dagger}\right]=\delta_{jk}\delta_{\mathbb{M}_{j}}(\boldsymbol{x}^{\prime},\boldsymbol{x}),\label{eqn:func-operators:restricted-commutators}
+\left[\tilde{\Psi}_{j},\tilde{\Psi}_{k}^{\prime}\right]=\left[\tilde{\Psi}_{j}^{\dagger},\tilde{\Psi}_{k}^{\prime\dagger}\right]=0,\qquad\left[\tilde{\Psi}_{j},\tilde{\Psi}_{k}^{\prime\dagger}\right]=\delta_{jk}\tilde{\delta}(\boldsymbol{x}^{\prime},\boldsymbol{x}),\label{eqn:func-operators:restricted-commutators}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $\delta_{\mathbb{M}_{j}}$
+\begin_inset Formula $\tilde{\delta}$
 \end_inset
 
- is the restricted delta-function from Definition
+ is a restricted delta-function.
+ The definition is given in the Appendix, in Definition
 \begin_inset space ~
 \end_inset
 
@@ -731,19 +861,28 @@ reference "def:func-calculus:restricted-delta"
 \end_layout
 
 \begin_layout Section
-Functional Wigner representation
+Functional Wigner representations
 \end_layout
 
 \begin_layout Standard
-The single-mode Wigner transformation of the operator 
+In this section we introduce and obtain properties of the functional Wigner
+ representation.
+ This will use a number of definitions and results from functional analysis.
+ The relevant mathematical material that is used in this section is defined
+ and its properties derived in the Appendix.
+\end_layout
+
+\begin_layout Standard
+As a starting point, we recall that the single-mode Wigner transformation
+ of the operator 
 \begin_inset Formula $\hat{A}$
 \end_inset
 
  is defined as 
 \begin_inset Formula 
-\[
+\begin{equation}
 \mathcal{W}_{\mathrm{sm}}[\hat{A}]=\frac{1}{\pi^{2}}\int d^{2}\lambda\exp(-\lambda\alpha^{*}+\lambda^{*}\alpha)\mathrm{Tr}\left\{ \hat{A}\hat{D}(\lambda,\lambda^{*})\right\} ,
-\]
+\end{equation}
 
 \end_inset
 
@@ -779,49 +918,55 @@ key "Gardiner2004"
 \end_inset
 
 .
- In this section we will extend this definition to the multimode case.
+ In this section we will extend this definition to the multimode case, using
+ a functional notation.
+\end_layout
+
+\begin_layout Subsection
+Definitions of functional operators
 \end_layout
 
 \begin_layout Standard
-The important part of the definition is the functional analogue of the displacem
-ent operator.
- 
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: Need to explain why we write 
-\begin_inset Formula $F[\Lambda,\Lambda^{*}]$
+We introduce complex functions 
+\begin_inset Formula $\Lambda\left(\mathbf{x}\right)$
 \end_inset
 
- and not 
-\begin_inset Formula $F[\Lambda]$
+, which play the role of the characteristic c-number 
+\begin_inset Formula $\lambda$
 \end_inset
 
-?]
-\end_layout
-
-\end_inset
-
-
+ in the single-mode case.
+ The important part of the definition is the functional analogue of the
+ displacement operator.
 \end_layout
 
 \begin_layout Definition
 Functional displacement operator 
 \begin_inset Formula 
-\begin{eqnarray*}
- &  & \hat{D}_{j}::\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{H}_{\mathbb{M}_{j}}\\
- &  & \hat{D}_{j}[\Lambda,\Lambda^{*}]=\exp\int d\boldsymbol{x}\left(\Lambda\hat{\Psi}_{j}^{\dagger}-\Lambda^{*}\hat{\Psi}_{j}\right).
-\end{eqnarray*}
+\begin{eqnarray}
+ &  & \hat{D}_{j}::\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{H}_{\mathbb{M}_{j}}\nonumber \\
+ &  & \hat{D}_{j}[\Lambda,\Lambda^{*}]=\exp\int d\boldsymbol{x}\left(\Lambda\tilde{\Psi}_{j}^{\dagger}-\Lambda^{*}\tilde{\Psi}_{j}\right).
+\end{eqnarray}
 
 \end_inset
 
-It is also convenient to define the displacement functional as 
+
+\end_layout
+
+\begin_layout Standard
+aaIt is also convenient to define the displacement functional as:
+\end_layout
+
+\begin_layout Definition
+Functional displacement operator
+\end_layout
+
+\begin_layout Ruled Table
 \begin_inset Formula 
-\begin{eqnarray*}
- &  & D::\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{C}\\
+\begin{eqnarray}
+ &  & D::\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{C}\nonumber \\
  &  & D[\Lambda,\Lambda^{*},\Psi,\Psi^{*}]=\exp\int d\boldsymbol{x}\left(-\Lambda\Psi^{*}+\Lambda^{*}\Psi\right).
-\end{eqnarray*}
+\end{eqnarray}
 
 \end_inset
 
@@ -842,10 +987,10 @@ name "lmm:func-wigner:displacement-derivatives"
 
  
 \begin_inset Formula 
-\begin{eqnarray*}
- &  & \frac{\delta}{\delta\Lambda^{\prime}}\hat{D}_{j}[\Lambda,\Lambda^{*}]=\hat{D}_{j}[\Lambda,\Lambda^{*}](\hat{\Psi}_{j}^{\prime\dagger}+\frac{1}{2}\Lambda^{\prime*})=(\hat{\Psi}_{j}^{\prime\dagger}-\frac{1}{2}\Lambda^{\prime*})\hat{D}_{j}[\Lambda,\Lambda^{*}],\\
- &  & -\frac{\delta}{\delta\Lambda^{\prime*}}\hat{D}_{j}[\Lambda,\Lambda^{*}]=\hat{D}_{j}(\Lambda,\Lambda^{*})(\hat{\Psi}_{j}^{\prime}+\frac{1}{2}\Lambda^{\prime})=(\hat{\Psi}_{j}^{\prime}-\frac{1}{2}\Lambda^{\prime})\hat{D}_{j}[\Lambda,\Lambda^{*}].
-\end{eqnarray*}
+\begin{eqnarray}
+ &  & \frac{\delta}{\delta\Lambda^{\prime}}\hat{D}_{j}[\Lambda,\Lambda^{*}]=\hat{D}_{j}[\Lambda,\Lambda^{*}](\tilde{\Psi}_{j}^{\prime\dagger}+\frac{1}{2}\Lambda^{\prime*})=(\tilde{\Psi}_{j}^{\prime\dagger}-\frac{1}{2}\Lambda^{\prime*})\hat{D}_{j}[\Lambda,\Lambda^{*}],\nonumber \\
+ &  & -\frac{\delta}{\delta\Lambda^{\prime*}}\hat{D}_{j}[\Lambda,\Lambda^{*}]=\hat{D}_{j}(\Lambda,\Lambda^{*})(\tilde{\Psi}_{j}^{\prime}+\frac{1}{2}\Lambda^{\prime})=(\tilde{\Psi}_{j}^{\prime}-\frac{1}{2}\Lambda^{\prime})\hat{D}_{j}[\Lambda,\Lambda^{*}].
+\end{eqnarray}
 
 \end_inset
 
@@ -857,7 +1002,7 @@ Proved using Baker-Hausdorff theorem and evaluating integrals.
 \end_layout
 
 \begin_layout Standard
-It is convenient to first define a general Wigner transformation.
+We define a general Wigner transformation as follows:
 \end_layout
 
 \begin_layout Definition
@@ -867,16 +1012,16 @@ name "def:func-wigner:w-transformation"
 
 \end_inset
 
- Multi-component functional Wigner transformation 
+ A multi-component functional Wigner transformation 
 \begin_inset Formula $\mathcal{W}$
 \end_inset
 
  is defined as 
 \begin_inset Formula 
-\begin{eqnarray*}
- &  & \mathcal{W}::\left(\mathbb{R}^{D}\rightarrow\prod_{j=1}^{C}\mathbb{H}_{\mathbb{M}_{j}}\right)\rightarrow\prod_{j=1}^{C}\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{C}\\
+\begin{eqnarray}
+ &  & \mathcal{W}::\left(\mathbb{R}^{D}\rightarrow\prod_{j=1}^{C}\mathbb{H}_{\mathbb{M}_{j}}\right)\rightarrow\prod_{j=1}^{C}\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{C}\nonumber \\
  &  & \mathcal{W}[\hat{A}]=\frac{1}{\pi^{2\sum|\mathbb{M}_{j}|}}\int\delta^{2}\boldsymbol{\Lambda}\left(\prod_{j=1}^{C}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\mathrm{Tr}\left\{ \hat{A}\prod_{j=1}^{C}\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} ,
-\end{eqnarray*}
+\end{eqnarray}
 
 \end_inset
 
@@ -889,7 +1034,7 @@ where
 \end_inset
 
 .
- It transforms a coordinate-dependent operator 
+ This transforms a coordinate-dependent operator 
 \begin_inset Formula $\hat{A}$
 \end_inset
 
@@ -898,21 +1043,11 @@ where
 \end_inset
 
 .
- 
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: Add expression for Weyl transformation?] 
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
-Wigner functional is a special case of Wigner transformation.
+Next we introduce the Wigner functional, which is a special case of Wigner
+ transformation.
 \end_layout
 
 \begin_layout Definition
@@ -924,10 +1059,10 @@ name "def:func-wigner:w-functional"
 
  The Wigner functional is 
 \begin_inset Formula 
-\begin{eqnarray*}
- &  & W::\prod_{j=1}^{C}\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{R}\\
- &  & W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]\equiv\mathcal{W}[\hat{\rho}]=\frac{1}{\pi^{2\sum|\mathbb{M}_{j}|}}\int\delta^{2}\boldsymbol{\Lambda}\left(\prod_{j=1}^{C}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\chi_{W},
-\end{eqnarray*}
+\begin{eqnarray}
+ &  & W::\prod_{j=1}^{C}\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{R}\nonumber \\
+ &  & W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]\equiv\mathcal{W}[\hat{\rho}]=\frac{1}{\pi^{2M}}\int\delta^{2}\boldsymbol{\Lambda}\left(\prod_{j=1}^{C}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\chi_{W},
+\end{eqnarray}
 
 \end_inset
 
@@ -937,9 +1072,9 @@ where
 
  is the characteristic functional 
 \begin_inset Formula 
-\[
+\begin{equation}
 \chi_{W}[\boldsymbol{\Lambda},\boldsymbol{\Lambda}^{*}]=\mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} .
-\]
+\end{equation}
 
 \end_inset
 
@@ -971,7 +1106,7 @@ status open
 \begin_layout Standard
 The Wigner functional has two important properties analogous to the single-mode
  case.
- First one is used to successively transform operator products.
+ The first one is used to successively transform operator products.
 \end_layout
 
 \begin_layout Theorem
@@ -987,10 +1122,10 @@ name "thm:func-wigner:correspondences"
 
 , then 
 \begin_inset Formula 
-\begin{eqnarray*}
-\mathcal{W}[\hat{\Psi}_{j}\hat{A}] & =\left(\Psi_{j}+\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\hat{\Psi}_{j}^{\dagger}\hat{A}]=\left(\Psi_{j}^{*}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}}\right)\mathcal{W}[\hat{A}],\\
-\mathcal{W}[\hat{A}\hat{\Psi}_{j}] & =\left(\Psi_{j}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\hat{A}\hat{\Psi}_{j}^{\dagger}]=\left(\Psi_{j}^{*}+\frac{1}{2}\frac{\delta}{\partial\Psi_{j}}\right)\mathcal{W}[\hat{A}].
-\end{eqnarray*}
+\begin{eqnarray}
+\mathcal{W}[\tilde{\Psi}_{j}\hat{A}] & =\left(\Psi_{j}+\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\tilde{\Psi}_{j}^{\dagger}\hat{A}]=\left(\Psi_{j}^{*}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}}\right)\mathcal{W}[\hat{A}],\nonumber \\
+\mathcal{W}[\hat{A}\tilde{\Psi}_{j}] & =\left(\Psi_{j}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\hat{A}\tilde{\Psi}_{j}^{\dagger}]=\left(\Psi_{j}^{*}+\frac{1}{2}\frac{\delta}{\partial\Psi_{j}}\right)\mathcal{W}[\hat{A}].
+\end{eqnarray}
 
 \end_inset
 
@@ -1009,11 +1144,11 @@ reference "lmm:func-wigner:displacement-derivatives"
 
 \end_inset
 
- to transform the 
+ given above to transform the 
 \begin_inset Formula $\hat{A}\prod_{j}\hat{D}_{j}$
 \end_inset
 
- product inside the trace, and Lemma
+ product inside the trace, together with Lemma
 \begin_inset space ~
 \end_inset
 
@@ -1024,13 +1159,13 @@ reference "lmm:func-calculus:zero-integrals"
 
 \end_inset
 
- to integrate by parts, effectively moving the differentials to intended
- places.
+ from the Appendix to integrate by parts, effectively moving the differentials
+ to their intended places.
  
 \end_layout
 
 \begin_layout Standard
-The second property complements the first one, providing the way to obtain
+The second property complements the first one, providing a way to obtain
  expectations of operator products given the Wigner function.
  Again, it requires a supplementary lemma.
 \end_layout
@@ -1052,9 +1187,9 @@ name "lmm:func-wigner:moments-from-chi"
 
 : 
 \begin_inset Formula 
-\[
-\langle\left\{ (\hat{\Psi}_{j}^{\prime})^{r}(\hat{\Psi}_{j}^{\prime\dagger})^{s}\right\} _{\mathrm{sym}}\rangle=\left.\left(\frac{\delta}{\delta\Lambda_{j}^{\prime}}\right)^{s}\left(-\frac{\delta}{\delta\Lambda_{j}^{\prime*}}\right)^{r}\chi_{W}[\boldsymbol{\Lambda},\boldsymbol{\Lambda}^{*}]\right|_{\boldsymbol{\Lambda}\equiv0}.
-\]
+\begin{equation}
+\langle\left\{ (\tilde{\Psi}_{j}^{\prime})^{r}(\tilde{\Psi}_{j}^{\prime\dagger})^{s}\right\} _{\mathrm{sym}}\rangle=\left.\left(\frac{\delta}{\delta\Lambda_{j}^{\prime}}\right)^{s}\left(-\frac{\delta}{\delta\Lambda_{j}^{\prime*}}\right)^{r}\chi_{W}[\boldsymbol{\Lambda},\boldsymbol{\Lambda}^{*}]\right|_{\boldsymbol{\Lambda}\equiv0}.
+\end{equation}
 
 \end_inset
 
@@ -1068,34 +1203,34 @@ The factor corresponding to
 
 -th component in the displacement operator can be expanded as 
 \begin_inset Formula 
-\[
-\exp(\Lambda_{j}\hat{\Psi}_{j}^{\dagger}-\Lambda_{j}^{*}\hat{\Psi}_{j})=\sum_{r,s}\frac{\left\{ \left(\int d\boldsymbol{x}\Lambda_{j}\hat{\Psi}_{j}^{\dagger}\right)^{r}\left(-\int d\boldsymbol{x}\Lambda_{j}^{*}\hat{\Psi}_{j}\right)^{s}\right\} _{\mathrm{sym}}}{r!s!}.
-\]
+\begin{equation}
+\exp(\Lambda_{j}\tilde{\Psi}_{j}^{\dagger}-\Lambda_{j}^{*}\tilde{\Psi}_{j})=\sum_{r,s}\frac{1}{r!s!}\left\{ \left(\int d\boldsymbol{x}\Lambda_{j}\tilde{\Psi}_{j}^{\dagger}\right)^{r}\left(-\int d\boldsymbol{x}\Lambda_{j}^{*}\tilde{\Psi}_{j}\right)^{s}\right\} _{\mathrm{sym}}.
+\end{equation}
 
 \end_inset
 
 We can swap functional derivative with both integration and multiplication
  by independent function, so: 
 \begin_inset Formula 
-\[
-\frac{\delta}{\delta\Lambda_{j}^{\prime}}\left(\int d\boldsymbol{x}\Lambda_{j}\hat{\Psi}_{j}^{\dagger}\right)^{r}=r\hat{\Psi}_{j}^{\prime\dagger}\left(\int d\boldsymbol{x}\Lambda_{j}\hat{\Psi}_{j}^{\dagger}\right)^{r-1},
-\]
+\begin{equation}
+\frac{\delta}{\delta\Lambda_{j}^{\prime}}\left(\int d\boldsymbol{x}\Lambda_{j}\tilde{\Psi}_{j}^{\dagger}\right)^{r}=r\tilde{\Psi}_{j}^{\prime\dagger}\left(\int d\boldsymbol{x}\Lambda_{j}\tilde{\Psi}_{j}^{\dagger}\right)^{r-1},
+\end{equation}
 
 \end_inset
 
 and multiple application of the differential gives us 
 \begin_inset Formula 
-\[
-\left(\frac{\delta}{\delta\Lambda_{j}^{\prime}}\right)^{r}\left(\int d\boldsymbol{x}\Lambda_{j}\hat{\Psi}_{j}^{\dagger}\right)^{r}=r!(\hat{\Psi}_{j}^{\prime\dagger})^{r}.
-\]
+\begin{equation}
+\left(\frac{\delta}{\delta\Lambda_{j}^{\prime}}\right)^{r}\left(\int d\boldsymbol{x}\Lambda_{j}\tilde{\Psi}_{j}^{\dagger}\right)^{r}=r!(\tilde{\Psi}_{j}^{\prime\dagger})^{r}.
+\end{equation}
 
 \end_inset
 
 Similarly for the other differential: 
 \begin_inset Formula 
-\[
-\left(-\frac{\delta}{\delta\Lambda_{j}^{\prime*}}\right)^{s}\left(-\int d\boldsymbol{x}\Lambda_{j}\hat{\Psi}_{j}^{\dagger}\right)^{s}=s!(\hat{\Psi}_{j}^{\prime\dagger})^{s}.
-\]
+\begin{equation}
+\left(-\frac{\delta}{\delta\Lambda_{j}^{\prime*}}\right)^{s}\left(-\int d\boldsymbol{x}\Lambda_{j}\tilde{\Psi}_{j}^{\dagger}\right)^{s}=s!(\tilde{\Psi}_{j}^{\prime\dagger})^{s}.
+\end{equation}
 
 \end_inset
 
@@ -1133,9 +1268,9 @@ name "thm:func-wigner:moments"
 
  
 \begin_inset Formula 
-\[
-\langle\left\{ \prod_{j=1}^{C}\hat{\Psi}_{j}^{r_{j}}(\hat{\Psi}_{j}^{\dagger})^{s_{j}}\right\} _{\mathrm{sym}}\rangle=\int\delta^{2}\boldsymbol{\Psi}\left(\prod_{j=1}^{C}\Psi_{j}^{r_{j}}(\Psi_{j}^{*})^{s_{j}}\right)W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}].
-\]
+\begin{equation}
+\langle\left\{ \prod_{j=1}^{C}\tilde{\Psi}_{j}^{r_{j}}(\tilde{\Psi}_{j}^{\dagger})^{s_{j}}\right\} _{\mathrm{sym}}\rangle=\int\delta^{2}\boldsymbol{\Psi}\left(\prod_{j=1}^{C}\Psi_{j}^{r_{j}}(\Psi_{j}^{*})^{s_{j}}\right)W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}].
+\end{equation}
 
 \end_inset
 
@@ -1143,11 +1278,12 @@ name "thm:func-wigner:moments"
 \end_layout
 
 \begin_layout Proof
-By definition of the Wigner functional: 
+By definition of the Wigner functional, the right hand side in the above
+ equatoin can be written: 
 \begin_inset Formula 
 \begin{eqnarray}
- &  & \int\delta^{2}\boldsymbol{\Psi}\left(\prod_{j=1}^{C}\Psi_{j}^{r_{j}}(\Psi_{j}^{*})^{s_{j}}\right)W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]\nonumber \\
- &  & =\frac{1}{\pi^{2\sum|\mathbb{M}_{j}|}}\mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\int\delta^{2}\Lambda_{j}\left(\int\delta^{2}\Psi_{j}\,\Psi_{j}^{r_{j}}(\Psi_{j}^{*})^{s_{j}}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} .
+I & = & \int\delta^{2}\boldsymbol{\Psi}\left(\prod_{j=1}^{C}\Psi_{j}^{r_{j}}(\Psi_{j}^{*})^{s_{j}}\right)W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]\nonumber \\
+ & = & \frac{1}{\pi^{2\sum|\mathbb{M}_{j}|}}\mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\int\delta^{2}\Lambda_{j}\left(\int\delta^{2}\Psi_{j}\,\Psi_{j}^{r_{j}}(\Psi_{j}^{*})^{s_{j}}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} .
 \end{eqnarray}
 
 \end_inset
@@ -1169,9 +1305,9 @@ reference "lmm:func-calculus:fourier-of-moments"
 
 : 
 \begin_inset Formula 
-\[
-=\mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\int\delta^{2}\Lambda_{j}\left(\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\Delta_{\mathbb{M}_{j}}[\Lambda_{j}]\right)\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} .
-\]
+\begin{equation}
+I=\mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\int\delta^{2}\Lambda_{j}\left(\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\tilde{\delta}[\Lambda_{j}]\right)\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} .
+\end{equation}
 
 \end_inset
 
@@ -1190,14 +1326,14 @@ reference "lmm:func-calculus:zero-delta-integrals"
 : 
 \begin_inset Formula 
 \begin{eqnarray}
- &  & =\mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\int\delta^{2}\Lambda_{j}\Delta_{\mathbb{M}_{j}}[\Lambda_{j}]\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} \nonumber \\
- &  & =\left.\left(\prod_{j=1}^{C}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\right)\chi_{W}[\boldsymbol{\Lambda},\boldsymbol{\Lambda}^{*}]\right|_{\boldsymbol{\Lambda}\equiv0},
+I & = & \mathrm{Tr}\left\{ \hat{\rho}\prod_{j=1}^{C}\int\delta^{2}\Lambda_{j}\tilde{\delta}[\Lambda_{j}]\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} \nonumber \\
+ & = & \left.\left(\prod_{j=1}^{C}\left(\frac{\delta}{\delta\Lambda_{j}}\right)^{s_{j}}\left(-\frac{\delta}{\delta\Lambda_{j}^{*}}\right)^{r_{j}}\right)\chi_{W}[\boldsymbol{\Lambda},\boldsymbol{\Lambda}^{*}]\right|_{\boldsymbol{\Lambda}\equiv0},
 \end{eqnarray}
 
 \end_inset
 
 where 
-\begin_inset Formula $\Delta_{\mathbb{M}_{j}}[\Lambda_{j}]$
+\begin_inset Formula $\tilde{\delta}[\Lambda_{j}]$
 \end_inset
 
  is a delta functional from Definition
@@ -1212,7 +1348,8 @@ reference "def:func-calculus:delta-functional"
 \end_inset
 
 .
- Now, recognising the final expression as a part of Lemma
+ Now, recognising the final expression as a part of the previous result
+ above in Lemma
 \begin_inset space ~
 \end_inset
 
@@ -1244,7 +1381,7 @@ reference "eqn:master-eqn:master-eqn"
 \end_inset
 
 ), we will need several theorems about transformations of specific operator
- sequences.
+ products.
 \end_layout
 
 \begin_layout Standard
@@ -1271,9 +1408,9 @@ Commutators for restricted field operators:
 
 \begin_layout Standard
 \begin_inset Formula 
-\[
-\left[\hat{\Psi},(\hat{\Psi}^{\prime\dagger})^{l}\right]=l\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime}-\boldsymbol{x})(\hat{\Psi}^{\prime\dagger})^{l-1},\qquad\left[\hat{\Psi}^{\dagger},(\hat{\Psi}^{\prime})^{l}\right]=-l\delta_{\mathbb{M}}^{*}(\boldsymbol{x}^{\prime}-\boldsymbol{x})(\hat{\Psi}^{\prime})^{l-1}.
-\]
+\begin{equation}
+\left[\tilde{\Psi},(\tilde{\Psi}^{\prime\dagger})^{l}\right]=l\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime}-\boldsymbol{x})(\tilde{\Psi}^{\prime\dagger})^{l-1},\qquad\left[\tilde{\Psi}^{\dagger},(\tilde{\Psi}^{\prime})^{l}\right]=-l\delta_{\mathbb{M}}^{*}(\boldsymbol{x}^{\prime}-\boldsymbol{x})(\tilde{\Psi}^{\prime})^{l-1}.
+\end{equation}
 
 \end_inset
 
@@ -1298,9 +1435,9 @@ name "lmm:func-operators:functional-commutators"
 
  
 \begin_inset Formula 
-\[
-\left[\hat{\Psi},f(\hat{\Psi}^{\prime},\hat{\Psi}^{\prime\dagger})\right]=\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime}-\boldsymbol{x})\frac{\partial f}{\partial\hat{\Psi}^{\prime\dagger}},\qquad\left[\hat{\Psi}^{\dagger},f(\hat{\Psi}^{\prime},\hat{\Psi}^{\prime\dagger})\right]=-\delta_{\mathbb{M}}^{*}(\boldsymbol{x}^{\prime}-\boldsymbol{x})\frac{\partial f}{\partial\hat{\Psi}^{\prime}},
-\]
+\begin{equation}
+\left[\tilde{\Psi},f(\tilde{\Psi}^{\prime},\tilde{\Psi}^{\prime\dagger})\right]=\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime}-\boldsymbol{x})\frac{\partial f}{\partial\tilde{\Psi}^{\prime\dagger}},\qquad\left[\tilde{\Psi}^{\dagger},f(\tilde{\Psi}^{\prime},\tilde{\Psi}^{\prime\dagger})\right]=-\delta_{\mathbb{M}}^{*}(\boldsymbol{x}^{\prime}-\boldsymbol{x})\frac{\partial f}{\partial\tilde{\Psi}^{\prime}},
+\end{equation}
 
 \end_inset
 
@@ -1317,6 +1454,9 @@ where
 \end_inset
 
 .
+
+\color red
+ (PROOF????)
 \end_layout
 
 \begin_layout Standard
@@ -1343,9 +1483,9 @@ name "thm:transformations:w-commutator1"
 
  
 \begin_inset Formula 
-\[
-\mathcal{W}\left[[\int d\boldsymbol{x}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k},\hat{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi_{j}}\Psi_{k}+\frac{\delta}{\delta\Psi_{k}^{*}}\Psi_{j}^{*}\right)\mathcal{W}[\hat{A}].
-\]
+\begin{equation}
+\mathcal{W}\left[[\int d\boldsymbol{x}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k},\hat{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi_{j}}\Psi_{k}+\frac{\delta}{\delta\Psi_{k}^{*}}\Psi_{j}^{*}\right)\mathcal{W}[\hat{A}].
+\end{equation}
 
 \end_inset
 
@@ -1366,9 +1506,9 @@ reference "thm:func-wigner:correspondences"
 
  and the relation 
 \begin_inset Formula 
-\[
+\begin{equation}
 \Psi_{k}\frac{\delta}{\delta\Psi_{j}}\mathcal{F}=\left(\frac{\delta}{\delta\Psi_{j}}\Psi_{k}-\delta_{jk}\delta_{\mathbb{M}}(\boldsymbol{x},\boldsymbol{x})\right)\mathcal{F}.
-\]
+\end{equation}
 
 \end_inset
 
@@ -1376,11 +1516,10 @@ reference "thm:func-wigner:correspondences"
 \end_layout
 
 \begin_layout Standard
-Commutators with the Laplacian inside require somewhat special treatment,
- because it acts on basis functions and, in general, cannot be dragged around
- like a constant.
+Commutators with the Laplacian inside require a somewhat special treatment,
+ because it acts on basis functions.
  But for our purposes we only need one specific case, and, fortunately,
- in this case it does act like a constant.
+ in this case the Laplacian does act like a constant.
 \end_layout
 
 \begin_layout Theorem
@@ -1392,9 +1531,9 @@ name "thm:transformations:w-laplacian-commutator1"
 
  
 \begin_inset Formula 
-\begin{eqnarray*}
-\mathcal{W}\left[\int d\boldsymbol{x}[\hat{\Psi}^{\dagger}\nabla^{2}\hat{\Psi},\hat{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi}\nabla^{2}\Psi+\frac{\delta}{\delta\Psi^{*}}\nabla^{2}\Psi^{*}\right)\mathcal{W}[\hat{A}].
-\end{eqnarray*}
+\begin{equation}
+\mathcal{W}\left[\int d\boldsymbol{x}[\tilde{\Psi}^{\dagger}\nabla^{2}\tilde{\Psi},\hat{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi}\nabla^{2}\Psi+\frac{\delta}{\delta\Psi^{*}}\nabla^{2}\Psi^{*}\right)\mathcal{W}[\hat{A}].
+\end{equation}
 
 \end_inset
 
@@ -1428,8 +1567,8 @@ reference "lmm:func-calculus:move-laplacian"
 \end_layout
 
 \begin_layout Standard
-Next theorem describes the transformation of the non-linear part of the
- Hamiltonian.
+The next theorem describes the transformation of the non-linear part of
+ the Hamiltonian.
  
 \begin_inset Note Greyedout
 status open
@@ -1457,15 +1596,15 @@ name "thm:transformations:w-commutator2"
 
  
 \begin_inset Formula 
-\begin{eqnarray*}
- &  & \mathcal{W}\left[[\int d\boldsymbol{x}\int d\boldsymbol{x}^{\prime}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k}^{\prime\dagger}\hat{\Psi}_{j}^{\prime}\hat{\Psi}_{k},\hat{A}]\right]\\
- &  & =\int d\boldsymbol{x}\int d\boldsymbol{x}^{\prime}\left(\frac{\delta}{\delta\Psi_{j}}\left(-\Psi_{j}^{\prime}\Psi_{k}\Psi_{k}^{\prime*}+\frac{1}{2}\delta_{jk}\delta_{\mathbb{M}_{j}}(\boldsymbol{x}^{\prime},\boldsymbol{x}^{\prime})\Psi_{k}+\frac{1}{2}\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x}^{\prime})\Psi_{j}^{\prime}\right)\right.\\
- &  & \left.+\frac{\delta}{\delta\Psi_{j}^{\prime*}}\left(\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{\prime*}-\frac{1}{2}\delta_{jk}\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x})\Psi_{k}^{\prime*}-\frac{1}{2}\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x}^{\prime})\Psi_{j}^{*}\right)\right.\\
- &  & \left.+\frac{\delta}{\delta\Psi_{k}^{\prime}}\left(-\Psi_{j}^{\prime}\Psi_{j}^{*}\Psi_{k}+\frac{1}{2}\delta_{jk}\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x})\Psi_{j}^{\prime}+\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x}^{\prime},\boldsymbol{x})\Psi_{k}\right)\right.\\
- &  & \left.+\frac{\delta}{\delta\Psi_{k}^{*}}\left(\Psi_{j}^{\prime}\Psi_{j}^{*}\Psi_{k}^{\prime*}-\frac{1}{2}\delta_{jk}\delta_{\mathbb{M}_{j}}(\boldsymbol{x}^{\prime},\boldsymbol{x}^{\prime})\Psi_{j}^{*}-\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x}^{\prime},\boldsymbol{x})\Psi_{k}^{\prime*}\right)\right.\\
- &  & \left.+\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{\prime*}}\frac{\delta}{\delta\Psi_{k}^{\prime}}\frac{1}{4}\Psi_{k}-\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{\prime*}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{1}{4}\Psi_{k}^{\prime*}\right.\\
+\begin{eqnarray}
+ &  & \mathcal{W}\left[[\int d\boldsymbol{x}\int d\boldsymbol{x}^{\prime}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k}^{\prime\dagger}\tilde{\Psi}_{j}^{\prime}\tilde{\Psi}_{k},\hat{A}]\right]\nonumber \\
+ &  & =\int d\boldsymbol{x}\int d\boldsymbol{x}^{\prime}\left(\frac{\delta}{\delta\Psi_{j}}\left(-\Psi_{j}^{\prime}\Psi_{k}\Psi_{k}^{\prime*}+\frac{1}{2}\delta_{jk}\tilde{\delta}(\boldsymbol{x}^{\prime},\boldsymbol{x}^{\prime})\Psi_{k}+\frac{1}{2}\tilde{\delta}(\boldsymbol{x},\boldsymbol{x}^{\prime})\Psi_{j}^{\prime}\right)\right.\nonumber \\
+ &  & \left.+\frac{\delta}{\delta\Psi_{j}^{\prime*}}\left(\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{\prime*}-\frac{1}{2}\delta_{jk}\tilde{\delta}(\boldsymbol{x},\boldsymbol{x})\Psi_{k}^{\prime*}-\frac{1}{2}\tilde{\delta}(\boldsymbol{x},\boldsymbol{x}^{\prime})\Psi_{j}^{*}\right)\right.\nonumber \\
+ &  & \left.+\frac{\delta}{\delta\Psi_{k}^{\prime}}\left(-\Psi_{j}^{\prime}\Psi_{j}^{*}\Psi_{k}+\frac{1}{2}\delta_{jk}\tilde{\delta}(\boldsymbol{x},\boldsymbol{x})\Psi_{j}^{\prime}+\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x}^{\prime},\boldsymbol{x})\Psi_{k}\right)\right.\nonumber \\
+ &  & \left.+\frac{\delta}{\delta\Psi_{k}^{*}}\left(\Psi_{j}^{\prime}\Psi_{j}^{*}\Psi_{k}^{\prime*}-\frac{1}{2}\delta_{jk}\tilde{\delta}(\boldsymbol{x}^{\prime},\boldsymbol{x}^{\prime})\Psi_{j}^{*}-\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x}^{\prime},\boldsymbol{x})\Psi_{k}^{\prime*}\right)\right.\nonumber \\
+ &  & \left.+\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{\prime*}}\frac{\delta}{\delta\Psi_{k}^{\prime}}\frac{1}{4}\Psi_{k}-\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{\prime*}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{1}{4}\Psi_{k}^{\prime*}\right.\nonumber \\
  &  & \left.+\frac{\delta}{\delta\Psi_{k}^{\prime}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{\delta}{\delta\Psi_{j}}\frac{1}{4}\Psi_{j}^{\prime}-\frac{\delta}{\delta\Psi_{k}^{\prime}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{\delta}{\delta\Psi_{j}^{\prime*}}\frac{1}{4}\Psi_{j}^{*}\right)\mathcal{W}[\hat{A}].
-\end{eqnarray*}
+\end{eqnarray}
 
 \end_inset
 
@@ -1473,7 +1612,7 @@ name "thm:transformations:w-commutator2"
 \end_layout
 
 \begin_layout Proof
-Proof is the same as in case of Theorem
+The proof is the same as in the case of Theorem
 \begin_inset space ~
 \end_inset
 
@@ -1500,9 +1639,9 @@ reference "eqn:master-eqn:loss-term"
 
 \end_inset
 
-) requires more work.
+) requires some treatment.
  The proof makes use of two auxiliary lemmas.
- First one will help us move functional differentials to their intended
+ The first one will help us move functional differentials to their intended
  places (i.e., to the left).
 \end_layout
 
@@ -1527,10 +1666,10 @@ name "lmm:transformations:swap-differential"
 
 : 
 \begin_inset Formula 
-\begin{eqnarray*}
- &  & \Psi^{a}\left(\frac{\delta}{\delta\Psi}\right)^{b}\mathcal{F}[\Psi,\Psi^{*}]\\
+\begin{eqnarray}
+ &  & \Psi^{a}\left(\frac{\delta}{\delta\Psi}\right)^{b}\mathcal{F}[\Psi,\Psi^{*}]\nonumber \\
  &  & =\sum_{j=0}^{\min(a,b)}\binom{b}{j}\frac{(-1)^{j}a!}{(a-j)!}\delta_{\mathbb{M}}^{j}(\boldsymbol{x},\boldsymbol{x})\left(\frac{\delta}{\delta\Psi}\right)^{b-j}\Psi^{a-j}\mathcal{F}[\Psi,\Psi^{*}]
-\end{eqnarray*}
+\end{eqnarray}
 
 \end_inset
 
@@ -1543,7 +1682,7 @@ Proved straightforwardly by induction.
 \end_layout
 
 \begin_layout Standard
-Second lemma gives a way to simplify sums obtained from the application
+The second lemma gives a way to simplify sums obtained from the application
  of the previous lemma.
 \end_layout
 
@@ -1565,9 +1704,9 @@ name "lmm:transformations:sum-rearrangement"
 
 : 
 \begin_inset Formula 
-\[
+\begin{equation}
 \sum_{j=0}^{l}\sum_{k=0}^{\min(l-u,j)}x^{j-k}Q(j,k)=\sum_{v=0}^{l}x^{v}\sum_{k=0}^{l-\max(u,v)}Q(v+k,k).
-\]
+\end{equation}
 
 \end_inset
 
@@ -1577,13 +1716,15 @@ name "lmm:transformations:sum-rearrangement"
 \begin_layout Proof
 Can be proved either by formal manipulation with sets, or by drawing a picture.
  
+\color red
+(PROOF????)
 \end_layout
 
 \begin_layout Standard
 Finally, the loss transformation theorem can be proved.
 \end_layout
 
-\begin_layout Proof
+\begin_layout Theorem
 \begin_inset CommandInset label
 LatexCommand label
 name "thm:transformations:w-losses"
@@ -1603,29 +1744,33 @@ reference "eqn:master-eqn:loss-term"
 
 ) is 
 \begin_inset Formula 
-\[
+\begin{equation}
 \mathcal{W}\left[\int d\boldsymbol{x}\hat{\mathcal{L}}_{\boldsymbol{l}}[\hat{A}]\right]=\int d\boldsymbol{x}\sum_{j_{1}=0}^{l_{1}}\sum_{k_{1}=0}^{l_{1}}\ldots\sum_{j_{C}=0}^{l_{C}}\sum_{k_{C}=0}^{l_{C}}\left(\prod_{c=1}^{C}\left(\frac{\delta}{\delta\Psi_{c}^{*}}\right)^{j_{c}}\left(\frac{\delta}{\delta\Psi_{c}}\right)^{k_{c}}\right)L_{\boldsymbol{l},\boldsymbol{j},\boldsymbol{k}}\mathcal{W}[\hat{A}],
-\]
+\end{equation}
 
 \end_inset
 
 where 
 \begin_inset Formula 
-\begin{eqnarray*}
-L_{\boldsymbol{l},\boldsymbol{j},\boldsymbol{k}}= &  & \left(2-(-1)^{\sum_{c}j_{c}}-(-1)^{\sum_{c}k_{c}}\right)\\
+\begin{eqnarray}
+L_{\boldsymbol{l},\boldsymbol{j},\boldsymbol{k}}= &  & \left(2-(-1)^{\sum_{c}j_{c}}-(-1)^{\sum_{c}k_{c}}\right)\nonumber \\
  &  & \prod_{c=1}^{C}\left(\sum_{m_{c}=0}^{l_{c}-\max(j_{c},k_{c})}Q(l_{c},j_{c},k_{c},m_{c})\delta_{\mathbb{M}_{c}}^{m_{c}}(\boldsymbol{x},\boldsymbol{x})\Psi_{c}^{l_{c}-j_{c}-m_{c}}(\Psi_{c}^{*})^{l_{c}-k_{c}-m_{c}}\right),
-\end{eqnarray*}
+\end{eqnarray}
 
 \end_inset
 
 and 
 \begin_inset Formula 
-\[
+\begin{equation}
 Q(l,j,k,m)=\frac{(-1)^{m}}{2^{j+k+m}}\frac{(l!)^{2}}{m!j!k!(l-k-m)!(l-j-m)!}.
-\]
+\end{equation}
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Proof
 Proved by applying Theorem
 \begin_inset space ~
 \end_inset
@@ -1659,7 +1804,7 @@ reference "lmm:transformations:sum-rearrangement"
 
 \end_inset
 
- to transform summations.
+ to transform the resulting summations.
  
 \end_layout
 
@@ -1690,11 +1835,11 @@ reference "def:func-wigner:w-transformation"
 
 \end_inset
 
- to the partial differential equation.
+ to the form of a partial differential equation.
 \end_layout
 
 \begin_layout Standard
-Namely, the single-particle term
+The single-particle term
 \begin_inset space ~
 \end_inset
 
@@ -1737,9 +1882,9 @@ reference "thm:transformations:w-laplacian-commutator1"
 
 ): 
 \begin_inset Formula 
-\[
-\mathcal{W}\left[[\int d\boldsymbol{x}\hat{\Psi}_{j}^{\dagger}K_{jk}\hat{\Psi}_{k},\hat{\rho}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi_{j}}K_{jk}\Psi_{k}+\frac{\delta}{\delta\Psi_{k}^{*}}K_{jk}\Psi_{j}^{*}\right)W,
-\]
+\begin{equation}
+\mathcal{W}\left[[\int d\boldsymbol{x}\tilde{\Psi}_{j}^{\dagger}K_{jk}\tilde{\Psi}_{k},\hat{\rho}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi_{j}}K_{jk}\Psi_{k}+\frac{\delta}{\delta\Psi_{k}^{*}}K_{jk}\Psi_{j}^{*}\right)W,
+\end{equation}
 
 \end_inset
 
@@ -1766,7 +1911,7 @@ reference "thm:transformations:w-commutator2"
 ): 
 \begin_inset Formula 
 \begin{eqnarray}
-\mathcal{W}\left[[\int d\boldsymbol{x}\frac{U_{jk}}{2}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k}^{\dagger}\hat{\Psi}_{j}\hat{\Psi}_{k},\hat{\rho}]\right]= &  & \int d\boldsymbol{x}U_{jk}\left(\frac{\delta}{\delta\Psi_{j}}\left(-\Psi_{j}\Psi_{k}\Psi_{k}^{*}+\frac{\delta_{\mathbb{M}}(\boldsymbol{x},\boldsymbol{x})}{2}(\delta_{jk}\Psi_{k}+\Psi_{j})\right)\right.\nonumber \\
+\mathcal{W}\left[[\int d\boldsymbol{x}\frac{U_{jk}}{2}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k}^{\dagger}\tilde{\Psi}_{j}\tilde{\Psi}_{k},\hat{\rho}]\right]= &  & \int d\boldsymbol{x}U_{jk}\left(\frac{\delta}{\delta\Psi_{j}}\left(-\Psi_{j}\Psi_{k}\Psi_{k}^{*}+\frac{\delta_{\mathbb{M}}(\boldsymbol{x},\boldsymbol{x})}{2}(\delta_{jk}\Psi_{k}+\Psi_{j})\right)\right.\nonumber \\
  &  & \left.+\frac{\delta}{\delta\Psi_{j}^{*}}\left(\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{*}-\frac{\delta_{\mathbb{M}}(\boldsymbol{x},\boldsymbol{x})}{2}(\delta_{jk}\Psi_{k}^{*}+\Psi_{j}^{*})\right)\right.\nonumber \\
  &  & \left.+\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{\delta}{\delta\Psi_{k}}\frac{1}{4}\Psi_{k}-\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{1}{4}\Psi_{k}^{*}\right)W.
 \end{eqnarray}
@@ -1825,9 +1970,9 @@ Assuming that
 
  of the form 
 \begin_inset Formula 
-\[
+\begin{equation}
 \frac{\partial W}{\partial t}=\int d\boldsymbol{x}\left\{ -\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}}\mathcal{A}_{j}-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}^{*}}\mathcal{A}_{j}^{*}+\sum_{j=1}^{C}\sum_{k=1}^{C}\frac{\delta^{2}}{\delta\Psi_{j}^{*}\delta\Psi_{k}}\mathcal{D}_{jk}+\mbox{O}\left[\frac{\delta^{3}}{\delta\Psi_{j}^{3}}\right]\right\} W.
-\]
+\end{equation}
 
 \end_inset
 
@@ -1861,9 +2006,9 @@ key "Sinatra2002"
 
  
 \begin_inset Formula 
-\[
+\begin{equation}
 N\gg|\mathbb{M}|,
-\]
+\end{equation}
 
 \end_inset
 
@@ -1885,9 +2030,9 @@ key "Norrie2006"
 
  
 \begin_inset Formula 
-\[
-\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x})\ll|\Psi_{j}|^{2}.
-\]
+\begin{equation}
+\tilde{\delta}(\boldsymbol{x},\boldsymbol{x})\ll|\Psi_{j}|^{2}.
+\end{equation}
 
 \end_inset
 
@@ -1895,7 +2040,7 @@ key "Norrie2006"
 \end_layout
 
 \begin_layout Standard
-Wigner truncation allows us to simplify the results of Theorem
+The use of Wigner truncation allows us to simplify the results of Theorem
 \begin_inset space ~
 \end_inset
 
@@ -1924,9 +2069,9 @@ reference "thm:transformations:w-losses"
 Assuming the conditions for Wigner truncation are satisfied, the result
  of Wigner transformation of the nonlinear term can be written as 
 \begin_inset Formula 
-\[
-\mathcal{W}\left[[\frac{U_{jk}}{2}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k}^{\dagger}\hat{\Psi}_{j}\hat{\Psi}_{k},\hat{\rho}]\right]=U_{jk}\left(\frac{\delta}{\delta\Psi_{j}^{*}}\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{*}-\frac{\delta}{\delta\Psi_{j}}\Psi_{j}\Psi_{k}\Psi_{k}^{*}\right)W.
-\]
+\begin{equation}
+\mathcal{W}\left[[\frac{U_{jk}}{2}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k}^{\dagger}\tilde{\Psi}_{j}\tilde{\Psi}_{k},\hat{\rho}]\right]\approx U_{jk}\left(\frac{\delta}{\delta\Psi_{j}^{*}}\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{*}-\frac{\delta}{\delta\Psi_{j}}\Psi_{j}\Psi_{k}\Psi_{k}^{*}\right)W.
+\end{equation}
 
 \end_inset
 
@@ -1950,9 +2095,9 @@ status open
 Assuming the conditions for Wigner truncation are satisfied, the result
  of Wigner transformation of the loss term can be written as 
 \begin_inset Formula 
-\[
-\mathcal{W}[\mathcal{L}_{\boldsymbol{l}}[\hat{\rho}]]=\sum_{n=1}^{C}\frac{\delta}{\delta\Psi_{n}^{*}}\frac{\partial O_{\boldsymbol{l}}}{\partial\Psi_{n}}O_{\boldsymbol{l}}^{*}+\sum_{n=1}^{C}\frac{\delta}{\delta\Psi_{n}}\frac{\partial O_{\boldsymbol{l}}^{*}}{\partial\Psi_{n}^{*}}O_{\boldsymbol{l}}+\sum_{n=1}^{C}\sum_{p=1}^{C}\frac{\delta^{2}}{\delta\Psi_{n}^{*}\delta\Psi_{p}}\frac{\partial O_{\boldsymbol{l}}}{\partial\Psi_{n}}\frac{\partial O_{\boldsymbol{l}}^{*}}{\partial\Psi_{p}^{*}},
-\]
+\begin{equation}
+\mathcal{W}[\mathcal{L}_{\boldsymbol{l}}[\hat{\rho}]]\approx\sum_{n=1}^{C}\frac{\delta}{\delta\Psi_{n}^{*}}\frac{\partial O_{\boldsymbol{l}}}{\partial\Psi_{n}}O_{\boldsymbol{l}}^{*}+\sum_{n=1}^{C}\frac{\delta}{\delta\Psi_{n}}\frac{\partial O_{\boldsymbol{l}}^{*}}{\partial\Psi_{n}^{*}}O_{\boldsymbol{l}}+\sum_{n=1}^{C}\sum_{p=1}^{C}\frac{\delta^{2}}{\delta\Psi_{n}^{*}\delta\Psi_{p}}\frac{\partial O_{\boldsymbol{l}}}{\partial\Psi_{n}}\frac{\partial O_{\boldsymbol{l}}^{*}}{\partial\Psi_{p}^{*}},
+\end{equation}
 
 \end_inset
 
@@ -1977,7 +2122,11 @@ reference "thm:transformations:w-losses"
 \end_inset
 
  under certain conditions.
- First, we are neglecting all occurrences of 
+ 
+\color red
+(SPECIFICALLY WHY???)
+\color inherit
+First, we neglect all occurrences of 
 \begin_inset Formula $\delta_{\mathbb{M}}$
 \end_inset
 
@@ -2038,42 +2187,58 @@ reference "thm:transformations:w-losses"
 \end_layout
 
 \begin_layout Standard
-Thus the truncated Fokker-Planck equation is 
+Thus the truncated Fokker-Planck equation (FPE) is then: 
 \begin_inset Formula 
-\[
-\frac{dW}{dt}=\int d\boldsymbol{x}\left(-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}}\mathcal{A}_{j}-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}^{*}}\mathcal{A}_{j}^{*}+\sum_{j=1}^{C}\sum_{k=1}^{C}\frac{\delta^{2}}{\delta\Psi_{j}^{*}\delta\Psi_{k}}\mathcal{D}_{jk}\right)W,
-\]
+\begin{equation}
+\frac{dW}{dt}=\int d\boldsymbol{x}\left(-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}}\mathcal{A}_{j}-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}^{*}}\mathcal{A}_{j}^{*}+\sum_{j=1}^{C}\sum_{k=1}^{C}\frac{\delta^{2}}{\delta\Psi_{j}^{*}\delta\Psi_{k}}\mathcal{D}_{jk}\right)W,\label{eq:TruncatedFPE}
+\end{equation}
 
 \end_inset
 
-where 
+where we define the relevant coefficients in the FPE as: 
 \begin_inset Formula 
-\[
+\begin{equation}
 \mathcal{A}_{j}=-\frac{i}{\hbar}\left(\sum_{k=1}^{C}K_{jk}\Psi_{k}+\sum_{k=1}^{C}U_{jk}\Psi_{j}\Psi_{k}\Psi_{k}^{*}\right)-\sum_{\boldsymbol{l}}\kappa_{\boldsymbol{l}}\frac{\partial O_{\boldsymbol{l}}^{*}}{\partial\Psi_{j}^{*}}O_{\boldsymbol{l}},
-\]
+\end{equation}
 
 \end_inset
 
 and 
 \begin_inset Formula 
-\[
+\begin{equation}
 \mathcal{D}_{jk}=\sum_{\boldsymbol{l}}\kappa_{\boldsymbol{l}}\frac{\partial O_{\boldsymbol{l}}}{\partial\Psi_{j}}\frac{\partial O_{\boldsymbol{l}}^{*}}{\partial\Psi_{k}^{*}}.
-\]
+\end{equation}
 
 \end_inset
 
 
 \end_layout
 
+\begin_layout Section
+Stochastic differential equations
+\end_layout
+
 \begin_layout Standard
-Since the diffusion matrix is positive-definite, the truncated Wigner function
+Direct solution of the above FPE is generally impractical, and a Monte-Carlo
+ or sampled calculation is called for.
+ Since the diffusion matrix is positive-definite, the truncated Wigner function
  
 \begin_inset Formula $W$
 \end_inset
 
- is a probability distribution Therefore the equation can be further transformed
- to the equivalent set of stochastic differential equations in Itô form
- as described by Theorem
+ is a probability distribution, provided it has a positive initial distribution.
+ Therefore the equation can be further transformed to the equivalent set
+ of stochastic differential equations in Itô form.
+ 
+\end_layout
+
+\begin_layout Subsection
+Stochastic Evolution
+\end_layout
+
+\begin_layout Standard
+General results on such transformations are given in Appendix C, as described
+ by Theorem
 \begin_inset space ~
 \end_inset
 
@@ -2084,7 +2249,18 @@ reference "thm:app-fpe:fpe-sde-func"
 
 \end_inset
 
-: 
+.
+ applying these methods to the truncated FPE (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TruncatedFPE"
+
+\end_inset
+
+), gives immediately that:
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
 d\Psi_{j}=\mathcal{P}_{\mathbb{M}_{j}}\left[\mathcal{A}_{j}dt+\sum_{\boldsymbol{l}}\mathcal{B}_{j\boldsymbol{l}}Q_{\boldsymbol{l}}\right],\label{eqn:fpe:sdes}
@@ -2094,21 +2270,21 @@ d\Psi_{j}=\mathcal{P}_{\mathbb{M}_{j}}\left[\mathcal{A}_{j}dt+\sum_{\boldsymbol{
 
 where 
 \begin_inset Formula 
-\[
-\mathcal{B}_{j\boldsymbol{l}}=\sqrt{\kappa_{\boldsymbol{l}}}\frac{\partial O_{\boldsymbol{l}}^{*}}{\partial\Psi_{j}^{*}},
-\]
+\begin{equation}
+\mathcal{B}_{j\boldsymbol{l}}=\sqrt{\kappa_{\boldsymbol{l}}}\frac{\partial O_{\boldsymbol{l}}^{*}}{\partial\Psi_{j}^{*}}.
+\end{equation}
 
 \end_inset
 
-and 
+Here, 
 \begin_inset Formula $Q_{\boldsymbol{l}}$
 \end_inset
 
  is a functional Wiener process: 
 \begin_inset Formula 
-\[
+\begin{equation}
 Q_{\boldsymbol{l}}=\sum_{\boldsymbol{n}\in\mathbb{B}}\phi_{j}Z_{\boldsymbol{l},\boldsymbol{n}},
-\]
+\end{equation}
 
 \end_inset
 
@@ -2119,17 +2295,17 @@ and
  are, in turn, independent complex-valued Wiener processes.
  Alternatively, in Stratonovich form the SDEs look like 
 \begin_inset Formula 
-\[
+\begin{equation}
 d\Psi_{j}=\mathcal{P}_{\mathbb{M}_{j}}\left[(\mathcal{A}_{j}-\mathcal{S}_{j})dt+\sum_{\boldsymbol{l}}B_{j\boldsymbol{l}}Q_{\boldsymbol{l}}\right],
-\]
+\end{equation}
 
 \end_inset
 
 where the Stratonovich term is 
 \begin_inset Formula 
-\[
+\begin{equation}
 \mathcal{S}_{j}=\sum_{n=1}^{C}\sum_{\boldsymbol{l}}\kappa_{\boldsymbol{l}}\frac{\partial O_{\boldsymbol{l}}}{\partial\Psi_{n}}\left(\frac{\partial^{2}O_{\boldsymbol{l}}}{\partial\Psi_{n}\partial\Psi_{j}}\right)^{*}\delta_{\mathbb{M}_{n}}(\boldsymbol{x},\boldsymbol{x}).
-\]
+\end{equation}
 
 \end_inset
 
@@ -2153,7 +2329,7 @@ reference "thm:func-wigner:moments"
 : 
 \begin_inset Formula 
 \begin{eqnarray}
-\langle\left\{ \prod_{c=1}^{C}\hat{\Psi}_{c}^{r_{c}}(\hat{\Psi}_{c}^{\dagger})^{s_{c}}\right\} _{\mathrm{sym}}\rangle &  & =\int\delta\boldsymbol{\Psi}\left(\prod_{c=1}^{C}\Psi_{c}^{r_{c}}(\Psi_{c}^{*})^{s_{c}}\right)W\nonumber \\
+\langle\left\{ \prod_{c=1}^{C}\tilde{\Psi}_{c}^{r_{c}}(\tilde{\Psi}_{c}^{\dagger})^{s_{c}}\right\} _{\mathrm{sym}}\rangle &  & =\int\delta\boldsymbol{\Psi}\left(\prod_{c=1}^{C}\Psi_{c}^{r_{c}}(\Psi_{c}^{*})^{s_{c}}\right)W\nonumber \\
  &  & \approx\left\{ \prod_{c=1}^{C}\Psi_{c}^{r_{c}}(\Psi_{c}^{*})^{s_{c}}\right\} _{\mathrm{paths}},
 \end{eqnarray}
 
@@ -2174,7 +2350,7 @@ where
  stands for the average over the simulation paths.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Initial states
 \end_layout
 
@@ -2208,9 +2384,9 @@ The Wigner distribution for a multi-mode coherent state with expectation
 
  is 
 \begin_inset Formula 
-\[
+\begin{equation}
 W_{c}(\boldsymbol{\alpha}^{(0)})=\left(\frac{2}{\pi}\right)^{|\mathbb{M}|}\prod_{\boldsymbol{n}\in\mathbb{M}}\exp(-2|\alpha_{\boldsymbol{n}}-\alpha_{\boldsymbol{n}}^{(0)}|^{2}).
-\]
+\end{equation}
 
 \end_inset
 
@@ -2220,35 +2396,35 @@ W_{c}(\boldsymbol{\alpha}^{(0)})=\left(\frac{2}{\pi}\right)^{|\mathbb{M}|}\prod_
 \begin_layout Proof
 The density matrix of the state is 
 \begin_inset Formula 
-\[
+\begin{equation}
 \hat{\rho}=\vert\alpha_{\boldsymbol{n}}^{(0)},\,\boldsymbol{n}\in\mathbb{M}\rangle\langle\alpha_{\boldsymbol{n}}^{(0)},\,\boldsymbol{n}\in\mathbb{M}\vert=\left(\prod_{\boldsymbol{n}\in\mathbb{M}}\vert\alpha_{\boldsymbol{n}}^{(0)}\rangle\right)\left(\prod_{\boldsymbol{n}\in\mathbb{M}}\langle\alpha_{\boldsymbol{n}}^{(0)}\vert\right).
-\]
+\end{equation}
 
 \end_inset
 
 Then the characteristic function is 
 \begin_inset Formula 
-\[
+\begin{equation}
 \chi_{W}(\boldsymbol{\alpha}^{(0)})=\prod_{\boldsymbol{n}\in\mathbb{M}}\langle\alpha_{\boldsymbol{n}}^{(0)}\vert\hat{D}_{\boldsymbol{n}}(\lambda_{\boldsymbol{n}},\lambda_{\boldsymbol{n}}^{*})\vert\alpha_{\boldsymbol{n}}^{(0)}\rangle
-\]
+\end{equation}
 
 \end_inset
 
 Using the properties of the displacement operator, this can be transformed
  to 
 \begin_inset Formula 
-\[
+\begin{equation}
 \chi_{W}(\boldsymbol{\alpha}^{(0)})=\prod_{\boldsymbol{n}\in\mathbb{M}}\exp(-\lambda_{\boldsymbol{n}}^{*}\alpha_{\boldsymbol{n}}^{(0)}+\lambda_{\boldsymbol{n}}(\alpha_{\boldsymbol{n}}^{(0)})^{*}-\frac{1}{2}|\lambda|^{2}).
-\]
+\end{equation}
 
 \end_inset
 
 Finally, Wigner function is 
 \begin_inset Formula 
-\begin{eqnarray}
-W_{c}(\boldsymbol{\alpha}^{(0)}) &  & =\frac{1}{\pi^{2|\mathbb{M}|}}\prod_{\boldsymbol{n}\in\mathbb{M}}\left(\int d^{2}\lambda_{\boldsymbol{n}}\exp(-\lambda_{\boldsymbol{n}}(\alpha_{\boldsymbol{n}}^{*}-(\alpha_{\boldsymbol{n}}^{(0)})^{*})+\lambda_{\boldsymbol{n}}^{*}(\alpha_{\boldsymbol{n}}-\alpha_{\boldsymbol{n}}^{(0)})-\frac{1}{2}|\lambda|^{2})\right)\nonumber \\
+\begin{eqnarray*}
+W_{c}(\boldsymbol{\alpha}^{(0)}) &  & =\frac{1}{\pi^{2|\mathbb{M}|}}\prod_{\boldsymbol{n}\in\mathbb{M}}\left(\int d^{2}\lambda_{\boldsymbol{n}}\exp(-\lambda_{\boldsymbol{n}}(\alpha_{\boldsymbol{n}}^{*}-(\alpha_{\boldsymbol{n}}^{(0)})^{*})+\lambda_{\boldsymbol{n}}^{*}(\alpha_{\boldsymbol{n}}-\alpha_{\boldsymbol{n}}^{(0)})-\frac{1}{2}|\lambda|^{2})\right)\\
  &  & =\left(\frac{2}{\pi}\right)^{|\mathbb{M}|}\prod_{\boldsymbol{n}\in\mathbb{M}}\exp(-2|\alpha_{\boldsymbol{n}}-\alpha_{\boldsymbol{n}}^{(0)}|^{2}).
-\end{eqnarray}
+\end{eqnarray*}
 
 \end_inset
 
@@ -2265,9 +2441,9 @@ The resulting Wigner distribution is a product of independent complex-valued
 .
  Therefore the initial state can be sampled as 
 \begin_inset Formula 
-\[
+\begin{equation}
 \alpha_{\boldsymbol{n}}=\alpha_{\boldsymbol{n}}^{(0)}+\frac{1}{\sqrt{2}}\eta_{\boldsymbol{n}},
-\]
+\end{equation}
 
 \end_inset
 
@@ -2283,7 +2459,7 @@ where
 \begin_inset Formula $\langle\eta_{\boldsymbol{m}}\eta_{\boldsymbol{n}}^{*}\rangle=\delta_{\boldsymbol{m},\boldsymbol{n}}$
 \end_inset
 
- (in other words, with components distributed independently with variance
+ (in other words, with real components distributed independently with variance
  
 \begin_inset Formula $\frac{1}{2}$
 \end_inset
@@ -3213,7 +3389,7 @@ key "Risken1996"
 \end_layout
 
 \begin_layout Lemma
-[FPE--SDEs correspondence in convenient form.] 
+[FPE–SDEs correspondence in convenient form.] 
 \begin_inset CommandInset label
 LatexCommand label
 name "lmm:app-fpe:fpe-sde-real"
