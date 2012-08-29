@@ -78,6 +78,7 @@ B.
 \end_layout
 
 \begin_layout Author Email
+
 bogdan@opanchuk.net
 \end_layout
 
@@ -240,7 +241,7 @@ key "Deuar2007"
 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Drummond_Gardiner_PositivePRep"
+key "Drummond1980"
 
 \end_inset
 
@@ -452,7 +453,7 @@ dimensional
 , is 
 \begin_inset Formula 
 \begin{equation}
-\hat{H}=\int d\boldsymbol{x}\left\{ \hat{\Psi}_{j}^{\dagger}K_{jk}\hat{\Psi}_{k}+\frac{1}{2}\int d\boldsymbol{x}^{\prime}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k}^{\prime\dagger}U_{jk}(\boldsymbol{x}-\boldsymbol{x}^{\prime})\hat{\Psi}_{j}^{\prime}\hat{\Psi}_{k}\right\} ,\label{eqn:master-eqn:hamiltonian}
+\hat{H}=\int d\boldsymbol{x}\left\{ \hat{\Psi}_{j}^{\dagger}K_{jk}\hat{\Psi}_{k}+\frac{1}{2}\int d\boldsymbol{x}^{\prime}\hat{\Psi}_{j}^{\dagger}\hat{\Psi}_{k}^{\prime\dagger}U_{jk}(\boldsymbol{x}^{\prime}-\boldsymbol{x})\hat{\Psi}_{j}^{\prime}\hat{\Psi}_{k}\right\} ,\label{eqn:master-eqn:hamiltonian}
 \end{equation}
 
 \end_inset
@@ -509,11 +510,11 @@ If we impose a momentum cutoff
 
  and only take into account low-energy modes, the non-local scattering potential
  
-\begin_inset Formula $U_{jk}(\boldsymbol{x}-\boldsymbol{x}^{\prime})$
+\begin_inset Formula $U_{jk}(\boldsymbol{x}^{\prime}-\boldsymbol{x})$
 \end_inset
 
  can be replaced by the contact potential 
-\begin_inset Formula $U_{jk}\delta(\boldsymbol{x}-\boldsymbol{x}^{\prime})$
+\begin_inset Formula $U_{jk}\delta(\boldsymbol{x}^{\prime}-\boldsymbol{x})$
 \end_inset
 
 
@@ -566,7 +567,7 @@ where
 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Sinatra2002,KokkelmansPhysRevA2002"
+key "Sinatra2002,Kokkelmans2002"
 
 \end_inset
 
@@ -665,7 +666,15 @@ This is a minimal approach to the complicated issue of particle loss, since
  the original Bose gas.
  The accuracy of this approach depends on such issues as the trapping mechanism.
  Since, for massive particles, the particle number is conserved in the non-relat
-ivistic limit, `lost' particles are simply in a different quantum state.
+ivistic limit, 
+\begin_inset Quotes eld
+\end_inset
+
+lost
+\begin_inset Quotes erd
+\end_inset
+
+ particles are simply in a different quantum state.
  The assumption that these particles don't interact with the original Bose
  gas is only valid if the trap is state-selective or the collision is highly
  exothermic, such that the resulting particles are able to move rapidly
@@ -801,13 +810,13 @@ where single mode operators
 : 
 \begin_inset Formula 
 \begin{equation}
-\tilde{\Psi}_{j}\in(\mathbb{R}^{D}\rightarrow\mathbb{H}_{\mathbb{M}_{j}}):\quad\tilde{\Psi}_{j}=\sum_{\boldsymbol{n}\in\mathbb{M}_{j}}\phi_{j,\boldsymbol{n}}\hat{a}_{j,\boldsymbol{n}}.
+\tilde{\Psi}_{j}=\sum_{\boldsymbol{n}\in\mathbb{M}_{j}}\phi_{j,\boldsymbol{n}}\hat{a}_{j,\boldsymbol{n}}.
 \end{equation}
 
 \end_inset
 
  Formally, these field operators have the functional type 
-\begin_inset Formula $\mathbb{FH}_{\mathbb{M}_{j}}\equiv(\mathbb{R}^{D}\rightarrow\mathbb{H}_{\mathbb{M}_{j}})$
+\begin_inset Formula $\tilde{\Psi}_{j}\in\mathbb{FH}_{\mathbb{M}_{j}}\equiv(\mathbb{R}^{D}\rightarrow\mathbb{H}_{\mathbb{M}_{j}})$
 \end_inset
 
 , where 
@@ -954,14 +963,14 @@ Functional displacement operator
 \end_layout
 
 \begin_layout Standard
-aaIt is also convenient to define the displacement functional as:
+It is also convenient to define the displacement functional as:
 \end_layout
 
 \begin_layout Definition
-Functional displacement operator
+Displacement functional
 \end_layout
 
-\begin_layout Ruled Table
+\begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray}
  &  & D::\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{C}\nonumber \\
@@ -970,10 +979,6 @@ Functional displacement operator
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 It can be shown that the functional displacement operator has properties
  similar to its single-mode equivalent.
 \end_layout
@@ -1020,7 +1025,7 @@ name "def:func-wigner:w-transformation"
 \begin_inset Formula 
 \begin{eqnarray}
  &  & \mathcal{W}::\left(\mathbb{R}^{D}\rightarrow\prod_{j=1}^{C}\mathbb{H}_{\mathbb{M}_{j}}\right)\rightarrow\prod_{j=1}^{C}\mathbb{F}_{\mathbb{M}_{j}}\rightarrow\mathbb{C}\nonumber \\
- &  & \mathcal{W}[\hat{A}]=\frac{1}{\pi^{2\sum|\mathbb{M}_{j}|}}\int\delta^{2}\boldsymbol{\Lambda}\left(\prod_{j=1}^{C}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\mathrm{Tr}\left\{ \hat{A}\prod_{j=1}^{C}\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} ,
+ &  & \mathcal{W}[\tilde{A}]=\frac{1}{\pi^{2\sum|\mathbb{M}_{j}|}}\int\delta^{2}\boldsymbol{\Lambda}\left(\prod_{j=1}^{C}D[\Lambda_{j},\Lambda_{j}^{*},\Psi_{j},\Psi_{j}^{*}]\right)\mathrm{Tr}\left\{ \hat{A}\prod_{j=1}^{C}\hat{D}_{j}[\Lambda_{j},\Lambda_{j}^{*}]\right\} ,
 \end{eqnarray}
 
 \end_inset
@@ -1039,7 +1044,7 @@ where
 \end_inset
 
  on a restricted subset of a Hilbert space to a functional 
-\begin_inset Formula $(\mathcal{W}[\hat{A}])[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]$
+\begin_inset Formula $(\mathcal{W}[\tilde{A}])[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]$
 \end_inset
 
 .
@@ -1079,28 +1084,6 @@ where
 \end_inset
 
 
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: Need proof that 
-\begin_inset Formula $W$
-\end_inset
-
- is real-valued? Or just an explicit statement that 
-\begin_inset Formula $\mathcal{W}[\hat{A}]$
-\end_inset
-
- is real when 
-\begin_inset Formula $\hat{A}$
-\end_inset
-
- is Hermitian.]
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -1116,15 +1099,19 @@ name "thm:func-wigner:correspondences"
 
 \end_inset
 
- If 
-\begin_inset Formula $\mathcal{W}[\hat{A}]\equiv(\mathcal{W}[\hat{A}])[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]$
+ For any Hilbert-Schmidt operator 
+\begin_inset Formula $\tilde{A}$
+\end_inset
+
+, if 
+\begin_inset Formula $\mathcal{W}[\tilde{A}]\equiv(\mathcal{W}[\tilde{A}])[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]$
 \end_inset
 
 , then 
 \begin_inset Formula 
 \begin{eqnarray}
-\mathcal{W}[\tilde{\Psi}_{j}\hat{A}] & =\left(\Psi_{j}+\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\tilde{\Psi}_{j}^{\dagger}\hat{A}]=\left(\Psi_{j}^{*}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}}\right)\mathcal{W}[\hat{A}],\nonumber \\
-\mathcal{W}[\hat{A}\tilde{\Psi}_{j}] & =\left(\Psi_{j}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\hat{A}\tilde{\Psi}_{j}^{\dagger}]=\left(\Psi_{j}^{*}+\frac{1}{2}\frac{\delta}{\partial\Psi_{j}}\right)\mathcal{W}[\hat{A}].
+\mathcal{W}[\tilde{\Psi}_{j}\tilde{A}] & =\left(\Psi_{j}+\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\tilde{\Psi}_{j}^{\dagger}\tilde{A}]=\left(\Psi_{j}^{*}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}}\right)\mathcal{W}[\tilde{A}],\nonumber \\
+\mathcal{W}[\tilde{A}\tilde{\Psi}_{j}] & =\left(\Psi_{j}-\frac{1}{2}\frac{\delta}{\delta\Psi_{j}^{*}}\right)\mathcal{W}[\hat{A}],\qquad\mathcal{W}[\tilde{A}\tilde{\Psi}_{j}^{\dagger}]=\left(\Psi_{j}^{*}+\frac{1}{2}\frac{\delta}{\partial\Psi_{j}}\right)\mathcal{W}[\tilde{A}].
 \end{eqnarray}
 
 \end_inset
@@ -1145,7 +1132,7 @@ reference "lmm:func-wigner:displacement-derivatives"
 \end_inset
 
  given above to transform the 
-\begin_inset Formula $\hat{A}\prod_{j}\hat{D}_{j}$
+\begin_inset Formula $\tilde{A}\prod_{j}\hat{D}_{j}$
 \end_inset
 
  product inside the trace, together with Lemma
@@ -1159,8 +1146,23 @@ reference "lmm:func-calculus:zero-integrals"
 
 \end_inset
 
- from the Appendix to integrate by parts, effectively moving the differentials
- to their intended places.
+ from the Appendix to integrate by parts (because of the restriction on
+ 
+\begin_inset Formula $\tilde{A}$
+\end_inset
+
+, the traces will be square-integrable
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cahill1969"
+
+\end_inset
+
+), effectively moving the differentials to their intended places.
  
 \end_layout
 
@@ -1403,13 +1405,19 @@ key "Louisell1990"
 \end_layout
 
 \begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lmm:func-operators:commutators"
+
+\end_inset
+
 Commutators for restricted field operators:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\left[\tilde{\Psi},(\tilde{\Psi}^{\prime\dagger})^{l}\right]=l\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime}-\boldsymbol{x})(\tilde{\Psi}^{\prime\dagger})^{l-1},\qquad\left[\tilde{\Psi}^{\dagger},(\tilde{\Psi}^{\prime})^{l}\right]=-l\delta_{\mathbb{M}}^{*}(\boldsymbol{x}^{\prime}-\boldsymbol{x})(\tilde{\Psi}^{\prime})^{l-1}.
+\left[\tilde{\Psi},(\tilde{\Psi}^{\prime\dagger})^{l}\right]=l\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime},\boldsymbol{x})(\tilde{\Psi}^{\prime\dagger})^{l-1},\qquad\left[\tilde{\Psi}^{\dagger},(\tilde{\Psi}^{\prime})^{l}\right]=-l\delta_{\mathbb{M}}^{*}(\boldsymbol{x}^{\prime},\boldsymbol{x})(\tilde{\Psi}^{\prime})^{l-1}.
 \end{equation}
 
 \end_inset
@@ -1436,7 +1444,7 @@ name "lmm:func-operators:functional-commutators"
  
 \begin_inset Formula 
 \begin{equation}
-\left[\tilde{\Psi},f(\tilde{\Psi}^{\prime},\tilde{\Psi}^{\prime\dagger})\right]=\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime}-\boldsymbol{x})\frac{\partial f}{\partial\tilde{\Psi}^{\prime\dagger}},\qquad\left[\tilde{\Psi}^{\dagger},f(\tilde{\Psi}^{\prime},\tilde{\Psi}^{\prime\dagger})\right]=-\delta_{\mathbb{M}}^{*}(\boldsymbol{x}^{\prime}-\boldsymbol{x})\frac{\partial f}{\partial\tilde{\Psi}^{\prime}},
+\left[\tilde{\Psi},f(\tilde{\Psi}^{\prime},\tilde{\Psi}^{\prime\dagger})\right]=\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime},\boldsymbol{x})\frac{\partial f}{\partial\tilde{\Psi}^{\prime\dagger}},\qquad\left[\tilde{\Psi}^{\dagger},f(\tilde{\Psi}^{\prime},\tilde{\Psi}^{\prime\dagger})\right]=-\delta_{\mathbb{M}}^{*}(\boldsymbol{x}^{\prime},\boldsymbol{x})\frac{\partial f}{\partial\tilde{\Psi}^{\prime}},
 \end{equation}
 
 \end_inset
@@ -1454,9 +1462,42 @@ where
 \end_inset
 
 .
+\end_layout
 
-\color red
- (PROOF????)
+\begin_layout Proof
+Let us prove the first relation; the procedure for the second one is the
+ same.
+ Without the loss of generality, we can assume that 
+\begin_inset Formula $f(\tilde{\Psi}^{\prime},\tilde{\Psi}^{\prime\dagger})$
+\end_inset
+
+ can be expanded in the power series of normally ordered operators.
+ Using Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:func-operators:commutators"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{eqnarray*}
+\left[\tilde{\Psi},f(\tilde{\Psi}^{\prime},\tilde{\Psi}^{\prime\dagger})\right] & = & \sum_{r,s}f_{rs}\left[\tilde{\Psi},(\tilde{\Psi}^{\prime\dagger})^{r}(\tilde{\Psi}^{\prime})^{s}\right]\\
+ & = & \sum_{r,s}f_{rs}\left[\tilde{\Psi},(\tilde{\Psi}^{\prime\dagger})^{r}\right](\tilde{\Psi}^{\prime})^{s}\\
+ & = & \sum_{r,s}f_{rs}r\delta_{\mathbb{M}}(\boldsymbol{x}^{\prime},\boldsymbol{x})(\tilde{\Psi}^{\prime\dagger})^{r-1}(\tilde{\Psi}^{\prime})^{s}\\
+ & = & \delta_{\mathbb{M}}(\boldsymbol{x}^{\prime},\boldsymbol{x})\frac{\partial f}{\partial\tilde{\Psi}^{\prime\dagger}}.
+\end{eqnarray*}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1484,7 +1525,7 @@ name "thm:transformations:w-commutator1"
  
 \begin_inset Formula 
 \begin{equation}
-\mathcal{W}\left[[\int d\boldsymbol{x}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k},\hat{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi_{j}}\Psi_{k}+\frac{\delta}{\delta\Psi_{k}^{*}}\Psi_{j}^{*}\right)\mathcal{W}[\hat{A}].
+\mathcal{W}\left[[\int d\boldsymbol{x}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k},\tilde{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi_{j}}\Psi_{k}+\frac{\delta}{\delta\Psi_{k}^{*}}\Psi_{j}^{*}\right)\mathcal{W}[\tilde{A}].
 \end{equation}
 
 \end_inset
@@ -1532,7 +1573,7 @@ name "thm:transformations:w-laplacian-commutator1"
  
 \begin_inset Formula 
 \begin{equation}
-\mathcal{W}\left[\int d\boldsymbol{x}[\tilde{\Psi}^{\dagger}\nabla^{2}\tilde{\Psi},\hat{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi}\nabla^{2}\Psi+\frac{\delta}{\delta\Psi^{*}}\nabla^{2}\Psi^{*}\right)\mathcal{W}[\hat{A}].
+\mathcal{W}\left[\int d\boldsymbol{x}[\tilde{\Psi}^{\dagger}\nabla^{2}\tilde{\Psi},\tilde{A}]\right]=\int d\boldsymbol{x}\left(-\frac{\delta}{\delta\Psi}\nabla^{2}\Psi+\frac{\delta}{\delta\Psi^{*}}\nabla^{2}\Psi^{*}\right)\mathcal{W}[\tilde{A}].
 \end{equation}
 
 \end_inset
@@ -1568,23 +1609,19 @@ reference "lmm:func-calculus:move-laplacian"
 
 \begin_layout Standard
 The next theorem describes the transformation of the non-linear part of
- the Hamiltonian.
+ the Hamiltonian
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:master-eqn:effective-H"
+
+\end_inset
+
+).
  
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: Can be simplified by assuming the locality of the interaction, thus
- getting rid of 
-\begin_inset Formula $\boldsymbol{x}^{\prime}$
-\end_inset
-
-.]
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Theorem
@@ -1597,13 +1634,13 @@ name "thm:transformations:w-commutator2"
  
 \begin_inset Formula 
 \begin{eqnarray}
- &  & \mathcal{W}\left[[\int d\boldsymbol{x}\int d\boldsymbol{x}^{\prime}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k}^{\prime\dagger}\tilde{\Psi}_{j}^{\prime}\tilde{\Psi}_{k},\hat{A}]\right]\nonumber \\
- &  & =\int d\boldsymbol{x}\int d\boldsymbol{x}^{\prime}\left(\frac{\delta}{\delta\Psi_{j}}\left(-\Psi_{j}^{\prime}\Psi_{k}\Psi_{k}^{\prime*}+\frac{1}{2}\delta_{jk}\tilde{\delta}(\boldsymbol{x}^{\prime},\boldsymbol{x}^{\prime})\Psi_{k}+\frac{1}{2}\tilde{\delta}(\boldsymbol{x},\boldsymbol{x}^{\prime})\Psi_{j}^{\prime}\right)\right.\nonumber \\
- &  & \left.+\frac{\delta}{\delta\Psi_{j}^{\prime*}}\left(\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{\prime*}-\frac{1}{2}\delta_{jk}\tilde{\delta}(\boldsymbol{x},\boldsymbol{x})\Psi_{k}^{\prime*}-\frac{1}{2}\tilde{\delta}(\boldsymbol{x},\boldsymbol{x}^{\prime})\Psi_{j}^{*}\right)\right.\nonumber \\
- &  & \left.+\frac{\delta}{\delta\Psi_{k}^{\prime}}\left(-\Psi_{j}^{\prime}\Psi_{j}^{*}\Psi_{k}+\frac{1}{2}\delta_{jk}\tilde{\delta}(\boldsymbol{x},\boldsymbol{x})\Psi_{j}^{\prime}+\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x}^{\prime},\boldsymbol{x})\Psi_{k}\right)\right.\nonumber \\
- &  & \left.+\frac{\delta}{\delta\Psi_{k}^{*}}\left(\Psi_{j}^{\prime}\Psi_{j}^{*}\Psi_{k}^{\prime*}-\frac{1}{2}\delta_{jk}\tilde{\delta}(\boldsymbol{x}^{\prime},\boldsymbol{x}^{\prime})\Psi_{j}^{*}-\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x}^{\prime},\boldsymbol{x})\Psi_{k}^{\prime*}\right)\right.\nonumber \\
- &  & \left.+\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{\prime*}}\frac{\delta}{\delta\Psi_{k}^{\prime}}\frac{1}{4}\Psi_{k}-\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{\prime*}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{1}{4}\Psi_{k}^{\prime*}\right.\nonumber \\
- &  & \left.+\frac{\delta}{\delta\Psi_{k}^{\prime}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{\delta}{\delta\Psi_{j}}\frac{1}{4}\Psi_{j}^{\prime}-\frac{\delta}{\delta\Psi_{k}^{\prime}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{\delta}{\delta\Psi_{j}^{\prime*}}\frac{1}{4}\Psi_{j}^{*}\right)\mathcal{W}[\hat{A}].
+ &  & \mathcal{W}\left[[\int d\boldsymbol{x}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k}^{\dagger}\tilde{\Psi}_{j}\tilde{\Psi}_{k},\tilde{A}]\right]\nonumber \\
+ &  & =\int d\boldsymbol{x}\left(\frac{\delta}{\delta\Psi_{j}}\left(-\Psi_{j}\Psi_{k}\Psi_{k}^{*}+\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x},\boldsymbol{x})\left(\delta_{jk}\Psi_{k}+\Psi_{j}\right)\right)\right.\nonumber \\
+ &  & \left.+\frac{\delta}{\delta\Psi_{j}^{*}}\left(\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{*}-\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x},\boldsymbol{x})\left(\delta_{jk}\Psi_{k}^{*}+\Psi_{j}^{*}\right)\right)\right.\nonumber \\
+ &  & \left.+\frac{\delta}{\delta\Psi_{k}}\left(-\Psi_{j}\Psi_{j}^{*}\Psi_{k}+\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x},\boldsymbol{x})\left(\delta_{jk}\Psi_{j}+\Psi_{k}\right)\right)\right.\nonumber \\
+ &  & \left.+\frac{\delta}{\delta\Psi_{k}^{*}}\left(\Psi_{j}\Psi_{j}^{*}\Psi_{k}^{*}-\frac{1}{2}\delta_{\mathbb{M}_{k}}(\boldsymbol{x},\boldsymbol{x})\left(\delta_{jk}\Psi_{j}^{*}+\Psi_{k}^{*}\right)\right)\right.\nonumber \\
+ &  & \left.+\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{\delta}{\delta\Psi_{k}}\frac{1}{4}\Psi_{k}-\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{1}{4}\Psi_{k}^{*}\right.\nonumber \\
+ &  & \left.+\frac{\delta}{\delta\Psi_{k}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{\delta}{\delta\Psi_{j}}\frac{1}{4}\Psi_{j}-\frac{\delta}{\delta\Psi_{k}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{1}{4}\Psi_{j}^{*}\right)\mathcal{W}[\tilde{A}].
 \end{eqnarray}
 
 \end_inset
@@ -1687,14 +1724,23 @@ The second lemma gives a way to simplify sums obtained from the application
 \end_layout
 
 \begin_layout Lemma
-[Sum rearrangement] 
+\begin_inset Argument
+status open
+
+\begin_layout Plain Layout
+Sum rearrangement
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset label
 LatexCommand label
 name "lmm:transformations:sum-rearrangement"
 
 \end_inset
 
- For any non-negative integer 
+For any non-negative integer 
 \begin_inset Formula $l$
 \end_inset
 
@@ -1714,10 +1760,147 @@ name "lmm:transformations:sum-rearrangement"
 \end_layout
 
 \begin_layout Proof
-Can be proved either by formal manipulation with sets, or by drawing a picture.
+Obviously, the order 
+\begin_inset Formula $v=j-k$
+\end_inset
+
+ of factor 
+\begin_inset Formula $f$
+\end_inset
+
+ can vary from 
+\begin_inset Formula $0$
+\end_inset
+
+ (say, when 
+\begin_inset Formula $j=0$
+\end_inset
+
+ and 
+\begin_inset Formula $k=0$
+\end_inset
+
+) to 
+\begin_inset Formula $l$
+\end_inset
+
+ (when 
+\begin_inset Formula $j=l$
+\end_inset
+
+ and 
+\begin_inset Formula $k=0$
+\end_inset
+
+).
+ Therefore: 
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+\sum_{j=0}^{l}\sum_{k=0}^{\min(l-u,j)}f^{j-k}g(j,k)=\sum_{v=0}^{l}f^{v}\sum_{k\in K(l,u,v)}g(v+k,k),
+\]
+
+\end_inset
+
+where the set 
+\begin_inset Formula $K$
+\end_inset
+
+ is defined as 
+\begin_inset Formula 
+\begin{eqnarray*}
+K(l,u,v) & = & \{k|0\le j\le l\wedge0\le k\le\min(l-u,j)\wedge j-k=v\}\\
+ & = & \{k|k\le l-v\wedge0\le k\le\min(l-u,v+k)\}.
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+It is convenient to consider two cases separately 
+\begin_inset Formula $v\le u$
+\end_inset
+
+ and 
+\begin_inset Formula $v>u$
+\end_inset
+
+.
+ For the former case 
+\begin_inset Formula 
+\[
+K_{v\le u}=\{k|k\le l-v\wedge0\le k\le\min(l-u,k+v)\wedge v\le u\}.
+\]
+
+\end_inset
+
+When 
+\begin_inset Formula $v\le u$
+\end_inset
+
+, 
+\begin_inset Formula $k\le l-v\le l-u\le\min(l-u,k+v)$
+\end_inset
+
+ is always true, and the first inequation is redundant: 
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+K_{v\le u}=\{k|0\le k\le\min(l-u,v+k)\wedge v\le u\}.
+\]
+
+\end_inset
+
+Splitting into two sets to get rid of the minimum function:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{eqnarray*}
+K_{v\le u} & = & \{k|v\le u\wedge k\ge0\wedge((k\le l-u\wedge l-u<v+k)\vee(k\le v+k\wedge l-u\ge v+k))\}\\
+ & = & \{k|v\le u\wedge0\le k\le l-u\}.
+\end{eqnarray*}
+
+\end_inset
+
+For the latter case:
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{eqnarray*}
+K_{v>u} & = & \{k|k\le l-v\wedge0\le k\le\min(l-u,k+v)\wedge v>u\}\\
+ & = & \{k|v>u\wedge k\ge0\wedge((k\le l-v\wedge k\le l-u\wedge l-u\le k+v)\vee(k\le l-v\wedge k\le k+v\wedge l-u>k+v))\}\\
+ & = & \{k|v>u\wedge0\le k\le l-v\}.
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Thus
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{eqnarray*}
+K & = & K_{v\le u}\cup K_{v>u}\\
+ & = & \{k|v\le u\wedge0\le k\le l-u\}\cup\{k|v>u\wedge0\le k\le l-v\}\\
+ & = & \{k|0\le k\le l-\max(u,v)\},
+\end{eqnarray*}
+
+\end_inset
+
+which gives us the statement of the lemma.
  
-\color red
-(PROOF????)
 \end_layout
 
 \begin_layout Standard
@@ -1745,7 +1928,7 @@ reference "eqn:master-eqn:loss-term"
 ) is 
 \begin_inset Formula 
 \begin{equation}
-\mathcal{W}\left[\int d\boldsymbol{x}\hat{\mathcal{L}}_{\boldsymbol{l}}[\hat{A}]\right]=\int d\boldsymbol{x}\sum_{j_{1}=0}^{l_{1}}\sum_{k_{1}=0}^{l_{1}}\ldots\sum_{j_{C}=0}^{l_{C}}\sum_{k_{C}=0}^{l_{C}}\left(\prod_{c=1}^{C}\left(\frac{\delta}{\delta\Psi_{c}^{*}}\right)^{j_{c}}\left(\frac{\delta}{\delta\Psi_{c}}\right)^{k_{c}}\right)L_{\boldsymbol{l},\boldsymbol{j},\boldsymbol{k}}\mathcal{W}[\hat{A}],
+\mathcal{W}\left[\int d\boldsymbol{x}\mathcal{L}_{\boldsymbol{l}}[\tilde{A}]\right]=\int d\boldsymbol{x}\sum_{j_{1}=0}^{l_{1}}\sum_{k_{1}=0}^{l_{1}}\ldots\sum_{j_{C}=0}^{l_{C}}\sum_{k_{C}=0}^{l_{C}}\left(\prod_{c=1}^{C}\left(\frac{\delta}{\delta\Psi_{c}^{*}}\right)^{j_{c}}\left(\frac{\delta}{\delta\Psi_{c}}\right)^{k_{c}}\right)L_{\boldsymbol{l},\boldsymbol{j},\boldsymbol{k}}\mathcal{W}[\tilde{A}],
 \end{equation}
 
 \end_inset
@@ -1904,24 +2087,20 @@ reference "thm:transformations:w-commutator2"
 
 \end_inset
 
- (minding the locality of interaction and assuming 
+ (assuming 
 \begin_inset Formula $U_{kj}=U_{jk}$
 \end_inset
 
 ): 
 \begin_inset Formula 
 \begin{eqnarray}
-\mathcal{W}\left[[\int d\boldsymbol{x}\frac{U_{jk}}{2}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k}^{\dagger}\tilde{\Psi}_{j}\tilde{\Psi}_{k},\hat{\rho}]\right]= &  & \int d\boldsymbol{x}U_{jk}\left(\frac{\delta}{\delta\Psi_{j}}\left(-\Psi_{j}\Psi_{k}\Psi_{k}^{*}+\frac{\delta_{\mathbb{M}}(\boldsymbol{x},\boldsymbol{x})}{2}(\delta_{jk}\Psi_{k}+\Psi_{j})\right)\right.\nonumber \\
- &  & \left.+\frac{\delta}{\delta\Psi_{j}^{*}}\left(\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{*}-\frac{\delta_{\mathbb{M}}(\boldsymbol{x},\boldsymbol{x})}{2}(\delta_{jk}\Psi_{k}^{*}+\Psi_{j}^{*})\right)\right.\nonumber \\
+\mathcal{W}\left[[\int d\boldsymbol{x}\frac{U_{jk}}{2}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k}^{\dagger}\tilde{\Psi}_{j}\tilde{\Psi}_{k},\hat{\rho}]\right]= &  & \int d\boldsymbol{x}U_{jk}\left(\frac{\delta}{\delta\Psi_{j}}\left(-\Psi_{j}\Psi_{k}\Psi_{k}^{*}+\frac{\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x})}{2}(\delta_{jk}\Psi_{k}+\Psi_{j})\right)\right.\nonumber \\
+ &  & \left.+\frac{\delta}{\delta\Psi_{j}^{*}}\left(\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{*}-\frac{\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x})}{2}(\delta_{jk}\Psi_{k}^{*}+\Psi_{j}^{*})\right)\right.\nonumber \\
  &  & \left.+\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{\delta}{\delta\Psi_{k}}\frac{1}{4}\Psi_{k}-\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{1}{4}\Psi_{k}^{*}\right)W.
 \end{eqnarray}
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 Loss terms
 \begin_inset space ~
 \end_inset
@@ -1945,9 +2124,6 @@ reference "thm:transformations:w-losses"
 \end_inset
 
 .
- [TODO: Not writing the resulting expression here, because with the absence
- of truncation it is too long, and is practically the same as in theorem
- statement.]
 \end_layout
 
 \begin_layout Standard
@@ -1959,7 +2135,7 @@ Assuming that
 \begin_inset Formula $U_{jk}$
 \end_inset
 
- and 
+, and 
 \begin_inset Formula $\kappa_{\boldsymbol{l}}$
 \end_inset
 
@@ -2031,7 +2207,7 @@ key "Norrie2006"
  
 \begin_inset Formula 
 \begin{equation}
-\tilde{\delta}(\boldsymbol{x},\boldsymbol{x})\ll|\Psi_{j}|^{2}.
+\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x})\ll|\Psi_{j}|^{2}.\label{eqn:truncation:delta-condition}
 \end{equation}
 
 \end_inset
@@ -2121,12 +2297,19 @@ reference "thm:transformations:w-losses"
 
 \end_inset
 
- under certain conditions.
- 
-\color red
-(SPECIFICALLY WHY???)
-\color inherit
-First, we neglect all occurrences of 
+ under two conditions.
+ First, because of
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:truncation:delta-condition"
+
+\end_inset
+
+) we neglect all occurrences of 
 \begin_inset Formula $\delta_{\mathbb{M}}$
 \end_inset
 
@@ -2190,7 +2373,7 @@ First, we neglect all occurrences of
 Thus the truncated Fokker-Planck equation (FPE) is then: 
 \begin_inset Formula 
 \begin{equation}
-\frac{dW}{dt}=\int d\boldsymbol{x}\left(-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}}\mathcal{A}_{j}-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}^{*}}\mathcal{A}_{j}^{*}+\sum_{j=1}^{C}\sum_{k=1}^{C}\frac{\delta^{2}}{\delta\Psi_{j}^{*}\delta\Psi_{k}}\mathcal{D}_{jk}\right)W,\label{eq:TruncatedFPE}
+\frac{dW}{dt}=\int d\boldsymbol{x}\left(-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}}\mathcal{A}_{j}-\sum_{j=1}^{C}\frac{\delta}{\delta\Psi_{j}^{*}}\mathcal{A}_{j}^{*}+\sum_{j=1}^{C}\sum_{k=1}^{C}\frac{\delta^{2}}{\delta\Psi_{j}^{*}\delta\Psi_{k}}\mathcal{D}_{jk}\right)W,\label{eq:truncation:FPE}
 \end{equation}
 
 \end_inset
@@ -2253,7 +2436,7 @@ reference "thm:app-fpe:fpe-sde-func"
  applying these methods to the truncated FPE (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:TruncatedFPE"
+reference "eq:truncation:FPE"
 
 \end_inset
 
@@ -2304,7 +2487,7 @@ d\Psi_{j}=\mathcal{P}_{\mathbb{M}_{j}}\left[(\mathcal{A}_{j}-\mathcal{S}_{j})dt+
 where the Stratonovich term is 
 \begin_inset Formula 
 \begin{equation}
-\mathcal{S}_{j}=\sum_{n=1}^{C}\sum_{\boldsymbol{l}}\kappa_{\boldsymbol{l}}\frac{\partial O_{\boldsymbol{l}}}{\partial\Psi_{n}}\left(\frac{\partial^{2}O_{\boldsymbol{l}}}{\partial\Psi_{n}\partial\Psi_{j}}\right)^{*}\delta_{\mathbb{M}_{n}}(\boldsymbol{x},\boldsymbol{x}).
+\mathcal{S}_{j}=\sum_{c=1}^{C}\sum_{\boldsymbol{l}}\kappa_{\boldsymbol{l}}\frac{\partial O_{\boldsymbol{l}}}{\partial\Psi_{c}}\left(\frac{\partial^{2}O_{\boldsymbol{l}}}{\partial\Psi_{c}\partial\Psi_{j}}\right)^{*}\delta_{\mathbb{M}_{c}}(\boldsymbol{x},\boldsymbol{x}).
 \end{equation}
 
 \end_inset
@@ -2497,35 +2680,17 @@ classical
  ground state of the system.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: We can describe the Wigner function for the number state here, as
- an example of non-positive Wigner function.]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
 Conclusion
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: Conclusion goes here.]
-\end_layout
-
-\end_inset
-
-
+We have formally derived all the equations necessary to describe BEC interferome
+try experiments statistically, given the master equation written in terms
+ of field operators.
+ The resulting SDEs can be effectively integrated numerically using conventional
+ methods, and their solutions can be used to calculate all the required
+ observables.
 \end_layout
 
 \begin_layout Section
@@ -2703,7 +2868,7 @@ name "lmm:c-numbers:zero-integrals"
 \begin_inset Formula $f(\lambda,\lambda^{*})$
 \end_inset
 
- is bounded, then for any complex 
+ is square-integrable, then for any complex 
 \begin_inset Formula $\alpha$
 \end_inset
 
@@ -2720,16 +2885,16 @@ name "lmm:c-numbers:zero-integrals"
 \end_layout
 
 \begin_layout Proof
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: Needs proof?]
-\end_layout
-
+Square-integrability of f means 
+\begin_inset Formula $\underset{\mathrm{Re}\lambda\rightarrow\infty}{\lim}f=0$
 \end_inset
 
- 
+ and 
+\begin_inset Formula $\underset{\mathrm{Im}\lambda\rightarrow\infty}{\lim}f=0$
+\end_inset
+
+, so the statement of the lemma can be proved by transforming to real variables
+ and integrating.
 \end_layout
 
 \begin_layout Section
@@ -3047,7 +3212,7 @@ Functional integration is defined as
 \begin_inset Formula 
 \begin{eqnarray*}
  &  & \int\delta^{2}f::(\mathbb{F}_{\mathbb{M}}\rightarrow\mathbb{F})\rightarrow\mathbb{C}\\
- &  & \int\delta^{2}f\mathcal{F}[f]=\int d^{2}\boldsymbol{\alpha}\mathcal{F}(\boldsymbol{\alpha})=\left(\prod_{\boldsymbol{n}\in\mathbb{M}}\int d^{2}\alpha_{\boldsymbol{n}}\right)\mathcal{F}(\boldsymbol{\alpha}).
+ &  & \int\delta^{2}f\mathcal{F}[f]=\int d^{2}\boldsymbol{\alpha}\mathcal{F}(\boldsymbol{\alpha})
 \end{eqnarray*}
 
 \end_inset
@@ -3059,25 +3224,10 @@ If the basis contains an infinite number of modes, the integral is treated
 
 .
  
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: Product of integrals means successive applications of those integrals
- --- do we need to state it explicitly?]
-\end_layout
-
-\end_inset
-
- 
 \end_layout
 
 \begin_layout Standard
 Functional integration has the Fourier-like property analogous to Lemma
-\begin_inset space ~
-\end_inset
-
-Lemma
 \begin_inset space ~
 \end_inset
 
@@ -3123,7 +3273,7 @@ The delta functional has the same property as the common delta function:
  
 \begin_inset Formula 
 \begin{eqnarray}
-\int\delta^{2}\Lambda\mathcal{F}[\Lambda]\Delta_{\mathbb{M}}[\Lambda] & = & \left(\prod_{\boldsymbol{n}\in\mathbb{M}}\int d^{2}\lambda_{\boldsymbol{n}}\right)\mathcal{F}(\boldsymbol{\lambda})\prod_{\boldsymbol{n}\in\mathbb{M}}\delta(\mathrm{Re}\lambda_{\boldsymbol{n}})\delta(\mathrm{Im}\lambda_{\boldsymbol{n}})\nonumber \\
+\int\delta^{2}\Lambda\mathcal{F}[\Lambda]\Delta_{\mathbb{M}}[\Lambda] & = & \int d^{2}\boldsymbol{\lambda}\mathcal{F}(\boldsymbol{\lambda})\prod_{\boldsymbol{n}\in\mathbb{M}}\delta(\mathrm{Re}\lambda_{\boldsymbol{n}})\delta(\mathrm{Im}\lambda_{\boldsymbol{n}})\nonumber \\
  & = & \left.\mathcal{F}(\boldsymbol{\lambda})\right|_{\forall\boldsymbol{n}\in\mathbb{M}\,\lambda_{\boldsymbol{n}}=0}\nonumber \\
  & = & \left.\mathcal{F}[\Lambda]\right|_{\Lambda\equiv0}
 \end{eqnarray}
@@ -3134,7 +3284,11 @@ The delta functional has the same property as the common delta function:
 \end_layout
 
 \begin_layout Lemma
-[Functional extension of Lemma
+\begin_inset Argument
+status open
+
+\begin_layout Plain Layout
+Functional extension of Lemma
 \begin_inset space ~
 \end_inset
 
@@ -3145,7 +3299,12 @@ reference "lmm:c-numbers:fourier-of-moments"
 
 \end_inset
 
-] 
+
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset label
 LatexCommand label
 name "lmm:func-calculus:fourier-of-moments"
@@ -3202,14 +3361,35 @@ reference "lmm:c-numbers:fourier-of-moments"
 \end_layout
 
 \begin_layout Lemma
+\begin_inset Argument
+status open
+
+\begin_layout Plain Layout
+Functional extension of Lemma
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lmm:c-numbers:zero-integrals"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset label
 LatexCommand label
 name "lmm:func-calculus:zero-integrals"
 
 \end_inset
 
- For a bounded functional 
-\begin_inset Formula $F(\boldsymbol{\lambda},\boldsymbol{\lambda}^{*})$
+ For a square-integrable functional 
+\begin_inset Formula $F$
 \end_inset
 
  
@@ -3252,25 +3432,15 @@ name "lmm:func-calculus:zero-delta-integrals"
 \begin_inset Formula $\Lambda\in\mathbb{F}_{\mathbb{M}}$
 \end_inset
 
- 
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: Any limitations on 
+ and a bounded functional 
 \begin_inset Formula $F$
-\end_inset
-
-?]
-\end_layout
-
 \end_inset
 
  
 \begin_inset Formula 
 \begin{eqnarray*}
-\int\delta^{2}\Lambda\frac{\delta}{\delta\Lambda}\left(\left(\left(\frac{\delta}{\delta\Lambda}\right)^{s}\left(-\frac{\delta}{\delta\Lambda^{*}}\right)^{r}\Delta_{\mathbb{M}}[\Lambda]\right)F[\lambda,\lambda^{*}]\right) & =0\\
-\int\delta^{2}\Lambda\frac{\delta}{\delta\Lambda^{*}}\left(\left(\left(\frac{\delta}{\delta\Lambda}\right)^{s}\left(-\frac{\delta}{\delta\Lambda^{*}}\right)^{r}\Delta_{\mathbb{M}}[\Lambda]\right)F[\lambda,\lambda^{*}]\right) & =0
+\int\delta^{2}\Lambda\frac{\delta}{\delta\Lambda}\left(\left(\left(\frac{\delta}{\delta\Lambda}\right)^{s}\left(-\frac{\delta}{\delta\Lambda^{*}}\right)^{r}\Delta_{\mathbb{M}}[\Lambda]\right)F[\Lambda,\Lambda^{*}]\right) & =0\\
+\int\delta^{2}\Lambda\frac{\delta}{\delta\Lambda^{*}}\left(\left(\left(\frac{\delta}{\delta\Lambda}\right)^{s}\left(-\frac{\delta}{\delta\Lambda^{*}}\right)^{r}\Delta_{\mathbb{M}}[\Lambda]\right)F[\Lambda,\Lambda^{*}]\right) & =0
 \end{eqnarray*}
 
 \end_inset
@@ -3389,14 +3559,23 @@ key "Risken1996"
 \end_layout
 
 \begin_layout Lemma
-[FPE–SDEs correspondence in convenient form.] 
+\begin_inset Argument
+status open
+
+\begin_layout Plain Layout
+FPE–SDEs correspondence in convenient form
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset label
 LatexCommand label
 name "lmm:app-fpe:fpe-sde-real"
 
 \end_inset
 
- If 
+If 
 \begin_inset Formula $\boldsymbol{z}^{T}\equiv(z_{1}\ldots z_{M})$
 \end_inset
 

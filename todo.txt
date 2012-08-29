@@ -1,0 +1,13 @@
+Notation:
+- Do we need explicit statement about the format of types for functions/functionals?
+- Do we need explicit notation for "restricted" functions, like tilda over restricted operators?
+- Should we write \tilde{\rho}, when we know that it belongs to the restricted subspace? Same question for the displacement operator.
+- Can we use matrix form of FPE-SDE transitions?
+- \tilde{\delta} for the delta functional is a bit inconsistent. What's wrong with \Delta? Also, an index \mathbb{M} would be nice, because normal delta has it.
+- Isn't it better to use <> instead of {} to denote the average over simulation paths?
+
+Other:
+- Does AIP require shortened journal names? Need to fix buildbib.py in this case.
+- Do we need to proof that W transformation of Hermitian operator is a real-valued function?
+- What is the vector "n" in eqn:master-eqn:effective-H? 
+- Do we need to provide Wigner function for initial state other than coherent?
