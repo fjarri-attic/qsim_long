@@ -2169,7 +2169,7 @@ reference "thm:transformations:w-commutator2"
 \begin_inset Formula 
 \begin{eqnarray}
 \mathcal{W}\left[[\int d\boldsymbol{x}\frac{U_{jk}}{2}\tilde{\Psi}_{j}^{\dagger}\tilde{\Psi}_{k}^{\dagger}\tilde{\Psi}_{j}\tilde{\Psi}_{k},\hat{\rho}]\right]= &  & \int d\boldsymbol{x}U_{jk}\left(\frac{\delta}{\delta\Psi_{j}}\left(-\Psi_{j}\Psi_{k}\Psi_{k}^{*}+\frac{\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x})}{2}(\delta_{jk}\Psi_{k}+\Psi_{j})\right)\right.\nonumber \\
- &  & \left.+\frac{\delta}{\delta\Psi_{j}^{*}}\left(\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{*}-\frac{\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x})}{2}(\delta_{jk}\Psi_{k}^{*}+\Psi_{j}^{*})\right)\right.\nonumber \\
+ &  & \left.+\frac{\delta}{\delta\Psi_{j}^{*}}\left(\Psi_{j}^{*}\Psi_{k}\Psi_{k}^{*}-\frac{\delta_{\mathbb{M}_{j}}(\boldsymbol{x},\boldsymbol{x})}{2}(\delta_{jk}\Psi_{k}^{*}+\Psi_{j}^{*})\right)\right.\label{eqn:truncation:nonlinear-term}\\
  &  & \left.+\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{\delta}{\delta\Psi_{k}}\frac{1}{4}\Psi_{k}-\frac{\delta}{\delta\Psi_{j}}\frac{\delta}{\delta\Psi_{j}^{*}}\frac{\delta}{\delta\Psi_{k}^{*}}\frac{1}{4}\Psi_{k}^{*}\right)W.
 \end{eqnarray}
 
@@ -2328,17 +2328,22 @@ Assuming the conditions for Wigner truncation are satisfied, the result
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: Lyx joins two lemmas, so some text is needed here.]
-\end_layout
+\begin_layout Proof
+Proved by simplifying equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:truncation:nonlinear-term"
 
 \end_inset
 
+) under condition (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:truncation:delta-condition"
 
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Lemma
@@ -2452,6 +2457,17 @@ Thus the truncated Fokker-Planck equation (FPE) is then:
 
 \end_inset
 
+or, in the matrix form:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{dW}{dt}=\int d\boldsymbol{x}\left(-2\mathrm{Re}\left(\boldsymbol{\delta}_{\boldsymbol{\Psi}}\cdot\boldsymbol{\mathcal{A}}\right)+\mathrm{Tr}\left\{ \boldsymbol{\delta}_{\boldsymbol{\Psi}^{*}}\boldsymbol{\delta}_{\boldsymbol{\Psi}}^{T}\mathcal{D}\right\} \right)W,
+\]
+
+\end_inset
+
 where we define the relevant coefficients in the FPE as: 
 \begin_inset Formula 
 \begin{equation}
@@ -2520,7 +2536,7 @@ reference "eq:truncation:FPE"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-d\Psi_{j}=\mathcal{P}_{\mathbb{M}_{j}}\left[\mathcal{A}_{j}dt+\sum_{\boldsymbol{l}}\mathcal{B}_{j\boldsymbol{l}}Q_{\boldsymbol{l}}\right],\label{eqn:fpe:sdes}
+d\boldsymbol{\Psi}=\boldsymbol{\mathcal{P}}\left[\boldsymbol{\mathcal{A}}dt+\mathcal{B}d\boldsymbol{Q}\right],\label{eqn:fpe:sdes}
 \end{equation}
 
 \end_inset
@@ -2553,7 +2569,7 @@ and
  Alternatively, in Stratonovich form the SDEs look like 
 \begin_inset Formula 
 \begin{equation}
-d\Psi_{j}=\mathcal{P}_{\mathbb{M}_{j}}\left[(\mathcal{A}_{j}-\mathcal{S}_{j})dt+\sum_{\boldsymbol{l}}B_{j\boldsymbol{l}}Q_{\boldsymbol{l}}\right],
+d\boldsymbol{\Psi}=\boldsymbol{\mathcal{P}}\left[(\boldsymbol{\mathcal{A}}-\boldsymbol{\mathcal{S}})dt+\mathcal{B}d\boldsymbol{Q}\right],
 \end{equation}
 
 \end_inset
@@ -2762,9 +2778,11 @@ Conclusion
 We have formally derived all the equations necessary to describe BEC interferome
 try experiments statistically, given the master equation written in terms
  of field operators.
- The resulting SDEs can be effectively integrated numerically using conventional
- methods, and their solutions can be used to calculate all the required
- observables.
+ We have provided general equations required to use the transformation,
+ along with its application to the trapped BEC case.
+ In the latter case, the resulting SDEs can be integrated numerically using
+ conventional methods, and their solutions can be used to calculate all
+ the required observables.
 \end_layout
 
 \begin_layout Section
@@ -3164,10 +3182,7 @@ Obviously,
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-The conjugate of 
+ The conjugate of 
 \begin_inset Formula $\mathcal{P}_{\mathbb{M}}$
 \end_inset
 
@@ -3759,7 +3774,7 @@ s_{i}=\sum_{k,j}B_{kj}\frac{\partial}{\partial z_{k}}B_{ij}=\mathrm{Tr}\left\{ B
 \end_inset
 
  being the unit vector with elements 
-\begin_inset Formula $(\boldsymbol{e}_{i})_{j}=\delta_{ij}$
+\begin_inset Formula $(e_{i})_{j}=\delta_{ij}$
 \end_inset
 
 .
@@ -3911,16 +3926,6 @@ name "thm:app-fpe:mc-fpe-sde"
 
 \end_inset
 
- 
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-[TODO: Perhaps not necessary.]
-\end_layout
-
-\end_inset
-
  If 
 \begin_inset Formula $\boldsymbol{\alpha}^{(c)},\, c=1..C$
 \end_inset
@@ -4004,11 +4009,11 @@ name "thm:app-fpe:fpe-sde-func"
 \end_inset
 
  For a probability distribution 
-\begin_inset Formula $W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]\in(\mathbb{F}_{\mathbb{M}}^{C}\rightarrow\mathbb{R})$
+\begin_inset Formula $W[\boldsymbol{\Psi},\boldsymbol{\Psi}^{*}]\in\mathbb{F}_{\mathbb{M}}^{C}\rightarrow\mathbb{R}$
 \end_inset
 
 , a vector of transformations 
-\begin_inset Formula $\vec{\mathcal{A}}$
+\begin_inset Formula $\boldsymbol{\mathcal{A}}$
 \end_inset
 
  and a matrix of transformations 
@@ -4018,7 +4023,7 @@ name "thm:app-fpe:fpe-sde-func"
  the functional FPE 
 \begin_inset Formula 
 \[
-\frac{dW}{dt}=\int d\boldsymbol{x}\left(-2\mathrm{Re}\left(\boldsymbol{\delta}_{\boldsymbol{\Psi}}\cdot\vec{\mathcal{A}}\right)+\mathrm{Tr}\left\{ \boldsymbol{\delta}_{\boldsymbol{\Psi}^{*}}\boldsymbol{\delta}_{\boldsymbol{\Psi}}^{T}\mathcal{B}\mathcal{B}^{H}\right\} \right)W
+\frac{dW}{dt}=\int d\boldsymbol{x}\left(-2\mathrm{Re}\left(\boldsymbol{\delta}_{\boldsymbol{\Psi}}\cdot\boldsymbol{\mathcal{A}}\right)+\mathrm{Tr}\left\{ \boldsymbol{\delta}_{\boldsymbol{\Psi}^{*}}\boldsymbol{\delta}_{\boldsymbol{\Psi}}^{T}\mathcal{B}\mathcal{B}^{H}\right\} \right)W
 \]
 
 \end_inset
@@ -4026,7 +4031,7 @@ name "thm:app-fpe:fpe-sde-func"
 is equivalent to the set of SDEs in Itô form 
 \begin_inset Formula 
 \[
-d\boldsymbol{\Psi}=\vec{\mathcal{P}}\left[\vec{\mathcal{A}}dt+\mathcal{B}d\boldsymbol{Q}\right]
+d\boldsymbol{\Psi}=\boldsymbol{\mathcal{P}}\left[\boldsymbol{\mathcal{A}}dt+\mathcal{B}d\boldsymbol{Q}\right]
 \]
 
 \end_inset
@@ -4034,7 +4039,7 @@ d\boldsymbol{\Psi}=\vec{\mathcal{P}}\left[\vec{\mathcal{A}}dt+\mathcal{B}d\bolds
 or in Stratonovich form 
 \begin_inset Formula 
 \[
-d\boldsymbol{\Psi}=\vec{\mathcal{P}}\left[(\vec{\mathcal{A}}-\vec{\mathcal{S}})dt+\mathcal{B}d\boldsymbol{Q}\right],
+d\boldsymbol{\Psi}=\boldsymbol{\mathcal{P}}\left[(\boldsymbol{\mathcal{A}}-\boldsymbol{\mathcal{S}})dt+\mathcal{B}d\boldsymbol{Q}\right],
 \]
 
 \end_inset
@@ -4064,7 +4069,7 @@ Q_{\boldsymbol{l}}=\sum_{\boldsymbol{n}\in\mathbb{B}}\phi_{\boldsymbol{n}}Z_{\bo
 
 \begin_layout Theorem
 and 
-\begin_inset Formula $\vec{\mathcal{P}}^{T}=\left(\mathcal{P}_{\mathbb{M}_{1}},\ldots,\mathcal{P}_{\mathbb{M}_{C}}\right)$
+\begin_inset Formula $\boldsymbol{\mathcal{P}}^{T}=\left(\mathcal{P}_{\mathbb{M}_{1}},\ldots,\mathcal{P}_{\mathbb{M}_{C}}\right)$
 \end_inset
 
  is a vector of projection transformations.
