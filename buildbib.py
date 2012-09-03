@@ -118,13 +118,19 @@ def initialsToBack(entries):
 def journalAbbreviations(entries):
     # replace journal names with abbreviations
     abbreviations = {
+        'Physical Review': 'Phys. Rev.',
         'Physical Review A': 'Phys. Rev. A',
+        'Journal of Physics A: Mathematical and General': 'J. Phys. A',
         'Journal of Physics B: Atomic, Molecular and Optical Physics': 'J. Phys. B',
         'Physical Review Letters': 'Phys. Rev. Lett.',
         'The European Physical Journal B': 'Eur. Phys. J. B',
         'Europhysics Letters (EPL)': 'Europhys. Lett.',
         'EPL (Europhysics Letters)': 'Europhys. Lett.',
         'SIAM Journal on Scientific Computing': 'SIAM J. Sci. Comput.',
+        'Reviews of Modern Physics': 'Rev. Mod. Phys.',
+        'Zeitschrift f\\"{u}r Physik': 'Z. Phys.',
+        'Mathematical Proceedings of the Cambridge Philosophical Society': 'Math. Proc. Cambridge',
+        'Mathematische Annalen': 'Math. Ann.',
     }
 
     for entry_type, entry_key, entry_fields in entries:
