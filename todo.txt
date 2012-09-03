@@ -1,4 +1,3 @@
 Other:
-- Does AIP require shortened journal names? Need to fix buildbib.py in this case.
 - Do we need to proof that W transformation of Hermitian operator is a real-valued function?
 - Do we need to provide Wigner function for initial state other than coherent?
