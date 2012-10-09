@@ -131,6 +131,7 @@ def journalAbbreviations(entries):
         'Zeitschrift f\\"{u}r Physik': 'Z. Phys.',
         'Mathematical Proceedings of the Cambridge Philosophical Society': 'Math. Proc. Cambridge',
         'Mathematische Annalen': 'Math. Ann.',
+        'Advances in Physics': 'Adv. Phys.',
     }
 
     for entry_type, entry_key, entry_fields in entries:
