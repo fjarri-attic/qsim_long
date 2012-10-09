@@ -1,0 +1,17 @@
+Dear editorial board of the Journal of Mathematical Physics,
+
+Please find enclosed the manuscript: "Functional Wigner representation of BEC quantum dynamics", by Bogdan Opanchuk and Peter D. Drummond, to be submitted as a new article.
+
+In this manuscript we present a formal treatment of the functional Wigner representation, a phase-space mapping of field creation and annihilation operators. We state and prove all the theorems required to make a transition from the master equation to a set of numerically solvable stochastic differential equations.
+
+This approach has been used in a number of works, but has never been explicitly formalized, and we hope that our manuscript will serve as a convenient reference for future applications.
+
+
+Sincerely yours,
+Bogdan Opanchuk on behalf of the authors.
+
+
+Corresponding author:
+Bogdan Opanchuk at CAOUS, Swinburne University of Technology, Melbourne, Australia
+E-mail: bogdan@opanchuk.net
+Phone: +61 392 144313
