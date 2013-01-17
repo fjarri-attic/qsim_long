@@ -120,8 +120,10 @@ def journalAbbreviations(entries):
     abbreviations = {
         'Physical Review': 'Phys. Rev.',
         'Physical Review A': 'Phys. Rev. A',
-        'Journal of Physics A: Mathematical and General': 'J. Phys. A',
+        'Physical Review D': 'Phys. Rev. D',
+        'Journal of Physics A: Mathematical and General': 'J. Phys. A: Math. Gen.',
         'Journal of Physics B: Atomic, Molecular and Optical Physics': 'J. Phys. B',
+        'Journal of Physics A: General Physics': 'J. Phys. A: Gen. Phys.',
         'Physical Review Letters': 'Phys. Rev. Lett.',
         'The European Physical Journal B': 'Eur. Phys. J. B',
         'Europhysics Letters (EPL)': 'Europhys. Lett.',
@@ -132,11 +134,32 @@ def journalAbbreviations(entries):
         'Mathematical Proceedings of the Cambridge Philosophical Society': 'Math. Proc. Cambridge',
         'Mathematische Annalen': 'Math. Ann.',
         'Advances in Physics': 'Adv. Phys.',
+        'Physics-Uspekhi': 'Phys-Usp.',
+        'Physics Today': 'Phys. Today',
+        'Nature Physics': 'Nat. Phys.',
+        'New Journal of Physics': 'New J. Phys.',
+        'Reports on Progress in Physics': 'Rep. Prog. Phys.',
+        'Proceedings of the Physico-Mathematical Society of Japan. 3rd Series': 'Proc. Phys. Math. Soc. Jpn.',
+        'International Journal of Theoretical Physics': 'Int. J. Theor. Phys.',
+        'Journal of Statistical Planning and Inference': 'J. Stat. Plan. Infer.',
+        'The Annals of Mathematical Statistics': 'Ann. Math. Statist.',
+        'Communications of the ACM': 'Commun. ACM',
+        'Die Naturwissenschaften': 'Naturwissenschaften',
+        'Nature communications': 'Nat. Commun.',
+        'Nature': 'Nature',
+        'Annals of Physics': 'Ann. Phys.',
+        'Science (New York, N.Y.)': 'Science',
+        'Journal of the Optical Society of America B': 'J. Opt. Soc. Am. B',
+        'Quantum and Semiclassical Optics: Journal of the European Optical Society Part B': 'Quantum Semiclass. Opt.',
+        'Physics Reports': 'Phys. Rep.',
     }
 
     for entry_type, entry_key, entry_fields in entries:
-        if 'journal' in entry_fields and entry_fields['journal'] in abbreviations:
-            entry_fields['journal'] = abbreviations[entry_fields['journal']]
+        if 'journal' in entry_fields:
+            if entry_fields['journal'] in abbreviations:
+                entry_fields['journal'] = abbreviations[entry_fields['journal']]
+            else:
+                print "Missing abbreviation:", entry_fields['journal']
 
 def removePaperTitles(entries):
     for entry_type, entry_key, entry_fields in entries:
